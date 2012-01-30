@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+   		id="org.esco.grouperui.services.grouper-client"
+         point="org.esco.grouperui.services.grouper">
+      <services>
+         <service
+               class="org.esco.grouperui.services.grouper.internal.ServiceExtSpringLoaderClientImpl" springServiceName="grouperClientImpl">
+            <methodes>
+               <methode
+                     name="findGroupByTerm"/>
+               <methode
+                     name="getAllFolderForm"/>
+               <methode
+                     name="getAllGroupForm"/>
+               <methode
+                     name="findGroupByUid"/>
+               <methode
+                     name="findGroupTypes"/>
+            </methodes>
+         </service>
+      </services>
+   </extension>
+
+
+</plugin>

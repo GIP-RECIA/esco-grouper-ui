@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+	<parent>
+		<groupId>org.esco.grouperui.maven2</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.6.5</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.esco.grouperui.ext</groupId>
+	<artifactId>ext-parent</artifactId>
+	<version>2.6.5</version>
+	<packaging>pom</packaging>
+	
+	<!-- Libelle du projet -->
+	<name>ext:parent</name>
+	<description>Composants exterieur mavenizer pour esco-grouper.</description>
+		
+	<properties>
+		<tomcat.install>D:/programmes/tomcat/bridge</tomcat.install>
+		<tomcat.bootstrap>${tomcat.install}/bin/bootstrap.jar</tomcat.bootstrap>
+		<bridge.name>bridge</bridge.name>
+	</properties>
+	
+	<build>
+		<directory>target</directory>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/.svn/</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+				<testResource>
+				<directory>src/test/resources</directory>
+				<excludes>
+					<exclude>**/.svn/</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>all</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+					
+			<!-- Modules du projet -->
+			<modules>
+				<module>grouper-api</module>
+				<module>grouper-api.fragment</module>
+				<module>grouper-client</module>
+				<module>grouper-client.fragment</module>
+				<module>log4j.properties</module>
+				<module>esup-commons</module>
+				<module>esco-derby-generator</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>mini</id>
+			<!-- Modules du projet -->
+			<modules>
+				<module>grouper-api</module>
+				<module>grouper-api.fragment</module>
+				<module>grouper-client</module>
+				<module>grouper-client.fragment</module>
+				<module>esco-derby-generator</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

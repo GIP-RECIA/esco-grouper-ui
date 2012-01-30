@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+	<!-- Parent -->
+	<parent>
+		<groupId>org.esco.grouperui.maven2</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.6.5</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.esco.grouperui.bundle</groupId>
+	<artifactId>esco-bundle</artifactId>
+	<packaging>war</packaging>
+	<version>2.6.5</version>
+
+	<name>bundle:esco-bundle</name>
+	
+	<repositories>	
+        <repository>
+          <id>cargo</id>
+          <url>http://repository.codehaus.org/</url>
+        </repository>
+
+        <repository>
+          <id>ESCO-Grouper-repository</id>
+          <name>ESCO-Grouper repository</name>
+          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
+        </repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<container>
+						<containerId>tomcat5x</containerId>
+						<type>remote</type>
+					</container>
+					<configuration>
+						<type>runtime</type>
+						<properties>
+							<cargo.tomcat.manager.url>${tomcatHost}</cargo.tomcat.manager.url>
+							<cargo.remote.username>${tomcatUsername}</cargo.remote.username>
+							<cargo.remote.password>${tomcatPassword}</cargo.remote.password>
+						</properties>
+					</configuration>
+					<deployer>
+						<type>remote</type>
+						<deployables>
+							<deployable>
+								<groupId>org.esco.grouperui.bundle</groupId>
+								<artifactId>esco-bundle</artifactId>
+								<type>war</type>
+								<properties>
+									<context>${applicationContext}</context>
+								</properties>
+							</deployable>
+						</deployables>
+					</deployer>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- Gestion des dépendances -->
+	<dependencies>
+	
+		<dependency>
+			<groupId>org.esco.grouperui.business</groupId>
+			<artifactId>esco-web</artifactId>
+			<version>2.6.5</version>
+			<type>war</type>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>org.esco.grouperui.business</groupId>
+			<artifactId>esco-dynamique-groupe</artifactId>
+			<version>2.6.5</version>
+			<type>war</type>
+		</dependency>
+		
+	</dependencies>
+
+
+</project>

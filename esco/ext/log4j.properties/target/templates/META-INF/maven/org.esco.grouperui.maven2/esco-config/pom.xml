@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>org.esco.grouperui</groupId>
+		<artifactId>maven2</artifactId>
+		<version>1</version>
+	</parent>	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.esco.grouperui.maven2</groupId>
+	<artifactId>esco-config</artifactId>
+	<packaging>jar</packaging>
+	<version>2.6.5</version>
+	<name>maven2:esco-config</name>
+	<description>
+		Contient les templates et fichiers de configuration nécéssaires	au build maven 2
+	</description>
+
+	<developers>
+		<developer>
+			<id>dmn</id>
+			<name>Diogene MOULRON</name>
+			<email>dmoulron@sopragroup.com</email>
+		</developer>
+		<developer>
+			<id>acu</id>
+			<name>Alexandre CHESNEAU</name>
+			<email>achesneau@sopragroup.com</email>
+		</developer>
+	</developers>
+	
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+	</build>
+	
+	 <repositories>	
+        <repository>
+          <id>cargo</id>
+          <url>http://repository.codehaus.org/</url>
+        </repository>
+
+        <repository>
+          <id>ESCO-Grouper-repository</id>
+          <name>ESCO-Grouper repository</name>
+          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
+        </repository>
+	</repositories>
+</project>

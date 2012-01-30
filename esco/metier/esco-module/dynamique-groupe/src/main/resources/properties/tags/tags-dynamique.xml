@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	>
+
+    <bean id="tagsConfiguratorDynamic"
+    	  class="org.esco.grouperui.web.plugins.TagsMerger">
+    	<description>
+    		The bean 'tagsConfigurator' is used to set up the configuration of
+    		the custom tags of consortium ESUP-Portail (see esup-commons.tld).
+    	</description>
+    	<property name="tagsConfigurator" ref="tagsConfigurator" />
+
+    	<!-- Scripts -->
+    	<property name="scripts" >
+    		<description>
+    			A list of URLs that will be automatically included in the head part
+    			of the output document as scripts. Absolute URLs are used as-is, relative
+    			URLs are prefixed by property portletMediaPath or servletMediaPath.
+    		</description>
+    		<list>
+
+				<!-- dynamic group js -->
+				<value>js/esco/dynamic/groupDynPrivileges.js</value>
+				<value>js/esco/dynamic/groupDynamicMembers.js</value>
+				<value>js/esco/dynamic/groupDynamic.js</value>
+				<value>js/esco/dynamic/resultOfRequest.js</value>
+
+				<!-- sexy combo js -->
+				<value>js/sexycombo/jquery.sexy-combo.js</value>
+
+    		</list>
+
+    	</property>
+
+		<!-- Stylesheets -->
+    	<property name="stylesheets" >
+    		<description>
+    			A list of URLs that will be automatically included in the head part
+    			of the output document. Absolute URLs are used as-is, relative
+    			URLs are prefixed by property servletMediaPath.
+    			Warning: this tag is ignored for portlet installations.
+    		</description>
+    		<list>
+				<value>css/sexy.css</value>
+				<value>css/sexy-combo.css</value>
+				<value>css/groupDynamic.css</value>
+    		</list>
+    	</property>
+
+     </bean>
+
+</beans>

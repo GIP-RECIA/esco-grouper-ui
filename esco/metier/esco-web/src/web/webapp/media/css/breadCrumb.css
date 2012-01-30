@@ -1,0 +1,149 @@
+/* Float Clearing
+ ---------------------------------------------------------------------*/
+.flora .module:after
+{
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+/* float clearing for IE6 */
+* html .flora .module
+{
+	height: 1%;
+	overflow: visible;
+}
+
+/* float clearing for IE7 */
+* + html .flora .module
+{
+	min-height: 1%;
+}
+
+/* Breadcrumb Styles
+ ---------------------------------------------------------------------*/
+
+.flora .breadCrumb
+{
+	margin: 0;
+	padding: 0;
+	float: left;
+	display: block;
+	height: 21px;
+	overflow: hidden;
+	width: 620px;
+	padding:5px;
+	border:solid 1px #dedede;
+	background:#fff;
+}
+.flora .breadCrumb ul
+{
+	margin: 0;
+	padding: 0;
+	height: 21px;
+	display: block;
+}
+.flora .breadCrumb ul li
+{
+	display: block;
+	float: left;
+	height: 21px;
+	overflow: hidden;
+	line-height: 21px;
+	margin: 0px 6px 0px 0;
+	padding: 0px 10px 0px 0;
+	font-size: .9167em;
+	background: url(../imgs/breadCrumb/Chevron.gif) no-repeat 100% 0;
+}
+.flora .breadCrumb ul li div.chevronOverlay
+{
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+}
+.flora .breadCrumb ul li span
+{
+	display: block;
+	overflow: hidden;
+}
+.flora .breadCrumb ul li a
+{
+	display: block;
+	height: 21px;
+	line-height: 21px;
+	overflow: hidden;
+	float: left;
+	text-decoration : none;
+	font-weight: normal;
+	cursor: pointer;
+}
+
+.flora .breadCrumb  .over
+{
+	border: 1px solid #d8f0fa !important;
+	background: #e7f4f9 !important;
+}
+
+.flora .breadCrumb ul li.first a.selected
+{
+	height: 16px !important;
+	text-indent:-1000em;
+	width:16px;
+	padding: 0;
+	margin-top: 2px;
+	overflow: hidden;
+	background:url(../imgs/breadCrumb/IconHomeSelected.gif) no-repeat 0 0;
+}
+.flora .breadCrumb ul li.first a.selected:hover
+{
+	background-position: 0 -16px;
+	color:#50A029;
+	cursor: pointer;
+}
+
+.flora .breadCrumb ul li.first a
+{
+	height: 16px !important;
+	text-indent:-1000em;
+	width:16px;
+	padding: 0;
+	margin-top: 2px;
+	overflow: hidden;
+	background:url(../imgs/breadCrumb/IconHome.gif) no-repeat 0 0;
+}
+.flora .breadCrumb ul li.first a:hover
+{
+	background-position: 0 -16px;
+	color:#50A029;
+	cursor: pointer;
+}
+
+
+.flora .breadCrumb ul li.last
+{
+	background: none;
+	margin-right: 0;
+	padding-right: 0;
+}
+.flora .breadCrumb ul li.last:hover
+{
+	border: 1px solid #d8f0fa !important;
+	background: #e7f4f9 !important;
+}
+
+.flora .chevronOverlay
+{
+	display: none;
+	background: url(../imgs/breadCrumb/ChevronOverlay.png) no-repeat 100% 0;
+	width: 13px;
+	height: 20px;
+}
+
+.flora .selected {
+	text-decoration : underline;
+	font-weight: bold;
+	color:#50A029;
+}

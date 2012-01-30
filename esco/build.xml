@@ -1,0 +1,537 @@
+<!-- ESCOGrouper v 2.6.5: build.xml,v 1.0 2010-03-22 -->
+
+<project name="ESCOGrouper" default="init" basedir=".">
+
+	<!-- ANT CONTRIB ALLOWS CONDITIONALS IN ANT SCRIPTS -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${basedir}/ant/lib/ant-contrib-0.6.jar" />
+		</classpath>
+	</taskdef>
+
+	<!-- THE MAVEN ANT TASK -->
+	<!--taskdef resource="org/apache/maven/artifact/ant/antlib.xml">
+		<classpath>
+			<pathelement location="${basedir}/ant/lib/maven-ant-tasks-2.1.0.jar" />
+		</classpath>
+	</taskdef-->
+	<property name="java.home" value="${env.JAVA_HOME}" />
+	<macrodef name="mvn">
+		<attribute name="pom"/>
+		<attribute name="mavenhome" />
+		<attribute name="fork" />
+		<attribute name="test" />
+		<attribute name="goal" />
+		<attribute name="args" />
+		<sequential>
+			<exec command="${java.home}/bin/java">
+				<arg line="-Xms256M -Xmx512M" />
+				<arg line="-Dclassworlds.conf=@{mavenhome}/bin/m2.conf -Dmaven.home=@{mavenhome}" />
+				<arg line="-classpath @{mavenhome}/boot/classworlds-1.1.jar" />
+				<arg value="org.codehaus.classworlds.Launcher"/>
+				<arg line="@{goal}"/>
+				<arg line="@{args} -Dmaven.test.skip"/>
+				<arg value="-f@{pom}"/>
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<!-- THE DERBY TASK INITIALISATION -->
+	<path id="derbyLibs">
+		<fileset dir="${basedir}/ant/lib/">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- GLOBAL ESCOGROUPER INSTALLATION PROPERTIES -->
+	<property file="${basedir}/build.properties" />
+	<property file="${basedir}/properties/${escogrouper.property.file}" />
+
+	<!-- COMPILE IN OFFLINE MODE OR NOT -->
+	<if>
+		<equals arg1="${maven.offline}" arg2="true" />
+		<then>
+			<property name="maven.offline.arg">-o</property>
+		</then>
+		<else>
+			<property name="maven.offline.arg" value="" />
+		</else>
+	</if>
+
+	<!-- COMPILE IN QUIET MODE OR NOT -->
+	<if>
+		<equals arg1="${maven.quiet}" arg2="true" />
+		<then>
+			<property name="maven.quiet.arg">-q</property>
+		</then>
+		<else>
+			<property name="maven.quiet.arg" value="" />
+		</else>
+	</if>
+
+	<!-- MORE ARGUMENTS FOR MAVEN IF NECESSERIE -->
+	<!-- property name="maven.arg">-e -X</property -->
+	<property name="maven.arg" value="-e">
+	</property>
+
+	<!-- THE DEPLOY CONFIGURATION -->
+	<if>
+		<equals arg1="${tomcat.deploy.mode}" arg2="local" />
+		<then>
+			<property name="tomcat.deploy.local">true</property>
+		</then>
+		<else>
+			<property name="tomcat.deploy.remote" value="true" />
+		</else>
+	</if>
+
+	<!-- VALIDATE THE PRESENCE OF build.properties PROPERTY FILE -->
+	<fail message="Couldnt detect build.properties property file entry." unless="application.version" />
+
+	<!-- CLEAN THE ESCOGROUPER PREVIOUS COMPLITATION -->
+	<target name="clean">
+		<mvn pom="${basedir}/ext/esco-derby-generator/pom.xml"
+				mavenhome="${maven.home}"
+				fork="true"
+				goal="clean"
+				test="false"
+				args=""/>
+
+		<delete file="${basedir}/ant/lib/esco-derby-generator.jar" failonerror="false">
+		</delete>
+
+		<mkdir dir="${basedir}/ant/build/esco" />
+		<delete>
+			<fileset dir="${basedir}/ant/build/esco" includes="**/*" />
+		</delete>
+
+		<mkdir dir="${basedir}/ant/build/derby" />
+		<delete>
+			<fileset dir="${basedir}/ant/build/derby" includes="**/*" />
+		</delete>
+
+		<mvn pom="${basedir}/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="clean"
+						test="false"
+						args=""/>
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<mvn pom="${basedir}/metier/esco-module/pom.xml"
+								mavenhome="${maven.home}"
+								fork="true"
+								goal="clean"
+								test="false"
+								args=""/>
+				<mvn pom="${basedir}/bundle/pom.xml"
+								mavenhome="${maven.home}"
+								fork="true"
+								goal="clean"
+								test="false"
+								args=""/>
+			</then>
+		</if>
+	</target>
+
+	<!-- INIT THE ESCOGROUPER DERBY CONFIGURATION -->
+	<target name="InitDerbyGenerator">
+		<mvn pom="${basedir}/ext/esco-derby-generator/pom.xml"
+				mavenhome="${maven.home}"
+				fork="true"
+				goal="clean install"
+				test="false"
+				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+
+		<copy overwrite="true" tofile="${basedir}/ant/lib/esco-derby-generator.jar">
+			<fileset file="${basedir}/ext/esco-derby-generator/target/*.jar" />
+		</copy>
+	</target>
+
+	<!-- INIT THE ESCOGROUPER DERBY FILES -->
+	<target name="dbinit" depends="InitDerbyGenerator">
+		<mkdir dir="${basedir}/ant/build/derby" />
+		<delete>
+			<fileset dir="${basedir}/ant/build/derby/" includes="**/*" />
+		</delete>
+		<java jar="${basedir}/ant/lib/esco-derby-generator.jar" classpath="${basedir}/ant/lib/" fork="true" failonerror="true">
+			<arg value="${basedir}/ant/build/derby/" />
+			<arg value="${basedir}/properties/derby/MyGroup.properties" />
+			<arg value="${basedir}/properties/derby/MyGroupDynamic.properties" />
+			<arg value="${basedir}/properties/derby/MyParameters.properties" />
+			<arg value="${basedir}/properties/derby/MyPerson.properties" />
+			<arg value="${basedir}/properties/derby/MySearch.properties" />
+			<arg value="${basedir}/properties/derby/MyStem.properties" />
+		</java>
+	</target>
+
+	<!-- COPY THE DERBY DATABASE INTO THE WAR -->
+	<target name="dbcopy">
+		<copy overwrite="true" toDir="${basedir}/metier/esco-core/src/main/resources/sql/">
+			<fileset file="${basedir}/ant/build/derby/populateSchema.sql" />
+		</copy>
+		<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/resources/properties/i18n/bundles/">
+			<fileset file="${basedir}/ant/build/derby/generateMessage_fr.properties" />
+			<fileset file="${basedir}/ant/build/derby/generateMessage_en.properties" />
+		</copy>
+	</target>
+
+	<!-- DEPLOY THE DERBY DATABASE -->
+	<target name="dbdeploy">
+		<!-- copier fichier -->
+		<fail message="ant dbinit are required before deploying.">
+			<condition>
+				<not>
+					<resourcecount count="1">
+						<fileset dir="${basedir}/ant/build/derby/" includes="**/populateSchema.sql" />
+					</resourcecount>
+				</not>
+			</condition>
+		</fail>
+
+		<if>
+			<equals arg1="${derby.requireAuthentication}" arg2="true" />
+			<then>
+				<java fork="true" classname="org.apache.derby.tools.ij" classpathref="derbyLibs">
+					<sysproperty key="ij.connection.myDB" value="${derby.url}" />
+					<sysproperty key="ij.user" value="${derby.username}" />
+					<sysproperty key="ij.password" value="${derby.password}" />
+					<arg value="${basedir}/ant/build/derby/populateSchema.sql" />
+				</java>
+			</then>
+			<else>
+				<java fork="true" classname="org.apache.derby.tools.ij" classpathref="derbyLibs">
+					<sysproperty key="ij.connection.myDB" value="${derby.url}" />
+					<arg value="${basedir}/ant/build/derby/populateSchema.sql" />
+				</java>
+			</else>
+		</if>
+
+		<antcall target="dbcopy">
+		</antcall>
+		<if>
+			<equals arg1="${tomcat.deploy.local}" arg2="true" />
+			<then>
+				<copy overwrite="true" toDir="${tomcat.webapps.directory}/${application.context}/WEB-INF/classes/properties/i18n/bundles/">
+					<fileset file="${basedir}/ant/build/derby/generateMessage_fr.properties" />
+					<fileset file="${basedir}/ant/build/derby/generateMessage_en.properties" />
+				</copy>
+			</then>
+		</if>
+
+	</target>
+
+	<!-- INIT THE ESCOGROUPER PROJECT CONFIGURATION -->
+	<target name="InitEscoGrouper">
+		<mkdir dir="${basedir}/ant/build/esco" />
+		<delete>
+			<fileset dir="${basedir}/ant/build/esco" includes="**/*" />
+		</delete>
+		<!-- Create the config.properties property file -->
+		<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+		<copy overwrite="true" tofile="${basedir}/ant/build/esco/config.properties" filtering="true">
+			<fileset file="${basedir}/ant/filters/config.filter.properties" />
+		</copy>
+		<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/resources/properties/">
+			<fileset file="${basedir}/ant/build/esco/config.properties" />
+		</copy>
+
+		<!-- Create the filters.properties file -->
+		<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+		<copy overwrite="true" tofile="${basedir}/ant/build/esco/filters.properties" filtering="true">
+			<fileset file="${basedir}/ant/filters/filters.filter.properties" />
+		</copy>
+		<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/filters/">
+			<fileset file="${basedir}/ant/build/esco/filters.properties" />
+		</copy>
+
+		<!-- Create the env.properties file -->
+		<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+		<copy overwrite="true" tofile="${basedir}/ant/build/esco/env.properties" filtering="true">
+			<fileset file="${basedir}/ant/filters/env.filter.properties" />
+		</copy>
+		<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/resources/properties/">
+			<fileset file="${basedir}/ant/build/esco/env.properties" />
+		</copy>
+
+		<!-- Create the log4j.xml property file -->
+		<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+		<copy overwrite="true" tofile="${basedir}/ant/build/esco/log4j.xml" filtering="true">
+			<fileset file="${basedir}/ant/filters/log4j.filter.xml" />
+		</copy>
+		<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/resources/">
+			<fileset file="${basedir}/ant/build/esco/log4j.xml" />
+		</copy>
+
+		<!-- Create the web.xml and portlet.xml if needed -->
+		<if>
+			<equals arg1="${application.type}" arg2="portlet" />
+			<then>
+				<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+				<copy overwrite="true" tofile="${basedir}/ant/build/esco/web.xml" filtering="true">
+					<fileset file="${basedir}/ant/filters/web.portlet.xml" />
+				</copy>
+				<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/conf/portlet/">
+					<fileset file="${basedir}/ant/build/esco/web.xml" />
+				</copy>
+				<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+				<copy overwrite="true" tofile="${basedir}/ant/build/esco/portlet.xml" filtering="true">
+					<fileset file="${basedir}/ant/filters/portlet.portlet.xml" />
+				</copy>
+				<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/conf/portlet/">
+					<fileset file="${basedir}/ant/build/esco//portlet.xml" />
+				</copy>
+			</then>
+			<else>
+				<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+				<copy overwrite="true" tofile="${basedir}/ant/build/esco/web.xml" filtering="true">
+					<fileset file="${basedir}/ant/filters/web.servlet.xml" />
+				</copy>
+				<copy overwrite="true" toDir="${basedir}/metier/esco-web/src/main/conf/servlet/">
+					<fileset file="${basedir}/ant/build/esco/web.xml" />
+				</copy>
+			</else>
+		</if>
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<filter filtersfile="${basedir}/properties/${escogrouper.property.file}" />
+				<copy overwrite="true" tofile="${basedir}/ant/build/esco/dynConfig.properties" filtering="true">
+					<fileset file="${basedir}/ant/filters/dynamic-group.filter.properties" />
+				</copy>
+				<copy overwrite="true" toDir="${basedir}/metier/esco-module/dynamique-groupe/src/main/resources/properties/">
+					<fileset file="${basedir}/ant/build/esco/dynConfig.properties" />
+				</copy>
+			</then>
+		</if>
+
+		<!-- Copy directoy of profiles -->
+		<copy overwrite="true" todir="${basedir}/metier/esco-web/src/main/resources/properties/web/profiles">
+			<fileset file="${basedir}/properties/profiles/*.xml" />
+		</copy>
+		<!-- Copy directoy of strategy -->
+		<copy overwrite="true" todir="${basedir}/ext/grouper-api.fragment/src/main/resources/spring">
+			<fileset file="${basedir}/properties/strategy/grouper-api-strategy.xml" />
+		</copy>
+		<copy overwrite="true" todir="${basedir}/ext/grouper-client.fragment/src/main/resources/spring">
+			<fileset file="${basedir}/properties/strategy/grouper-client-strategy.xml" />
+		</copy>
+		<copy overwrite="true" todir="${basedir}/metier/esco-module/dynamique-groupe/src/main/resources/spring">
+			<fileset file="${basedir}/properties/strategy/group-dynamic-strategy.xml" />
+		</copy>
+		<!-- Copy directoy of smtp -->
+		<copy overwrite="true" todir="${basedir}/metier/esco-web/src/main/resources/properties/smtp">
+			<fileset file="${basedir}/properties/smtp/*.xml" />
+		</copy>
+
+		<!-- Copy directoy of grouper configurations -->
+		<copy overwrite="true" todir="${basedir}/metier/esco-web/src/main/conf">
+			<fileset file="${basedir}/metier/esco-web/src/main/conf/original/*" >
+				<exclude name="*svn*"></exclude>
+			</fileset>
+		</copy>
+		<copy overwrite="true" todir="${basedir}/metier/esco-web/src/main/conf">
+			<fileset file="${basedir}/properties/grouper/*">
+				<exclude name="*svn*"></exclude>
+			</fileset>
+		</copy>
+
+	</target>
+
+	<!-- INIT THE MAVEN CONFIGURATION -->
+	<target name="InitMaven">
+		<!-- Unzip xFire in the repository -->
+		<xmlproperty file="${maven.home}/conf/settings.xml" collapseAttributes="true" />
+		<unzip dest="${settings.localRepository}/org/codehaus">
+			<fileset file="${basedir}/ext/bundles/xfire/xfire.zip">
+			</fileset>
+		</unzip>
+
+		<mvn pom="${basedir}/maven2/pom.xml"
+				mavenhome="${maven.home}"
+				fork="true"
+				goal="install"
+				test="false"
+				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+	</target>
+
+
+	<!-- INIT THE ESCOGROUPER PROJECT -->
+	<target name="init" depends="InitEscoGrouper, InitMaven, dbinit, dbcopy">
+
+		<!-- ACTIVE THE JAVASCRIPT COMPRESSION -->
+		<if>
+			<equals arg1="${javascript.compression}" arg2="true" />
+			<then>
+				<copy overwrite="true" tofile="${basedir}/metier/esco-web/pom.xml">
+					<fileset file="${basedir}/metier/esco-web/pom_with_js_compression.xml" />
+				</copy>
+			</then>
+			<else>
+				<copy overwrite="true" tofile="${basedir}/metier/esco-web/pom.xml">
+					<fileset file="${basedir}/metier/esco-web/pom_default.xml" />
+				</copy>
+			</else>
+		</if>
+		<mvn pom="${basedir}/pom.xml"
+				mavenhome="${maven.home}"
+				fork="true"
+				goal="clean install"
+				test="false"
+				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -P${application.type},mini"/>
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<mvn pom="${basedir}/metier/esco-module/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="clean install"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+				<mvn pom="${basedir}/bundle/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="clean install"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+			</then>
+		</if>
+	</target>
+
+	<target name="undeployRemote" description="Undeploy the application in Tomcat Mode Remote" if="tomcat.deploy.remote">
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<mvn pom="${basedir}/bundle/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="cargo:undeploy"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/>
+			</then>
+			<else>
+				<mvn pom="${basedir}/metier/esco-web/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="cargo:undeploy"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context} -P${application.type}"/>
+			</else>
+		</if>
+	</target>
+
+	<target name="deployRemote" description="Deploy the application in Tomcat Mode Remote" if="tomcat.deploy.remote">
+		<!-- Deploy failed if the compilation is not done. -->
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<fail message="Compilation are required before deploying.">
+					<condition>
+						<not>
+							<resourcecount count="1">
+								<fileset id="war" dir="${basedir}/bundle/target/" includes="**/*.war" />
+							</resourcecount>
+						</not>
+					</condition>
+				</fail>
+			</then>
+			<else>
+				<fail message="Compilation are required before deploying.">
+					<condition>
+						<not>
+							<resourcecount count="1">
+								<fileset id="war" dir="${basedir}/metier/esco-web/target/" includes="**/*.war" />
+							</resourcecount>
+						</not>
+					</condition>
+				</fail>
+			</else>
+		</if>
+		<!-- Delete the previous installation -->
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<mvn pom="${basedir}/bundle/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="cargo:undeploy cargo:deploy"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/>
+			</then>
+			<else>
+				<mvn pom="${basedir}/metier/esco-web/pom.xml"
+						mavenhome="${maven.home}"
+						fork="true"
+						goal="cargo:undeploy cargo:deploy"
+						test="false"
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context} -P${application.type}"/>
+			</else>
+		</if>
+	</target>
+
+	<target name="undeployLocal" description="Undeploy the application in Tomcat Mode Local" if="tomcat.deploy.local">
+
+		<delete dir="${tomcat.webapps.directory}/${application.context}" />
+		<delete file="${tomcat.webapps.directory}/${application.context}.war" />
+	</target>
+
+	<target name="deployLocal" description="Deploy the application in Tomcat Mode Local" if="tomcat.deploy.local">
+		<!-- Deploy failed if the compilation is not done. -->
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<fail message="Compilation are required before deploying.">
+					<condition>
+						<not>
+							<resourcecount count="1">
+								<fileset id="war" dir="${basedir}/bundle/target/" includes="**/*.war" />
+							</resourcecount>
+						</not>
+					</condition>
+				</fail>
+			</then>
+			<else>
+				<fail message="Compilation are required before deploying.">
+					<condition>
+						<not>
+							<resourcecount count="1">
+								<fileset id="war" dir="${basedir}/metier/esco-web/target/" includes="**/*.war" />
+							</resourcecount>
+						</not>
+					</condition>
+				</fail>
+			</else>
+		</if>
+		<!-- Delete the previous installation -->
+		<antcall target="undeployLocal">
+		</antcall>
+		<if>
+			<equals arg1="${dynamic.group}" arg2="true" />
+			<then>
+				<copy overwrite="true" tofile="${tomcat.webapps.directory}/${application.context}.war">
+					<fileset file="${basedir}/bundle/target/*.war" />
+				</copy>
+			</then>
+			<else>
+				<copy overwrite="true" tofile="${tomcat.webapps.directory}/${application.context}.war">
+					<fileset file="${basedir}/metier/esco-web/target/*.war" />
+				</copy>
+			</else>
+		</if>
+	</target>
+
+	<target name="deploy" description="Deploy the application in Tomcat">
+		<antcall target="deployLocal">
+		</antcall>
+		<antcall target="deployRemote">
+		</antcall>
+	</target>
+
+	<target name="undeploy" description="UnDeploy the application in Tomcat">
+		<antcall target="undeployLocal">
+		</antcall>
+		<antcall target="undeployRemote">
+		</antcall>
+	</target>
+</project>

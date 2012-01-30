@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="
+			  http://www.springframework.org/schema/beans
+			  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- *********************************************************************************************************** -->
+	<!-- 		                                    Recherche du serveur JMX										 -->
+	<!-- *********************************************************************************************************** -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">
+		<property name="locateExistingServerIfPossible" value="true" />
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="net.sf.ehcache.management.ManagementService.registerMBeans" />
+		<property name="arguments">
+			<list>
+				<ref bean="cacheManager" />
+				<ref bean="mbeanServer" />
+				<value>false</value>
+				<value>false</value>
+				<value>false</value>
+				<value>true</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="attributeSource" class="org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource" />
+	<bean id="assembler" class="org.springframework.jmx.export.assembler.MetadataMBeanInfoAssembler">
+		<property name="attributeSource" ref="attributeSource" />
+	</bean>
+
+	<bean id="namingStrategy" class="org.springframework.jmx.export.naming.MetadataNamingStrategy">
+		<property name="attributeSource" ref="attributeSource" />
+	</bean>
+
+	<bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+		<property name="namingStrategy" ref="namingStrategy" />
+		<property name="assembler" ref="assembler" />
+		<property name="server" ref="mbeanServer" />
+		<property name="autodetect" value="true"/>
+	</bean>
+
+
+</beans>
+

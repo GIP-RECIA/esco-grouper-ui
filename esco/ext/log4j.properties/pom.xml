@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- Parent -->
+	<parent>
+		<groupId>org.esco.grouperui.ext</groupId>
+		<artifactId>ext-parent</artifactId>
+		<version>2.6.5</version>
+	</parent>
+
+	<!-- D�finition du module -->
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>esco-log4j.properties</artifactId>
+	<version>2.2.00</version>
+	<packaging>jar</packaging>
+
+	<name>ext:esco-log4j</name>
+
+
+	<!-- Build -->
+	<build>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>META-INF/**</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/.svn/</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>read-classpath</id>
+						<phase>prepare-package</phase>
+						<configuration>
+							<tasks>
+
+								<echo>compilation de la version de grouper</echo>
+
+								<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+								<tstamp>
+									<format property="version.qualifier" pattern="yyyyMMddHHMM"/>
+								</tstamp>
+								<propertyregex override="yes" property="version.number" input="${project.version}" regexp="(.*)-(.*)" select="\1" />
+								<var name="x" value="${project.version}"/>
+								<echo>nouvelle version de déploiement : ${version.number}.v${version.qualifier}</echo>
+								<manifest file="${project.build.outputDirectory}/META-INF/MANIFEST.MF" mode="update">
+									<attribute name="Bundle-Version" value="${version.number}.v${version.qualifier}"/>
+								</manifest>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant-contrib</groupId>
+						<artifactId>ant-contrib</artifactId>
+						<version>1.0b3</version>
+						<exclusions>
+							<exclusion>
+								<groupId>ant</groupId>
+								<artifactId>ant</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.ant</groupId>
+						<artifactId>ant-apache-regexp</artifactId>
+						<version>1.7.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

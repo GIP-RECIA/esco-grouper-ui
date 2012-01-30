@@ -1,0 +1,75 @@
+/* LOCKED */
+.tree-arbo .locked li a { color:gray; }
+/* DOTS */
+.tree-arbo ul { background-position:6px 1px; background-repeat:repeat-y; background-image:url(data:image/gif;base64,R0lGODlhAgACAIAAAB4dGf///yH5BAEAAAEALAAAAAACAAIAAAICRF4AOw==); _background-image:url("dot_for_ie.gif"); *background-image:url("dot_for_ie.gif"); }
+.tree-arbo li {background-position:-64px -16px; background-repeat:no-repeat; background-image:url("icons.gif");  }
+/* NO DOTS */
+.tree-arbo .no_dots, .tree-arbo .no_dots ul { background:transparent; }
+.tree-arbo .no_dots li.leaf { background-image:none; background-color:transparent; }
+/* OPEN or CLOSED */
+.tree-arbo li.open {background:url("icons.gif") -32px -48px no-repeat; }
+.tree-arbo li.closed, #jstree-dragged.tree-arbo li li.open { background:url("icons.gif") -48px -32px no-repeat; }
+#jstree-marker { background-image:url("icons.gif"); }
+/* DEFAULT, HOVER, CLICKED, LOADING STATES */
+.tree-arbo li a { border:1px solid transparent;}
+.tree-arbo li a:hover, .tree-arbo li a.hover, .tree-arbo li span { display: inline-block; background: #e7f4f9; border:1px solid #d8f0fa;  }
+/*.tree-arbo li a.clicked, .tree-arbo li a.clicked:hover, .tree-arbo li span.clicked { background: navy; border:1px solid navy; color:white; padding:0px 3px 0px 3px; }*/
+/* ICONS */
+.tree-arbo ins { background-image:url("icons.gif"); background-position:0 0; background-repeat:no-repeat; }
+.tree-arbo ul li a.loading ins { background-image:url("throbber.gif") !important; background-position:0 0 !important; } /* UL is added to make selector stronger */
+.tree-arbo li.closed a ins, .tree-arbo li.leaf a ins { background-position:0 0px; } /* UL is added to make selector stronger */
+.tree-arbo ul li a.loading ins { background-image:url("throbber.gif"); background-position:0 0; } /* UL is added to make selector stronger */
+.tree-arbo li a ins.forbidden { background-position:-16px -16px; }
+.tree-arbo .locked li a ins { background-position:0 -48px; }
+.tree-arbo li span ins { background-position:-16px 0; }
+#jstree-dragged.tree-arbo ins { background:url("icons.gif") -16px -32px no-repeat; }
+#jstree-dragged.tree-arbo ins.forbidden { background:url("icons.gif") -16px -16px no-repeat; }
+
+/* CONTEXT MENU */
+.tree-arbo-context a ins { background-image:url("icons.gif"); background-repeat:no-repeat; background-position:-64px -64px; }
+.tree-arbo-context a ins.create { background-position:0 -16px; }
+.tree-arbo-context a ins.rename { background-position:-16px 0px; }
+.tree-arbo-context a ins.remove { background-position:-32px -16px; }
+
+/** SOPRA **/
+
+.tree-arbo li a.clicked, .tree-arbo li a.clicked:hover, .tree-arbo li span.clicked {
+background-color:#BEEBFF;
+background-position:3px 0;
+border:1px solid #99DEFD;
+color:black;
+-moz-border-radius-bottomleft:3px;
+-moz-border-radius-bottomright:3px;
+-moz-border-radius-topleft:3px;
+-moz-border-radius-topright:3px;
+}
+
+.tree-arbo li{
+	margin-top:1px !important;
+}
+
+.tree-arbo li.open{
+	background-image:url(icons.gif) !important;
+	background-position:-64px -16px !important;
+	background-repeat:no-repeat !important;
+}
+
+.tree-arbo-context a ins.and {
+		background: url(../../../../imgs/groupDynamic/10551.add_exc.gif) no-repeat;
+}
+
+.tree-arbo-context a ins.or {
+		background: url(../../../../imgs/groupDynamic/10702.choice_obj.gif) no-repeat;
+}
+
+.tree-arbo-context a ins.not {
+		background: url(../../../../imgs/groupDynamic/14315.hprio_tsk.gif) no-repeat;
+}
+
+.tree-arbo-context a ins.condition {
+		background: url(../../../../imgs/groupDynamic/13047.processinginst.gif) no-repeat;
+}
+
+.tree-arbo-context a ins.delete {
+		background: url(../../../../imgs/groupDynamic/14763.delete.gif) no-repeat;
+}

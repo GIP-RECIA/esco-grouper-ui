@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="grouperApiImpl" class="org.esco.grouperui.services.grouper.internal.GrouperServiceApi">
+		<property name="personWrapper" ref="personWrapper" />
+		<property name="strategyLocator" ref="defaultStrategySubjectLocator" />
+		<property name="strategyGroupLocator" ref="defaultStrategyGroupLocatorAPI" />
+		<property name="groupTypeWrapper" ref="groupTypeWrapper" />
+		<property name="groupAPIWrapper" ref="groupAPIWrapper" />
+		<property name="stemAPIWrapper" ref="stemAPIWrapper" />
+	</bean>
+
+	<bean id="grouperServiceApi" parent="abstractGrouperServiceLocatorEntries">
+		<property name="methodRef">
+			<map>
+				<entry key="findSubjectById" value-ref="grouperApiImpl" />
+				<entry key="searchSubjects" value-ref="grouperApiImpl" />
+				<entry key="findMemberships" value-ref="grouperApiImpl" />
+				<entry key="findListTypes" value-ref="grouperApiImpl" />
+				<entry key="findGroupTypes" value-ref="grouperApiImpl" />
+				<entry key="findGroupsMemberOptinOptout" value-ref="grouperApiImpl" />
+				<entry key="findGroupPrivileges" value-ref="grouperApiImpl" />
+				<entry key="findSubjectPrivilegesGroup" value-ref="grouperApiImpl" />
+				<entry key="findSubjectPrivilegesStem" value-ref="grouperApiImpl" />
+				<entry key="moveGroup" value-ref="grouperApiImpl" />
+				<entry key="moveStem" value-ref="grouperApiImpl" />
+
+				<entry key="getAllStemsFrom" value-ref="grouperApiImpl" />
+				<entry key="getAllGroupsFrom" value-ref="grouperApiImpl" />
+
+				<entry key="findMembers" value-ref="grouperApiImpl" />
+				<entry key="countPersons" value-ref="grouperApiImpl" />
+				<entry key="addMembers" value-ref="grouperApiImpl" />
+				<entry key="removeMembers" value-ref="grouperApiImpl" />
+				<entry key="copyMembers" value-ref="grouperApiImpl" />
+				<entry key="findStemByUuid" value-ref="grouperApiImpl" />
+				<entry key="findStemByName" value-ref="grouperApiImpl" />
+				<entry key="searchStems" value-ref="grouperApiImpl" />
+				<entry key="stemCreate" value-ref="grouperApiImpl" />
+				<entry key="stemUpdate" value-ref="grouperApiImpl" />
+				<entry key="stemDelete" value-ref="grouperApiImpl" />
+				<entry key="findGroupByUid" value-ref="grouperApiImpl" />
+				<entry key="findGroupByName" value-ref="grouperApiImpl" />
+				<entry key="searchGroups" value-ref="grouperApiImpl" />
+				<entry key="groupCreate" value-ref="grouperApiImpl" />
+				<entry key="groupUpdate" value-ref="grouperApiImpl" />
+				<entry key="groupDelete" value-ref="grouperApiImpl" />
+				<entry key="findStemPrivilegesPerson" value-ref="grouperApiImpl" />
+				<entry key="findStemPrivileges" value-ref="grouperApiImpl" />
+				<entry key="assignStemPrivileges" value-ref="grouperApiImpl" />
+				<entry key="removeStemPrivileges" value-ref="grouperApiImpl" />
+				<entry key="findDefaultGroupPrivileges" value-ref="grouperApiImpl" />
+				<entry key="assignGroupPrivileges" value-ref="grouperApiImpl" />
+				<entry key="removeGroupPrivileges" value-ref="grouperApiImpl" />
+				<entry key="getPrivilegeOnGroup" value-ref="grouperApiImpl" />
+
+			</map>
+		</property>
+	</bean>
+
+	<bean id="personWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.PersonWrapper" />
+
+	<!-- GroupType Wrapper -->
+	<bean id="groupTypeWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.GroupTypeWrapper">
+		<property name="fieldWrapper" ref="fieldWrapper" />
+	</bean>
+	<bean id="fieldWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.FieldWrapper" />
+
+	<bean id="groupAPIWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.GroupAPIWrapper" />
+
+	<bean id="stemAPIWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.StemAPIWrapper" />
+
+</beans>
+
+

@@ -1,0 +1,6 @@
+1,"uid","org.esco.grouperui.person.property.attribut","uid","uid.label"
+8,"cn","org.esco.grouperui.person.property.attribut","cn","cn.label"
+9,"ENTPersonFonctions","org.esco.grouperui.person.property.attribut","ENTPersonFonctions","ENTPersonFonctions.label"
+10,"displayName","org.esco.grouperui.person.property.attribut","displayName","displayName.label"
+11,"ENTPersonLogin","org.esco.grouperui.person.property.attribut","ENTPersonLogin","ENTPersonLogin.label"
+12,"sn","org.esco.grouperui.person.property.attribut","sn","sn.label"

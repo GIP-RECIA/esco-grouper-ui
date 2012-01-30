@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- Parent -->
+	<parent>
+		<groupId>org.esco.grouperui.ext</groupId>
+		<artifactId>ext-parent</artifactId>
+		<version>2.6.5</version>
+	</parent>
+
+	<!-- D�finition du module -->
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>grouper-client.fragment</artifactId>
+	<version>2.6.5</version>
+	<packaging>jar</packaging>
+
+	<name>ext:grouper-client.fragment</name>
+	
+	<repositories>	
+        <repository>
+          <id>cargo</id>
+          <url>http://repository.codehaus.org/</url>
+        </repository>
+
+        <repository>
+          <id>ESCO-Grouper-repository</id>
+          <name>ESCO-Grouper repository</name>
+          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
+        </repository>
+	</repositories>
+
+	<!-- Gestion des dépendances -->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.esco.grouperui.business</groupId>
+			<artifactId>esco-core</artifactId>
+			<version>2.6.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.esco.grouperui.ext</groupId>
+			<artifactId>grouper-client</artifactId>
+			<version>2.6.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.internet2.middleware.grouper</groupId>
+			<artifactId>grouper</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.internet2.middleware.grouper</groupId>
+			<artifactId>subject</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.internet2.middleware.grouper</groupId>
+			<artifactId>grouper-client-ws</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mycila.testing</groupId>
+			<artifactId>mycila-testing-api</artifactId>
+			<version>2.0-rc1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mycila.testing.plugins</groupId>
+			<artifactId>mycila-testing-spring</artifactId>
+			<version>2.0-rc1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mycila.testing.plugins</groupId>
+			<artifactId>mycila-testing-mockito</artifactId>
+			<version>2.0-rc1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-jexl</groupId>
+			<artifactId>commons-jexl</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-jexl</groupId>
+			<artifactId>commons-jexl</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+</project>

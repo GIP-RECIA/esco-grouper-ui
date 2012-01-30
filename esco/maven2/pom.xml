@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.esco.grouperui</groupId>
+  <artifactId>maven2</artifactId>
+  <version>1</version>
+  <packaging>pom</packaging>
+  <!-- Libelle du projet -->
+  <name>maven2:parent</name>
+  <description>pom parent for compile all maven 2
+  dependency</description>
+  <!-- Modules du projet -->
+  <modules>
+    <module>config</module>
+    <module>parent</module>
+    <module>plugins</module>
+  </modules>
+  
+  <repositories>	
+        <repository>
+          <id>cargo</id>
+          <url>http://repository.codehaus.org/</url>
+        </repository>
+
+        <repository>
+          <id>ESCO-Grouper-repository</id>
+          <name>ESCO-Grouper repository</name>
+          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
+        </repository>
+	</repositories>
+  
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>esco_rw</id>
+      <name>esco releases repository</name>
+      <url>
+      http://pdtinteg.ptx.fr.sopra:8180/artifactory/prj-esco-releases</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>esco_rw</id>
+      <name>esco snapshots repository</name>
+      <url>
+      http://pdtinteg.ptx.fr.sopra:8180/artifactory/prj-esco-snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
