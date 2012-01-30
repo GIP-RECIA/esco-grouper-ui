@@ -1,94 +1,94 @@
-(function(A){A.effects.puff=function(B){return this.queue(function(){var H=A(this);
-var E=A.extend(true,{},B.options);
-var D=A.effects.setMode(H,B.options.mode||"hide");
-var C=parseInt(B.options.percent,10)||150;
-E.fade=true;
-var G={height:H.height(),width:H.width()};
-var F=C/100;
-H.from=(D=="hide")?G:{height:G.height*F,width:G.width*F};
-E.from=H.from;
-E.percent=(D=="hide")?C:100;
-E.mode=D;
-H.effect("scale",E,B.duration,B.callback);
-H.dequeue()
+(function(B){B.effects.puff=function(A){return this.queue(function(){var I=B(this);
+var L=B.extend(true,{},A.options);
+var M=B.effects.setMode(I,A.options.mode||"hide");
+var N=parseInt(A.options.percent,10)||150;
+L.fade=true;
+var J={height:I.height(),width:I.width()};
+var K=N/100;
+I.from=(M=="hide")?J:{height:J.height*K,width:J.width*K};
+L.from=I.from;
+L.percent=(M=="hide")?N:100;
+L.mode=M;
+I.effect("scale",L,A.duration,A.callback);
+I.dequeue()
 })
 };
-A.effects.scale=function(B){return this.queue(function(){var C=A(this);
-var H=A.extend(true,{},B.options);
-var F=A.effects.setMode(C,B.options.mode||"effect");
-var D=parseInt(B.options.percent,10)||(parseInt(B.options.percent,10)==0?0:(F=="hide"?0:100));
-var E=B.options.direction||"both";
-var G=B.options.origin;
-if(F!="effect"){H.origin=G||["middle","center"];
-H.restore=true
-}var J={height:C.height(),width:C.width()};
-C.from=B.options.from||(F=="show"?{height:0,width:0}:J);
-var I={y:E!="horizontal"?(D/100):1,x:E!="vertical"?(D/100):1};
-C.to={height:J.height*I.y,width:J.width*I.x};
-if(B.options.fade){if(F=="show"){C.from.opacity=0;
-C.to.opacity=1
-}if(F=="hide"){C.from.opacity=1;
-C.to.opacity=0
-}}H.from=C.from;
-H.to=C.to;
-H.mode=F;
-C.effect("size",H,B.duration,B.callback);
-C.dequeue()
+B.effects.scale=function(A){return this.queue(function(){var R=B(this);
+var M=B.extend(true,{},A.options);
+var O=B.effects.setMode(R,A.options.mode||"effect");
+var Q=parseInt(A.options.percent,10)||(parseInt(A.options.percent,10)==0?0:(O=="hide"?0:100));
+var P=A.options.direction||"both";
+var N=A.options.origin;
+if(O!="effect"){M.origin=N||["middle","center"];
+M.restore=true
+}var K={height:R.height(),width:R.width()};
+R.from=A.options.from||(O=="show"?{height:0,width:0}:K);
+var L={y:P!="horizontal"?(Q/100):1,x:P!="vertical"?(Q/100):1};
+R.to={height:K.height*L.y,width:K.width*L.x};
+if(A.options.fade){if(O=="show"){R.from.opacity=0;
+R.to.opacity=1
+}if(O=="hide"){R.from.opacity=1;
+R.to.opacity=0
+}}M.from=R.from;
+M.to=R.to;
+M.mode=O;
+R.effect("size",M,A.duration,A.callback);
+R.dequeue()
 })
 };
-A.effects.size=function(B){return this.queue(function(){var E=A(this),P=["position","top","left","width","height","overflow","opacity"];
-var O=["position","top","left","overflow","opacity"];
-var L=["width","height","overflow"];
-var D=["fontSize"];
-var M=["borderTopWidth","borderBottomWidth","paddingTop","paddingBottom"];
-var H=["borderLeftWidth","borderRightWidth","paddingLeft","paddingRight"];
-var I=A.effects.setMode(E,B.options.mode||"effect");
-var K=B.options.restore||false;
-var G=B.options.scale||"both";
-var C=B.options.origin;
-var F={height:E.height(),width:E.width()};
-E.from=B.options.from||F;
-E.to=B.options.to||F;
-if(C){var J=A.effects.getBaseline(C,F);
-E.from.top=(F.height-E.from.height)*J.y;
-E.from.left=(F.width-E.from.width)*J.x;
-E.to.top=(F.height-E.to.height)*J.y;
-E.to.left=(F.width-E.to.width)*J.x
-}var N={from:{y:E.from.height/F.height,x:E.from.width/F.width},to:{y:E.to.height/F.height,x:E.to.width/F.width}};
-if(G=="box"||G=="both"){if(N.from.y!=N.to.y){P=P.concat(M);
-E.from=A.effects.setTransition(E,M,N.from.y,E.from);
-E.to=A.effects.setTransition(E,M,N.to.y,E.to)
-}if(N.from.x!=N.to.x){P=P.concat(H);
-E.from=A.effects.setTransition(E,H,N.from.x,E.from);
-E.to=A.effects.setTransition(E,H,N.to.x,E.to)
-}}if(G=="content"||G=="both"){if(N.from.y!=N.to.y){P=P.concat(D);
-E.from=A.effects.setTransition(E,D,N.from.y,E.from);
-E.to=A.effects.setTransition(E,D,N.to.y,E.to)
-}}A.effects.save(E,K?P:O);
-E.show();
-A.effects.createWrapper(E);
-E.css("overflow","hidden").css(E.from);
-if(G=="content"||G=="both"){M=M.concat(["marginTop","marginBottom"]).concat(D);
-H=H.concat(["marginLeft","marginRight"]);
-L=P.concat(M).concat(H);
-E.find("*[width]").each(function(){child=A(this);
-if(K){A.effects.save(child,L)
-}var Q={height:child.height(),width:child.width()};
-child.from={height:Q.height*N.from.y,width:Q.width*N.from.x};
-child.to={height:Q.height*N.to.y,width:Q.width*N.to.x};
-if(N.from.y!=N.to.y){child.from=A.effects.setTransition(child,M,N.from.y,child.from);
-child.to=A.effects.setTransition(child,M,N.to.y,child.to)
-}if(N.from.x!=N.to.x){child.from=A.effects.setTransition(child,H,N.from.x,child.from);
-child.to=A.effects.setTransition(child,H,N.to.x,child.to)
+B.effects.size=function(A){return this.queue(function(){var d=B(this),S=["position","top","left","width","height","overflow","opacity"];
+var T=["position","top","left","overflow","opacity"];
+var W=["width","height","overflow"];
+var Q=["fontSize"];
+var V=["borderTopWidth","borderBottomWidth","paddingTop","paddingBottom"];
+var a=["borderLeftWidth","borderRightWidth","paddingLeft","paddingRight"];
+var Z=B.effects.setMode(d,A.options.mode||"effect");
+var X=A.options.restore||false;
+var b=A.options.scale||"both";
+var R=A.options.origin;
+var c={height:d.height(),width:d.width()};
+d.from=A.options.from||c;
+d.to=A.options.to||c;
+if(R){var Y=B.effects.getBaseline(R,c);
+d.from.top=(c.height-d.from.height)*Y.y;
+d.from.left=(c.width-d.from.width)*Y.x;
+d.to.top=(c.height-d.to.height)*Y.y;
+d.to.left=(c.width-d.to.width)*Y.x
+}var U={from:{y:d.from.height/c.height,x:d.from.width/c.width},to:{y:d.to.height/c.height,x:d.to.width/c.width}};
+if(b=="box"||b=="both"){if(U.from.y!=U.to.y){S=S.concat(V);
+d.from=B.effects.setTransition(d,V,U.from.y,d.from);
+d.to=B.effects.setTransition(d,V,U.to.y,d.to)
+}if(U.from.x!=U.to.x){S=S.concat(a);
+d.from=B.effects.setTransition(d,a,U.from.x,d.from);
+d.to=B.effects.setTransition(d,a,U.to.x,d.to)
+}}if(b=="content"||b=="both"){if(U.from.y!=U.to.y){S=S.concat(Q);
+d.from=B.effects.setTransition(d,Q,U.from.y,d.from);
+d.to=B.effects.setTransition(d,Q,U.to.y,d.to)
+}}B.effects.save(d,X?S:T);
+d.show();
+B.effects.createWrapper(d);
+d.css("overflow","hidden").css(d.from);
+if(b=="content"||b=="both"){V=V.concat(["marginTop","marginBottom"]).concat(Q);
+a=a.concat(["marginLeft","marginRight"]);
+W=S.concat(V).concat(a);
+d.find("*[width]").each(function(){child=B(this);
+if(X){B.effects.save(child,W)
+}var C={height:child.height(),width:child.width()};
+child.from={height:C.height*U.from.y,width:C.width*U.from.x};
+child.to={height:C.height*U.to.y,width:C.width*U.to.x};
+if(U.from.y!=U.to.y){child.from=B.effects.setTransition(child,V,U.from.y,child.from);
+child.to=B.effects.setTransition(child,V,U.to.y,child.to)
+}if(U.from.x!=U.to.x){child.from=B.effects.setTransition(child,a,U.from.x,child.from);
+child.to=B.effects.setTransition(child,a,U.to.x,child.to)
 }child.css(child.from);
-child.animate(child.to,B.duration,B.options.easing,function(){if(K){A.effects.restore(child,L)
+child.animate(child.to,A.duration,A.options.easing,function(){if(X){B.effects.restore(child,W)
 }})
 })
-}E.animate(E.to,{queue:false,duration:B.duration,easing:B.options.easing,complete:function(){if(I=="hide"){E.hide()
-}A.effects.restore(E,K?P:O);
-A.effects.removeWrapper(E);
-if(B.callback){B.callback.apply(this,arguments)
-}E.dequeue()
+}d.animate(d.to,{queue:false,duration:A.duration,easing:A.options.easing,complete:function(){if(Z=="hide"){d.hide()
+}B.effects.restore(d,X?S:T);
+B.effects.removeWrapper(d);
+if(A.callback){A.callback.apply(this,arguments)
+}d.dequeue()
 }})
 })
 }

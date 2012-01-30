@@ -1,17 +1,17 @@
-(function(A){A.effects.highlight=function(B){return this.queue(function(){var G=A(this),F=["backgroundImage","backgroundColor","opacity"];
-var D=A.effects.setMode(G,B.options.mode||"show");
-var E=B.options.color||"#ffff99";
-var C=G.css("backgroundColor");
-A.effects.save(G,F);
-G.show();
-G.css({backgroundImage:"none",backgroundColor:E});
-var H={backgroundColor:C};
-if(D=="hide"){H.opacity=0
-}G.animate(H,{queue:false,duration:B.duration,easing:B.options.easing,complete:function(){if(D=="hide"){G.hide()
-}A.effects.restore(G,F);
-if(D=="show"&&A.browser.msie){this.style.removeAttribute("filter")
-}if(B.callback){B.callback.apply(this,arguments)
-}G.dequeue()
+(function(B){B.effects.highlight=function(A){return this.queue(function(){var J=B(this),K=["backgroundImage","backgroundColor","opacity"];
+var M=B.effects.setMode(J,A.options.mode||"show");
+var L=A.options.color||"#ffff99";
+var N=J.css("backgroundColor");
+B.effects.save(J,K);
+J.show();
+J.css({backgroundImage:"none",backgroundColor:L});
+var I={backgroundColor:N};
+if(M=="hide"){I.opacity=0
+}J.animate(I,{queue:false,duration:A.duration,easing:A.options.easing,complete:function(){if(M=="hide"){J.hide()
+}B.effects.restore(J,K);
+if(M=="show"&&B.browser.msie){this.style.removeAttribute("filter")
+}if(A.callback){A.callback.apply(this,arguments)
+}J.dequeue()
 }})
 })
 }

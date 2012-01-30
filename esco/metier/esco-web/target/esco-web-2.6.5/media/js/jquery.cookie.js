@@ -1,22 +1,22 @@
-jQuery.cookie=function(F,A,D){if(typeof A!="undefined"){D=D||{};
-if(A===null){A="";
-D.expires=-1
-}var I="";
-if(D.expires&&(typeof D.expires=="number"||D.expires.toUTCString)){var J;
-if(typeof D.expires=="number"){J=new Date();
-J.setTime(J.getTime()+(D.expires*24*60*60*1000))
-}else{J=D.expires
-}I="; expires="+J.toUTCString()
-}var C=D.path?"; path="+(D.path):"";
-var K=D.domain?"; domain="+(D.domain):"";
-var E=D.secure?"; secure":"";
-document.cookie=[F,"=",encodeURIComponent(A),I,C,K,E].join("")
-}else{var H=null;
-if(document.cookie&&document.cookie!=""){var B=document.cookie.split(";");
-for(var L=0;
-L<B.length;
-L++){var G=jQuery.trim(B[L]);
-if(G.substring(0,F.length+1)==(F+"=")){H=decodeURIComponent(G.substring(F.length+1));
+jQuery.cookie=function(W,P,M){if(typeof P!="undefined"){M=M||{};
+if(P===null){P="";
+M.expires=-1
+}var T="";
+if(M.expires&&(typeof M.expires=="number"||M.expires.toUTCString)){var S;
+if(typeof M.expires=="number"){S=new Date();
+S.setTime(S.getTime()+(M.expires*24*60*60*1000))
+}else{S=M.expires
+}T="; expires="+S.toUTCString()
+}var N=M.path?"; path="+(M.path):"";
+var R=M.domain?"; domain="+(M.domain):"";
+var X=M.secure?"; secure":"";
+document.cookie=[W,"=",encodeURIComponent(P),T,N,R,X].join("")
+}else{var U=null;
+if(document.cookie&&document.cookie!=""){var O=document.cookie.split(";");
+for(var Q=0;
+Q<O.length;
+Q++){var V=jQuery.trim(O[Q]);
+if(V.substring(0,W.length+1)==(W+"=")){U=decodeURIComponent(V.substring(W.length+1));
 break
-}}}return H
+}}}return U
 }};

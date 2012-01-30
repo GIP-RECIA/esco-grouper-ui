@@ -1,212 +1,212 @@
-(function(A){A.fn.extend({editCell:function(C,B,E,D){return this.each(function(){var P=this,I,F,M;
-if(!P.grid||P.p.cellEdit!==true){return 
-}var J=null;
-if(A.browser.msie&&A.browser.version<=7&&E===true&&D===true){B=G(P.rows[C],B)
-}B=parseInt(B,10);
-P.p.selrow=P.rows[C].id;
-if(!P.p.knv){A(P).GridNav()
-}if(P.p.savedRow.length>0){if(E===true){if(C==P.p.iRow&&B==P.p.iCol){return 
-}}var N=A("td:eq("+P.p.savedRow[0].ic+")>#"+P.p.savedRow[0].id+"_"+P.p.savedRow[0].name.replace(".","\\."),P.rows[P.p.savedRow[0].id]).val();
-if(P.p.savedRow[0].v!=N){A(P).saveCell(P.p.savedRow[0].id,P.p.savedRow[0].ic)
-}else{A(P).restoreCell(P.p.savedRow[0].id,P.p.savedRow[0].ic)
-}}else{window.setTimeout(function(){A("#"+P.p.knv).attr("tabindex","-1").focus()
+(function(B){B.fn.extend({editCell:function(G,H,A,F){return this.each(function(){var C=this,U,X,Q;
+if(!C.grid||C.p.cellEdit!==true){return 
+}var T=null;
+if(B.browser.msie&&B.browser.version<=7&&A===true&&F===true){H=W(C.rows[G],H)
+}H=parseInt(H,10);
+C.p.selrow=C.rows[G].id;
+if(!C.p.knv){B(C).GridNav()
+}if(C.p.savedRow.length>0){if(A===true){if(G==C.p.iRow&&H==C.p.iCol){return 
+}}var E=B("td:eq("+C.p.savedRow[0].ic+")>#"+C.p.savedRow[0].id+"_"+C.p.savedRow[0].name.replace(".","\\."),C.rows[C.p.savedRow[0].id]).val();
+if(C.p.savedRow[0].v!=E){B(C).saveCell(C.p.savedRow[0].id,C.p.savedRow[0].ic)
+}else{B(C).restoreCell(C.p.savedRow[0].id,C.p.savedRow[0].ic)
+}}else{window.setTimeout(function(){B("#"+C.p.knv).attr("tabindex","-1").focus()
 },0)
-}I=P.p.colModel[B].name;
-if(I=="subgrid"){return 
-}if(P.p.colModel[B].editable===true&&E===true){M=A("td:eq("+B+")",P.rows[C]);
-if(parseInt(P.p.iCol)>=0&&parseInt(P.p.iRow)>=0){A("td:eq("+P.p.iCol+")",P.rows[P.p.iRow]).removeClass("edit-cell");
-A(P.rows[P.p.iRow]).removeClass("selected-row")
-}A(M).addClass("edit-cell");
-A(P.rows[C]).addClass("selected-row");
-try{F=A.unformat(M,{colModel:P.p.colModel[B]},B)
-}catch(H){F=A(M).html()
-}var L=A.extend(P.p.colModel[B].editoptions||{},{id:C+"_"+I,name:I});
-if(!P.p.colModel[B].edittype){P.p.colModel[B].edittype="text"
-}P.p.savedRow[0]={id:C,ic:B,name:I,v:F};
-if(A.isFunction(P.p.formatCell)){var O=P.p.formatCell(P.rows[C].id,I,F,C,B);
-if(O){F=O
-}}var K=createEl(P.p.colModel[B].edittype,L,F,M);
-if(A.isFunction(P.p.beforeEditCell)){P.p.beforeEditCell(P.rows[C].id,I,F,C,B)
-}A(M).html("").append(K);
-window.setTimeout(function(){A(K).focus()
+}U=C.p.colModel[H].name;
+if(U=="subgrid"){return 
+}if(C.p.colModel[H].editable===true&&A===true){Q=B("td:eq("+H+")",C.rows[G]);
+if(parseInt(C.p.iCol)>=0&&parseInt(C.p.iRow)>=0){B("td:eq("+C.p.iCol+")",C.rows[C.p.iRow]).removeClass("edit-cell");
+B(C.rows[C.p.iRow]).removeClass("selected-row")
+}B(Q).addClass("edit-cell");
+B(C.rows[G]).addClass("selected-row");
+try{X=B.unformat(Q,{colModel:C.p.colModel[H]},H)
+}catch(V){X=B(Q).html()
+}var R=B.extend(C.p.colModel[H].editoptions||{},{id:G+"_"+U,name:U});
+if(!C.p.colModel[H].edittype){C.p.colModel[H].edittype="text"
+}C.p.savedRow[0]={id:G,ic:H,name:U,v:X};
+if(B.isFunction(C.p.formatCell)){var D=C.p.formatCell(C.rows[G].id,U,X,G,H);
+if(D){X=D
+}}var S=createEl(C.p.colModel[H].edittype,R,X,Q);
+if(B.isFunction(C.p.beforeEditCell)){C.p.beforeEditCell(C.rows[G].id,U,X,G,H)
+}B(Q).html("").append(S);
+window.setTimeout(function(){B(S).focus()
 },0);
-A("input, select, textarea",M).bind("keydown",function(Q){if(Q.keyCode===27){A(P).restoreCell(C,B)
-}if(Q.keyCode===13){A(P).saveCell(C,B)
-}if(Q.keyCode==9){if(Q.shiftKey){A(P).prevCell(C,B)
-}else{A(P).nextCell(C,B)
-}}Q.stopPropagation()
+B("input, select, textarea",Q).bind("keydown",function(I){if(I.keyCode===27){B(C).restoreCell(G,H)
+}if(I.keyCode===13){B(C).saveCell(G,H)
+}if(I.keyCode==9){if(I.shiftKey){B(C).prevCell(G,H)
+}else{B(C).nextCell(G,H)
+}}I.stopPropagation()
 });
-if(A.isFunction(P.p.afterEditCell)){P.p.afterEditCell(P.rows[C].id,I,F,C,B)
-}}else{if(parseInt(P.p.iCol)>=0&&parseInt(P.p.iRow)>=0){A("td:eq("+P.p.iCol+")",P.rows[P.p.iRow]).removeClass("edit-cell");
-A(P.rows[P.p.iRow]).removeClass("selected-row")
-}A("td:eq("+B+")",P.rows[C]).addClass("edit-cell");
-A(P.rows[C]).addClass("selected-row");
-if(A.isFunction(P.p.onSelectCell)){F=A("td:eq("+B+")",P.rows[C]).html().replace(/\&nbsp\;/ig,"");
-P.p.onSelectCell(P.rows[C].id,I,F,C,B)
-}}P.p.iCol=B;
-P.p.iRow=C;
-function G(R,U){var S=0;
-var Q=0;
+if(B.isFunction(C.p.afterEditCell)){C.p.afterEditCell(C.rows[G].id,U,X,G,H)
+}}else{if(parseInt(C.p.iCol)>=0&&parseInt(C.p.iRow)>=0){B("td:eq("+C.p.iCol+")",C.rows[C.p.iRow]).removeClass("edit-cell");
+B(C.rows[C.p.iRow]).removeClass("selected-row")
+}B("td:eq("+H+")",C.rows[G]).addClass("edit-cell");
+B(C.rows[G]).addClass("selected-row");
+if(B.isFunction(C.p.onSelectCell)){X=B("td:eq("+H+")",C.rows[G]).html().replace(/\&nbsp\;/ig,"");
+C.p.onSelectCell(C.rows[G].id,U,X,G,H)
+}}C.p.iCol=H;
+C.p.iRow=G;
+function W(L,I){var K=0;
+var M=0;
 for(i=0;
-i<R.cells.length;
-i++){var T=R.cells(i);
-if(T.style.display=="none"){S++
-}else{Q++
-}if(Q>U){return i
+i<L.cells.length;
+i++){var J=L.cells(i);
+if(J.style.display=="none"){K++
+}else{M++
+}if(M>I){return i
 }}return i
 }})
-},saveCell:function(C,B){return this.each(function(){var G=this,O,I;
-if(!G.grid||G.p.cellEdit!==true){return 
-}if(G.p.savedRow.length==1){I=0
-}else{I=null
-}if(I!=null){var D=A("td:eq("+B+")",G.rows[C]),N,L;
-O=G.p.colModel[B].name;
-switch(G.p.colModel[B].edittype){case"select":N=A("#"+C+"_"+O.replace(".","\\.")+">option:selected",G.rows[C]).val();
-L=A("#"+C+"_"+O.replace(".","\\.")+">option:selected",G.rows[C]).text();
+},saveCell:function(A,D){return this.each(function(){var X=this,P,V;
+if(!X.grid||X.p.cellEdit!==true){return 
+}if(X.p.savedRow.length==1){V=0
+}else{V=null
+}if(V!=null){var C=B("td:eq("+D+")",X.rows[A]),Q,S;
+P=X.p.colModel[D].name;
+switch(X.p.colModel[D].edittype){case"select":Q=B("#"+A+"_"+P.replace(".","\\.")+">option:selected",X.rows[A]).val();
+S=B("#"+A+"_"+P.replace(".","\\.")+">option:selected",X.rows[A]).text();
 break;
-case"checkbox":var E=["Yes","No"];
-if(G.p.colModel[B].editoptions){E=G.p.colModel[B].editoptions.value.split(":")
-}N=A("#"+C+"_"+O.replace(".","\\."),G.rows[C]).attr("checked")?E[0]:E[1];
-L=N;
+case"checkbox":var Z=["Yes","No"];
+if(X.p.colModel[D].editoptions){Z=X.p.colModel[D].editoptions.value.split(":")
+}Q=B("#"+A+"_"+P.replace(".","\\."),X.rows[A]).attr("checked")?Z[0]:Z[1];
+S=Q;
 break;
-case"password":case"text":case"textarea":N=!G.p.autoencode?A("#"+C+"_"+O.replace(".","\\."),G.rows[C]).val():htmlEncode(A("#"+C+"_"+O.replace(".","\\."),G.rows[C]).val());
-L=N;
+case"password":case"text":case"textarea":Q=!X.p.autoencode?B("#"+A+"_"+P.replace(".","\\."),X.rows[A]).val():htmlEncode(B("#"+A+"_"+P.replace(".","\\."),X.rows[A]).val());
+S=Q;
 break
-}if(L!=G.p.savedRow[I].v){if(A.isFunction(G.p.beforeSaveCell)){var M=G.p.beforeSaveCell(G.rows[C].id,O,N,C,B);
-if(M){N=M
-}}var F=checkValues(N,B,G);
-if(F[0]===true){var H={};
-if(A.isFunction(G.p.beforeSubmitCell)){H=G.p.beforeSubmitCell(G.rows[C].id,O,N,C,B);
-if(!H){H={}
-}}if(G.p.cellsubmit=="remote"){if(G.p.cellurl){var K={};
-K[O]=N;
-K.id=G.rows[C].id;
-K=A.extend(H,K);
-A.ajax({url:G.p.cellurl,data:K,type:"POST",complete:function(P,R){if(R=="success"){if(A.isFunction(G.p.afterSubmitCell)){var Q=G.p.afterSubmitCell(P,K.id,O,N,C,B);
-if(Q[0]===true){A(D).empty();
-A(G).setCell(G.rows[C].id,B,L);
-A(D).addClass("dirty-cell");
-A(G.rows[C]).addClass("edited");
-if(A.isFunction(G.p.afterSaveCell)){G.p.afterSaveCell(G.rows[C].id,O,N,C,B)
-}G.p.savedRow=[]
-}else{info_dialog(A.jgrid.errors.errcap,Q[1],A.jgrid.edit.bClose,G.p.imgpath);
-A(G).restoreCell(C,B)
-}}else{A(D).empty();
-A(G).setCell(G.rows[C].id,B,L);
-A(D).addClass("dirty-cell");
-A(G.rows[C]).addClass("edited");
-if(A.isFunction(G.p.afterSaveCell)){G.p.afterSaveCell(G.rows[C].id,O,N,C,B)
-}G.p.savedRow=[]
-}}},error:function(P,Q){if(A.isFunction(G.p.errorCell)){G.p.errorCell(P,Q);
-A(G).restoreCell(C,B)
-}else{info_dialog(A.jgrid.errors.errcap,P.status+" : "+P.statusText+"<br/>"+Q,A.jgrid.edit.bClose,G.p.imgpath);
-A(G).restoreCell(C,B)
+}if(S!=X.p.savedRow[V].v){if(B.isFunction(X.p.beforeSaveCell)){var R=X.p.beforeSaveCell(X.rows[A].id,P,Q,A,D);
+if(R){Q=R
+}}var Y=checkValues(Q,D,X);
+if(Y[0]===true){var W={};
+if(B.isFunction(X.p.beforeSubmitCell)){W=X.p.beforeSubmitCell(X.rows[A].id,P,Q,A,D);
+if(!W){W={}
+}}if(X.p.cellsubmit=="remote"){if(X.p.cellurl){var T={};
+T[P]=Q;
+T.id=X.rows[A].id;
+T=B.extend(W,T);
+B.ajax({url:X.p.cellurl,data:T,type:"POST",complete:function(G,E){if(E=="success"){if(B.isFunction(X.p.afterSubmitCell)){var F=X.p.afterSubmitCell(G,T.id,P,Q,A,D);
+if(F[0]===true){B(C).empty();
+B(X).setCell(X.rows[A].id,D,S);
+B(C).addClass("dirty-cell");
+B(X.rows[A]).addClass("edited");
+if(B.isFunction(X.p.afterSaveCell)){X.p.afterSaveCell(X.rows[A].id,P,Q,A,D)
+}X.p.savedRow=[]
+}else{info_dialog(B.jgrid.errors.errcap,F[1],B.jgrid.edit.bClose,X.p.imgpath);
+B(X).restoreCell(A,D)
+}}else{B(C).empty();
+B(X).setCell(X.rows[A].id,D,S);
+B(C).addClass("dirty-cell");
+B(X.rows[A]).addClass("edited");
+if(B.isFunction(X.p.afterSaveCell)){X.p.afterSaveCell(X.rows[A].id,P,Q,A,D)
+}X.p.savedRow=[]
+}}},error:function(F,E){if(B.isFunction(X.p.errorCell)){X.p.errorCell(F,E);
+B(X).restoreCell(A,D)
+}else{info_dialog(B.jgrid.errors.errcap,F.status+" : "+F.statusText+"<br/>"+E,B.jgrid.edit.bClose,X.p.imgpath);
+B(X).restoreCell(A,D)
 }}})
-}else{try{info_dialog(A.jgrid.errors.errcap,A.jgrid.errors.nourl,A.jgrid.edit.bClose,G.p.imgpath);
-A(G).restoreCell(C,B)
-}catch(J){}}}if(G.p.cellsubmit=="clientArray"){A(D).empty();
-A(G).setCell(G.rows[C].id,B,L);
-A(D).addClass("dirty-cell");
-A(G.rows[C]).addClass("edited");
-if(A.isFunction(G.p.afterSaveCell)){G.p.afterSaveCell(G.rows[C].id,O,N,C,B)
-}G.p.savedRow=[]
-}}else{try{window.setTimeout(function(){info_dialog(A.jgrid.errors.errcap,N+" "+F[1],A.jgrid.edit.bClose,G.p.imgpath)
+}else{try{info_dialog(B.jgrid.errors.errcap,B.jgrid.errors.nourl,B.jgrid.edit.bClose,X.p.imgpath);
+B(X).restoreCell(A,D)
+}catch(U){}}}if(X.p.cellsubmit=="clientArray"){B(C).empty();
+B(X).setCell(X.rows[A].id,D,S);
+B(C).addClass("dirty-cell");
+B(X.rows[A]).addClass("edited");
+if(B.isFunction(X.p.afterSaveCell)){X.p.afterSaveCell(X.rows[A].id,P,Q,A,D)
+}X.p.savedRow=[]
+}}else{try{window.setTimeout(function(){info_dialog(B.jgrid.errors.errcap,Q+" "+Y[1],B.jgrid.edit.bClose,X.p.imgpath)
 },100);
-A(G).restoreCell(C,B)
-}catch(J){}}}else{A(G).restoreCell(C,B)
-}}if(A.browser.opera){A("#"+G.p.knv).attr("tabindex","-1").focus()
-}else{window.setTimeout(function(){A("#"+G.p.knv).attr("tabindex","-1").focus()
+B(X).restoreCell(A,D)
+}catch(U){}}}else{B(X).restoreCell(A,D)
+}}if(B.browser.opera){B("#"+X.p.knv).attr("tabindex","-1").focus()
+}else{window.setTimeout(function(){B("#"+X.p.knv).attr("tabindex","-1").focus()
 },0)
 }})
-},restoreCell:function(C,B){return this.each(function(){var H=this,D,E;
-if(!H.grid||H.p.cellEdit!==true){return 
-}if(H.p.savedRow.length==1){E=0
-}else{E=null
-}if(E!=null){var G=A("td:eq("+B+")",H.rows[C]);
-if(A.isFunction(A.fn.datepicker)){try{A.datepicker("hide")
-}catch(F){try{A.datepicker.hideDatepicker()
-}catch(F){}}}A(G).empty();
-A(H).setCell(H.rows[C].id,B,H.p.savedRow[E].v);
-H.p.savedRow=[]
-}window.setTimeout(function(){A("#"+H.p.knv).attr("tabindex","-1").focus()
+},restoreCell:function(A,D){return this.each(function(){var C=this,L,K;
+if(!C.grid||C.p.cellEdit!==true){return 
+}if(C.p.savedRow.length==1){K=0
+}else{K=null
+}if(K!=null){var I=B("td:eq("+D+")",C.rows[A]);
+if(B.isFunction(B.fn.datepicker)){try{B.datepicker("hide")
+}catch(J){try{B.datepicker.hideDatepicker()
+}catch(J){}}}B(I).empty();
+B(C).setCell(C.rows[A].id,D,C.p.savedRow[K].v);
+C.p.savedRow=[]
+}window.setTimeout(function(){B("#"+C.p.knv).attr("tabindex","-1").focus()
 },0)
 })
-},nextCell:function(C,B){return this.each(function(){var G=this,F=false,E;
-if(!G.grid||G.p.cellEdit!==true){return 
-}for(var D=B+1;
-D<G.p.colModel.length;
-D++){if(G.p.colModel[D].editable===true){F=D;
-break
-}}if(F!==false){A(G).saveCell(C,B);
-A(G).editCell(C,F,true)
-}else{if(G.p.savedRow.length>0){A(G).saveCell(C,B)
-}}})
-},prevCell:function(C,B){return this.each(function(){var G=this,F=false,E;
-if(!G.grid||G.p.cellEdit!==true){return 
-}for(var D=B-1;
-D>=0;
-D--){if(G.p.colModel[D].editable===true){F=D;
-break
-}}if(F!==false){A(G).saveCell(C,B);
-A(G).editCell(C,F,true)
-}else{if(G.p.savedRow.length>0){A(G).saveCell(C,B)
-}}})
-},GridNav:function(){return this.each(function(){var C=this;
+},nextCell:function(A,D){return this.each(function(){var C=this,H=false,I;
 if(!C.grid||C.p.cellEdit!==true){return 
-}C.p.knv=A("table:first",C.grid.bDiv).attr("id")+"_kn";
-var B=A("<span style='width:0px;height:0px;background-color:black;' tabindex='0'><span tabindex='-1' style='width:0px;height:0px;background-color:grey' id='"+C.p.knv+"'></span></span>");
-A(B).insertBefore(C.grid.cDiv);
-A("#"+C.p.knv).focus();
-A("#"+C.p.knv).keydown(function(G){switch(G.keyCode){case 38:if(C.p.iRow-1>=1){E(C.p.iRow-1,C.p.iCol,"vu");
-A(C).editCell(C.p.iRow-1,C.p.iCol,false)
+}for(var J=D+1;
+J<C.p.colModel.length;
+J++){if(C.p.colModel[J].editable===true){H=J;
+break
+}}if(H!==false){B(C).saveCell(A,D);
+B(C).editCell(A,H,true)
+}else{if(C.p.savedRow.length>0){B(C).saveCell(A,D)
+}}})
+},prevCell:function(A,D){return this.each(function(){var C=this,H=false,I;
+if(!C.grid||C.p.cellEdit!==true){return 
+}for(var J=D-1;
+J>=0;
+J--){if(C.p.colModel[J].editable===true){H=J;
+break
+}}if(H!==false){B(C).saveCell(A,D);
+B(C).editCell(A,H,true)
+}else{if(C.p.savedRow.length>0){B(C).saveCell(A,D)
+}}})
+},GridNav:function(){return this.each(function(){var G=this;
+if(!G.grid||G.p.cellEdit!==true){return 
+}G.p.knv=B("table:first",G.grid.bDiv).attr("id")+"_kn";
+var H=B("<span style='width:0px;height:0px;background-color:black;' tabindex='0'><span tabindex='-1' style='width:0px;height:0px;background-color:grey' id='"+G.p.knv+"'></span></span>");
+B(H).insertBefore(G.grid.cDiv);
+B("#"+G.p.knv).focus();
+B("#"+G.p.knv).keydown(function(C){switch(C.keyCode){case 38:if(G.p.iRow-1>=1){A(G.p.iRow-1,G.p.iCol,"vu");
+B(G).editCell(G.p.iRow-1,G.p.iCol,false)
 }break;
-case 40:if(C.p.iRow+1<=C.rows.length-1){E(C.p.iRow+1,C.p.iCol,"vd");
-A(C).editCell(C.p.iRow+1,C.p.iCol,false)
+case 40:if(G.p.iRow+1<=G.rows.length-1){A(G.p.iRow+1,G.p.iCol,"vd");
+B(G).editCell(G.p.iRow+1,G.p.iCol,false)
 }break;
-case 37:if(C.p.iCol-1>=0){var F=D(C.p.iCol-1,"lft");
-E(C.p.iRow,F,"h");
-A(C).editCell(C.p.iRow,F,false)
+case 37:if(G.p.iCol-1>=0){var D=F(G.p.iCol-1,"lft");
+A(G.p.iRow,D,"h");
+B(G).editCell(G.p.iRow,D,false)
 }break;
-case 39:if(C.p.iCol+1<=C.p.colModel.length-1){var F=D(C.p.iCol+1,"rgt");
-E(C.p.iRow,F,"h");
-A(C).editCell(C.p.iRow,F,false)
+case 39:if(G.p.iCol+1<=G.p.colModel.length-1){var D=F(G.p.iCol+1,"rgt");
+A(G.p.iRow,D,"h");
+B(G).editCell(G.p.iRow,D,false)
 }break;
-case 13:if(parseInt(C.p.iCol,10)>=0&&parseInt(C.p.iRow,10)>=0){A(C).editCell(C.p.iRow,C.p.iCol,true)
+case 13:if(parseInt(G.p.iCol,10)>=0&&parseInt(G.p.iRow,10)>=0){B(G).editCell(G.p.iRow,G.p.iCol,true)
 }break
 }return false
 });
-function E(G,P,F){if(F.substr(0,1)=="v"){var J=A(C.grid.bDiv)[0].clientHeight,H=A(C.grid.bDiv)[0].scrollTop,I=C.rows[G].offsetTop+C.rows[G].clientHeight,N=C.rows[G].offsetTop;
-if(F=="vd"){if(I>=J){A(C.grid.bDiv)[0].scrollTop=A(C.grid.bDiv)[0].scrollTop+C.rows[G].clientHeight
-}}if(F=="vu"){if(N<H){A(C.grid.bDiv)[0].scrollTop=A(C.grid.bDiv)[0].scrollTop-C.rows[G].clientHeight
-}}}if(F=="h"){var M=A(C.grid.bDiv)[0].clientWidth,L=A(C.grid.bDiv)[0].scrollLeft,K=C.rows[G].cells[P].offsetLeft+C.rows[G].cells[P].clientWidth,O=C.rows[G].cells[P].offsetLeft;
-if(K>=M+parseInt(L)){A(C.grid.bDiv)[0].scrollLeft=A(C.grid.bDiv)[0].scrollLeft+C.rows[G].cells[P].clientWidth
-}else{if(O<L){A(C.grid.bDiv)[0].scrollLeft=A(C.grid.bDiv)[0].scrollLeft-C.rows[G].cells[P].clientWidth
-}}}}function D(I,F){var H,G;
-if(F=="lft"){H=I+1;
-for(G=I;
-G>=0;
-G--){if(C.p.colModel[G].hidden!==true){H=G;
+function A(W,C,X){if(X.substr(0,1)=="v"){var T=B(G.grid.bDiv)[0].clientHeight,V=B(G.grid.bDiv)[0].scrollTop,U=G.rows[W].offsetTop+G.rows[W].clientHeight,E=G.rows[W].offsetTop;
+if(X=="vd"){if(U>=T){B(G.grid.bDiv)[0].scrollTop=B(G.grid.bDiv)[0].scrollTop+G.rows[W].clientHeight
+}}if(X=="vu"){if(E<V){B(G.grid.bDiv)[0].scrollTop=B(G.grid.bDiv)[0].scrollTop-G.rows[W].clientHeight
+}}}if(X=="h"){var Q=B(G.grid.bDiv)[0].clientWidth,R=B(G.grid.bDiv)[0].scrollLeft,S=G.rows[W].cells[C].offsetLeft+G.rows[W].cells[C].clientWidth,D=G.rows[W].cells[C].offsetLeft;
+if(S>=Q+parseInt(R)){B(G.grid.bDiv)[0].scrollLeft=B(G.grid.bDiv)[0].scrollLeft+G.rows[W].cells[C].clientWidth
+}else{if(D<R){B(G.grid.bDiv)[0].scrollLeft=B(G.grid.bDiv)[0].scrollLeft-G.rows[W].cells[C].clientWidth
+}}}}function F(C,J){var D,E;
+if(J=="lft"){D=C+1;
+for(E=C;
+E>=0;
+E--){if(G.p.colModel[E].hidden!==true){D=E;
 break
-}}}if(F=="rgt"){H=I-1;
-for(G=I;
-G<C.p.colModel.length;
-G++){if(C.p.colModel[G].hidden!==true){H=G;
+}}}if(J=="rgt"){D=C-1;
+for(E=C;
+E<G.p.colModel.length;
+E++){if(G.p.colModel[E].hidden!==true){D=E;
 break
-}}}return H
+}}}return D
 }})
-},getChangedCells:function(C){var B=[];
-if(!C){C="all"
-}this.each(function(){var D=this;
-if(!D.grid||D.p.cellEdit!==true){return 
-}A(D.rows).slice(1).each(function(E){var F={};
-if(A(this).hasClass("edited")){A("td",this).each(function(G){nm=D.p.colModel[G].name;
-if(nm!=="cb"&&nm!=="subgrid"){if(C=="dirty"){if(A(this).hasClass("dirty-cell")){F[nm]=A.htmlDecode(A(this).html())
-}}else{F[nm]=A.htmlDecode(A(this).html())
+},getChangedCells:function(A){var D=[];
+if(!A){A="all"
+}this.each(function(){var C=this;
+if(!C.grid||C.p.cellEdit!==true){return 
+}B(C.rows).slice(1).each(function(H){var G={};
+if(B(this).hasClass("edited")){B("td",this).each(function(E){nm=C.p.colModel[E].name;
+if(nm!=="cb"&&nm!=="subgrid"){if(A=="dirty"){if(B(this).hasClass("dirty-cell")){G[nm]=B.htmlDecode(B(this).html())
+}}else{G[nm]=B.htmlDecode(B(this).html())
 }}});
-F.id=this.id;
-B.push(F)
+G.id=this.id;
+D.push(G)
 }})
 });
-return B
+return D
 }})
 })(jQuery);

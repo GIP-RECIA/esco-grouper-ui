@@ -1,25 +1,25 @@
-(function(A){A.effects.fold=function(B){return this.queue(function(){var J=A(this),C=["position","top","left"];
-var M=A.effects.setMode(J,B.options.mode||"hide");
-var G=B.options.size||15;
-var F=!(!B.options.horizFirst);
-var L=B.duration?B.duration/2:A.fx.speeds._default/2;
-A.effects.save(J,C);
-J.show();
-var I=A.effects.createWrapper(J).css({overflow:"hidden"});
-var N=((M=="show")!=F);
-var K=N?["width","height"]:["height","width"];
-var H=N?[I.width(),I.height()]:[I.height(),I.width()];
-var O=/([0-9]+)%/.exec(G);
-if(O){G=parseInt(O[1],10)/100*H[M=="hide"?0:1]
-}if(M=="show"){I.css(F?{height:0,width:G}:{height:G,width:0})
-}var E={},D={};
-E[K[0]]=M=="show"?H[0]:G;
-D[K[1]]=M=="show"?H[1]:0;
-I.animate(E,L,B.options.easing).animate(D,L,B.options.easing,function(){if(M=="hide"){J.hide()
-}A.effects.restore(J,C);
-A.effects.removeWrapper(J);
-if(B.callback){B.callback.apply(J[0],arguments)
-}J.dequeue()
+(function(B){B.effects.fold=function(A){return this.queue(function(){var W=B(this),Q=["position","top","left"];
+var T=B.effects.setMode(W,A.options.mode||"hide");
+var Z=A.options.size||15;
+var a=!(!A.options.horizFirst);
+var U=A.duration?A.duration/2:B.fx.speeds._default/2;
+B.effects.save(W,Q);
+W.show();
+var X=B.effects.createWrapper(W).css({overflow:"hidden"});
+var S=((T=="show")!=a);
+var V=S?["width","height"]:["height","width"];
+var Y=S?[X.width(),X.height()]:[X.height(),X.width()];
+var R=/([0-9]+)%/.exec(Z);
+if(R){Z=parseInt(R[1],10)/100*Y[T=="hide"?0:1]
+}if(T=="show"){X.css(a?{height:0,width:Z}:{height:Z,width:0})
+}var b={},P={};
+b[V[0]]=T=="show"?Y[0]:Z;
+P[V[1]]=T=="show"?Y[1]:0;
+X.animate(b,U,A.options.easing).animate(P,U,A.options.easing,function(){if(T=="hide"){W.hide()
+}B.effects.restore(W,Q);
+B.effects.removeWrapper(W);
+if(A.callback){A.callback.apply(W[0],arguments)
+}W.dequeue()
 })
 })
 }

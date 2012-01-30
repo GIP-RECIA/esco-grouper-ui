@@ -1,52 +1,52 @@
-(function(A){A.fn.extend({jqGridImport:function(B){B=A.extend({imptype:"xml",impstring:"",impurl:"",mtype:"GET",impData:{},xmlGrid:{config:"roots>grid",data:"roots>rows"},jsonGrid:{config:"grid",data:"data"}},B||{});
-return this.each(function(){var F=this;
-var D=function(G,K){var M=A(K.xmlGrid.config,G)[0];
-var I=A(K.xmlGrid.data,G)[0];
-if(xmlJsonClass.xml2json&&JSON.parse){var H=xmlJsonClass.xml2json(M," ");
-var H=JSON.parse(H);
-for(var L in H){var J=H[L]
-}if(I){var N=H.grid.datatype;
-H.grid.datatype="xmlstring";
-H.grid.datastr=G;
-A(F).jqGrid(J).setGridParam({datatype:N})
-}else{A(F).jqGrid(J)
-}H=null;
-J=null
+(function(B){B.fn.extend({jqGridImport:function(A){A=B.extend({imptype:"xml",impstring:"",impurl:"",mtype:"GET",impData:{},xmlGrid:{config:"roots>grid",data:"roots>rows"},jsonGrid:{config:"grid",data:"data"}},A||{});
+return this.each(function(){var G=this;
+var I=function(P,D){var R=B(D.xmlGrid.config,P)[0];
+var F=B(D.xmlGrid.data,P)[0];
+if(xmlJsonClass.xml2json&&JSON.parse){var O=xmlJsonClass.xml2json(R," ");
+var O=JSON.parse(O);
+for(var C in O){var E=O[C]
+}if(F){var Q=O.grid.datatype;
+O.grid.datatype="xmlstring";
+O.grid.datastr=P;
+B(G).jqGrid(E).setGridParam({datatype:Q})
+}else{B(G).jqGrid(E)
+}O=null;
+E=null
 }else{alert("xml2json or json.parse are not present")
 }};
-var E=function(K,G){if(K&&typeof K=="string"&&JSON.parse){var I=JSON.parse(K);
-var H=I[G.jsonGrid.config];
-var J=I[G.jsonGrid.data];
-if(J){var L=H.datatype;
-H.datatype="jsonstring";
-H.datastr=J;
-A(F).jqGrid(H).setGridParam({datatype:L})
-}else{A(F).jqGrid(H)
+var H=function(D,N){if(D&&typeof D=="string"&&JSON.parse){var F=JSON.parse(D);
+var M=F[N.jsonGrid.config];
+var E=F[N.jsonGrid.data];
+if(E){var C=M.datatype;
+M.datatype="jsonstring";
+M.datastr=E;
+B(G).jqGrid(M).setGridParam({datatype:C})
+}else{B(G).jqGrid(M)
 }}};
-switch(B.imptype){case"xml":A.ajax({url:B.impurl,type:B.mtype,data:B.impData,dataType:"xml",complete:function(G,H){if(H=="success"){D(G.responseXML,B);
-G=null
+switch(A.imptype){case"xml":B.ajax({url:A.impurl,type:A.mtype,data:A.impData,dataType:"xml",complete:function(D,C){if(C=="success"){I(D.responseXML,A);
+D=null
 }}});
 break;
-case"xmlstring":if(B.impstring&&typeof B.impstring=="string"){var C=xmlJsonClass.parseXml(B.impstring);
-if(C){D(C,B);
-C=null
+case"xmlstring":if(A.impstring&&typeof A.impstring=="string"){var J=xmlJsonClass.parseXml(A.impstring);
+if(J){I(J,A);
+J=null
 }}break;
-case"json":A.ajax({url:B.impurl,type:B.mtype,data:B.impData,dataType:"json",complete:function(G,H){if(H=="success"){E(G.responseText,B);
-G=null
+case"json":B.ajax({url:A.impurl,type:A.mtype,data:A.impData,dataType:"json",complete:function(D,C){if(C=="success"){H(D.responseText,A);
+D=null
 }}});
 break;
-case"jsonstring":if(B.impstring&&typeof B.impstring=="string"){E(B.impstring,B)
+case"jsonstring":if(A.impstring&&typeof A.impstring=="string"){H(A.impstring,A)
 }break
 }})
-},jqGridExport:function(C){C=A.extend({exptype:"xmlstring"},C||{});
-var B=null;
+},jqGridExport:function(A){A=B.extend({exptype:"xmlstring"},A||{});
+var D=null;
 this.each(function(){if(!this.grid){return 
-}var D=A(this).getGridParam();
-switch(C.exptype){case"xmlstring":B=xmlJsonClass.json2xml(D," ");
+}var C=B(this).getGridParam();
+switch(A.exptype){case"xmlstring":D=xmlJsonClass.json2xml(C," ");
 break;
-case"jsonstring":B=JSON.stringify(D);
+case"jsonstring":D=JSON.stringify(C);
 break
 }});
-return B
+return D
 }})
 })(jQuery);

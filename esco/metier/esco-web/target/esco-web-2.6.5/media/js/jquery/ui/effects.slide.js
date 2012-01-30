@@ -1,20 +1,20 @@
-(function(A){A.effects.slide=function(B){return this.queue(function(){var I=A(this),H=["position","top","left"];
-var E=A.effects.setMode(I,B.options.mode||"show");
-var D=B.options.direction||"left";
-A.effects.save(I,H);
-I.show();
-A.effects.createWrapper(I).css({overflow:"hidden"});
-var J=(D=="up"||D=="down")?"top":"left";
-var G=(D=="up"||D=="left")?"pos":"neg";
-var F=B.options.distance||(J=="top"?I.outerHeight({margin:true}):I.outerWidth({margin:true}));
-if(E=="show"){I.css(J,G=="pos"?-F:F)
-}var C={};
-C[J]=(E=="show"?(G=="pos"?"+=":"-="):(G=="pos"?"-=":"+="))+F;
-I.animate(C,{queue:false,duration:B.duration,easing:B.options.easing,complete:function(){if(E=="hide"){I.hide()
-}A.effects.restore(I,H);
-A.effects.removeWrapper(I);
-if(B.callback){B.callback.apply(this,arguments)
-}I.dequeue()
+(function(B){B.effects.slide=function(A){return this.queue(function(){var L=B(this),M=["position","top","left"];
+var P=B.effects.setMode(L,A.options.mode||"show");
+var Q=A.options.direction||"left";
+B.effects.save(L,M);
+L.show();
+B.effects.createWrapper(L).css({overflow:"hidden"});
+var K=(Q=="up"||Q=="down")?"top":"left";
+var N=(Q=="up"||Q=="left")?"pos":"neg";
+var O=A.options.distance||(K=="top"?L.outerHeight({margin:true}):L.outerWidth({margin:true}));
+if(P=="show"){L.css(K,N=="pos"?-O:O)
+}var R={};
+R[K]=(P=="show"?(N=="pos"?"+=":"-="):(N=="pos"?"-=":"+="))+O;
+L.animate(R,{queue:false,duration:A.duration,easing:A.options.easing,complete:function(){if(P=="hide"){L.hide()
+}B.effects.restore(L,M);
+B.effects.removeWrapper(L);
+if(A.callback){A.callback.apply(this,arguments)
+}L.dequeue()
 }})
 })
 }

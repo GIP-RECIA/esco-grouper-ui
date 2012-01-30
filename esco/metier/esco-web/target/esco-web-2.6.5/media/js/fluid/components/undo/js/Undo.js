@@ -1,48 +1,48 @@
 fluid_1_1=fluid_1_1||{};
-(function(F,D){var B="state_initial",A="state_changed",H="state_reverted";
-function E(J,L){var K="<span class='flc-undo'><span class='flc-undo-undoContainer'>[<a href='#' class='flc-undo-undoControl'>undo</a>]</span><span class='flc-undo-redoContainer'>[<a href='#' class='flc-undo-redoControl'>redo</a>]</span></span>";
-var I=F(K);
-L.append(I);
-return I
-}function G(I){if(I.state===B){I.locate("undoContainer").hide();
-I.locate("redoContainer").hide()
-}else{if(I.state===A){I.locate("undoContainer").show();
-I.locate("redoContainer").hide()
-}else{if(I.state===H){I.locate("undoContainer").hide();
-I.locate("redoContainer").show()
-}}}}var C=function(I){I.locate("undoControl").click(function(){if(I.state!==H){D.model.copyModel(I.extremalModel,I.component.model);
-I.component.updateModel(I.initialModel,I);
-I.state=H;
-G(I);
-I.locate("redoControl").focus()
+(function(L,N){var P="state_initial",I="state_changed",J="state_reverted";
+function M(C,A){var B="<span class='flc-undo'><span class='flc-undo-undoContainer'>[<a href='#' class='flc-undo-undoControl'>undo</a>]</span><span class='flc-undo-redoContainer'>[<a href='#' class='flc-undo-redoControl'>redo</a>]</span></span>";
+var D=L(B);
+A.append(D);
+return D
+}function K(A){if(A.state===P){A.locate("undoContainer").hide();
+A.locate("redoContainer").hide()
+}else{if(A.state===I){A.locate("undoContainer").show();
+A.locate("redoContainer").hide()
+}else{if(A.state===J){A.locate("undoContainer").hide();
+A.locate("redoContainer").show()
+}}}}var O=function(A){A.locate("undoControl").click(function(){if(A.state!==J){N.model.copyModel(A.extremalModel,A.component.model);
+A.component.updateModel(A.initialModel,A);
+A.state=J;
+K(A);
+A.locate("redoControl").focus()
 }return false
 });
-I.locate("redoControl").click(function(){if(I.state!==A){I.component.updateModel(I.extremalModel,I);
-I.state=A;
-G(I);
-I.locate("undoControl").focus()
+A.locate("redoControl").click(function(){if(A.state!==I){A.component.updateModel(A.extremalModel,A);
+A.state=I;
+K(A);
+A.locate("undoControl").focus()
 }return false
 });
-return{modelChanged:function(J,L,K){if(K!==I){I.state=A;
-D.model.copyModel(I.initialModel,L);
-G(I)
+return{modelChanged:function(D,B,C){if(C!==A){A.state=I;
+N.model.copyModel(A.initialModel,B);
+K(A)
 }}}
 };
-D.undoDecorator=function(K,J){var I=D.initView("undo",null,J);
-I.container=I.options.renderer(I,K.container);
-D.initDomBinder(I);
-D.tabindex(I.locate("undoControl"),0);
-D.tabindex(I.locate("redoControl"),0);
-I.component=K;
-I.initialModel={};
-I.extremalModel={};
-D.model.copyModel(I.initialModel,K.model);
-D.model.copyModel(I.extremalModel,K.model);
-I.state=B;
-G(I);
-var L=C(I);
-I.returnedOptions={listeners:L};
-return I
+N.undoDecorator=function(B,C){var D=N.initView("undo",null,C);
+D.container=D.options.renderer(D,B.container);
+N.initDomBinder(D);
+N.tabindex(D.locate("undoControl"),0);
+N.tabindex(D.locate("redoControl"),0);
+D.component=B;
+D.initialModel={};
+D.extremalModel={};
+N.model.copyModel(D.initialModel,B.model);
+N.model.copyModel(D.extremalModel,B.model);
+D.state=P;
+K(D);
+var A=O(D);
+D.returnedOptions={listeners:A};
+return D
 };
-D.defaults("undo",{selectors:{undoContainer:".flc-undo-undoContainer",undoControl:".flc-undo-undoControl",redoContainer:".flc-undo-redoContainer",redoControl:".flc-undo-redoControl"},renderer:E})
+N.defaults("undo",{selectors:{undoContainer:".flc-undo-undoContainer",undoControl:".flc-undo-undoControl",redoContainer:".flc-undo-redoContainer",redoControl:".flc-undo-redoControl"},renderer:M})
 })(jQuery,fluid_1_1);

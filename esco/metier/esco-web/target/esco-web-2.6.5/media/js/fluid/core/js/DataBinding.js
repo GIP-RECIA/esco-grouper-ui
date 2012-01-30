@@ -1,163 +1,163 @@
 fluid_1_1=fluid_1_1||{};
-(function(B,A){A.VALUE={};
-A.BINDING_ROOT_KEY="fluid-binding-root";
-A.findData=function(G,I){while(G){var H=B.data(G,I);
-if(H){return H
-}G=G.parentNode
+(function(L,G){G.VALUE={};
+G.BINDING_ROOT_KEY="fluid-binding-root";
+G.findData=function(C,A){while(C){var B=L.data(C,A);
+if(B){return B
+}C=C.parentNode
 }};
-A.bindFossils=function(G,H,I){B.data(G,A.BINDING_ROOT_KEY,{data:H,fossils:I})
+G.bindFossils=function(C,B,A){L.data(C,G.BINDING_ROOT_KEY,{data:B,fossils:A})
 };
-A.findForm=function(G){return A.findAncestor(G,function(H){return H.nodeName.toLowerCase()==="form"
+G.findForm=function(A){return G.findAncestor(A,function(B){return B.nodeName.toLowerCase()==="form"
 })
 };
-A.value=function(K,H){var I=A.unwrap(K);
-var N=false;
-if(I.nodeType===undefined&&I.length>1){I=I[0];
-N=true
-}var J=B(I);
-if("input"!==I.nodeName.toLowerCase()||!/radio|checkbox/.test(I.type)){return B(I).val(H)
-}var G=I.name;
-if(G===undefined){A.fail("Cannot acquire value from node "+A.dumpEl(I)+" which does not have name attribute set")
-}var O;
-if(N){O=K
-}else{var O=document.getElementsByName(G);
-var M=A.findForm(I);
-O=B.grep(O,function(P){if(P.name!==G){return false
-}return !M||A.dom.isContainer(M,P)
+G.value=function(E,Q){var P=G.unwrap(E);
+var B=false;
+if(P.nodeType===undefined&&P.length>1){P=P[0];
+B=true
+}var F=L(P);
+if("input"!==P.nodeName.toLowerCase()||!/radio|checkbox/.test(P.type)){return L(P).val(Q)
+}var R=P.name;
+if(R===undefined){G.fail("Cannot acquire value from node "+G.dumpEl(P)+" which does not have name attribute set")
+}var A;
+if(B){A=E
+}else{var A=document.getElementsByName(R);
+var C=G.findForm(P);
+A=L.grep(A,function(M){if(M.name!==R){return false
+}return !C||G.dom.isContainer(C,M)
 })
-}if(H!==undefined){if(typeof (H)==="boolean"){H=(H?"true":"false")
-}B.each(O,function(){this.checked=(H instanceof Array?B.inArray(this.value,H)!==-1:H===this.value)
+}if(Q!==undefined){if(typeof (Q)==="boolean"){Q=(Q?"true":"false")
+}L.each(A,function(){this.checked=(Q instanceof Array?L.inArray(this.value,Q)!==-1:Q===this.value)
 })
-}else{var L=B.map(O,function(P){return P.checked?P.value:null
+}else{var D=L.map(A,function(M){return M.checked?M.value:null
 });
-return I.type==="radio"?L[0]:L
+return P.type==="radio"?D[0]:D
 }};
-A.applyChange=function(H,G,L){H=A.unwrap(H);
-if(G===undefined){G=A.value(H)
-}if(H.nodeType===undefined&&H.length>0){H=H[0]
-}var I=A.findData(H,A.BINDING_ROOT_KEY);
-if(!I){A.fail("Bound data could not be discovered in any node above "+A.dumpEl(H))
-}var J=H.name;
-var M=I.fossils[J];
-if(!M){A.fail("No fossil discovered for name "+J+" in fossil record above "+A.dumpEl(H))
-}if(typeof (M.oldvalue)==="boolean"){G=G[0]?true:false
-}var K=I.fossils[J].EL;
-if(L){L.fireChangeRequest({path:K,value:G,source:H.id})
-}else{A.model.setBeanValue(I.data,K,G)
+G.applyChange=function(E,F,A){E=G.unwrap(E);
+if(F===undefined){F=G.value(E)
+}if(E.nodeType===undefined&&E.length>0){E=E[0]
+}var D=G.findData(E,G.BINDING_ROOT_KEY);
+if(!D){G.fail("Bound data could not be discovered in any node above "+G.dumpEl(E))
+}var C=E.name;
+var N=D.fossils[C];
+if(!N){G.fail("No fossil discovered for name "+C+" in fossil record above "+G.dumpEl(E))
+}if(typeof (N.oldvalue)==="boolean"){F=F[0]?true:false
+}var B=D.fossils[C].EL;
+if(A){A.fireChangeRequest({path:B,value:F,source:E.id})
+}else{G.model.setBeanValue(D.data,B,F)
 }};
-A.pathUtil={};
-var D=function(L,H,J){var G=null;
-if(L){G=""
-}var K=false;
-var I=H.length;
+G.pathUtil={};
+var J=function(A,E,C){var F=null;
+if(A){F=""
+}var B=false;
+var D=E.length;
 for(;
-J<I;
-++J){var M=H.charAt(J);
-if(!K){if(M==="."){break
-}else{if(M==="\\"){K=true
-}else{if(G!==null){G+=M
-}}}}else{K=false;
-if(G!==null){L+=M
-}}}if(G!==null){L[0]=G
-}return J
+C<D;
+++C){var N=E.charAt(C);
+if(!B){if(N==="."){break
+}else{if(N==="\\"){B=true
+}else{if(F!==null){F+=N
+}}}}else{B=false;
+if(F!==null){A+=N
+}}}if(F!==null){A[0]=F
+}return C
 };
-var E=[];
-A.pathUtil.getPathSegment=function(H,G){D(E,H,G);
-return E[0]
+var I=[];
+G.pathUtil.getPathSegment=function(A,B){J(I,A,B);
+return I[0]
 };
-A.pathUtil.getHeadPath=function(G){return A.pathUtil.getPathSegment(G,0)
+G.pathUtil.getHeadPath=function(A){return G.pathUtil.getPathSegment(A,0)
 };
-A.pathUtil.getFromHeadPath=function(H){var G=D(null,H,0);
-return G===H.length?null:H.substring(G+1)
+G.pathUtil.getFromHeadPath=function(A){var B=J(null,A,0);
+return B===A.length?null:A.substring(B+1)
 };
-function C(G){return G.lastIndexOf(".")
-}A.pathUtil.getToTailPath=function(H){var G=C(H);
-return G==-1?null:H.substring(0,G)
+function K(A){return A.lastIndexOf(".")
+}G.pathUtil.getToTailPath=function(A){var B=K(A);
+return B==-1?null:A.substring(0,B)
 };
-A.pathUtil.getTailPath=function(H){var G=C(H);
-return A.pathUtil.getPathSegment(H,G+1)
+G.pathUtil.getTailPath=function(A){var B=K(A);
+return G.pathUtil.getPathSegment(A,B+1)
 };
-var F=function(G,J){for(var I=0;
-I<J.length;
-++I){var H=J.charAt(I);
-if(H==="."||H==="\\"||H==="}"){G+="\\"
-}G+=H
-}return G
+var H=function(D,A){for(var B=0;
+B<A.length;
+++B){var C=A.charAt(B);
+if(C==="."||C==="\\"||C==="}"){D+="\\"
+}D+=C
+}return D
 };
-A.pathUtil.composePath=function(G,H){if(G.length!==0){G+="."
-}return F(G,H)
+G.pathUtil.composePath=function(B,A){if(B.length!==0){B+="."
+}return H(B,A)
 };
-A.pathUtil.matchPath=function(I,G){var K="";
-while(true){if(!I){break
-}if(!G){return null
-}var J=A.pathUtil.getHeadPath(I);
-var H=A.pathUtil.getHeadPath(G);
-if(J!=="*"&&J!==H){return null
-}K=A.pathUtil.composePath(K,H);
-I=A.pathUtil.getFromHeadPath(I);
-G=A.pathUtil.getFromHeadPath(G)
-}return K
+G.pathUtil.matchPath=function(C,E){var A="";
+while(true){if(!C){break
+}if(!E){return null
+}var B=G.pathUtil.getHeadPath(C);
+var D=G.pathUtil.getHeadPath(E);
+if(B!=="*"&&B!==D){return null
+}A=G.pathUtil.composePath(A,D);
+C=G.pathUtil.getFromHeadPath(C);
+E=G.pathUtil.getFromHeadPath(E)
+}return A
 };
-A.model.applyChangeRequest=function(J,H){if(H.type==="ADD"){A.model.setBeanValue(J,H.path,H.value)
-}else{if(H.type==="DELETE"){var K=A.pathUtil.getToTailPath(H.path);
-var I=A.pathUtil.getTailPath(H.path);
-var G=A.model.getBeanValue(J,G);
-delete G[I]
+G.model.applyChangeRequest=function(B,D){if(D.type==="ADD"){G.model.setBeanValue(B,D.path,D.value)
+}else{if(D.type==="DELETE"){var A=G.pathUtil.getToTailPath(D.path);
+var C=G.pathUtil.getTailPath(D.path);
+var E=G.model.getBeanValue(B,E);
+delete E[C]
 }}};
-A.makeChangeApplier=function(J){var K={guards:A.event.getEventFirer(false,true),modelChanged:A.event.getEventFirer(false,false)};
-var G={model:J};
-function H(L,M){return function(P,N){var O=N[M];
-return A.pathUtil.matchPath(P[L],O.path)
+G.makeChangeApplier=function(B){var A={guards:G.event.getEventFirer(false,true),modelChanged:G.event.getEventFirer(false,false)};
+var E={model:B};
+function D(F,N){return function(M,R){var Q=R[N];
+return G.pathUtil.matchPath(M[F],Q.path)
 }
-}function I(M,L,P,O){var N=H(P,O);
-M[L]={addListener:function(Q,S,R){S[P]=Q;
-K[L].addListener(S,R,N)
-},removeListener:function(Q){K[L].removeListener(Q)
+}function C(T,F,Q,R){var S=D(Q,R);
+T[F]={addListener:function(O,M,N){M[Q]=O;
+A[F].addListener(M,N,S)
+},removeListener:function(M){A[F].removeListener(M)
 }}
-}I(G,"guards","guardedPathSpec",1);
-I(G,"modelChanged","triggerPathSpec",2);
-G.fireChangeRequest=function(M){if(!M.type){M.type="ADD"
-}var L=K.guards.fire(J,M);
-if(L===false){return 
-}var N={};
-A.model.copyModel(N,J);
-A.model.applyChangeRequest(J,M);
-K.modelChanged.fire(J,N,M)
+}C(E,"guards","guardedPathSpec",1);
+C(E,"modelChanged","triggerPathSpec",2);
+E.fireChangeRequest=function(P){if(!P.type){P.type="ADD"
+}var F=A.guards.fire(B,P);
+if(F===false){return 
+}var O={};
+G.model.copyModel(O,B);
+G.model.applyChangeRequest(B,P);
+A.modelChanged.fire(B,O,P)
 };
-G.requestChange=function(O,N,L){var M={path:O,value:N,type:L};
-G.fireChangeRequest(M)
+E.requestChange=function(P,Q,F){var R={path:P,value:Q,type:F};
+E.fireChangeRequest(R)
 };
-return G
+return E
 };
-A.makeSuperApplier=function(){var H=[];
-var G={};
-G.addSubApplier=function(I,J){H.push({path:I,subApplier:J})
+G.makeSuperApplier=function(){var A=[];
+var B={};
+B.addSubApplier=function(D,C){A.push({path:D,subApplier:C})
 };
-G.fireChangeRequest=function(M){for(var K=0;
-K<H.length;
-++K){var L=H[K].path;
-if(M.path.indexOf(L)===0){var J=M.path.substring(L.length+1);
-var I=A.copy(M);
-I.path=J;
-H[K].subApplier.fireChangeRequest(I)
+B.fireChangeRequest=function(N){for(var D=0;
+D<A.length;
+++D){var C=A[D].path;
+if(N.path.indexOf(C)===0){var E=N.path.substring(C.length+1);
+var F=G.copy(N);
+F.path=E;
+A[D].subApplier.fireChangeRequest(F)
 }}};
-return G
+return B
 };
-A.attachModel=function(I,G,L){var K=A.model.parseEL(G);
-for(var H=0;
-H<K.length-1;
-++H){var J=K[H];
-var M=I[J];
-if(!M){I[J]=M={}
-}I=M
-}I[K[K.length-1]]=L
+G.attachModel=function(D,F,A){var B=G.model.parseEL(F);
+for(var E=0;
+E<B.length-1;
+++E){var C=B[E];
+var N=D[C];
+if(!N){D[C]=N={}
+}D=N
+}D[B[B.length-1]]=A
 };
-A.assembleModel=function(I){var J={};
-var G=A.makeSuperApplier();
-var K={model:J,applier:G};
-for(path in I){var H=I[path];
-A.attachModel(J,path,H.model);
-if(H.applier){G.addSubApplier(path,H.applier)
-}}return K
+G.assembleModel=function(C){var B={};
+var E=G.makeSuperApplier();
+var A={model:B,applier:E};
+for(path in C){var D=C[path];
+G.attachModel(B,path,D.model);
+if(D.applier){E.addSubApplier(path,D.applier)
+}}return A
 }
 })(jQuery,fluid_1_1);

@@ -1,557 +1,557 @@
 fluid_1_1=fluid_1_1||{};
-(function(e,AM){function AA(AU){return"as child of "+(AU.parent.fullID?"component with full ID "+AU.parent.fullID:"root")
-}function c(AZ){var AV="";
-var AW=AZ;
-if(AZ.children===undefined){AV=AZ.ID+(AZ.localID!==undefined?AZ.localID:"");
-AW=AZ.parent
-}while(AW.parent){var Aa=AW.parent;
-if(AW.fullID!==undefined){AV=AW.fullID+AV;
-return AV
-}if(AW.noID===undefined){var AU=AW.ID;
-if(AU===undefined){AM.fail("Error in component tree - component found with no ID "+AA(Aa)+": please check structure")
-}var AY=AU.indexOf(":");
-var AX=AY===-1?AU:AU.substring(0,AY);
-AV=AX+":"+(AW.localID===undefined?"":AW.localID)+":"+AV
-}AW=Aa
-}return AV
-}function g(AU){return AM.isPrimitive(AU)||AU instanceof Array&&(AU.length===0||typeof (AU[0])==="string")
-}function F(AW,AV){if(g(AW)){return{componentType:"UIBound",value:AW,ID:AV}
-}else{var AU=I(AW);
-if(AU.ID){return{ID:AV,componentType:"UIContainer",children:[AU]}
-}else{AU.ID=AV;
-return AU
-}}}function AK(AW){if(!(AW instanceof Array)){var AX=[];
-for(var AV in AW){var AY=AW[AV];
-if(AY instanceof Array){for(var AU=0;
-AU<AY.length;
-++AU){var AZ=F(AY[AU],AV);
-AX[AX.length]=AZ
-}}else{AX[AX.length]=F(AY,AV)
-}}return AX
-}else{return AW
-}}function AF(AU,AV){if(AU.value===undefined&&AU.valuebinding!==undefined){if(!AV){AM.fail("Cannot perform value fixup for valuebinding "+AU.valuebinding+" since no model was supplied to rendering")
-}AU.value=AM.model.getBeanValue(AV,AU.valuebinding)
-}}function H(AV,AW,AU){if(AV[AW]!==undefined){if(g(AV[AW])){AV[AW]={value:AV[AW]}
-}}else{AV[AW]={value:null}
-}AF(AV[AW],AU)
-}var m={children:"UIContainer",value:"UIBound",valuebinding:"UIBound",messagekey:"UIMessage",markup:"UIVerbatim",selection:"UISelect",target:"UILink",choiceindex:"UISelectChoice",functionname:"UIInitBlock"};
-function I(AX,AW){if(AX){for(var AY in m){if(AX[AY]!==undefined){AX.componentType=m[AY];
+(function(A9,Ab){function An(A){return"as child of "+(A.parent.fullID?"component with full ID "+A.parent.fullID:"root")
+}function BB(B){var G="";
+var E=B;
+if(B.children===undefined){G=B.ID+(B.localID!==undefined?B.localID:"");
+E=B.parent
+}while(E.parent){var F=E.parent;
+if(E.fullID!==undefined){G=E.fullID+G;
+return G
+}if(E.noID===undefined){var A=E.ID;
+if(A===undefined){Ab.fail("Error in component tree - component found with no ID "+An(F)+": please check structure")
+}var C=A.indexOf(":");
+var D=C===-1?A:A.substring(0,C);
+G=D+":"+(E.localID===undefined?"":E.localID)+":"+G
+}E=F
+}return G
+}function A7(A){return Ab.isPrimitive(A)||A instanceof Array&&(A.length===0||typeof (A[0])==="string")
+}function BY(B,C){if(A7(B)){return{componentType:"UIBound",value:B,ID:C}
+}else{var A=BV(B);
+if(A.ID){return{ID:C,componentType:"UIContainer",children:[A]}
+}else{A.ID=C;
+return A
+}}}function Ad(E){if(!(E instanceof Array)){var D=[];
+for(var F in E){var C=E[F];
+if(C instanceof Array){for(var A=0;
+A<C.length;
+++A){var B=BY(C[A],F);
+D[D.length]=B
+}}else{D[D.length]=BY(C,F)
+}}return D
+}else{return E
+}}function Ai(A,B){if(A.value===undefined&&A.valuebinding!==undefined){if(!B){Ab.fail("Cannot perform value fixup for valuebinding "+A.valuebinding+" since no model was supplied to rendering")
+}A.value=Ab.model.getBeanValue(B,A.valuebinding)
+}}function BW(C,B,A){if(C[B]!==undefined){if(A7(C[B])){C[B]={value:C[B]}
+}}else{C[B]={value:null}
+}Ai(C[B],A)
+}var A1={children:"UIContainer",value:"UIBound",valuebinding:"UIBound",messagekey:"UIMessage",markup:"UIVerbatim",selection:"UISelect",target:"UILink",choiceindex:"UISelectChoice",functionname:"UIInitBlock"};
+function BV(C,D){if(C){for(var B in A1){if(C[B]!==undefined){C.componentType=A1[B];
 break
-}}if(AX.componentType===undefined&&AX.ID!==undefined){AX.componentType="UIBound"
-}}if(!AX||AX.componentType===undefined){var AV=AX.decorators;
-if(AV){delete AX.decorators
-}AX={componentType:"UIContainer",children:AX};
-AX.decorators=AV
-}var AU=AX.componentType;
-if(AU==="UIContainer"){AX.children=AK(AX.children)
-}else{if(AU==="UISelect"){H(AX,"selection",AW);
-H(AX,"optionlist",AW);
-H(AX,"optionnames",AW)
-}else{if(AU==="UILink"){H(AX,"target",AW);
-H(AX,"linktext",AW)
-}}}return AX
-}function y(AV,AU){if(AV.submittingname===undefined&&AV.willinput!==false){AV.submittingname=AU?AU:AV.fullID
-}return AV.submittingname
-}function AN(Ab,AY){if(Ab.componentType===undefined){Ab=I(Ab,AY)
-}if(Ab.componentType!=="UIContainer"&&!Ab.parent){Ab={children:[Ab]}
-}if(Ab.children){Ab.childmap={};
-for(var AX=0;
-AX<Ab.children.length;
-++AX){var Ad=Ab.children[AX];
-if(Ad.componentType===undefined){Ad=I(Ad,AY);
-Ab.children[AX]=Ad
-}Ad.parent=Ab;
-if(Ad.ID===undefined){AM.fail("Error in component tree: component found with no ID "+AA(Ad))
-}Ab.childmap[Ad.ID]=Ad;
-var AV=Ad.ID.indexOf(":");
-if(AV===-1){}else{var AZ=Ad.ID.substring(0,AV);
-var Ac=Ab.childmap[AZ];
-if(!Ac){Ac=[];
-Ab.childmap[AZ]=Ac
-}if(Ad.localID===undefined&&Ac.length!==0){Ad.localID=Ac.length
-}Ac[Ac.length]=Ad
-}Ad.fullID=c(Ad);
-var AU=Ad.componentType;
-if(AU=="UISelect"){Ad.selection.fullID=Ad.fullID+"-selection"
-}else{if(AU=="UIInitBlock"){var Aa=Ad.functionname+"(";
-for(var AW=0;
-AW<Ad.arguments.length;
-++AW){if(Ad.arguments[AW] instanceof AM.ComponentReference){Ad.arguments[AW]=Ad.parent.fullID+Ad.arguments[AW].reference
-}Aa+='"'+Ad.arguments[AW]+'"';
-if(AW<Ad.arguments.length-1){Aa+=", "
-}}Ad.markup=Aa+")\n";
-Ad.componentType="UIVerbatim"
-}else{if(AU=="UIBound"){AF(Ad,AY)
-}}}AN(Ad,AY)
-}}return Ab
-}var AR={};
-var r={};
-var J={};
-var b={};
-var k={};
-var AQ="";
-var w=false;
-var q={};
-var O={};
-var Y=[];
-var i={};
-function D(AV,AU,AW){return AV.resourceKey+AU.fullID+AW
-}function N(AX,AU,AZ,Aa){var AV;
-var AW=AZ?AZ[AX]:null;
-if(AW){for(var AY=0;
-AY<AW.length;
-++AY){var Ab=AW[AY];
-if(!AV&&Ab.rsfID==AU){AV=Ab
-}if(Ab.rsfID==AX){return Ab
-}}}return AV
-}function AE(AX,AZ){var AY=AZ.jointID?AZ.jointID:AZ.ID;
-var AW=AM.SplitID(AY);
-var AU=AW.prefix+":";
-var AV=N(AY,AU,AX.downmap,AZ);
-if(AV){return AV
-}if(AZ.children){AV=N(AY,AU,AR,AZ);
-if(AV){return AV
+}}if(C.componentType===undefined&&C.ID!==undefined){C.componentType="UIBound"
+}}if(!C||C.componentType===undefined){var E=C.decorators;
+if(E){delete C.decorators
+}C={componentType:"UIContainer",children:C};
+C.decorators=E
+}var A=C.componentType;
+if(A==="UIContainer"){C.children=Ad(C.children)
+}else{if(A==="UISelect"){BW(C,"selection",D);
+BW(C,"optionlist",D);
+BW(C,"optionnames",D)
+}else{if(A==="UILink"){BW(C,"target",D);
+BW(C,"linktext",D)
+}}}return C
+}function Ap(B,A){if(B.submittingname===undefined&&B.willinput!==false){B.submittingname=A?A:B.fullID
+}return B.submittingname
+}function Aa(C,F){if(C.componentType===undefined){C=BV(C,F)
+}if(C.componentType!=="UIContainer"&&!C.parent){C={children:[C]}
+}if(C.children){C.childmap={};
+for(var G=0;
+G<C.children.length;
+++G){var A=C.children[G];
+if(A.componentType===undefined){A=BV(A,F);
+C.children[G]=A
+}A.parent=C;
+if(A.ID===undefined){Ab.fail("Error in component tree: component found with no ID "+An(A))
+}C.childmap[A.ID]=A;
+var I=A.ID.indexOf(":");
+if(I===-1){}else{var E=A.ID.substring(0,I);
+var B=C.childmap[E];
+if(!B){B=[];
+C.childmap[E]=B
+}if(A.localID===undefined&&B.length!==0){A.localID=B.length
+}B[B.length]=A
+}A.fullID=BB(A);
+var J=A.componentType;
+if(J=="UISelect"){A.selection.fullID=A.fullID+"-selection"
+}else{if(J=="UIInitBlock"){var D=A.functionname+"(";
+for(var H=0;
+H<A.arguments.length;
+++H){if(A.arguments[H] instanceof Ab.ComponentReference){A.arguments[H]=A.parent.fullID+A.arguments[H].reference
+}D+='"'+A.arguments[H]+'"';
+if(H<A.arguments.length-1){D+=", "
+}}A.markup=D+")\n";
+A.componentType="UIVerbatim"
+}else{if(J=="UIBound"){Ai(A,F)
+}}}Aa(A,F)
+}}return C
+}var AW={};
+var Aw={};
+var BU={};
+var BC={};
+var A3={};
+var AX="";
+var Ar=false;
+var Ax={};
+var BP={};
+var BF=[];
+var A5={};
+function Ba(C,A,B){return C.resourceKey+A.fullID+B
+}function BQ(D,A,B,H){var G;
+var F=B?B[D]:null;
+if(F){for(var C=0;
+C<F.length;
+++C){var E=F[C];
+if(!G&&E.rsfID==A){G=E
+}if(E.rsfID==D){return E
+}}}return G
+}function Aj(D,B){var C=B.jointID?B.jointID:B.ID;
+var E=Ab.SplitID(C);
+var A=E.prefix+":";
+var F=BQ(C,A,D.downmap,B);
+if(F){return F
+}if(B.children){F=BQ(C,A,AW,B);
+if(F){return F
 }}return null
-}function L(AU){if(!b[AU.href]){AM.aggregateMMap(k,AU.collectmap);
-b[AU.href]=true
-}}function AI(AX,AU){for(var AV=0;
-AV<AX.children.length;
-++AV){var AY=AX.children[AV];
-if(AY.children){var Aa=AE(AU,AY);
-if(Aa){r[AY.fullID]=Aa;
-var Ac=Aa.attributemap.id;
-if(Ac!==undefined){J[D(AU.parent,AX,Ac)]=AY.fullID
-}L(Aa.parent);
-AI(AY,Aa)
-}}}if(AU.downmap){for(var Ac in AU.downmap){var AZ=AU.downmap[Ac];
-for(var AV=0;
-AV<AZ.length;
-++AV){var AW=AZ[AV];
-var Ab=AW.attributemap.id;
-if(Ab!==undefined&&AW.rsfID!==undefined){var Aa=f(AX,AW.rsfID);
-if(Aa!==null){var Ad=Aa.fullID;
-if(Aa.componentType==="UISelect"){Ad=Ad+"-selection"
-}J[D(AU.parent,AX,Ab)]=Ad
-}}}}}}function AT(AW,AV,AU){r={};
-J={};
-b={};
-k={};
-AR=AW;
-r[AV.fullID]=AU;
-AI(AV,AU)
-}function S(AW,AU){if(AU.elide){return 
-}var AV={};
-e.extend(true,AV,AU.attributemap);
-AS(AV,AW);
-x(AW,AV);
-AQ+="<"+AU.tagname+" ";
-AQ+=AM.dumpAttributes(AV);
-AQ+=">"
-}function W(AV,AX,AU){for(;
-AX<AU;
-++AX){var AW=AV[AX].text;
-if(AW){AQ+=AV[AX].text
-}}}function M(AY,AV,AU,Aa,AW){var AX=AV;
-while(true){if(AV===AY.length){break
-}var AZ=AY[AV];
-if(AZ.nestingdepth<AU){break
-}if(AZ.rsfID!==undefined){if(!AW){break
-}if(AW&&AZ.nestingdepth>AU+(Aa?0:1)){AM.log("Error in component tree - leaf component found to contain further components - at "+AZ.toString())
+}function BS(A){if(!BC[A.href]){Ab.aggregateMMap(A3,A.collectmap);
+BC[A.href]=true
+}}function Af(G,J){for(var I=0;
+I<G.children.length;
+++I){var F=G.children[I];
+if(F.children){var D=Aj(J,F);
+if(D){Aw[F.fullID]=D;
+var B=D.attributemap.id;
+if(B!==undefined){BU[Ba(J.parent,G,B)]=F.fullID
+}BS(D.parent);
+Af(F,D)
+}}}if(J.downmap){for(var B in J.downmap){var E=J.downmap[B];
+for(var I=0;
+I<E.length;
+++I){var H=E[I];
+var C=H.attributemap.id;
+if(C!==undefined&&H.rsfID!==undefined){var D=A8(G,H.rsfID);
+if(D!==null){var A=D.fullID;
+if(D.componentType==="UISelect"){A=A+"-selection"
+}BU[Ba(J.parent,G,C)]=A
+}}}}}}function AU(B,C,A){Aw={};
+BU={};
+BC={};
+A3={};
+AW=B;
+Aw[C.fullID]=A;
+Af(C,A)
+}function BL(B,A){if(A.elide){return 
+}var C={};
+A9.extend(true,C,A.attributemap);
+AV(C,B);
+Aq(B,C);
+AX+="<"+A.tagname+" ";
+AX+=Ab.dumpAttributes(C);
+AX+=">"
+}function BH(D,B,A){for(;
+B<A;
+++B){var C=D[B].text;
+if(C){AX+=D[B].text
+}}}function BR(C,G,A,F,E){var D=G;
+while(true){if(G===C.length){break
+}var B=C[G];
+if(B.nestingdepth<A){break
+}if(B.rsfID!==undefined){if(!E){break
+}if(E&&B.nestingdepth>A+(F?0:1)){Ab.log("Error in component tree - leaf component found to contain further components - at "+B.toString())
 }else{break
-}}++AV
-}if(!Aa&&(AV==AY.length||!AY[AV].rsfID)){--AV
-}W(AY,AX,AV);
-return AV
-}var AC={};
-function o(){if(!AC.iselide){AQ+="<"+AC.uselump.tagname
-}}function h(){if(!AC.iselide){AQ+="</"+AC.uselump.tagname+">"
-}}function j(){W(AC.uselump.parent.lumps,AC.uselump.lumpindex+1,AC.close.lumpindex+(AC.iselide?0:1))
-}function A(){if(!AC.iselide){AQ+=AM.dumpAttributes(AC.attrcopy)
-}P()
-}function AG(){if(AC.iselide){A()
-}else{AQ+=AM.dumpAttributes(AC.attrcopy);
-AQ+=">";
-AC.nextpos=AC.endopen.lumpindex
-}}function P(){if(AC.endopen.lumpindex===AC.close.lumpindex){if(!AC.iselide){AQ+="/>"
-}}else{if(!AC.iselide){AQ+=">"
-}W(AC.uselump.parent.lumps,AC.endopen.lumpindex,AC.close.lumpindex+(AC.iselide?0:1))
-}}function Q(AU){if(G(AU)){Z(AU)
-}else{A()
-}}function u(AU){if(AC.iselide){Q(AC.value)
-}else{if(G(AU)){Z(AU)
-}else{AG()
-}}}function Z(AU){AQ+=AM.dumpAttributes(AC.attrcopy);
-if(!AC.iselide){AQ+=">"
-}AQ+=AM.XMLEncode(AU.toString());
-h()
-}function G(AU){return AU!==null&&AU!==undefined&&!p(AU)
-}function p(AU){return false
-}function AL(AV,AU){return AU
-}function B(AW){AQ+='<input type="hidden" ';
-var AV=AW.virtual;
-var AU={};
-AU[AV?"id":"name"]=AW.name;
-AU.value=AW.value;
-AQ+=AM.dumpAttributes(AU);
-AQ+=" />\n"
-}function E(AU,AV){var AZ=AC.uselump.tagname;
-var AX=O.applier;
-function AY(){AM.applyChange(AM.byId(AV),undefined,AX)
-}if(O.autoBind&&/input|select|textarea/.test(AZ)&&!i[AV]){var AW=[{jQuery:["change",AY]}];
-if(e.browser.msie&&AZ==="input"&&/radio|checkbox/.test(AC.attrcopy.type)){AW.push({jQuery:["click",AY]})
-}t(AU,AW,AC.attrcopy,AV)
-}}function s(AU,AW){if(AU){var AV=AW?AW:AU;
-if(q&&AV.submittingname&&AV.valuebinding){q[AV.submittingname]={name:AV.submittingname,EL:AV.valuebinding,oldvalue:AV.value};
-E(AU,AU.fullID)
-}if(AU.fossilizedbinding){B(AU.fossilizedbinding)
-}if(AU.fossilizedshaper){B(AU.fossilizedshaper)
-}}}function K(AU){if(!i[AU.selection.fullID]){i[AU.selection.fullID]=true;
-s(AU.selection);
-s(AU.optionlist);
-s(AU.optionnames)
-}}AM.NULL_STRING="\u25a9null\u25a9";
-var AJ={a:"href",link:"href",img:"src",frame:"src",script:"src",style:"src",input:"src",embed:"src",form:"action",applet:"codebase",object:"codebase"};
-function AP(AU,AW){var AV=AU.selection;
-return AV.value&&typeof (AV.value)!=="string"&&typeof (AV.value.length)==="number"?e.inArray(AW,AV.value,AW)!==-1:AV.value===AW
-}function C(AU,AV){AU=AU.parent;
-if(AV.indexOf("..::")===0){AV=AV.substring(4);
-AU=AU.parent
-}return AU.childmap[AV]
-}function AO(AV){var AX=[];
-if(AV.type){AX[0]=AV
-}else{for(var AW in AV){if(AW==="$"){AW="jQuery"
-}var AY=AV[AW];
-var AU={type:AW};
-if(AW==="jQuery"){AU.func=AY[0];
-AU.args=AY.slice(1)
-}else{if(AW==="addClass"||AW==="removeClass"){AU.classes=AY
-}else{if(AW==="attrs"){AU.attributes=AY
-}else{if(AW==="identify"){AU.key=AY
-}}}}AX[AX.length]=AU
-}}return AX
-}function t(AW,Aa,Ad,AY){O.idMap=O.idMap||{};
-for(var AV=0;
-AV<Aa.length;
-++AV){var AU=Aa[AV];
-var AX=AU.type;
-if(!AX){var AZ=AO(AU);
-t(AW,AZ,Ad,AY);
+}}++G
+}if(!F&&(G==C.length||!C[G].rsfID)){--G
+}BH(C,D,G);
+return G
+}var Al={};
+function Az(){if(!Al.iselide){AX+="<"+Al.uselump.tagname
+}}function A6(){if(!Al.iselide){AX+="</"+Al.uselump.tagname+">"
+}}function A4(){BH(Al.uselump.parent.lumps,Al.uselump.lumpindex+1,Al.close.lumpindex+(Al.iselide?0:1))
+}function Bd(){if(!Al.iselide){AX+=Ab.dumpAttributes(Al.attrcopy)
+}BO()
+}function Ah(){if(Al.iselide){Bd()
+}else{AX+=Ab.dumpAttributes(Al.attrcopy);
+AX+=">";
+Al.nextpos=Al.endopen.lumpindex
+}}function BO(){if(Al.endopen.lumpindex===Al.close.lumpindex){if(!Al.iselide){AX+="/>"
+}}else{if(!Al.iselide){AX+=">"
+}BH(Al.uselump.parent.lumps,Al.endopen.lumpindex,Al.close.lumpindex+(Al.iselide?0:1))
+}}function BN(A){if(BX(A)){BE(A)
+}else{Bd()
+}}function At(A){if(Al.iselide){BN(Al.value)
+}else{if(BX(A)){BE(A)
+}else{Ah()
+}}}function BE(A){AX+=Ab.dumpAttributes(Al.attrcopy);
+if(!Al.iselide){AX+=">"
+}AX+=Ab.XMLEncode(A.toString());
+A6()
+}function BX(A){return A!==null&&A!==undefined&&!Ay(A)
+}function Ay(A){return false
+}function Ac(B,A){return A
+}function Bc(B){AX+='<input type="hidden" ';
+var C=B.virtual;
+var A={};
+A[C?"id":"name"]=B.name;
+A.value=B.value;
+AX+=Ab.dumpAttributes(A);
+AX+=" />\n"
+}function BZ(A,F){var B=Al.uselump.tagname;
+var D=BP.applier;
+function C(){Ab.applyChange(Ab.byId(F),undefined,D)
+}if(BP.autoBind&&/input|select|textarea/.test(B)&&!A5[F]){var E=[{jQuery:["change",C]}];
+if(A9.browser.msie&&B==="input"&&/radio|checkbox/.test(Al.attrcopy.type)){E.push({jQuery:["click",C]})
+}Au(A,E,Al.attrcopy,F)
+}}function Av(A,B){if(A){var C=B?B:A;
+if(Ax&&C.submittingname&&C.valuebinding){Ax[C.submittingname]={name:C.submittingname,EL:C.valuebinding,oldvalue:C.value};
+BZ(A,A.fullID)
+}if(A.fossilizedbinding){Bc(A.fossilizedbinding)
+}if(A.fossilizedshaper){Bc(A.fossilizedshaper)
+}}}function BT(A){if(!A5[A.selection.fullID]){A5[A.selection.fullID]=true;
+Av(A.selection);
+Av(A.optionlist);
+Av(A.optionnames)
+}}Ab.NULL_STRING="\u25a9null\u25a9";
+var Ae={a:"href",link:"href",img:"src",frame:"src",script:"src",style:"src",input:"src",embed:"src",form:"action",applet:"codebase",object:"codebase"};
+function AY(A,B){var C=A.selection;
+return C.value&&typeof (C.value)!=="string"&&typeof (C.value.length)==="number"?A9.inArray(B,C.value,B)!==-1:C.value===B
+}function Bb(A,B){A=A.parent;
+if(B.indexOf("..::")===0){B=B.substring(4);
+A=A.parent
+}return A.childmap[B]
+}function AZ(E){var C=[];
+if(E.type){C[0]=E
+}else{for(var D in E){if(D==="$"){D="jQuery"
+}var B=E[D];
+var A={type:D};
+if(D==="jQuery"){A.func=B[0];
+A.args=B.slice(1)
+}else{if(D==="addClass"||D==="removeClass"){A.classes=B
+}else{if(D==="attrs"){A.attributes=B
+}else{if(D==="identify"){A.key=B
+}}}}C[C.length]=A
+}}return C
+}function Au(H,D,A,F){BP.idMap=BP.idMap||{};
+for(var I=0;
+I<D.length;
+++I){var J=D[I];
+var G=J.type;
+if(!G){var E=AZ(J);
+Au(H,E,A,F);
 continue
-}if(AX==="$"){AX=AU.type="jQuery"
-}if(AX==="jQuery"||AX==="event"||AX==="fluid"){var Ac=AS(Ad,AW,true,AY);
-AU.id=Ac;
-Y[Y.length]=AU
-}else{if(AX==="attrs"){e.extend(true,Ad,AU.attributes)
-}else{if(AX==="addClass"||AX==="removeClass"){var Ab={nodeType:1,className:Ad["class"]||""};
-e(Ab)[AX](AU.classes);
-Ad["class"]=Ab.className
-}else{if(AX==="identify"){var Ac=AS(Ad,AW,true,AY);
-O.idMap[AU.key]=Ac
-}}}}}}function x(AU,AV){if(!AU.decorators){return 
-}if(AU.decorators.length===undefined){AU.decorators=AO(AU.decorators)
-}t(AU,AU.decorators,AV)
-}function U(Aj){var Ab=AC.attrcopy;
-var AW=AC.uselump.parent.lumps;
-var Ad=AC.uselump.lumpindex;
-var Ah=Aj.componentType;
-var Am=AC.uselump.tagname;
-x(Aj,Ab);
-if(Ah==="UIMessage"){Ah="UIBound";
-if(!O.messageLocator){Aj.value="[No messageLocator is configured in options - please consult documentation on options.messageSource]"
-}else{Aj.value=O.messageLocator(Aj.messagekey,Aj.args)
-}}function AY(Ao,Ap){AM.fail("Error in component tree - UISelectChoice with id "+Ao.fullID+Ap)
-}if(Ah==="UIBound"||Ah==="UISelectChoice"){var Ae;
-if(Aj.choiceindex!==undefined){if(Aj.parentFullID){Ae=getAbsoluteComponent(view,Aj.parentFullID);
-if(!Ae){AY(Aj," has parentFullID of "+Aj.parentFullID+" which cannot be resolved")
-}}else{if(Aj.parentRelativeID!==undefined){Ae=C(Aj,Aj.parentRelativeID);
-if(!Ae){AY(Aj," has parentRelativeID of "+Aj.parentRelativeID+" which cannot be resolved")
-}}else{AY(Aj," does not have either parentFullID or parentRelativeID set")
-}}y(Ae.selection);
-K(Ae)
-}var Aa=Ae?Ae.selection.submittingname:Aj.submittingname;
-if(Am==="input"||Am==="textarea"){if(!Ae){Aa=y(Aj)
-}if(Aa!==undefined){Ab.name=Aa
-}}s(Aj,Ae?Ae.selection:null);
-if(typeof (Aj.value)==="boolean"||Ab.type==="radio"||Ab.type==="checkbox"){var Ac;
-var Al=Aj.value;
-if(Aj.choiceindex!==undefined){if(!Ae.optionlist.value){AM.fail("Error in component tree - selection control with full ID "+Ae.fullID+" has no values")
-}Ac=Ae.optionlist.value[Aj.choiceindex];
-Al=AP(Ae,Ac)
-}if(G(Al)){if(Al){Ab.checked="checked"
-}else{delete Ab.checked
-}}Ab.value=Ac?Ac:"true";
-Q(null)
-}else{if(Aj.value instanceof Array){j()
-}else{var Ai=Ae?Ae[Am==="textarea"||Am==="input"?"optionlist":"optionnames"].value[Aj.choiceindex]:Aj.value;
-if(Am==="textarea"){if(p(Ai)&&Aj.willinput){Ai=""
-}Q(Ai)
-}else{if(Am==="input"){if(Aj.willinput||G(Ai)){Ab.value=Ai
-}Q(null)
-}else{delete Ab.name;
-u(Ai)
-}}}}}else{if(Ah==="UISelect"){E(Aj,Aj.selection.fullID);
-var AV=Am==="select";
-var AZ=false;
-if(Aj.selection.value instanceof Array){AZ=true;
-if(AV){Ab.multiple="multiple"
-}}y(Aj.selection,Ab.id);
-if(AV){if(Aj.selection.willinput!==false){Ab.name=Aj.selection.submittingname
-}}AQ+=AM.dumpAttributes(Ab);
-if(AV){AQ+=">";
-var AX=Aj.optionlist.value;
-var Ag=Aj.optionnames===null||Aj.optionnames===undefined||!Aj.optionnames.value?AX:Aj.optionnames.value;
-if(!Ag||!Ag.length){AM.fail("Error in component tree - UISelect component with fullID "+Aj.fullID+" does not have optionnames set")
-}for(var Ak=0;
-Ak<Ag.length;
-++Ak){AQ+='<option value="';
-var Ai=AX[Ak];
-if(Ai===null){Ai=AM.NULL_STRING
-}AQ+=AM.XMLEncode(Ai);
-if(AP(Aj,Ai)){AQ+='" selected="selected'
-}AQ+='">';
-AQ+=AM.XMLEncode(Ag[Ak]);
-AQ+="</option>\n"
-}h()
-}else{P()
-}K(Aj)
-}else{if(Ah==="UILink"){var Af=AJ[Am];
-if(Af){var AU=Aj.target.value;
-if(!G(AU)){AU=Ab[attname]
-}else{AU=AL(AC.uselump.parent,AU)
-}Ab[Af]=AU
-}var Ai=Aj.linktext.value;
-if(!G(Ai)){AG()
-}else{Q(Ai)
-}}else{if(Aj.markup!==undefined){var An=Aj.markup;
-if(An===null){AQ+=AM.dumpAttributes(Ab);
-AQ+=">";
-j()
-}else{if(!AC.iselide){AQ+=AM.dumpAttributes(Ab);
-AQ+=">"
-}AQ+=An;
-h()
-}}else{}}}}}function AS(AX,AW,AV,AZ){if(!AV){delete AX["rsf:id"]
-}if(AZ!==undefined){AX.id=AZ
-}else{if(AX.id||AV){AX.id=AW.fullID
-}}var AY=1;
-var AU=AX.id;
-while(O.document.getElementById(AX.id)){AX.id=AU+"-"+(AY++)
-}return AX.id
-}function R(AU){var AY;
-var AW=AC.attrcopy["for"];
-if(AW!==undefined){AY="for"
-}else{AW=AC.attrcopy.headers;
-if(AW!==undefined){AY="headers"
-}}if(!AY){return 
-}var AX=AC.uselump.tagname;
-if(AY==="for"&&AX!=="label"){return 
-}if(AY==="headers"&&AX!=="td"&&AX!=="th"){return 
-}var AV=J[D(AC.uselump.parent,AU,AW)];
-if(AV!==undefined){AC.attrcopy[AY]=AV
-}}function v(AU){AQ+=("<!-- "+AM.XMLEncode(AU)+"-->")
-}function AD(AU){AQ+='<span style="background-color:#FF466B;color:white;padding:1px;">';
-AQ+=AU;
-AQ+="</span><br/>"
-}function V(AU){var AV=AU.fullID;
-return !AV?"component tree root":"full path "+AV
-}function d(AZ,Ai,Ae){var Ag=Ae.lumpindex;
-var AW=Ae.parent.lumps;
-var Af=-1;
-var Ah=AW[Ag+1];
-var AY=Ae.close_tag;
-Af=AY.lumpindex+1;
-var Ad=Ae.downmap?Ae.downmap["payload-component"]:null;
-var AV=Ad?Ad[0]:null;
-var AU=Ae.rsfID.charCodeAt(0)===126;
-var Ac=Ah;
-var AX=AY;
-var Ab=Ae;
-var Aa={};
-e.extend(true,Aa,(AV===null?Ae:AV).attributemap);
-AC.attrcopy=Aa;
-AC.uselump=Ab;
-AC.endopen=Ac;
-AC.close=AX;
-AC.nextpos=Af;
-AC.iselide=AU;
-R(AZ);
-if(Ai===null){if(Ae.rsfID.indexOf("scr=")===(AU?1:0)){var Aj=Ae.rsfID.substring(4+(AU?1:0));
-if(Aj==="ignore"){Af=AC.close.lumpindex+1
-}else{o();
-AG();
-Af=AC.endopen.lumpindex
-}}}else{if(AV){AC.endopen=AW[AV.lumpindex+1];
-AC.close=AV.close_tag;
-AC.uselump=AV;
-W(AW,Ag,AV.lumpindex);
-Ag=AV.lumpindex
-}AS(Aa,Ai);
-o();
-U(Ai);
-if(AV!==null){if(AC.nextpos===Af){W(AW,AC.close.lumpindex+1,AY.lumpindex+1)
-}}Af=AC.nextpos
-}return Af
-}function n(AX,AU){var AW=AU.parent;
-var AV=AW.lumps[AU.lumpindex+1];
-if(AX.children!==undefined){S(AX,AU)
-}else{d(AX.parent,AX,AU)
-}z(AX,AU,AV)
-}function f(AX,AY,AW){if(AY.indexOf("msg=")===0){var AU=AY.substring(4);
-return{componentType:"UIMessage",messagekey:AU}
-}while(AX){var AV=AX.childmap[AY];
-if(AV){return AV
-}AX=AX.parent
+}if(G==="$"){G=J.type="jQuery"
+}if(G==="jQuery"||G==="event"||G==="fluid"){var B=AV(A,H,true,F);
+J.id=B;
+BF[BF.length]=J
+}else{if(G==="attrs"){A9.extend(true,A,J.attributes)
+}else{if(G==="addClass"||G==="removeClass"){var C={nodeType:1,className:A["class"]||""};
+A9(C)[G](J.classes);
+A["class"]=C.className
+}else{if(G==="identify"){var B=AV(A,H,true,F);
+BP.idMap[J.key]=B
+}}}}}}function Aq(A,B){if(!A.decorators){return 
+}if(A.decorators.length===undefined){A.decorators=AZ(A.decorators)
+}Au(A,A.decorators,B)
+}function BJ(N){var B=Al.attrcopy;
+var G=Al.uselump.parent.lumps;
+var T=Al.uselump.lumpindex;
+var P=N.componentType;
+var K=Al.uselump.tagname;
+Aq(N,B);
+if(P==="UIMessage"){P="UIBound";
+if(!BP.messageLocator){N.value="[No messageLocator is configured in options - please consult documentation on options.messageSource]"
+}else{N.value=BP.messageLocator(N.messagekey,N.args)
+}}function E(V,U){Ab.fail("Error in component tree - UISelectChoice with id "+V.fullID+U)
+}if(P==="UIBound"||P==="UISelectChoice"){var S;
+if(N.choiceindex!==undefined){if(N.parentFullID){S=getAbsoluteComponent(view,N.parentFullID);
+if(!S){E(N," has parentFullID of "+N.parentFullID+" which cannot be resolved")
+}}else{if(N.parentRelativeID!==undefined){S=Bb(N,N.parentRelativeID);
+if(!S){E(N," has parentRelativeID of "+N.parentRelativeID+" which cannot be resolved")
+}}else{E(N," does not have either parentFullID or parentRelativeID set")
+}}Ap(S.selection);
+BT(S)
+}var C=S?S.selection.submittingname:N.submittingname;
+if(K==="input"||K==="textarea"){if(!S){C=Ap(N)
+}if(C!==undefined){B.name=C
+}}Av(N,S?S.selection:null);
+if(typeof (N.value)==="boolean"||B.type==="radio"||B.type==="checkbox"){var A;
+var L=N.value;
+if(N.choiceindex!==undefined){if(!S.optionlist.value){Ab.fail("Error in component tree - selection control with full ID "+S.fullID+" has no values")
+}A=S.optionlist.value[N.choiceindex];
+L=AY(S,A)
+}if(BX(L)){if(L){B.checked="checked"
+}else{delete B.checked
+}}B.value=A?A:"true";
+BN(null)
+}else{if(N.value instanceof Array){A4()
+}else{var O=S?S[K==="textarea"||K==="input"?"optionlist":"optionnames"].value[N.choiceindex]:N.value;
+if(K==="textarea"){if(Ay(O)&&N.willinput){O=""
+}BN(O)
+}else{if(K==="input"){if(N.willinput||BX(O)){B.value=O
+}BN(null)
+}else{delete B.name;
+At(O)
+}}}}}else{if(P==="UISelect"){BZ(N,N.selection.fullID);
+var H=K==="select";
+var D=false;
+if(N.selection.value instanceof Array){D=true;
+if(H){B.multiple="multiple"
+}}Ap(N.selection,B.id);
+if(H){if(N.selection.willinput!==false){B.name=N.selection.submittingname
+}}AX+=Ab.dumpAttributes(B);
+if(H){AX+=">";
+var F=N.optionlist.value;
+var Q=N.optionnames===null||N.optionnames===undefined||!N.optionnames.value?F:N.optionnames.value;
+if(!Q||!Q.length){Ab.fail("Error in component tree - UISelect component with fullID "+N.fullID+" does not have optionnames set")
+}for(var M=0;
+M<Q.length;
+++M){AX+='<option value="';
+var O=F[M];
+if(O===null){O=Ab.NULL_STRING
+}AX+=Ab.XMLEncode(O);
+if(AY(N,O)){AX+='" selected="selected'
+}AX+='">';
+AX+=Ab.XMLEncode(Q[M]);
+AX+="</option>\n"
+}A6()
+}else{BO()
+}BT(N)
+}else{if(P==="UILink"){var R=Ae[K];
+if(R){var I=N.target.value;
+if(!BX(I)){I=B[attname]
+}else{I=Ac(Al.uselump.parent,I)
+}B[R]=I
+}var O=N.linktext.value;
+if(!BX(O)){Ah()
+}else{BN(O)
+}}else{if(N.markup!==undefined){var J=N.markup;
+if(J===null){AX+=Ab.dumpAttributes(B);
+AX+=">";
+A4()
+}else{if(!Al.iselide){AX+=Ab.dumpAttributes(B);
+AX+=">"
+}AX+=J;
+A6()
+}}else{}}}}}function AV(D,E,F,B){if(!F){delete D["rsf:id"]
+}if(B!==undefined){D.id=B
+}else{if(D.id||F){D.id=E.fullID
+}}var C=1;
+var A=D.id;
+while(BP.document.getElementById(D.id)){D.id=A+"-"+(C++)
+}return D.id
+}function BM(A){var B;
+var D=Al.attrcopy["for"];
+if(D!==undefined){B="for"
+}else{D=Al.attrcopy.headers;
+if(D!==undefined){B="headers"
+}}if(!B){return 
+}var C=Al.uselump.tagname;
+if(B==="for"&&C!=="label"){return 
+}if(B==="headers"&&C!=="td"&&C!=="th"){return 
+}var E=BU[Ba(Al.uselump.parent,A,D)];
+if(E!==undefined){Al.attrcopy[B]=E
+}}function As(A){AX+=("<!-- "+Ab.XMLEncode(A)+"-->")
+}function Ak(A){AX+='<span style="background-color:#FF466B;color:white;padding:1px;">';
+AX+=A;
+AX+="</span><br/>"
+}function BI(A){var B=A.fullID;
+return !B?"component tree root":"full path "+B
+}function BA(E,L,P){var N=P.lumpindex;
+var H=P.parent.lumps;
+var O=-1;
+var M=H[N+1];
+var F=P.close_tag;
+O=F.lumpindex+1;
+var A=P.downmap?P.downmap["payload-component"]:null;
+var I=A?A[0]:null;
+var J=P.rsfID.charCodeAt(0)===126;
+var B=M;
+var G=F;
+var C=P;
+var D={};
+A9.extend(true,D,(I===null?P:I).attributemap);
+Al.attrcopy=D;
+Al.uselump=C;
+Al.endopen=B;
+Al.close=G;
+Al.nextpos=O;
+Al.iselide=J;
+BM(E);
+if(L===null){if(P.rsfID.indexOf("scr=")===(J?1:0)){var K=P.rsfID.substring(4+(J?1:0));
+if(K==="ignore"){O=Al.close.lumpindex+1
+}else{Az();
+Ah();
+O=Al.endopen.lumpindex
+}}}else{if(I){Al.endopen=H[I.lumpindex+1];
+Al.close=I.close_tag;
+Al.uselump=I;
+BH(H,N,I.lumpindex);
+N=I.lumpindex
+}AV(D,L);
+Az();
+BJ(L);
+if(I!==null){if(Al.nextpos===O){BH(H,Al.close.lumpindex+1,F.lumpindex+1)
+}}O=Al.nextpos
+}return O
+}function A0(B,A){var C=A.parent;
+var D=C.lumps[A.lumpindex+1];
+if(B.children!==undefined){BL(B,A)
+}else{BA(B.parent,B,A)
+}Ao(B,A,D)
+}function A8(C,B,D){if(B.indexOf("msg=")===0){var A=B.substring(4);
+return{componentType:"UIMessage",messagekey:A}
+}while(C){var E=C.childmap[B];
+if(E){return E
+}C=C.parent
 }return null
-}function AH(AV,AW){var AU;
-while(AV){AU=AV.childmap[AW];
-if(AU){break
-}AV=AV.parent
-}return AU
-}function X(AW,AX){var AV=AM.SplitID(AX.ID);
-var AU=AW.downmap[AX.ID];
-if(AU===null){AU=AW.downmap[AV.prefix+":"]
-}return AU===null?null:AU[0]
-}function z(Ac,AW,Ai){var Al=Ai.lumpindex;
-var Ao=AW.nestingdepth;
-var Ad=AW.parent;
-if(w){var AU={}
-}while(true){Al=M(Ad.lumps,Al,Ao,!AW.elide,false);
-if(Al===Ad.lumps.length){break
-}var Ag=Ad.lumps[Al];
-var Ah=Ag.rsfID;
-if(Ag.nestingdepth<Ao||Ah===undefined){break
-}if(Ah.charCodeAt(0)===126){Ah=Ah.substring(1)
-}if(Ah.indexOf(":")!==-1){var Aj=AM.getPrefix(Ah);
-var AX=AH(Ac,Aj);
-var AZ=Ag.uplump.finallump[Aj];
-var Aa=AZ.close_tag;
-if(AX){for(var Ak=0;
-Ak<AX.length;
-++Ak){var AY=AX[Ak];
-if(AY.children){var Am=r[AY.fullID];
-if(Am){if(w){v("Branching for "+AY.fullID+" from "+AM.debugLump(Ag)+" to "+AM.debugLump(Am))
-}n(AY,Am);
-if(w){v("Branch returned for "+AY.fullID+AM.debugLump(Ag)+" to "+AM.debugLump(Am))
-}}else{if(w){AD("No matching template branch found for branch container with full ID "+AY.fullID+" rendering from parent template branch "+AM.debugLump(Ai))
-}}}else{var Am=X(AW,AY);
-if(!Am){if(w){AD("Repetitive leaf with full ID "+AY.fullID+" could not be rendered from parent template branch "+AM.debugLump(Ai))
+}function Ag(C,B){var A;
+while(C){A=C.childmap[B];
+if(A){break
+}C=C.parent
+}return A
+}function BG(C,B){var D=Ab.SplitID(B.ID);
+var A=C.downmap[B.ID];
+if(A===null){A=C.downmap[D.prefix+":"]
+}return A===null?null:A[0]
+}function Ao(A,G,P){var M=P.lumpindex;
+var J=G.nestingdepth;
+var U=G.parent;
+if(Ar){var I={}
+}while(true){M=BR(U.lumps,M,J,!G.elide,false);
+if(M===U.lumps.length){break
+}var R=U.lumps[M];
+var Q=R.rsfID;
+if(R.nestingdepth<J||Q===undefined){break
+}if(Q.charCodeAt(0)===126){Q=Q.substring(1)
+}if(Q.indexOf(":")!==-1){var O=Ab.getPrefix(Q);
+var F=Ag(A,O);
+var D=R.uplump.finallump[O];
+var C=D.close_tag;
+if(F){for(var N=0;
+N<F.length;
+++N){var E=F[N];
+if(E.children){var L=Aw[E.fullID];
+if(L){if(Ar){As("Branching for "+E.fullID+" from "+Ab.debugLump(R)+" to "+Ab.debugLump(L))
+}A0(E,L);
+if(Ar){As("Branch returned for "+E.fullID+Ab.debugLump(R)+" to "+Ab.debugLump(L))
+}}else{if(Ar){Ak("No matching template branch found for branch container with full ID "+E.fullID+" rendering from parent template branch "+Ab.debugLump(P))
+}}}else{var L=BG(G,E);
+if(!L){if(Ar){Ak("Repetitive leaf with full ID "+E.fullID+" could not be rendered from parent template branch "+Ab.debugLump(P))
 }continue
-}var An=d(Ac,AY,Am);
-var Af=An<Ad.lumps.lengtn&&Ad.lumps[An].nestingdepth>=Am.nestingdepth;
-var Ab=AY.children?AY:Ac;
-if(Af){z(Ab,Am,Ad.lumps[An]);
-An=Am.close_tag.lumpindex+1
-}if(Ak!==AX.length-1){if(An<Aa.lumpindex){M(Ad.lumps,An,Am.nestingdepth-1,false,false)
-}}else{M(Ad.lumps,An,Am.nestingdepth,true,false)
-}}}}else{if(w){AD("No branch container with prefix "+Aj+": found in container "+V(Ac)+" rendering at template position "+AM.debugLump(Ai)+", skipping")
-}}Al=Aa.lumpindex+1;
-if(w){v("Stack returned from branch for ID "+Ah+" to "+AM.debugLump(Ai)+": skipping from "+AM.debugLump(Ag)+" to "+AM.debugLump(Aa))
-}}else{var Ae;
-if(Ah){if(w){AU[Ah]=true
-}Ae=f(Ac,Ah,Ag)
-}if(Ae&&Ae.children!==undefined){n(Ae);
-Al=Ag.close_tag.lumpindex+1
-}else{Al=d(Ac,Ae,Ag)
-}}if(Al===Ad.lumps.length){break
-}}if(w){var AX=Ac.children;
-for(var AV=0;
-AV<AX.length;
-++AV){var AY=AX[AV];
-if(!(AY.ID.indexOf(":")!==-1)&&!AU[AY.ID]){AD("Leaf child component "+AY.componentType+" with full ID "+AY.fullID+" could not be found within template "+AM.debugLump(Ai))
-}}}}function l(AU){W(AU.parent.lumps,AU.lumpindex,AU.close_tag.lumpindex+1)
-}function AB(){for(var AW in k){var AU=k[AW];
-for(var AV=0;
-AV<AU.length;
-++AV){l(AU[AV])
-}}}function T(){for(var AX=0;
-AX<Y.length;
-++AX){var AU=Y[AX];
-var AZ=AM.byId(AU.id);
-if(!AZ){AM.fail("Error during rendering - component with id "+AU.id+" which has a queued decorator was not found in the output markup")
-}if(AU.type==="jQuery"){var AW=e(AZ);
-AW[AU.func].apply(AW,e.makeArray(AU.args))
-}else{if(AU.type==="fluid"){var AV=AU.args;
-if(!AV){if(!AU.container){AU.container=AZ
-}AV=[AU.container,AU.options]
-}var AY=AM.invokeGlobalFunction(AU.func,AV,AM);
-AU.that=AY
-}else{if(AU.type==="event"){AZ[AU.event]=AU.handler
-}}}}}AM.ComponentReference=function(AU){this.reference=AU
+}var K=BA(A,E,L);
+var S=K<U.lumps.lengtn&&U.lumps[K].nestingdepth>=L.nestingdepth;
+var B=E.children?E:A;
+if(S){Ao(B,L,U.lumps[K]);
+K=L.close_tag.lumpindex+1
+}if(N!==F.length-1){if(K<C.lumpindex){BR(U.lumps,K,L.nestingdepth-1,false,false)
+}}else{BR(U.lumps,K,L.nestingdepth,true,false)
+}}}}else{if(Ar){Ak("No branch container with prefix "+O+": found in container "+BI(A)+" rendering at template position "+Ab.debugLump(P)+", skipping")
+}}M=C.lumpindex+1;
+if(Ar){As("Stack returned from branch for ID "+Q+" to "+Ab.debugLump(P)+": skipping from "+Ab.debugLump(R)+" to "+Ab.debugLump(C))
+}}else{var T;
+if(Q){if(Ar){I[Q]=true
+}T=A8(A,Q,R)
+}if(T&&T.children!==undefined){A0(T);
+M=R.close_tag.lumpindex+1
+}else{M=BA(A,T,R)
+}}if(M===U.lumps.length){break
+}}if(Ar){var F=A.children;
+for(var H=0;
+H<F.length;
+++H){var E=F[H];
+if(!(E.ID.indexOf(":")!==-1)&&!I[E.ID]){Ak("Leaf child component "+E.componentType+" with full ID "+E.fullID+" could not be found within template "+Ab.debugLump(P))
+}}}}function A2(A){BH(A.parent.lumps,A.lumpindex,A.close_tag.lumpindex+1)
+}function Am(){for(var B in A3){var A=A3[B];
+for(var C=0;
+C<A.length;
+++C){A2(A[C])
+}}}function BK(){for(var D=0;
+D<BF.length;
+++D){var A=BF[D];
+var B=Ab.byId(A.id);
+if(!B){Ab.fail("Error during rendering - component with id "+A.id+" which has a queued decorator was not found in the output markup")
+}if(A.type==="jQuery"){var E=A9(B);
+E[A.func].apply(E,A9.makeArray(A.args))
+}else{if(A.type==="fluid"){var F=A.args;
+if(!F){if(!A.container){A.container=B
+}F=[A.container,A.options]
+}var C=Ab.invokeGlobalFunction(A.func,F,Ab);
+A.that=C
+}else{if(A.type==="event"){B[A.event]=A.handler
+}}}}}Ab.ComponentReference=function(A){this.reference=A
 };
-AM.explode=function(AX,AU){var AW=[];
-for(var AV in AX){var AY=AU===undefined?AV:AU+"."+AV;
-AW[AW.length]={ID:AV,value:AX[AV],valuebinding:AY}
-}return AW
+Ab.explode=function(C,A){var D=[];
+for(var E in C){var B=A===undefined?E:A+"."+E;
+D[D.length]={ID:E,value:C[E],valuebinding:B}
+}return D
 };
-AM.explodeSelectionToInputs=function(AU,AV){return AM.transform(AU,function(AX,AW){return{ID:AV.rowID,children:[{ID:AV.inputID,parentRelativeID:"..::"+AV.selectID,choiceindex:AW},{ID:AV.labelID,parentRelativeID:"..::"+AV.selectID,choiceindex:AW}]}
+Ab.explodeSelectionToInputs=function(A,B){return Ab.transform(A,function(C,D){return{ID:B.rowID,children:[{ID:B.inputID,parentRelativeID:"..::"+B.selectID,choiceindex:D},{ID:B.labelID,parentRelativeID:"..::"+B.selectID,choiceindex:D}]}
 })
 };
-AM.resolveMessageSource=function(AU){if(AU.type==="data"){if(AU.url===undefined){return AM.messageLocator(AU.messages)
+Ab.resolveMessageSource=function(A){if(A.type==="data"){if(A.url===undefined){return Ab.messageLocator(A.messages)
 }else{}}};
-AM.makeBranches=function(){var AX;
-var AV;
-for(var AU=0;
-AU<arguments.length;
-++AU){var AW=arguments[AU];
-var AY;
-if(typeof (AW)==="string"){AY={ID:AW}
-}else{if(AW instanceof Array){AY={ID:AW[0],jointID:AW[1]}
-}else{e.extend(true,AV,AW);
-AY=AV
-}}if(AV&&AY!==AV){if(!AV.children){AV.children=[]
-}AV.children[AV.children.length]=AY
-}AV=AY;
-if(!AX){AX=AY
-}}return AX
+Ab.makeBranches=function(){var C;
+var E;
+for(var A=0;
+A<arguments.length;
+++A){var D=arguments[A];
+var B;
+if(typeof (D)==="string"){B={ID:D}
+}else{if(D instanceof Array){B={ID:D[0],jointID:D[1]}
+}else{A9.extend(true,E,D);
+B=E
+}}if(E&&B!==E){if(!E.children){E.children=[]
+}E.children[E.children.length]=B
+}E=B;
+if(!C){C=B
+}}return C
 };
-AM.renderTemplates=function(AX,AU,AV,AW){AV=AV||{};
-AU=AU||{};
-w=AV.debugMode;
-if(!AV.messageLocator&&AV.messageSource){AV.messageLocator=AM.resolveMessageSource(AV.messageSource)
-}AV.document=AV.document||document;
-q=AW;
-Y=[];
-AU=AN(AU,AV.model);
-var AY=AX[0];
-AT(AX.globalmap,AU,AY.rootlump);
-AQ="";
-i={};
-O=AV;
-AB();
-z(AU,AY.rootlump,AY.lumps[AY.firstdocumentindex]);
-return AQ
+Ab.renderTemplates=function(C,A,E,D){E=E||{};
+A=A||{};
+Ar=E.debugMode;
+if(!E.messageLocator&&E.messageSource){E.messageLocator=Ab.resolveMessageSource(E.messageSource)
+}E.document=E.document||document;
+Ax=D;
+BF=[];
+A=Aa(A,E.model);
+var B=C[0];
+AU(C.globalmap,A,B.rootlump);
+AX="";
+A5={};
+BP=E;
+Am();
+Ao(A,B.rootlump,B.lumps[B.firstdocumentindex]);
+return AX
 };
-AM.reRender=function(AZ,AV,Ab,Aa){Aa=Aa||{};
-AV=AM.unwrap(AV);
-var AX=AM.getLastFocusedElement?AM.getLastFocusedElement():null;
-var Ac;
-if(AX&&AM.dom.isContainer(AV,AX)){Ac=AX.id
-}if(e.browser.msie){e(AV).empty()
-}else{AV.innerHTML=""
-}var AY={};
-var AU=AM.renderTemplates(AZ,Ab,Aa,AY);
-if(Aa.renderRaw){AU=AM.XMLEncode(AU);
-AU=AU.replace(/\n/g,"<br/>")
-}if(Aa.model){AM.bindFossils(AV,Aa.model,AY)
-}if(e.browser.msie){e(AV).html(AU)
-}else{AV.innerHTML=AU
-}T();
-if(Ac){var AW=AM.byId(Ac);
-if(AW){e(AW).focus()
-}}return AZ
+Ab.reRender=function(D,H,B,C){C=C||{};
+H=Ab.unwrap(H);
+var F=Ab.getLastFocusedElement?Ab.getLastFocusedElement():null;
+var A;
+if(F&&Ab.dom.isContainer(H,F)){A=F.id
+}if(A9.browser.msie){A9(H).empty()
+}else{H.innerHTML=""
+}var E={};
+var I=Ab.renderTemplates(D,B,C,E);
+if(C.renderRaw){I=Ab.XMLEncode(I);
+I=I.replace(/\n/g,"<br/>")
+}if(C.model){Ab.bindFossils(H,C.model,E)
+}if(A9.browser.msie){A9(H).html(I)
+}else{H.innerHTML=I
+}BK();
+if(A){var G=Ab.byId(A);
+if(G){A9(G).focus()
+}}return D
 };
-function a(AU){var AV=AM.dom.iterateDom(AU,function(AX){return AX.nodeType===8||AX.nodeType===4?"stop":null
+function BD(A){var C=Ab.dom.iterateDom(A,function(D){return D.nodeType===8||D.nodeType===4?"stop":null
 },true);
-var AW=AV.nodeValue;
-if(AW.indexOf("[CDATA[")===0){return AW.substring(6,AW.length-2)
-}else{return AW
-}}AM.extractTemplate=function(AV,AU){if(!AU){return AV.innerHTML
-}else{return a(AV)
+var B=C.nodeValue;
+if(B.indexOf("[CDATA[")===0){return B.substring(6,B.length-2)
+}else{return B
+}}Ab.extractTemplate=function(B,A){if(!A){return B.innerHTML
+}else{return BD(B)
 }};
-AM.selfRender=function(AY,AU,AW){AW=AW||{};
-AY=AM.unwrap(AY);
-var AV={base:{resourceText:AM.extractTemplate(AY,AW.armouring),href:".",resourceKey:".",cutpoints:AW.cutpoints}};
-var AX=AM.parseTemplates(AV,["base"],AW);
-return AM.reRender(AX,AY,AU,AW)
+Ab.selfRender=function(B,A,D){D=D||{};
+B=Ab.unwrap(B);
+var E={base:{resourceText:Ab.extractTemplate(B,D.armouring),href:".",resourceKey:".",cutpoints:D.cutpoints}};
+var C=Ab.parseTemplates(E,["base"],D);
+return Ab.reRender(C,B,A,D)
 }
 })(jQuery,fluid_1_1);

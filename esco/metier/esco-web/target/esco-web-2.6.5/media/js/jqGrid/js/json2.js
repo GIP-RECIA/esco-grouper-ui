@@ -1,38 +1,38 @@
-var JSON={stringify:function stringify(E){var D,B,F,C="",A;
-switch(typeof E){case"object":if(E){if(E.constructor==Array){for(B=0;
-B<E.length;
-++B){A=stringify(E[B]);
-if(C){C+=","
-}C+=A
-}return"["+C+"]"
-}else{if(typeof E.toString!="undefined"){for(B in E){A=stringify(E[B]);
-if(typeof A!="function"){if(C){C+=","
-}C+=stringify(B)+":"+A
-}}return"{"+C+"}"
+var JSON={stringify:function stringify(I){var J,L,H,K="",G;
+switch(typeof I){case"object":if(I){if(I.constructor==Array){for(L=0;
+L<I.length;
+++L){G=stringify(I[L]);
+if(K){K+=","
+}K+=G
+}return"["+K+"]"
+}else{if(typeof I.toString!="undefined"){for(L in I){G=stringify(I[L]);
+if(typeof G!="function"){if(K){K+=","
+}K+=stringify(L)+":"+G
+}}return"{"+K+"}"
 }}}return"null";
-case"number":return isFinite(E)?String(E):"null";
-case"string":F=E.length;
-C='"';
-for(B=0;
-B<F;
-B+=1){D=E.charAt(B);
-if(D>=" "){if(D=="\\"||D=='"'){C+="\\"
-}C+=D
-}else{switch(D){case"\b":C+="\\b";
+case"number":return isFinite(I)?String(I):"null";
+case"string":H=I.length;
+K='"';
+for(L=0;
+L<H;
+L+=1){J=I.charAt(L);
+if(J>=" "){if(J=="\\"||J=='"'){K+="\\"
+}K+=J
+}else{switch(J){case"\b":K+="\\b";
 break;
-case"\f":C+="\\f";
+case"\f":K+="\\f";
 break;
-case"\n":C+="\\n";
+case"\n":K+="\\n";
 break;
-case"\r":C+="\\r";
+case"\r":K+="\\r";
 break;
-case"\t":C+="\\t";
+case"\t":K+="\\t";
 break;
-default:D=D.charCodeAt();
-C+="\\u00"+Math.floor(D/16).toString(16)+(D%16).toString(16)
-}}}return C+'"';
-case"boolean":return String(E);
-case"function":return E.toString();
+default:J=J.charCodeAt();
+K+="\\u00"+Math.floor(J/16).toString(16)+(J%16).toString(16)
+}}}return K+'"';
+case"boolean":return String(I);
+case"function":return I.toString();
 default:return"null"
 }},parse:function(jsonString){var js=jsonString;
 if(js.substr(0,9)=="while(1);"){js=js.substr(9)

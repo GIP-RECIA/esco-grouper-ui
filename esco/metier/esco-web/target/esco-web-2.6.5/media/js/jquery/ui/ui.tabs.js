@@ -1,222 +1,222 @@
-(function(A){A.widget("ui.tabs",{_init:function(){this._tabify(true)
-},_setData:function(B,C){if((/^selected/).test(B)){this.select(C)
-}else{this.options[B]=C;
+(function(B){B.widget("ui.tabs",{_init:function(){this._tabify(true)
+},_setData:function(D,A){if((/^selected/).test(D)){this.select(A)
+}else{this.options[D]=A;
 this._tabify()
-}},_tabId:function(B){return B.title&&B.title.replace(/\s/g,"_").replace(/[^A-Za-z0-9\-_:\.]/g,"")||this.options.idPrefix+A.data(B)
-},_sanitizeSelector:function(B){return B.replace(/:/g,"\\:")
-},_cookie:function(){var B=this.cookie||(this.cookie=this.options.cookie.name||"ui-tabs-"+A.data(this.list[0]));
-return A.cookie.apply(null,[B].concat(A.makeArray(arguments)))
-},_ui:function(C,B){return{tab:C,panel:B,index:this.$tabs.index(C)}
-},_tabify:function(B){this.list=this.element.is("div")?this.element.children("ul:first, ol:first").eq(0):this.element;
-this.$lis=A("li:has(a[href])",this.list);
-this.$tabs=this.$lis.map(function(){return A("a",this)[0]
+}},_tabId:function(A){return A.title&&A.title.replace(/\s/g,"_").replace(/[^A-Za-z0-9\-_:\.]/g,"")||this.options.idPrefix+B.data(A)
+},_sanitizeSelector:function(A){return A.replace(/:/g,"\\:")
+},_cookie:function(){var A=this.cookie||(this.cookie=this.options.cookie.name||"ui-tabs-"+B.data(this.list[0]));
+return B.cookie.apply(null,[A].concat(B.makeArray(arguments)))
+},_ui:function(A,D){return{tab:A,panel:D,index:this.$tabs.index(A)}
+},_tabify:function(R){this.list=this.element.is("div")?this.element.children("ul:first, ol:first").eq(0):this.element;
+this.$lis=B("li:has(a[href])",this.list);
+this.$tabs=this.$lis.map(function(){return B("a",this)[0]
 });
-this.$panels=A([]);
-var C=this,M=this.options;
-var F=/^#.+/;
-this.$tabs.each(function(S,Q){var R=A(Q).attr("href");
-if(F.test(R)){C.$panels=C.$panels.add(C._sanitizeSelector(R))
-}else{if(R!="#"){A.data(Q,"href.tabs",R);
-A.data(Q,"load.tabs",R.replace(/#.*$/,""));
-var U=C._tabId(Q);
-Q.href="#"+U;
-var T=A("#"+U);
-if(!T.length){T=A(M.panelTemplate).attr("id",U).addClass("ui-tabs-panel ui-widget-content ui-corner-bottom").insertAfter(C.$panels[S-1]||C.list);
-T.data("destroy.tabs",true)
-}C.$panels=C.$panels.add(T)
-}else{M.disabled.push(S+1)
+this.$panels=B([]);
+var Q=this,V=this.options;
+var c=/^#.+/;
+this.$tabs.each(function(E,G){var F=B(G).attr("href");
+if(c.test(F)){Q.$panels=Q.$panels.add(Q._sanitizeSelector(F))
+}else{if(F!="#"){B.data(G,"href.tabs",F);
+B.data(G,"load.tabs",F.replace(/#.*$/,""));
+var C=Q._tabId(G);
+G.href="#"+C;
+var D=B("#"+C);
+if(!D.length){D=B(V.panelTemplate).attr("id",C).addClass("ui-tabs-panel ui-widget-content ui-corner-bottom").insertAfter(Q.$panels[E-1]||Q.list);
+D.data("destroy.tabs",true)
+}Q.$panels=Q.$panels.add(D)
+}else{V.disabled.push(E+1)
 }}});
-if(B){if(this.element.is("div")){this.element.addClass("ui-tabs ui-widget ui-widget-content ui-corner-all")
+if(R){if(this.element.is("div")){this.element.addClass("ui-tabs ui-widget ui-widget-content ui-corner-all")
 }this.list.addClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all");
 this.$lis.addClass("ui-state-default ui-corner-top");
 this.$panels.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom");
-if(M.selected===undefined){if(location.hash){this.$tabs.each(function(R,Q){if(Q.hash==location.hash){M.selected=R;
+if(V.selected===undefined){if(location.hash){this.$tabs.each(function(C,D){if(D.hash==location.hash){V.selected=C;
 return false
 }})
-}else{if(M.cookie){M.selected=parseInt(C._cookie(),10)
-}else{if(this.$lis.filter(".ui-tabs-selected").length){M.selected=this.$lis.index(this.$lis.filter(".ui-tabs-selected"))
-}else{M.selected=0
-}}}}else{if(M.selected===null){M.selected=-1
-}}M.selected=((M.selected>=0&&this.$tabs[M.selected])||M.selected<0)?M.selected:0;
-M.disabled=A.unique(M.disabled.concat(A.map(this.$lis.filter(".ui-state-disabled"),function(R,Q){return C.$lis.index(R)
+}else{if(V.cookie){V.selected=parseInt(Q._cookie(),10)
+}else{if(this.$lis.filter(".ui-tabs-selected").length){V.selected=this.$lis.index(this.$lis.filter(".ui-tabs-selected"))
+}else{V.selected=0
+}}}}else{if(V.selected===null){V.selected=-1
+}}V.selected=((V.selected>=0&&this.$tabs[V.selected])||V.selected<0)?V.selected:0;
+V.disabled=B.unique(V.disabled.concat(B.map(this.$lis.filter(".ui-state-disabled"),function(C,D){return Q.$lis.index(C)
 }))).sort();
-if(A.inArray(M.selected,M.disabled)!=-1){M.disabled.splice(A.inArray(M.selected,M.disabled),1)
+if(B.inArray(V.selected,V.disabled)!=-1){V.disabled.splice(B.inArray(V.selected,V.disabled),1)
 }this.$panels.addClass("ui-tabs-hide");
 this.$lis.removeClass("ui-tabs-selected ui-state-active");
-if(M.selected>=0&&this.$tabs.length){this.$panels.eq(M.selected).removeClass("ui-tabs-hide");
-var H=["ui-tabs-selected ui-state-active"];
-if(M.deselectable){H.push("ui-tabs-deselectable")
-}this.$lis.eq(M.selected).addClass(H.join(" "));
-var L=function(){C._trigger("show",null,C._ui(C.$tabs[M.selected],C.$panels[M.selected]))
+if(V.selected>=0&&this.$tabs.length){this.$panels.eq(V.selected).removeClass("ui-tabs-hide");
+var a=["ui-tabs-selected ui-state-active"];
+if(V.deselectable){a.push("ui-tabs-deselectable")
+}this.$lis.eq(V.selected).addClass(a.join(" "));
+var W=function(){Q._trigger("show",null,Q._ui(Q.$tabs[V.selected],Q.$panels[V.selected]))
 };
-if(A.data(this.$tabs[M.selected],"load.tabs")){this.load(M.selected,L)
-}else{L()
-}}if(M.event!="mouseover"){var E=function(R,Q){if(Q.is(":not(.ui-state-disabled)")){Q.toggleClass("ui-state-"+R)
+if(B.data(this.$tabs[V.selected],"load.tabs")){this.load(V.selected,W)
+}else{W()
+}}if(V.event!="mouseover"){var d=function(C,D){if(D.is(":not(.ui-state-disabled)")){D.toggleClass("ui-state-"+C)
 }};
-this.$lis.bind("mouseover.tabs mouseout.tabs",function(){E("hover",A(this))
+this.$lis.bind("mouseover.tabs mouseout.tabs",function(){d("hover",B(this))
 });
-this.$tabs.bind("focus.tabs blur.tabs",function(){E("focus",A(this).parents("li:first"))
+this.$tabs.bind("focus.tabs blur.tabs",function(){d("focus",B(this).parents("li:first"))
 })
-}A(window).bind("unload",function(){C.$lis.add(C.$tabs).unbind(".tabs");
-C.$lis=C.$tabs=C.$panels=null
+}B(window).bind("unload",function(){Q.$lis.add(Q.$tabs).unbind(".tabs");
+Q.$lis=Q.$tabs=Q.$panels=null
 })
-}else{M.selected=this.$lis.index(this.$lis.filter(".ui-tabs-selected"))
-}if(M.cookie){this._cookie(M.selected,M.cookie)
-}for(var J=0,P;
-P=this.$lis[J];
-J++){A(P)[A.inArray(J,M.disabled)!=-1&&!A(P).hasClass("ui-tabs-selected")?"addClass":"removeClass"]("ui-state-disabled")
-}if(M.cache===false){this.$tabs.removeData("cache.tabs")
-}var D,K;
-if(M.fx){if(A.isArray(M.fx)){D=M.fx[0];
-K=M.fx[1]
-}else{D=K=M.fx
-}}function G(Q,R){Q.css({display:""});
-if(A.browser.msie&&R.opacity){Q[0].style.removeAttribute("filter")
-}}var N=K?function(Q,R){R.hide().removeClass("ui-tabs-hide").animate(K,500,function(){G(R,K);
-C._trigger("show",null,C._ui(Q,R[0]))
+}else{V.selected=this.$lis.index(this.$lis.filter(".ui-tabs-selected"))
+}if(V.cookie){this._cookie(V.selected,V.cookie)
+}for(var Y=0,S;
+S=this.$lis[Y];
+Y++){B(S)[B.inArray(Y,V.disabled)!=-1&&!B(S).hasClass("ui-tabs-selected")?"addClass":"removeClass"]("ui-state-disabled")
+}if(V.cache===false){this.$tabs.removeData("cache.tabs")
+}var A,X;
+if(V.fx){if(B.isArray(V.fx)){A=V.fx[0];
+X=V.fx[1]
+}else{A=X=V.fx
+}}function b(D,C){D.css({display:""});
+if(B.browser.msie&&C.opacity){D[0].style.removeAttribute("filter")
+}}var U=X?function(D,C){C.hide().removeClass("ui-tabs-hide").animate(X,500,function(){b(C,X);
+Q._trigger("show",null,Q._ui(D,C[0]))
 })
-}:function(Q,R){R.removeClass("ui-tabs-hide");
-C._trigger("show",null,C._ui(Q,R[0]))
+}:function(D,C){C.removeClass("ui-tabs-hide");
+Q._trigger("show",null,Q._ui(D,C[0]))
 };
-var O=D?function(R,Q,S){Q.animate(D,D.duration||"normal",function(){Q.addClass("ui-tabs-hide");
-G(Q,D);
-if(S){N(R,S)
+var T=A?function(D,E,C){E.animate(A,A.duration||"normal",function(){E.addClass("ui-tabs-hide");
+b(E,A);
+if(C){U(D,C)
 }})
-}:function(R,Q,S){Q.addClass("ui-tabs-hide");
-if(S){N(R,S)
+}:function(D,E,C){E.addClass("ui-tabs-hide");
+if(C){U(D,C)
 }};
-function I(S,U,Q,T){var R=["ui-tabs-selected ui-state-active"];
-if(M.deselectable){R.push("ui-tabs-deselectable")
-}U.removeClass("ui-state-default").addClass(R.join(" ")).siblings().removeClass(R.join(" ")).addClass("ui-state-default");
-O(S,Q,T)
-}this.$tabs.unbind(".tabs").bind(M.event+".tabs",function(){var T=A(this).parents("li:eq(0)"),Q=C.$panels.filter(":visible"),S=A(C._sanitizeSelector(this.hash));
-if((T.hasClass("ui-state-active")&&!M.deselectable)||T.hasClass("ui-state-disabled")||A(this).hasClass("ui-tabs-loading")||C._trigger("select",null,C._ui(this,S[0]))===false){this.blur();
+function Z(E,C,G,D){var F=["ui-tabs-selected ui-state-active"];
+if(V.deselectable){F.push("ui-tabs-deselectable")
+}C.removeClass("ui-state-default").addClass(F.join(" ")).siblings().removeClass(F.join(" ")).addClass("ui-state-default");
+T(E,G,D)
+}this.$tabs.unbind(".tabs").bind(V.event+".tabs",function(){var C=B(this).parents("li:eq(0)"),F=Q.$panels.filter(":visible"),D=B(Q._sanitizeSelector(this.hash));
+if((C.hasClass("ui-state-active")&&!V.deselectable)||C.hasClass("ui-state-disabled")||B(this).hasClass("ui-tabs-loading")||Q._trigger("select",null,Q._ui(this,D[0]))===false){this.blur();
 return false
-}M.selected=C.$tabs.index(this);
-if(M.deselectable){if(T.hasClass("ui-state-active")){M.selected=-1;
-if(M.cookie){C._cookie(M.selected,M.cookie)
-}T.removeClass("ui-tabs-selected ui-state-active ui-tabs-deselectable").addClass("ui-state-default");
-C.$panels.stop();
-O(this,Q);
+}V.selected=Q.$tabs.index(this);
+if(V.deselectable){if(C.hasClass("ui-state-active")){V.selected=-1;
+if(V.cookie){Q._cookie(V.selected,V.cookie)
+}C.removeClass("ui-tabs-selected ui-state-active ui-tabs-deselectable").addClass("ui-state-default");
+Q.$panels.stop();
+T(this,F);
 this.blur();
 return false
-}else{if(!Q.length){if(M.cookie){C._cookie(M.selected,M.cookie)
-}C.$panels.stop();
-var R=this;
-C.load(C.$tabs.index(this),function(){T.addClass("ui-tabs-selected ui-state-active ui-tabs-deselectable").removeClass("ui-state-default");
-N(R,S)
+}else{if(!F.length){if(V.cookie){Q._cookie(V.selected,V.cookie)
+}Q.$panels.stop();
+var E=this;
+Q.load(Q.$tabs.index(this),function(){C.addClass("ui-tabs-selected ui-state-active ui-tabs-deselectable").removeClass("ui-state-default");
+U(E,D)
 });
 this.blur();
 return false
-}}}if(M.cookie){C._cookie(M.selected,M.cookie)
-}C.$panels.stop();
-if(S.length){var R=this;
-C.load(C.$tabs.index(this),Q.length?function(){I(R,T,Q,S)
-}:function(){T.addClass("ui-tabs-selected ui-state-active").removeClass("ui-state-default");
-N(R,S)
+}}}if(V.cookie){Q._cookie(V.selected,V.cookie)
+}Q.$panels.stop();
+if(D.length){var E=this;
+Q.load(Q.$tabs.index(this),F.length?function(){Z(E,C,F,D)
+}:function(){C.addClass("ui-tabs-selected ui-state-active").removeClass("ui-state-default");
+U(E,D)
 })
 }else{throw"jQuery UI Tabs: Mismatching fragment identifier."
-}if(A.browser.msie){this.blur()
+}if(B.browser.msie){this.blur()
 }return false
 });
-if(M.event!="click"){this.$tabs.bind("click.tabs",function(){return false
+if(V.event!="click"){this.$tabs.bind("click.tabs",function(){return false
 })
-}},destroy:function(){var B=this.options;
+}},destroy:function(){var A=this.options;
 this.element.removeClass("ui-tabs ui-widget ui-widget-content ui-corner-all");
 this.list.unbind(".tabs").removeClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all").removeData("tabs");
-this.$tabs.each(function(){var C=A.data(this,"href.tabs");
-if(C){this.href=C
-}var D=A(this).unbind(".tabs");
-A.each(["href","load","cache"],function(E,F){D.removeData(F+".tabs")
+this.$tabs.each(function(){var F=B.data(this,"href.tabs");
+if(F){this.href=F
+}var E=B(this).unbind(".tabs");
+B.each(["href","load","cache"],function(D,C){E.removeData(C+".tabs")
 })
 });
-this.$lis.unbind(".tabs").add(this.$panels).each(function(){if(A.data(this,"destroy.tabs")){A(this).remove()
-}else{A(this).removeClass("ui-state-default ui-corner-top ui-tabs-selected ui-state-active ui-tabs-deselectable ui-state-disabled ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide")
+this.$lis.unbind(".tabs").add(this.$panels).each(function(){if(B.data(this,"destroy.tabs")){B(this).remove()
+}else{B(this).removeClass("ui-state-default ui-corner-top ui-tabs-selected ui-state-active ui-tabs-deselectable ui-state-disabled ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide")
 }});
-if(B.cookie){this._cookie(null,B.cookie)
-}},add:function(H,D,B){if(B==undefined){B=this.$tabs.length
-}var E=this,J=this.options;
-var C=A(J.tabTemplate.replace(/#\{href\}/g,H).replace(/#\{label\}/g,D));
-C.addClass("ui-state-default ui-corner-top").data("destroy.tabs",true);
-var I=H.indexOf("#")==0?H.replace("#",""):this._tabId(A("a:first-child",C)[0]);
-var F=A("#"+I);
-if(!F.length){F=A(J.panelTemplate).attr("id",I).data("destroy.tabs",true)
-}F.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide");
-if(B>=this.$lis.length){C.appendTo(this.list);
-F.appendTo(this.list[0].parentNode)
-}else{C.insertBefore(this.$lis[B]);
-F.insertBefore(this.$panels[B])
-}J.disabled=A.map(J.disabled,function(L,K){return L>=B?++L:L
+if(A.cookie){this._cookie(null,A.cookie)
+}},add:function(O,A,L){if(L==undefined){L=this.$tabs.length
+}var R=this,M=this.options;
+var K=B(M.tabTemplate.replace(/#\{href\}/g,O).replace(/#\{label\}/g,A));
+K.addClass("ui-state-default ui-corner-top").data("destroy.tabs",true);
+var N=O.indexOf("#")==0?O.replace("#",""):this._tabId(B("a:first-child",K)[0]);
+var Q=B("#"+N);
+if(!Q.length){Q=B(M.panelTemplate).attr("id",N).data("destroy.tabs",true)
+}Q.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom ui-tabs-hide");
+if(L>=this.$lis.length){K.appendTo(this.list);
+Q.appendTo(this.list[0].parentNode)
+}else{K.insertBefore(this.$lis[L]);
+Q.insertBefore(this.$panels[L])
+}M.disabled=B.map(M.disabled,function(C,D){return C>=L?++C:C
 });
 this._tabify();
-if(this.$tabs.length==1){C.addClass("ui-tabs-selected ui-state-active");
-F.removeClass("ui-tabs-hide");
-var G=A.data(this.$tabs[0],"load.tabs");
-if(G){this.load(0,function(){E._trigger("show",null,E._ui(E.$tabs[0],E.$panels[0]))
+if(this.$tabs.length==1){K.addClass("ui-tabs-selected ui-state-active");
+Q.removeClass("ui-tabs-hide");
+var P=B.data(this.$tabs[0],"load.tabs");
+if(P){this.load(0,function(){R._trigger("show",null,R._ui(R.$tabs[0],R.$panels[0]))
 })
-}}this._trigger("add",null,this._ui(this.$tabs[B],this.$panels[B]))
-},remove:function(D){var B=this.options,C=this.$lis.eq(D).remove(),E=this.$panels.eq(D).remove();
-if(C.hasClass("ui-tabs-selected")&&this.$tabs.length>1){this.select(D+(D+1<this.$tabs.length?1:-1))
-}B.disabled=A.map(A.grep(B.disabled,function(G,F){return G!=D
-}),function(G,F){return G>=D?--G:G
+}}this._trigger("add",null,this._ui(this.$tabs[L],this.$panels[L]))
+},remove:function(F){var H=this.options,G=this.$lis.eq(F).remove(),A=this.$panels.eq(F).remove();
+if(G.hasClass("ui-tabs-selected")&&this.$tabs.length>1){this.select(F+(F+1<this.$tabs.length?1:-1))
+}H.disabled=B.map(B.grep(H.disabled,function(C,D){return C!=F
+}),function(C,D){return C>=F?--C:C
 });
 this._tabify();
-this._trigger("remove",null,this._ui(C.find("a")[0],E[0]))
-},enable:function(B){var C=this.options;
-if(A.inArray(B,C.disabled)==-1){return 
-}this.$lis.eq(B).removeClass("ui-state-disabled");
-C.disabled=A.grep(C.disabled,function(E,D){return E!=B
+this._trigger("remove",null,this._ui(G.find("a")[0],A[0]))
+},enable:function(D){var A=this.options;
+if(B.inArray(D,A.disabled)==-1){return 
+}this.$lis.eq(D).removeClass("ui-state-disabled");
+A.disabled=B.grep(A.disabled,function(C,F){return C!=D
 });
-this._trigger("enable",null,this._ui(this.$tabs[B],this.$panels[B]))
-},disable:function(B){var D=this,C=this.options;
-if(B!=C.selected){this.$lis.eq(B).addClass("ui-state-disabled");
-C.disabled.push(B);
-C.disabled.sort();
-this._trigger("disable",null,this._ui(this.$tabs[B],this.$panels[B]))
-}},select:function(B){if(typeof B=="string"){B=this.$tabs.index(this.$tabs.filter("[href$="+B+"]"))
-}this.$tabs.eq(B).trigger(this.options.event+".tabs")
-},load:function(C,G){var H=this,M=this.options,L=this.$tabs.eq(C),F=L[0],D=G==undefined||G===false,J=L.data("load.tabs");
-G=G||function(){};
-if(!J||!D&&A.data(F,"cache.tabs")){G();
+this._trigger("enable",null,this._ui(this.$tabs[D],this.$panels[D]))
+},disable:function(F){var A=this,E=this.options;
+if(F!=E.selected){this.$lis.eq(F).addClass("ui-state-disabled");
+E.disabled.push(F);
+E.disabled.sort();
+this._trigger("disable",null,this._ui(this.$tabs[F],this.$panels[F]))
+}},select:function(A){if(typeof A=="string"){A=this.$tabs.index(this.$tabs.filter("[href$="+A+"]"))
+}this.$tabs.eq(A).trigger(this.options.event+".tabs")
+},load:function(N,V){var U=this,P=this.options,Q=this.$tabs.eq(N),W=Q[0],A=V==undefined||V===false,S=Q.data("load.tabs");
+V=V||function(){};
+if(!S||!A&&B.data(W,"cache.tabs")){V();
 return 
-}var I=function(N){var O=A(N),P=O.find("*:last");
-return P.length&&P.is(":not(img)")&&P||O
+}var T=function(E){var D=B(E),C=D.find("*:last");
+return C.length&&C.is(":not(img)")&&C||D
 };
-var K=function(){H.$tabs.filter(".ui-tabs-loading").removeClass("ui-tabs-loading").each(function(){if(M.spinner){I(this).parent().html(I(this).data("label.tabs"))
+var R=function(){U.$tabs.filter(".ui-tabs-loading").removeClass("ui-tabs-loading").each(function(){if(P.spinner){T(this).parent().html(T(this).data("label.tabs"))
 }});
-H.xhr=null
+U.xhr=null
 };
-if(M.spinner){var E=I(F).html();
-I(F).wrapInner("<em></em>").find("em").data("label.tabs",E).html(M.spinner)
-}var B=A.extend({},M.ajaxOptions,{url:J,success:function(O,N){A(H._sanitizeSelector(F.hash)).html(O);
-K();
-if(M.cache){A.data(F,"cache.tabs",true)
-}H._trigger("load",null,H._ui(H.$tabs[C],H.$panels[C]));
-try{M.ajaxOptions.success(O,N)
-}catch(P){}G()
+if(P.spinner){var X=T(W).html();
+T(W).wrapInner("<em></em>").find("em").data("label.tabs",X).html(P.spinner)
+}var O=B.extend({},P.ajaxOptions,{url:S,success:function(D,E){B(U._sanitizeSelector(W.hash)).html(D);
+R();
+if(P.cache){B.data(W,"cache.tabs",true)
+}U._trigger("load",null,U._ui(U.$tabs[N],U.$panels[N]));
+try{P.ajaxOptions.success(D,E)
+}catch(C){}V()
 }});
 if(this.xhr){this.xhr.abort();
-K()
-}L.addClass("ui-tabs-loading");
-H.xhr=A.ajax(B)
-},url:function(C,B){this.$tabs.eq(C).removeData("cache.tabs").data("load.tabs",B)
+R()
+}Q.addClass("ui-tabs-loading");
+U.xhr=B.ajax(O)
+},url:function(A,D){this.$tabs.eq(A).removeData("cache.tabs").data("load.tabs",D)
 },length:function(){return this.$tabs.length
 }});
-A.extend(A.ui.tabs,{version:"1.6rc6",getter:"length",defaults:{ajaxOptions:null,cache:false,cookie:null,deselectable:false,disabled:[],event:"click",fx:null,idPrefix:"ui-tabs-",panelTemplate:"<div></div>",spinner:"Loading&#8230;",tabTemplate:'<li><a href="#{href}"><span>#{label}</span></a></li>'}});
-A.extend(A.ui.tabs.prototype,{rotation:null,rotate:function(F,C){var D=this,B=this.options.selected;
-function E(){clearTimeout(D.rotation);
-D.rotation=setTimeout(function(){B=++B<D.$tabs.length?B:0;
-D.select(B)
-},F)
-}if(F){this.element.bind("tabsshow",E);
-this.$tabs.bind(this.options.event+".tabs",!C?function(G){if(G.clientX){clearTimeout(D.rotation);
-D.element.unbind("tabsshow",E)
-}}:function(G){B=D.options.selected;
-E()
+B.extend(B.ui.tabs,{version:"1.6rc6",getter:"length",defaults:{ajaxOptions:null,cache:false,cookie:null,deselectable:false,disabled:[],event:"click",fx:null,idPrefix:"ui-tabs-",panelTemplate:"<div></div>",spinner:"Loading&#8230;",tabTemplate:'<li><a href="#{href}"><span>#{label}</span></a></li>'}});
+B.extend(B.ui.tabs.prototype,{rotation:null,rotate:function(A,I){var H=this,J=this.options.selected;
+function G(){clearTimeout(H.rotation);
+H.rotation=setTimeout(function(){J=++J<H.$tabs.length?J:0;
+H.select(J)
+},A)
+}if(A){this.element.bind("tabsshow",G);
+this.$tabs.bind(this.options.event+".tabs",!I?function(C){if(C.clientX){clearTimeout(H.rotation);
+H.element.unbind("tabsshow",G)
+}}:function(C){J=H.options.selected;
+G()
 });
-E()
-}else{clearTimeout(D.rotation);
-this.element.unbind("tabsshow",E);
+G()
+}else{clearTimeout(H.rotation);
+this.element.unbind("tabsshow",G);
 this.$tabs.unbind(this.options.event+".tabs",stop)
 }}})
 })(jQuery);

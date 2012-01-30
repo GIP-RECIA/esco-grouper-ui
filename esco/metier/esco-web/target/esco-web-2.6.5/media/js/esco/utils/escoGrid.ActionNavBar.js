@@ -1,69 +1,69 @@
-var ActionNavBar={actionAddDefault:function(A,E,C,B){var D=function(){A._sendSelectedRows();
-var F={idNode:$("#parentNameSearchDisplayPath").val(),nameIdNode:$("#parentNameSearchPath").val(),groupUuid:$("input[id=groupUuid]").val()};
-if(B!=undefined&&B==true){F=$.extend(F,{onlyGroup:"true"})
-}Core.setNavParam("fromRequest",E);
+var ActionNavBar={actionAddDefault:function(F,G,I,J){var H=function(){F._sendSelectedRows();
+var A={idNode:$("#parentNameSearchDisplayPath").val(),nameIdNode:$("#parentNameSearchPath").val(),groupUuid:$("input[id=groupUuid]").val()};
+if(J!=undefined&&J==true){A=$.extend(A,{onlyGroup:"true"})
+}Core.setNavParam("fromRequest",G);
 Core.setNavParam("groupUuid",$("input[id=groupUuid]").val());
-Core.setNavParam("tab",C);
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",F,"#mainContent",true,false)
+Core.setNavParam("tab",I);
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",A,"#mainContent",true,false)
 };
-return D
-},actionAddPersonDefault:function(A,E,C,B){var D=function(){A._sendSelectedRows();
-var H=null;
-var G=null;
-if($("a[class=clicked]").parent().attr("typenode")=="GROUP"){H=tree.parent($("a[class=clicked]")).attr("name");
-G=tree.parent($("a[class=clicked]")).attr("displayName")
-}else{H=$("a[class=clicked]").parent().attr("name");
-G=$("a[class=clicked]").parent().attr("displayName")
-}var F={idNode:G,nameIdNode:H,idPerson:$("input[id=personId]").val()};
-if(B!=undefined&&B==true){F=$.extend(F,{onlyGroup:"true"})
-}Core.setNavParam("fromRequest",E);
+return H
+},actionAddPersonDefault:function(F,G,I,J){var H=function(){F._sendSelectedRows();
+var A=null;
+var B=null;
+if($("a[class=clicked]").parent().attr("typenode")=="GROUP"){A=tree.parent($("a[class=clicked]")).attr("name");
+B=tree.parent($("a[class=clicked]")).attr("displayName")
+}else{A=$("a[class=clicked]").parent().attr("name");
+B=$("a[class=clicked]").parent().attr("displayName")
+}var C={idNode:B,nameIdNode:A,idPerson:$("input[id=personId]").val()};
+if(J!=undefined&&J==true){C=$.extend(C,{onlyGroup:"true"})
+}Core.setNavParam("fromRequest",G);
 Core.setNavParam("idPerson",$("input[id=personId]").val());
-Core.setNavParam("tab",C);
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",F,"#mainContent",true,false)
+Core.setNavParam("tab",I);
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",C,"#mainContent",true,false)
 };
-return D
-},actionAddStemSearch:function(A,D,B){var C=function(){A._sendSelectedRows();
-var E={idNode:$("#parentNameSearchDisplayPath").val(),nameIdNode:$("#parentNameSearchPath").val(),groupUuid:$("input[id=groupUuid]").val()};
-Core.setNavParam("fromRequest",D);
+return H
+},actionAddStemSearch:function(E,F,H){var G=function(){E._sendSelectedRows();
+var A={idNode:$("#parentNameSearchDisplayPath").val(),nameIdNode:$("#parentNameSearchPath").val(),groupUuid:$("input[id=groupUuid]").val()};
+Core.setNavParam("fromRequest",F);
 Core.setNavParam("groupUuid",$("input[id=groupUuid]").val());
-Core.setNavParam("tab",B);
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/stemSearch.jsf",E,"#mainContent",true,false)
+Core.setNavParam("tab",H);
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/stemSearch.jsf",A,"#mainContent",true,false)
 };
-return C
-},actionAddStemSearchPerson:function(A,E,C,B){var D=function(){A._sendSelectedRows();
-var H=null;
-var G=null;
-if($("a[class=clicked]").parent().attr("typenode")=="GROUP"){H=tree.parent($("a[class=clicked]")).attr("name");
-G=tree.parent($("a[class=clicked]")).attr("displayName")
-}else{H=$("a[class=clicked]").parent().attr("name");
-G=$("a[class=clicked]").parent().attr("displayName")
-}var F={idNode:G,nameIdNode:H,idPerson:$("input[id=personId]").val()};
-Core.setNavParam("fromRequest",E);
+return G
+},actionAddStemSearchPerson:function(F,G,I,J){var H=function(){F._sendSelectedRows();
+var A=null;
+var B=null;
+if($("a[class=clicked]").parent().attr("typenode")=="GROUP"){A=tree.parent($("a[class=clicked]")).attr("name");
+B=tree.parent($("a[class=clicked]")).attr("displayName")
+}else{A=$("a[class=clicked]").parent().attr("name");
+B=$("a[class=clicked]").parent().attr("displayName")
+}var C={idNode:B,nameIdNode:A,idPerson:$("input[id=personId]").val()};
+Core.setNavParam("fromRequest",G);
 Core.setNavParam("idPerson",$("input[id=personId]").val());
-Core.setNavParam("tab",C);
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/stemSearch.jsf",F,"#mainContent",true,false)
+Core.setNavParam("tab",I);
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/stemSearch.jsf",C,"#mainContent",true,false)
 };
-return D
-},actionAddStemPrivilege:function(A,D,B){var C=function(){A._sendSelectedRows();
-var E={idNode:$("input[id=nameSearchDisplayPath]").val(),nameIdNode:$("input[id=nameSearchPath]").val()};
-Core.setNavParam("fromRequest",D);
+return H
+},actionAddStemPrivilege:function(E,F,H){var G=function(){E._sendSelectedRows();
+var A={idNode:$("input[id=nameSearchDisplayPath]").val(),nameIdNode:$("input[id=nameSearchPath]").val()};
+Core.setNavParam("fromRequest",F);
 Core.setNavParam("stemUuid",$("input[id=stemUuid]").val());
-Core.setNavParam("tab",B);
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",E,"#mainContent",true,false)
+Core.setNavParam("tab",H);
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/additionSearch.jsf",A,"#mainContent",true,false)
 };
-return C
-},actionDelDefault:function(D,A,B){var C=function(){_displayBlockUIOption={onAfterShowBlockUI:function(){D._selectType="undefined";
-D._sendSelectedRows();
-var E=D;
-var F=B;
+return G
+},actionDelDefault:function(F,E,H){var G=function(){_displayBlockUIOption={onAfterShowBlockUI:function(){F._selectType="undefined";
+F._sendSelectedRows();
+var B=F;
+var A=H;
 jQuery.ajaxSettings.async=false;
-$.post(A,{},function(G){E.nbRowSelected=0;
-E._doneLoadData(Core.getStatus(G));
-if(F!=null){F.call()
+$.post(E,{},function(C){B.nbRowSelected=0;
+B._doneLoadData(Core.getStatus(C));
+if(A!=null){A.call()
 }});
 jQuery.ajaxSettings.async=true
 }};
 Core._showBlockUI(_displayBlockUIOption)
 };
-return C
+return G
 }};

@@ -1,15 +1,15 @@
-(function(A){A.each({focus:"focusin",blur:"focusout"},function(C,B){A.event.special[B]={setup:function(){if(A.browser.msie){return false
-}this.addEventListener(C,A.event.special[B].handler,true)
-},teardown:function(){if(A.browser.msie){return false
-}this.removeEventListener(C,A.event.special[B].handler,true)
-},handler:function(D){arguments[0]=A.event.fix(D);
-arguments[0].type=B;
-return A.event.handle.apply(this,arguments)
+(function(B){B.each({focus:"focusin",blur:"focusout"},function(A,D){B.event.special[D]={setup:function(){if(B.browser.msie){return false
+}this.addEventListener(A,B.event.special[D].handler,true)
+},teardown:function(){if(B.browser.msie){return false
+}this.removeEventListener(A,B.event.special[D].handler,true)
+},handler:function(C){arguments[0]=B.event.fix(C);
+arguments[0].type=D;
+return B.event.handle.apply(this,arguments)
 }}
 });
-A.extend(A.fn,{delegate:function(C,B,D){return this.bind(C,function(E){var F=A(E.target);
-if(F.is(B)){return D.apply(F,arguments)
+B.extend(B.fn,{delegate:function(E,F,A){return this.bind(E,function(D){var C=B(D.target);
+if(C.is(F)){return A.apply(C,arguments)
 }})
-},triggerEvent:function(B,C){return this.triggerHandler(B,[jQuery.event.fix({type:B,target:C})])
+},triggerEvent:function(D,A){return this.triggerHandler(D,[jQuery.event.fix({type:D,target:A})])
 }})
 })(jQuery);

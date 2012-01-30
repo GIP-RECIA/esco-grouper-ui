@@ -1,22 +1,22 @@
-(function(A){A.effects.clip=function(B){return this.queue(function(){var K=A(this),F=["position","top","left","height","width"];
-var E=A.effects.setMode(K,B.options.mode||"hide");
-var G=B.options.direction||"vertical";
-A.effects.save(K,F);
-K.show();
-var H=A.effects.createWrapper(K).css({overflow:"hidden"});
-var J=K[0].tagName=="IMG"?H:K;
-var C={size:(G=="vertical")?"height":"width",position:(G=="vertical")?"top":"left"};
-var I=(G=="vertical")?J.height():J.width();
-if(E=="show"){J.css(C.size,0);
-J.css(C.position,I/2)
-}var D={};
-D[C.size]=E=="show"?I:0;
-D[C.position]=E=="show"?0:I/2;
-J.animate(D,{queue:false,duration:B.duration,easing:B.options.easing,complete:function(){if(E=="hide"){K.hide()
-}A.effects.restore(K,F);
-A.effects.removeWrapper(K);
-if(B.callback){B.callback.apply(K[0],arguments)
-}K.dequeue()
+(function(B){B.effects.clip=function(A){return this.queue(function(){var N=B(this),S=["position","top","left","height","width"];
+var T=B.effects.setMode(N,A.options.mode||"hide");
+var R=A.options.direction||"vertical";
+B.effects.save(N,S);
+N.show();
+var Q=B.effects.createWrapper(N).css({overflow:"hidden"});
+var O=N[0].tagName=="IMG"?Q:N;
+var M={size:(R=="vertical")?"height":"width",position:(R=="vertical")?"top":"left"};
+var P=(R=="vertical")?O.height():O.width();
+if(T=="show"){O.css(M.size,0);
+O.css(M.position,P/2)
+}var L={};
+L[M.size]=T=="show"?P:0;
+L[M.position]=T=="show"?0:P/2;
+O.animate(L,{queue:false,duration:A.duration,easing:A.options.easing,complete:function(){if(T=="hide"){N.hide()
+}B.effects.restore(N,S);
+B.effects.removeWrapper(N);
+if(A.callback){A.callback.apply(N[0],arguments)
+}N.dequeue()
 }})
 })
 }

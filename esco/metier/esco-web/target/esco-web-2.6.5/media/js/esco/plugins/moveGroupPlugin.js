@@ -17,16 +17,16 @@ if(MoveGroup._previousNode!=null){if($.browser.msie){if($(MoveGroup._previousNod
 }$(MoveGroup._previousNode).children("a").css("cursor","pointer")
 }}MoveGroup._previousNode=null
 };
-DragAndDrop.moveGroup=function(C,B,E,I){var F=$(B).attr("displayName");
-var H=tree.parent($(C)).attr("displayName");
-if(H==F){return false
+DragAndDrop.moveGroup=function(K,L,R,N){var Q=$(L).attr("displayName");
+var O=tree.parent($(K)).attr("displayName");
+if(O==Q){return false
 }if(!MoveGroup._canMoveIt){return false
 }MoveGroup._canMoveIt=false;
-var G={groupUuid:$(C).attr("id"),stemName:$(B).attr("name"),stemDisplayName:$(B).attr("displayName")};
-var A=$(C);
-var D=$(B);
+var P={groupUuid:$(K).attr("id"),stemName:$(L).attr("name"),stemDisplayName:$(L).attr("displayName")};
+var M=$(K);
+var J=$(L);
 MoveGroup._resultOfMoveAction=null;
-_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupController/moveGroup.jsf",G,function(J){if(Core.getStatus(J)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(J,"message"));
+_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupController/moveGroup.jsf",P,function(A){if(Core.getStatus(A)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(A,"message"));
 $("li[typeNode=ROOT]").click().click();
 Core._hideBlockUI();
 tree.settings.callback.onload=function(){}
@@ -37,10 +37,10 @@ tree.settings.callback.onload=function(){}
 Core._showBlockUI(_displayBlockUIOption);
 return false
 }
-},init:function(A){TreeMenu.setCurrentCutAction(MoveGroup);
+},init:function(B){TreeMenu.setCurrentCutAction(MoveGroup);
 MoveGroup._isNodeCut=true;
-MoveGroup._theNodeCut=$(A);
-$(A).css("opacity","0.4")
+MoveGroup._theNodeCut=$(B);
+$(B).css("opacity","0.4")
 },release:function(){if(MoveGroup._theNodeCut!=null){$(MoveGroup._theNodeCut).css("opacity","1");
 MoveGroup._theNodeCut=null;
 MoveGroup._isNodeCut=false

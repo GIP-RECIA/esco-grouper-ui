@@ -1,46 +1,46 @@
-function tableToGrid(A){$(A).each(function(){if(this.grid){return 
+function tableToGrid(B){$(B).each(function(){if(this.grid){return 
 }$(this).width("99%");
-var E=$(this).width();
-var G=$("input[type=checkbox]:first",$(this));
-var L=$("input[type=radio]:first",$(this));
-var I=G.length>0;
-var K=!I&&L.length>0;
-var N=I||K;
-var M=G.attr("name")||L.attr("name");
-var B=[];
-var F=[];
-$("th",$(this)).each(function(){if(B.length==0&&N){B.push({name:"__selection__",index:"__selection__",width:0,hidden:true});
-F.push("__selection__")
-}else{B.push({name:$(this).html(),index:$(this).html(),width:$(this).width()||150});
-F.push($(this).html())
+var b=$(this).width();
+var Z=$("input[type=checkbox]:first",$(this));
+var U=$("input[type=radio]:first",$(this));
+var X=Z.length>0;
+var V=!X&&U.length>0;
+var S=X||V;
+var T=Z.attr("name")||U.attr("name");
+var Q=[];
+var a=[];
+$("th",$(this)).each(function(){if(Q.length==0&&S){Q.push({name:"__selection__",index:"__selection__",width:0,hidden:true});
+a.push("__selection__")
+}else{Q.push({name:$(this).html(),index:$(this).html(),width:$(this).width()||150});
+a.push($(this).html())
 }});
-var J=[];
-var D=[];
-var C=[];
-$("tbody > tr",$(this)).each(function(){var Q={};
-var P=0;
-J.push(Q);
-$("td",$(this)).each(function(){if(P==0&&N){var R=$("input",$(this));
-var S=R.attr("value");
-D.push(S||J.length);
-if(R.attr("checked")){C.push(S)
-}Q[B[P].name]=R.attr("value")
-}else{Q[B[P].name]=$(this).html()
-}P++
+var W=[];
+var A=[];
+var P=[];
+$("tbody > tr",$(this)).each(function(){var C={};
+var D=0;
+W.push(C);
+$("td",$(this)).each(function(){if(D==0&&S){var F=$("input",$(this));
+var E=F.attr("value");
+A.push(E||W.length);
+if(F.attr("checked")){P.push(E)
+}C[Q[D].name]=F.attr("value")
+}else{C[Q[D].name]=$(this).html()
+}D++
 })
 });
 $(this).empty();
 $(this).addClass("scroll");
-$(this).jqGrid({datatype:"local",width:E,colNames:F,colModel:B,multiselect:I});
-for(var O=0;
-O<J.length;
-O++){var H=null;
-if(D.length>0){H=D[O];
-if(H&&H.replace){H=encodeURIComponent(H).replace(/[.\-%]/g,"_")
-}}if(H==null){H=O+1
-}$(this).addRowData(H,J[O])
-}for(var O=0;
-O<C.length;
-O++){$(this).setSelection(C[O])
+$(this).jqGrid({datatype:"local",width:b,colNames:a,colModel:Q,multiselect:X});
+for(var R=0;
+R<W.length;
+R++){var Y=null;
+if(A.length>0){Y=A[R];
+if(Y&&Y.replace){Y=encodeURIComponent(Y).replace(/[.\-%]/g,"_")
+}}if(Y==null){Y=R+1
+}$(this).addRowData(Y,W[R])
+}for(var R=0;
+R<P.length;
+R++){$(this).setSelection(P[R])
 }})
 };

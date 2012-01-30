@@ -1,179 +1,179 @@
-(function(A){var C={dragStart:"start.draggable",drag:"drag.draggable",dragStop:"stop.draggable",maxHeight:"maxHeight.resizable",minHeight:"minHeight.resizable",maxWidth:"maxWidth.resizable",minWidth:"minWidth.resizable",resizeStart:"start.resizable",resize:"drag.resizable",resizeStop:"stop.resizable"},B="ui-dialog ui-widget ui-widget-content ui-corner-all ";
-A.widget("ui.dialog",{_init:function(){this.originalTitle=this.element.attr("title");
-var F=this,G=this.options,D=G.title||this.originalTitle||"&nbsp;",I=A.ui.dialog.getTitleId(this.element),E=(this.uiDialog=A("<div/>")).appendTo(document.body).hide().addClass(B+G.dialogClass).css({position:"absolute",overflow:"hidden",zIndex:G.zIndex}).attr("tabIndex",-1).css("outline",0).keydown(function(N){(G.closeOnEscape&&N.keyCode&&N.keyCode==A.ui.keyCode.ESCAPE&&F.close(N))
-}).attr({role:"dialog","aria-labelledby":I}).mousedown(function(N){F.moveToTop(false,N)
-}),K=this.element.show().removeAttr("title").addClass("ui-dialog-content ui-widget-content").appendTo(E),J=(this.uiDialogTitlebar=A("<div></div>")).addClass("ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").prependTo(E),M=A('<a href="#"/>').addClass("ui-dialog-titlebar-close ui-corner-all").attr("role","button").hover(function(){M.addClass("ui-state-hover")
-},function(){M.removeClass("ui-state-hover")
-}).focus(function(){M.addClass("ui-state-focus")
-}).blur(function(){M.removeClass("ui-state-focus")
-}).mousedown(function(N){N.stopPropagation()
-}).click(function(N){F.close(N);
+(function(D){var E={dragStart:"start.draggable",drag:"drag.draggable",dragStop:"stop.draggable",maxHeight:"maxHeight.resizable",minHeight:"minHeight.resizable",maxWidth:"maxWidth.resizable",minWidth:"minWidth.resizable",resizeStart:"start.resizable",resize:"drag.resizable",resizeStop:"stop.resizable"},F="ui-dialog ui-widget ui-widget-content ui-corner-all ";
+D.widget("ui.dialog",{_init:function(){this.originalTitle=this.element.attr("title");
+var S=this,R=this.options,A=R.title||this.originalTitle||"&nbsp;",P=D.ui.dialog.getTitleId(this.element),T=(this.uiDialog=D("<div/>")).appendTo(document.body).hide().addClass(F+R.dialogClass).css({position:"absolute",overflow:"hidden",zIndex:R.zIndex}).attr("tabIndex",-1).css("outline",0).keydown(function(G){(R.closeOnEscape&&G.keyCode&&G.keyCode==D.ui.keyCode.ESCAPE&&S.close(G))
+}).attr({role:"dialog","aria-labelledby":P}).mousedown(function(G){S.moveToTop(false,G)
+}),N=this.element.show().removeAttr("title").addClass("ui-dialog-content ui-widget-content").appendTo(T),O=(this.uiDialogTitlebar=D("<div></div>")).addClass("ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix").prependTo(T),B=D('<a href="#"/>').addClass("ui-dialog-titlebar-close ui-corner-all").attr("role","button").hover(function(){B.addClass("ui-state-hover")
+},function(){B.removeClass("ui-state-hover")
+}).focus(function(){B.addClass("ui-state-focus")
+}).blur(function(){B.removeClass("ui-state-focus")
+}).mousedown(function(G){G.stopPropagation()
+}).click(function(G){S.close(G);
 return false
-}).appendTo(J),L=(this.uiDialogTitlebarCloseText=A("<span/>")).addClass("ui-icon ui-icon-closethick").text(G.closeText).appendTo(M),H=A("<span/>").addClass("ui-dialog-title").attr("id",I).html(D).prependTo(J);
-J.find("*").add(J).disableSelection();
-(G.draggable&&A.fn.draggable&&this._makeDraggable());
-(G.resizable&&A.fn.resizable&&this._makeResizable());
-this._createButtons(G.buttons);
+}).appendTo(O),C=(this.uiDialogTitlebarCloseText=D("<span/>")).addClass("ui-icon ui-icon-closethick").text(R.closeText).appendTo(B),Q=D("<span/>").addClass("ui-dialog-title").attr("id",P).html(A).prependTo(O);
+O.find("*").add(O).disableSelection();
+(R.draggable&&D.fn.draggable&&this._makeDraggable());
+(R.resizable&&D.fn.resizable&&this._makeResizable());
+this._createButtons(R.buttons);
 this._isOpen=false;
-(G.bgiframe&&A.fn.bgiframe&&E.bgiframe());
-(G.autoOpen&&this.open())
+(R.bgiframe&&D.fn.bgiframe&&T.bgiframe());
+(R.autoOpen&&this.open())
 },destroy:function(){(this.overlay&&this.overlay.destroy());
 this.uiDialog.hide();
 this.element.unbind(".dialog").removeData("dialog").removeClass("ui-dialog-content ui-widget-content").hide().appendTo("body");
 this.uiDialog.remove();
 (this.originalTitle&&this.element.attr("title",this.originalTitle))
-},close:function(E){var F=this;
-if(false===F._trigger("beforeclose",E)){return 
-}(F.overlay&&F.overlay.destroy());
-F.uiDialog.unbind("keypress.ui-dialog");
-(F.options.hide?F.uiDialog.hide(F.options.hide,function(){F._trigger("close",E)
-}):F.uiDialog.hide()&&F._trigger("close",E));
-A.ui.dialog.overlay.resize();
-F._isOpen=false;
-if(F.options.modal){var D=0;
-A(".ui-dialog").each(function(){if(this!=F.uiDialog[0]){D=Math.max(D,A(this).css("z-index"))
+},close:function(B){var A=this;
+if(false===A._trigger("beforeclose",B)){return 
+}(A.overlay&&A.overlay.destroy());
+A.uiDialog.unbind("keypress.ui-dialog");
+(A.options.hide?A.uiDialog.hide(A.options.hide,function(){A._trigger("close",B)
+}):A.uiDialog.hide()&&A._trigger("close",B));
+D.ui.dialog.overlay.resize();
+A._isOpen=false;
+if(A.options.modal){var C=0;
+D(".ui-dialog").each(function(){if(this!=A.uiDialog[0]){C=Math.max(C,D(this).css("z-index"))
 }});
-A.ui.dialog.maxZ=D
+D.ui.dialog.maxZ=C
 }},isOpen:function(){return this._isOpen
-},moveToTop:function(E,D){if((this.options.modal&&!E)||(!this.options.stack&&!this.options.modal)){return this._trigger("focus",D)
-}if(this.options.zIndex>A.ui.dialog.maxZ){A.ui.dialog.maxZ=this.options.zIndex
-}(this.overlay&&this.overlay.$el.css("z-index",A.ui.dialog.overlay.maxZ=++A.ui.dialog.maxZ));
-var F={scrollTop:this.element.attr("scrollTop"),scrollLeft:this.element.attr("scrollLeft")};
-this.uiDialog.css("z-index",++A.ui.dialog.maxZ);
-this.element.attr(F);
-this._trigger("focus",D)
+},moveToTop:function(B,C){if((this.options.modal&&!B)||(!this.options.stack&&!this.options.modal)){return this._trigger("focus",C)
+}if(this.options.zIndex>D.ui.dialog.maxZ){D.ui.dialog.maxZ=this.options.zIndex
+}(this.overlay&&this.overlay.$el.css("z-index",D.ui.dialog.overlay.maxZ=++D.ui.dialog.maxZ));
+var A={scrollTop:this.element.attr("scrollTop"),scrollLeft:this.element.attr("scrollLeft")};
+this.uiDialog.css("z-index",++D.ui.dialog.maxZ);
+this.element.attr(A);
+this._trigger("focus",C)
 },open:function(){if(this._isOpen){return 
-}var E=this.options,D=this.uiDialog;
-this.overlay=E.modal?new A.ui.dialog.overlay(this):null;
-(D.next().length&&D.appendTo("body"));
+}var A=this.options,B=this.uiDialog;
+this.overlay=A.modal?new D.ui.dialog.overlay(this):null;
+(B.next().length&&B.appendTo("body"));
 this._size();
-this._position(E.position);
-D.show(E.show);
+this._position(A.position);
+B.show(A.show);
 this.moveToTop(true);
-(E.modal&&D.bind("keypress.ui-dialog",function(H){if(H.keyCode!=A.ui.keyCode.TAB){return 
-}var G=A(":tabbable",this),I=G.filter(":first")[0],F=G.filter(":last")[0];
-if(H.target==F&&!H.shiftKey){setTimeout(function(){I.focus()
+(A.modal&&B.bind("keypress.ui-dialog",function(J){if(J.keyCode!=D.ui.keyCode.TAB){return 
+}var K=D(":tabbable",this),C=K.filter(":first")[0],L=K.filter(":last")[0];
+if(J.target==L&&!J.shiftKey){setTimeout(function(){C.focus()
 },1)
-}else{if(H.target==I&&H.shiftKey){setTimeout(function(){F.focus()
+}else{if(J.target==C&&J.shiftKey){setTimeout(function(){L.focus()
 },1)
 }}}));
-A([]).add(D.find(".ui-dialog-content :tabbable:first")).add(D.find(".ui-dialog-buttonpane :tabbable:first")).add(D).filter(":first").focus();
+D([]).add(B.find(".ui-dialog-content :tabbable:first")).add(B.find(".ui-dialog-buttonpane :tabbable:first")).add(B).filter(":first").focus();
 this._trigger("open");
 this._isOpen=true
-},_createButtons:function(E){var D=this,F=false,G=A("<div></div>").addClass("ui-dialog-buttonpane ui-widget-content ui-helper-clearfix");
+},_createButtons:function(C){var H=this,B=false,A=D("<div></div>").addClass("ui-dialog-buttonpane ui-widget-content ui-helper-clearfix");
 this.uiDialog.find(".ui-dialog-buttonpane").remove();
-(typeof E=="object"&&E!==null&&A.each(E,function(){return !(F=true)
+(typeof C=="object"&&C!==null&&D.each(C,function(){return !(B=true)
 }));
-if(F){A.each(E,function(H,I){A('<button type="button"></button>').addClass("ui-state-default ui-corner-all").text(H).click(function(){I.apply(D.element[0],arguments)
-}).hover(function(){A(this).addClass("ui-state-hover")
-},function(){A(this).removeClass("ui-state-hover")
-}).focus(function(){A(this).addClass("ui-state-focus")
-}).blur(function(){A(this).removeClass("ui-state-focus")
-}).appendTo(G)
+if(B){D.each(C,function(J,G){D('<button type="button"></button>').addClass("ui-state-default ui-corner-all").text(J).click(function(){G.apply(H.element[0],arguments)
+}).hover(function(){D(this).addClass("ui-state-hover")
+},function(){D(this).removeClass("ui-state-hover")
+}).focus(function(){D(this).addClass("ui-state-focus")
+}).blur(function(){D(this).removeClass("ui-state-focus")
+}).appendTo(A)
 });
-G.appendTo(this.uiDialog)
-}},_makeDraggable:function(){var F=this,E=this.options,D;
-this.uiDialog.draggable({cancel:".ui-dialog-content",handle:".ui-dialog-titlebar",containment:"document",start:function(){D=E.height;
-A(this).height(A(this).height()).addClass("ui-dialog-dragging");
-(E.dragStart&&E.dragStart.apply(F.element[0],arguments))
-},drag:function(){(E.drag&&E.drag.apply(F.element[0],arguments))
-},stop:function(){A(this).removeClass("ui-dialog-dragging").height(D);
-(E.dragStop&&E.dragStop.apply(F.element[0],arguments));
-A.ui.dialog.overlay.resize()
+A.appendTo(this.uiDialog)
+}},_makeDraggable:function(){var A=this,B=this.options,C;
+this.uiDialog.draggable({cancel:".ui-dialog-content",handle:".ui-dialog-titlebar",containment:"document",start:function(){C=B.height;
+D(this).height(D(this).height()).addClass("ui-dialog-dragging");
+(B.dragStart&&B.dragStart.apply(A.element[0],arguments))
+},drag:function(){(B.drag&&B.drag.apply(A.element[0],arguments))
+},stop:function(){D(this).removeClass("ui-dialog-dragging").height(C);
+(B.dragStop&&B.dragStop.apply(A.element[0],arguments));
+D.ui.dialog.overlay.resize()
 }})
-},_makeResizable:function(E){E=(E===undefined?this.options.resizable:E);
-var F=this,D=this.options,G=typeof E=="string"?E:"n,e,s,w,se,sw,ne,nw";
-this.uiDialog.resizable({cancel:".ui-dialog-content",alsoResize:this.element,maxWidth:D.maxWidth,maxHeight:D.maxHeight,minWidth:D.minWidth,minHeight:D.minHeight,start:function(){A(this).addClass("ui-dialog-resizing");
-(D.resizeStart&&D.resizeStart.apply(F.element[0],arguments))
-},resize:function(){(D.resize&&D.resize.apply(F.element[0],arguments))
-},handles:G,stop:function(){A(this).removeClass("ui-dialog-resizing");
-D.height=A(this).height();
-D.width=A(this).width();
-(D.resizeStop&&D.resizeStop.apply(F.element[0],arguments));
-A.ui.dialog.overlay.resize()
+},_makeResizable:function(C){C=(C===undefined?this.options.resizable:C);
+var B=this,H=this.options,A=typeof C=="string"?C:"n,e,s,w,se,sw,ne,nw";
+this.uiDialog.resizable({cancel:".ui-dialog-content",alsoResize:this.element,maxWidth:H.maxWidth,maxHeight:H.maxHeight,minWidth:H.minWidth,minHeight:H.minHeight,start:function(){D(this).addClass("ui-dialog-resizing");
+(H.resizeStart&&H.resizeStart.apply(B.element[0],arguments))
+},resize:function(){(H.resize&&H.resize.apply(B.element[0],arguments))
+},handles:A,stop:function(){D(this).removeClass("ui-dialog-resizing");
+H.height=D(this).height();
+H.width=D(this).width();
+(H.resizeStop&&H.resizeStop.apply(B.element[0],arguments));
+D.ui.dialog.overlay.resize()
 }}).find(".ui-resizable-se").addClass("ui-icon ui-icon-grip-diagonal-se")
-},_position:function(F){var G=A(window),H=A(document),I=H.scrollTop(),E=H.scrollLeft(),D=I;
-if(A.inArray(F,["center","top","right","bottom","left"])>=0){F=[F=="right"||F=="left"?F:"center",F=="top"||F=="bottom"?F:"middle"]
-}if(F.constructor!=Array){F=["center","middle"]
-}if(F[0].constructor==Number){E+=F[0]
-}else{switch(F[0]){case"left":E+=0;
+},_position:function(J){var C=D(window),B=D(document),A=B.scrollTop(),K=B.scrollLeft(),L=A;
+if(D.inArray(J,["center","top","right","bottom","left"])>=0){J=[J=="right"||J=="left"?J:"center",J=="top"||J=="bottom"?J:"middle"]
+}if(J.constructor!=Array){J=["center","middle"]
+}if(J[0].constructor==Number){K+=J[0]
+}else{switch(J[0]){case"left":K+=0;
 break;
-case"right":E+=G.width()-this.uiDialog.outerWidth();
+case"right":K+=C.width()-this.uiDialog.outerWidth();
 break;
-default:case"center":E+=(G.width()-this.uiDialog.outerWidth())/2
-}}if(F[1].constructor==Number){I+=F[1]
-}else{switch(F[1]){case"top":I+=0;
+default:case"center":K+=(C.width()-this.uiDialog.outerWidth())/2
+}}if(J[1].constructor==Number){A+=J[1]
+}else{switch(J[1]){case"top":A+=0;
 break;
-case"bottom":I+=G.height()-this.uiDialog.outerHeight();
+case"bottom":A+=C.height()-this.uiDialog.outerHeight();
 break;
-default:case"middle":I+=(G.height()-this.uiDialog.outerHeight())/2
-}}I=Math.max(I,D);
-this.uiDialog.css({top:I,left:E})
-},_setData:function(G,D){(C[G]&&this.uiDialog.data(C[G],D));
-switch(G){case"buttons":this._createButtons(D);
+default:case"middle":A+=(C.height()-this.uiDialog.outerHeight())/2
+}}A=Math.max(A,L);
+this.uiDialog.css({top:A,left:K})
+},_setData:function(A,H){(E[A]&&this.uiDialog.data(E[A],H));
+switch(A){case"buttons":this._createButtons(H);
 break;
-case"closeText":this.uiDialogTitlebarCloseText.text(D);
+case"closeText":this.uiDialogTitlebarCloseText.text(H);
 break;
-case"dialogClass":this.uiDialog.removeClass(this.options.dialogClass).addClass(B+D);
+case"dialogClass":this.uiDialog.removeClass(this.options.dialogClass).addClass(F+H);
 break;
-case"draggable":(D?this._makeDraggable():this.uiDialog.draggable("destroy"));
+case"draggable":(H?this._makeDraggable():this.uiDialog.draggable("destroy"));
 break;
-case"height":this.uiDialog.height(D);
+case"height":this.uiDialog.height(H);
 break;
-case"position":this._position(D);
+case"position":this._position(H);
 break;
-case"resizable":var F=this.uiDialog,E=this.uiDialog.is(":data(resizable)");
-(E&&!D&&F.resizable("destroy"));
-(E&&typeof D=="string"&&F.resizable("option","handles",D));
-(E||this._makeResizable(D));
+case"resizable":var B=this.uiDialog,C=this.uiDialog.is(":data(resizable)");
+(C&&!H&&B.resizable("destroy"));
+(C&&typeof H=="string"&&B.resizable("option","handles",H));
+(C||this._makeResizable(H));
 break;
-case"title":A(".ui-dialog-title",this.uiDialogTitlebar).html(D||"&nbsp;");
+case"title":D(".ui-dialog-title",this.uiDialogTitlebar).html(H||"&nbsp;");
 break;
-case"width":this.uiDialog.width(D);
+case"width":this.uiDialog.width(H);
 break
-}A.widget.prototype._setData.apply(this,arguments)
-},_size:function(){var E=this.options;
+}D.widget.prototype._setData.apply(this,arguments)
+},_size:function(){var A=this.options;
 this.element.css({height:0,minHeight:0,width:"auto"});
-var D=this.uiDialog.css({height:"auto",width:E.width}).height();
-this.element.css({minHeight:Math.max(E.minHeight-D,0),height:E.height=="auto"?"auto":Math.max(E.height-D,0)})
+var B=this.uiDialog.css({height:"auto",width:A.width}).height();
+this.element.css({minHeight:Math.max(A.minHeight-B,0),height:A.height=="auto"?"auto":Math.max(A.height-B,0)})
 }});
-A.extend(A.ui.dialog,{version:"1.7.2",defaults:{autoOpen:true,bgiframe:false,buttons:{},closeOnEscape:true,closeText:"close",dialogClass:"",draggable:true,hide:null,height:"auto",maxHeight:false,maxWidth:false,minHeight:150,minWidth:150,modal:false,position:"center",resizable:true,show:null,stack:true,title:"",width:300,zIndex:1000},getter:"isOpen",uuid:0,maxZ:0,getTitleId:function(D){return"ui-dialog-title-"+(D.attr("id")||++this.uuid)
-},overlay:function(D){this.$el=A.ui.dialog.overlay.create(D)
+D.extend(D.ui.dialog,{version:"1.7.2",defaults:{autoOpen:true,bgiframe:false,buttons:{},closeOnEscape:true,closeText:"close",dialogClass:"",draggable:true,hide:null,height:"auto",maxHeight:false,maxWidth:false,minHeight:150,minWidth:150,modal:false,position:"center",resizable:true,show:null,stack:true,title:"",width:300,zIndex:1000},getter:"isOpen",uuid:0,maxZ:0,getTitleId:function(A){return"ui-dialog-title-"+(A.attr("id")||++this.uuid)
+},overlay:function(A){this.$el=D.ui.dialog.overlay.create(A)
 }});
-A.extend(A.ui.dialog.overlay,{instances:[],maxZ:0,events:A.map("focus,mousedown,mouseup,keydown,keypress,click".split(","),function(D){return D+".dialog-overlay"
-}).join(" "),create:function(E){if(this.instances.length===0){setTimeout(function(){if(A.ui.dialog.overlay.instances.length){A(document).bind(A.ui.dialog.overlay.events,function(F){var G=A(F.target).parents(".ui-dialog").css("zIndex")||0;
-return(G>A.ui.dialog.overlay.maxZ)
+D.extend(D.ui.dialog.overlay,{instances:[],maxZ:0,events:D.map("focus,mousedown,mouseup,keydown,keypress,click".split(","),function(A){return A+".dialog-overlay"
+}).join(" "),create:function(A){if(this.instances.length===0){setTimeout(function(){if(D.ui.dialog.overlay.instances.length){D(document).bind(D.ui.dialog.overlay.events,function(H){var C=D(H.target).parents(".ui-dialog").css("zIndex")||0;
+return(C>D.ui.dialog.overlay.maxZ)
 })
 }},1);
-A(document).bind("keydown.dialog-overlay",function(F){(E.options.closeOnEscape&&F.keyCode&&F.keyCode==A.ui.keyCode.ESCAPE&&E.close(F))
+D(document).bind("keydown.dialog-overlay",function(C){(A.options.closeOnEscape&&C.keyCode&&C.keyCode==D.ui.keyCode.ESCAPE&&A.close(C))
 });
-A(window).bind("resize.dialog-overlay",A.ui.dialog.overlay.resize)
-}var D=A("<div></div>").appendTo(document.body).addClass("ui-widget-overlay").css({width:this.width(),height:this.height()});
-(E.options.bgiframe&&A.fn.bgiframe&&D.bgiframe());
-this.instances.push(D);
-return D
-},destroy:function(D){this.instances.splice(A.inArray(this.instances,D),1);
-if(this.instances.length===0){A([document,window]).unbind(".dialog-overlay")
-}D.remove();
-var E=0;
-A.each(this.instances,function(){E=Math.max(E,this.css("z-index"))
+D(window).bind("resize.dialog-overlay",D.ui.dialog.overlay.resize)
+}var B=D("<div></div>").appendTo(document.body).addClass("ui-widget-overlay").css({width:this.width(),height:this.height()});
+(A.options.bgiframe&&D.fn.bgiframe&&B.bgiframe());
+this.instances.push(B);
+return B
+},destroy:function(B){this.instances.splice(D.inArray(this.instances,B),1);
+if(this.instances.length===0){D([document,window]).unbind(".dialog-overlay")
+}B.remove();
+var A=0;
+D.each(this.instances,function(){A=Math.max(A,this.css("z-index"))
 });
-this.maxZ=E
-},height:function(){if(A.browser.msie&&A.browser.version<7){var E=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
-var D=Math.max(document.documentElement.offsetHeight,document.body.offsetHeight);
-if(E<D){return A(window).height()+"px"
-}else{return E+"px"
-}}else{return A(document).height()+"px"
-}},width:function(){if(A.browser.msie&&A.browser.version<7){var D=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth);
-var E=Math.max(document.documentElement.offsetWidth,document.body.offsetWidth);
-if(D<E){return A(window).width()+"px"
-}else{return D+"px"
-}}else{return A(document).width()+"px"
-}},resize:function(){var D=A([]);
-A.each(A.ui.dialog.overlay.instances,function(){D=D.add(this)
+this.maxZ=A
+},height:function(){if(D.browser.msie&&D.browser.version<7){var A=Math.max(document.documentElement.scrollHeight,document.body.scrollHeight);
+var B=Math.max(document.documentElement.offsetHeight,document.body.offsetHeight);
+if(A<B){return D(window).height()+"px"
+}else{return A+"px"
+}}else{return D(document).height()+"px"
+}},width:function(){if(D.browser.msie&&D.browser.version<7){var B=Math.max(document.documentElement.scrollWidth,document.body.scrollWidth);
+var A=Math.max(document.documentElement.offsetWidth,document.body.offsetWidth);
+if(B<A){return D(window).width()+"px"
+}else{return B+"px"
+}}else{return D(document).width()+"px"
+}},resize:function(){var A=D([]);
+D.each(D.ui.dialog.overlay.instances,function(){A=A.add(this)
 });
-D.css({width:0,height:0}).css({width:A.ui.dialog.overlay.width(),height:A.ui.dialog.overlay.height()})
+A.css({width:0,height:0}).css({width:D.ui.dialog.overlay.width(),height:D.ui.dialog.overlay.height()})
 }});
-A.extend(A.ui.dialog.overlay.prototype,{destroy:function(){A.ui.dialog.overlay.destroy(this.$el)
+D.extend(D.ui.dialog.overlay.prototype,{destroy:function(){D.ui.dialog.overlay.destroy(this.$el)
 }})
 })(jQuery);

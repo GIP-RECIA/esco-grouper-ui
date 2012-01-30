@@ -1,17 +1,17 @@
-(function(A){if(window.DOMParser==undefined&&window.ActiveXObject){DOMParser=function(){};
-DOMParser.prototype.parseFromString=function(C){var B=new ActiveXObject("Microsoft.XMLDOM");
-B.async="false";
-B.loadXML(C);
-return B
+(function(B){if(window.DOMParser==undefined&&window.ActiveXObject){DOMParser=function(){};
+DOMParser.prototype.parseFromString=function(A){var D=new ActiveXObject("Microsoft.XMLDOM");
+D.async="false";
+D.loadXML(A);
+return D
 }
-}A.xmlDOM=function(D,C){try{var F=(new DOMParser()).parseFromString(D,"text/xml");
-if(A.isXMLDoc(F)){var E=A("parsererror",F);
-if(E.length==1){throw ("Error: "+A(F).text())
+}B.xmlDOM=function(J,K){try{var H=(new DOMParser()).parseFromString(J,"text/xml");
+if(B.isXMLDoc(H)){var I=B("parsererror",H);
+if(I.length==1){throw ("Error: "+B(H).text())
 }}else{throw ("Unable to parse XML")
-}}catch(G){var B=(G.name==undefined?G:G.name+": "+G.message);
-if(A.isFunction(C)){C(B)
-}else{A(document).trigger("xmlParseError",[B])
-}return A([])
-}return A(F)
+}}catch(A){var L=(A.name==undefined?A:A.name+": "+A.message);
+if(B.isFunction(K)){K(L)
+}else{B(document).trigger("xmlParseError",[L])
+}return B([])
+}return B(H)
 }
 })(jQuery);

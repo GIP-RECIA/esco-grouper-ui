@@ -1,58 +1,58 @@
-(function(A){DUI={isClass:function(D,B){B=B===undefined?null:Boolean(B);
-try{if(D._ident.library=="DUI.Class"){if(B===null||(B===false&&D._ident.dynamic)||(B===true&&!D._ident.dynamic)){return true
-}}}catch(C){}return false
-},global:function(B,C){if(B.constructor==Array){var D=B[1]||undefined;
-B=B[0]
-}return DUI.Class.prototype.ns.apply(D?D:window,[B,C])
+(function(B){DUI={isClass:function(A,F){F=F===undefined?null:Boolean(F);
+try{if(A._ident.library=="DUI.Class"){if(F===null||(F===false&&A._ident.dynamic)||(F===true&&!A._ident.dynamic)){return true
+}}}catch(E){}return false
+},global:function(F,E){if(F.constructor==Array){var A=F[1]||undefined;
+F=F[0]
+}return DUI.Class.prototype.ns.apply(A?A:window,[F,E])
 }};
 DUI.Class=function(){return this.constructor.prototype._bootstrap.apply(this.constructor,arguments)
 };
-A.extend(DUI.Class.prototype,{_dontEnum:["prototype","_dontEnum","_ident","_bootstrap","init","create","ns","each"],_ident:{library:"DUI.Class",version:"1.0.0",dynamic:true},_bootstrap:function(){var B=function(){return function(){this.init.apply(this,arguments)
+B.extend(DUI.Class.prototype,{_dontEnum:["prototype","_dontEnum","_ident","_bootstrap","init","create","ns","each"],_ident:{library:"DUI.Class",version:"1.0.0",dynamic:true},_bootstrap:function(){var A=function(){return function(){this.init.apply(this,arguments)
 }
-}.apply(B);
-A.extend(true,B.prototype,this.prototype);
-return B.prototype.create.apply(B,arguments)
-},init:function(){},create:function(){var D=this;
-var B=Array.prototype.slice.apply(arguments).reverse()[0]||null;
-B=B!==null&&B.constructor==Boolean?B:false;
-var C=B?D:D.prototype;
-if(arguments.length>0&&arguments[0].constructor==String){var F=Array.prototype.slice.call(arguments);
-var E=F.shift();
-D[E]=D.create.apply(D,F);
-return D[E]
-}if(B){D.prototype._ident.dynamic=false
-}A.each(["_dontEnum","_ident","create","ns","each"],function(){D[this]=D.prototype[this]
+}.apply(A);
+B.extend(true,A.prototype,this.prototype);
+return A.prototype.create.apply(A,arguments)
+},init:function(){},create:function(){var H=this;
+var J=Array.prototype.slice.apply(arguments).reverse()[0]||null;
+J=J!==null&&J.constructor==Boolean?J:false;
+var I=J?H:H.prototype;
+if(arguments.length>0&&arguments[0].constructor==String){var A=Array.prototype.slice.call(arguments);
+var G=A.shift();
+H[G]=H.create.apply(H,A);
+return H[G]
+}if(J){H.prototype._ident.dynamic=false
+}B.each(["_dontEnum","_ident","create","ns","each"],function(){H[this]=H.prototype[this]
 });
-A.each(arguments,function(){var G=this;
-if(G.constructor==Object||DUI.isClass(G)){var H=DUI.isClass(G,false)?G.prototype:G;
-A.each(H,function(I,J){if(I=="dontEnum"&&J.constructor==Array){C._dontEnum=A.merge(C._dontEnum,J);
+B.each(arguments,function(){var D=this;
+if(D.constructor==Object||DUI.isClass(D)){var C=DUI.isClass(D,false)?D.prototype:D;
+B.each(C,function(F,E){if(F=="dontEnum"&&E.constructor==Array){I._dontEnum=B.merge(I._dontEnum,E);
 return 
-}C[I]=J
+}I[F]=E
 })
 }});
-return D
+return H
 },ns:function(){if(arguments.length==0){throw new Error("DUI.Class.ns should probably have some arguments passed to it.")
-}var F=arguments[0];
-var E=null;
-var H=(arguments.length==1||arguments[1]===undefined)&&F.constructor!=Object?true:false;
-if(F.constructor==String){var G={};
-G[F]=arguments[1]?arguments[1]:undefined;
-F=G
-}if(F.constructor==Object){var C=this,B=false,D=this;
-A.each(F,function(L,I){var J=C;
-var K=L.split(".");
-A.each(K,function(M,N){if(H&&typeof J[N]=="undefined"){B=true;
+}var J=arguments[0];
+var K=null;
+var A=(arguments.length==1||arguments[1]===undefined)&&J.constructor!=Object?true:false;
+if(J.constructor==String){var I={};
+I[J]=arguments[1]?arguments[1]:undefined;
+J=I
+}if(J.constructor==Object){var M=this,N=false,L=this;
+B.each(J,function(C,F){var E=M;
+var D=C.split(".");
+B.each(D,function(H,G){if(A&&typeof E[G]=="undefined"){N=true;
 return false
-}else{if(M==K.length-1&&I){J[N]=I
-}else{if(typeof J[N]=="undefined"){J[N]=new DUI.Class(true)
-}}}D=J=J[N]
+}else{if(H==D.length-1&&F){E[G]=F
+}else{if(typeof E[G]=="undefined"){E[G]=new DUI.Class(true)
+}}}L=E=E[G]
 })
 });
-return B?undefined:D
-}},each:function(D){if(!A.isFunction(D)){throw new Error("DUI.Class.each must be called with a function as its first argument.")
-}var E=this;
-for(var B in E){if(A.inArray(B,E._dontEnum)==-1){var C=E[B];
-D.apply(C,[B,C])
+return N?undefined:L
+}},each:function(F){if(!B.isFunction(F)){throw new Error("DUI.Class.each must be called with a function as its first argument.")
+}var A=this;
+for(var H in A){if(B.inArray(H,A._dontEnum)==-1){var G=A[H];
+F.apply(G,[H,G])
 }}}});
 DUI=new DUI.Class(DUI,true)
 })(jQuery);

@@ -1,58 +1,58 @@
 var fluid_1_1=fluid_1_1||{};
-(function(A,C){C.dom=C.dom||{};
-var B=function(D){if(D.node.firstChild){D.node=D.node.firstChild;
-D.depth+=1;
-return D
-}while(D.node){if(D.node.nextSibling){D.node=D.node.nextSibling;
-return D
-}D.node=D.node.parentNode;
-D.depth-=1
-}return D
+(function(D,E){E.dom=E.dom||{};
+var F=function(A){if(A.node.firstChild){A.node=A.node.firstChild;
+A.depth+=1;
+return A
+}while(A.node){if(A.node.nextSibling){A.node=A.node.nextSibling;
+return A
+}A.node=A.node.parentNode;
+A.depth-=1
+}return A
 };
-C.dom.iterateDom=function(E,I,H){var G={node:E,depth:0};
-var F=E;
-var D;
-while(G.node!==null&&G.depth>=0&&G.depth<C.dom.iterateDom.DOM_BAIL_DEPTH){D=null;
-if(G.node.nodeType===1||H){D=I(G.node,G.depth)
-}if(D){if(D==="delete"){G.node.parentNode.removeChild(G.node);
-G.node=F
-}else{if(D==="stop"){return G.node
-}}}F=G.node;
-G=B(G)
+E.dom.iterateDom=function(K,A,B){var C={node:K,depth:0};
+var J=K;
+var L;
+while(C.node!==null&&C.depth>=0&&C.depth<E.dom.iterateDom.DOM_BAIL_DEPTH){L=null;
+if(C.node.nodeType===1||B){L=A(C.node,C.depth)
+}if(L){if(L==="delete"){C.node.parentNode.removeChild(C.node);
+C.node=J
+}else{if(L==="stop"){return C.node
+}}}J=C.node;
+C=F(C)
 }};
-C.dom.iterateDom.DOM_BAIL_DEPTH=256;
-C.dom.computeAbsolutePosition=function(F){var E=0,D=0;
-if(F.offsetParent){do{E+=F.offsetLeft;
-D+=F.offsetTop;
-F=F.offsetParent
-}while(F);
-return[E,D]
+E.dom.iterateDom.DOM_BAIL_DEPTH=256;
+E.dom.computeAbsolutePosition=function(A){var B=0,C=0;
+if(A.offsetParent){do{B+=A.offsetLeft;
+C+=A.offsetTop;
+A=A.offsetParent
+}while(A);
+return[B,C]
 }};
-C.dom.isContainer=function(D,E){for(;
-E;
-E=E.parentNode){if(D===E){return true
+E.dom.isContainer=function(B,A){for(;
+A;
+A=A.parentNode){if(B===A){return true
 }}return false
 };
-C.dom.insertAfter=function(F,D){var E=D.nextSibling;
-if(!E){D.parentNode.appendChild(F)
-}else{D.parentNode.insertBefore(F,E)
+E.dom.insertAfter=function(A,C){var B=C.nextSibling;
+if(!B){C.parentNode.appendChild(A)
+}else{C.parentNode.insertBefore(A,B)
 }};
-C.dom.isWhitespaceNode=function(D){return !(/[^\t\n\r ]/.test(D.data))
+E.dom.isWhitespaceNode=function(A){return !(/[^\t\n\r ]/.test(A.data))
 };
-C.dom.isIgnorableNode=function(D){return(D.nodeType===8)||((D.nodeType===3)&&C.dom.isWhitespaceNode(D))
+E.dom.isIgnorableNode=function(A){return(A.nodeType===8)||((A.nodeType===3)&&E.dom.isWhitespaceNode(A))
 };
-C.dom.getElementText=function(H){var F=H.childNodes;
-var D="";
-for(var G=0;
-G<F.length;
-++G){var E=F[G];
-if(E.nodeType==3){D=D+E.nodeValue
-}}return D
+E.dom.getElementText=function(A){var C=A.childNodes;
+var J="";
+for(var B=0;
+B<C.length;
+++B){var I=C[B];
+if(I.nodeType==3){J=J+I.nodeValue
+}}return J
 };
-C.dom.cleanseScripts=function(D){var E=A.data(D,C.dom.cleanseScripts.MARKER);
-if(!E){C.dom.iterateDom(D,function(F){return F.tagName.toLowerCase()==="script"?"delete":null
+E.dom.cleanseScripts=function(B){var A=D.data(B,E.dom.cleanseScripts.MARKER);
+if(!A){E.dom.iterateDom(B,function(C){return C.tagName.toLowerCase()==="script"?"delete":null
 });
-A.data(D,C.dom.cleanseScripts.MARKER,true)
+D.data(B,E.dom.cleanseScripts.MARKER,true)
 }};
-C.dom.cleanseScripts.MARKER="fluid-scripts-cleansed"
+E.dom.cleanseScripts.MARKER="fluid-scripts-cleansed"
 })(jQuery,fluid_1_1);

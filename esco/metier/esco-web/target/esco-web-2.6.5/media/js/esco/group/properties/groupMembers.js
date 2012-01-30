@@ -4,7 +4,7 @@ return true
 },getPostDataToFindDataRequest:function(){jsonData=$.extend({groupUuid:$("input[id=groupUuid]").val(),theMemberType:$("input[name=membersRadio]:checked").val()},Core.getUrlParams());
 Core.resetNavParams();
 return jsonData
-},doActionOnFindData:function(A){group.getIsGroupModified()
+},doActionOnFindData:function(B){group.getIsGroupModified()
 },getIfSelectable:function(){memberRadioValue=$("input[name=membersRadio]:checked").val();
 if(memberRadioValue=="MEMBER_RADIO_EFFECTIVE"||memberRadioValue=="MEMBER_RADIO_ALL"){this._options.IS_SELECTABLE_GRID=false&&Profile.canAddOrDeleteMembersOnGroupProperties()
 }else{this._options.IS_SELECTABLE_GRID=true&&Profile.canAddOrDeleteMembersOnGroupProperties()
@@ -13,11 +13,11 @@ if(memberRadioValue=="MEMBER_RADIO_EFFECTIVE"||memberRadioValue=="MEMBER_RADIO_A
 $("#message").append("");
 $("#pagerGrid > *").not(".navtable").hide();
 $($("#pagerGrid .nav-button")[1]).hide()
-}},doSelectRow:function(B,A){if(A==false){$("input[id=cb_jqg]").attr("checked",false);
+}},doSelectRow:function(D,C){if(C==false){$("input[id=cb_jqg]").attr("checked",false);
 this.nbRowSelected--
 }else{this.nbRowSelected++
 }this._updateRowSelectedInfo()
-},doSelectAll:function(B,A){if(A){this.nbRowSelected=parseInt($("#list").attr("p").records,10)
+},doSelectAll:function(D,C){if(C){this.nbRowSelected=parseInt($("#list").attr("p").records,10)
 }else{this.nbRowSelected=0
 }this._updateRowSelectedInfo()
 },doOnPaging:function(){this._selectType="undefined";
@@ -32,20 +32,20 @@ if(memberRadioValue=="MEMBER_RADIO_EFFECTIVE"||memberRadioValue=="MEMBER_RADIO_A
 $("input[class=cbox]").css("display","none")
 }else{try{$("table[class*=navtable]").css("display","block");
 $("input[class=cbox]").css("display","block")
-}catch(A){}}},addActionOnClickLinkItemPerson:function(A){if(Profile.canAccessToPersonProperties()){Core.addAction($(A),Core.CLICK,function(B){Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/personProperties.jsf",{idPerson:B.target.id,needClear:"true"},"#mainContent",true,false)
+}catch(B){}}},addActionOnClickLinkItemPerson:function(B){if(Profile.canAccessToPersonProperties()){Core.addAction($(B),Core.CLICK,function(A){Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/personProperties.jsf",{idPerson:A.target.id,needClear:"true"},"#mainContent",true,false)
 },true)
-}else{$(A).removeClass("tableLink")
-}},addActionOnClickLinkItemGroup:function(A){if(Profile.canAccessToGroupProperties()){Core.addAction($(A),Core.CLICK,function(B){Core.log("Preparate open of node + "+B.target.id);
-_displayBlockUIOption={onAfterShowBlockUI:function(){Core.log("Preparate open of node + "+$("#"+B.target.id).attr("id"));
-TreePlugin.openAndSelectNode(B.target.id)
+}else{$(B).removeClass("tableLink")
+}},addActionOnClickLinkItemGroup:function(B){if(Profile.canAccessToGroupProperties()){Core.addAction($(B),Core.CLICK,function(A){Core.log("Preparate open of node + "+A.target.id);
+_displayBlockUIOption={onAfterShowBlockUI:function(){Core.log("Preparate open of node + "+$("#"+A.target.id).attr("id"));
+TreePlugin.openAndSelectNode(A.target.id)
 }};
 Core._showBlockUI(_displayBlockUIOption)
 },true)
-}else{$(A).removeClass("tableLink")
-}},doAddNavButtons:function(){var A=this;
-if(Profile.canAddOrDeleteMembersOnGroupProperties()){var C=ActionNavBar.actionAddDefault(A,"/"+Core.applicationContext+"/stylesheets/groupProperties.jsf",1);
-this._addANavButton(this._lang.ADD_LABEL,this._lang.ADD_TITLE,"/"+Core.applicationContext+"/media/imgs/grid/10551.add_exc.gif",C,"add");
-var B=ActionNavBar.actionDelDefault(A,"/"+Core.applicationContext+"/ajax/groupMembersController/deleteItems.jsf",group.getIsGroupModified);
-this._addANavButton(this._lang.DEL_LABEL,this._lang.DEL_TITLE,"/"+Core.applicationContext+"/media/imgs/grid/14763.delete.gif",B,"del")
+}else{$(B).removeClass("tableLink")
+}},doAddNavButtons:function(){var D=this;
+if(Profile.canAddOrDeleteMembersOnGroupProperties()){var E=ActionNavBar.actionAddDefault(D,"/"+Core.applicationContext+"/stylesheets/groupProperties.jsf",1);
+this._addANavButton(this._lang.ADD_LABEL,this._lang.ADD_TITLE,"/"+Core.applicationContext+"/media/imgs/grid/10551.add_exc.gif",E,"add");
+var F=ActionNavBar.actionDelDefault(D,"/"+Core.applicationContext+"/ajax/groupMembersController/deleteItems.jsf",group.getIsGroupModified);
+this._addANavButton(this._lang.DEL_LABEL,this._lang.DEL_TITLE,"/"+Core.applicationContext+"/media/imgs/grid/14763.delete.gif",F,"del")
 }}});
 var GroupMember=new DUI.Class(GroupMemberPrototype,$.screen);

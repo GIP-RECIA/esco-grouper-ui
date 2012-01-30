@@ -1,6 +1,6 @@
-var Lang={_LANG:{},getString:function(A){var B=A.toUpperCase();
-B=B.replace(" ","_");
-if(this._LANG[B]!=null){return this._LANG[B]
-}else{if(Debug.isInDebug()){return"?????"+B+"?????"
+var Lang={_LANG:{},getString:function(C){var D=C.toUpperCase();
+D=D.replace(" ","_");
+if(this._LANG[D]!=null){return this._LANG[D]
+}else{if(Debug.isInDebug()){return"?????"+D+"?????"
 }else{return""
 }}}};

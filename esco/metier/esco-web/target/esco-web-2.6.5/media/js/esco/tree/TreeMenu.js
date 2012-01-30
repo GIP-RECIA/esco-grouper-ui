@@ -1,30 +1,30 @@
-var TreeMenu={_currentCutAction:null,setCurrentCutAction:function(A){TreeMenu.releaseAllCutAction();
-TreeMenu._currentCutAction=A
+var TreeMenu={_currentCutAction:null,setCurrentCutAction:function(B){TreeMenu.releaseAllCutAction();
+TreeMenu._currentCutAction=B
 },releaseCurrentCutAction:function(){if(TreeMenu._currentCutAction!=null){TreeMenu._currentCutAction.release();
 TreeMenu._currentCutAction=null
 }},releaseAllCutAction:function(){MoveGroup.release();
 MoveStem.release();
 CopyMembers.release()
-},copyMembersIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){return false
-}else{if($(A).attr("right")!="admin"&&$(A).attr("right")!="update"){return false
-}else{if(CopyMembers._groupMembersCut!=null&&CopyMembers._groupMembersCut.attr("id")==$(A).attr("id")){return false
+},copyMembersIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){return false
+}else{if($(C).attr("right")!="admin"&&$(C).attr("right")!="update"){return false
+}else{if(CopyMembers._groupMembersCut!=null&&CopyMembers._groupMembersCut.attr("id")==$(C).attr("id")){return false
 }else{return true
-}}}}},copyMembersAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}CopyMembers.init(A)
-},pasteMembersIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){return false
-}else{if($(A).attr("right")!="admin"&&$(A).attr("right")!="update"){return false
-}else{if(CopyMembers._groupMembersCut!=null&&CopyMembers._groupMembersCut.attr("id")==$(A).attr("id")){return false
+}}}}},copyMembersAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}CopyMembers.init(C)
+},pasteMembersIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){return false
+}else{if($(C).attr("right")!="admin"&&$(C).attr("right")!="update"){return false
+}else{if(CopyMembers._groupMembersCut!=null&&CopyMembers._groupMembersCut.attr("id")==$(C).attr("id")){return false
 }}}}return CopyMembers._isGroupMembersCut
-},pasteMembersAction:function(A,C){if(A===false){A=$("a[class=clicked]").parent("li")
+},pasteMembersAction:function(F,I){if(F===false){F=$("a[class=clicked]").parent("li")
 }$(CopyMembers._groupMembersCut).css("opacity","1");
-var D=$(A).attr("name");
-var E=$(CopyMembers._groupMembersCut).attr("name");
-var B={groupOriginName:E,groupDestName:D};
-_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupDeleteOrCopyMembersController/copyGroupMembers.jsf",B,function(F){if(Core.getStatus(F)){tree.settings.callback.onload=function(){Core._hideBlockUI();
+var H=$(F).attr("name");
+var G=$(CopyMembers._groupMembersCut).attr("name");
+var J={groupOriginName:G,groupDestName:H};
+_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupDeleteOrCopyMembersController/copyGroupMembers.jsf",J,function(A){if(Core.getStatus(A)){tree.settings.callback.onload=function(){Core._hideBlockUI();
 tree.settings.callback.onload=function(){}
 }
 }tree.refresh($("li[id=:]"))
@@ -32,33 +32,33 @@ tree.settings.callback.onload=function(){}
 }};
 Core._showBlockUI(_displayBlockUIOption);
 TreeMenu.releaseCurrentCutAction()
-},cutGroupIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){return false
-}else{if($(A).attr("right")!="admin"){return false
+},cutGroupIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){return false
+}else{if($(C).attr("right")!="admin"){return false
 }else{return true
 }}}return false
-},cutGroupAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}MoveGroup.init(A)
-},pasteGroupIsVisible:function(D,B){if(D===false){D=$("a[class=clicked]").parent("li")
-}if($(D).attr("typeNode")=="ROOT"){return false
-}else{if(D.attr("typeNode")=="GROUP"){return false
-}else{if($(D).attr("right")=="FOLDER"){return false
-}else{if($(D).attr("right")=="NONE"){return false
-}}}}if(MoveGroup._theNodeCut!=null){var C=$(D).attr("displayName");
-var A=tree.parent($(MoveGroup._theNodeCut)).attr("displayName");
-if(A==C){return false
+},cutGroupAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}MoveGroup.init(C)
+},pasteGroupIsVisible:function(F,H){if(F===false){F=$("a[class=clicked]").parent("li")
+}if($(F).attr("typeNode")=="ROOT"){return false
+}else{if(F.attr("typeNode")=="GROUP"){return false
+}else{if($(F).attr("right")=="FOLDER"){return false
+}else{if($(F).attr("right")=="NONE"){return false
+}}}}if(MoveGroup._theNodeCut!=null){var G=$(F).attr("displayName");
+var E=tree.parent($(MoveGroup._theNodeCut)).attr("displayName");
+if(E==G){return false
 }}return MoveGroup._isNodeCut;
 return false
-},pasteGroupAction:function(E,A){if(E===false){E=$("a[class=clicked]").parent("li")
+},pasteGroupAction:function(K,H){if(K===false){K=$("a[class=clicked]").parent("li")
 }$(MoveGroup._theNodeCut).css("opacity","1");
-var C=$(E).attr("displayName");
-var F=tree.parent($(MoveGroup._theNodeCut)).attr("displayName");
-var G={groupUuid:$(MoveGroup._theNodeCut).attr("id"),stemName:$(E).attr("name"),stemDisplayName:$(E).attr("displayName")};
-var D=$(MoveGroup._theNodeCut);
-var B=$(E);
+var M=$(K).attr("displayName");
+var J=tree.parent($(MoveGroup._theNodeCut)).attr("displayName");
+var I={groupUuid:$(MoveGroup._theNodeCut).attr("id"),stemName:$(K).attr("name"),stemDisplayName:$(K).attr("displayName")};
+var L=$(MoveGroup._theNodeCut);
+var N=$(K);
 MoveGroup._resultOfMoveAction=null;
-_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupController/moveGroup.jsf",G,function(H){if(Core.getStatus(H)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(H,"message"));
+_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/groupController/moveGroup.jsf",I,function(A){if(Core.getStatus(A)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(A,"message"));
 $("li[typeNode=ROOT]").click().click();
 Core._hideBlockUI();
 tree.settings.callback.onload=function(){}
@@ -68,30 +68,30 @@ tree.settings.callback.onload=function(){}
 }};
 Core._showBlockUI(_displayBlockUIOption);
 TreeMenu.releaseCurrentCutAction()
-},cutStemIsVisible:function(A,B){return false;
-if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="GROUP"){return false
+},cutStemIsVisible:function(C,D){return false;
+if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="GROUP"){return false
 }else{return true
 }}return false
-},cutStemAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}MoveStem.init(A)
-},pasteStemIsVisible:function(D,B){return false;
-if(D===false){D=$("a[class=clicked]").parent("li")
-}if($(D).attr("typeNode")=="ROOT"){return false
-}else{if(D.attr("typeNode")=="GROUP"){return false
-}}if(MoveStem._theNodeCut!=null){var C=$(D).attr("displayName");
-var A=$(MoveStem._theNodeCut).attr("displayName");
-if(A==C){return false
+},cutStemAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}MoveStem.init(C)
+},pasteStemIsVisible:function(F,H){return false;
+if(F===false){F=$("a[class=clicked]").parent("li")
+}if($(F).attr("typeNode")=="ROOT"){return false
+}else{if(F.attr("typeNode")=="GROUP"){return false
+}}if(MoveStem._theNodeCut!=null){var G=$(F).attr("displayName");
+var E=$(MoveStem._theNodeCut).attr("displayName");
+if(E==G){return false
 }}return MoveStem._isNodeCut;
 return false
-},pasteStemAction:function(A,C){if(A===false){A=$("a[class=clicked]").parent("li")
+},pasteStemAction:function(F,I){if(F===false){F=$("a[class=clicked]").parent("li")
 }$(MoveStem._theNodeCut).css("opacity","1");
-var B={stemUuid:$(MoveStem._theNodeCut).attr("id"),stemName:$(MoveStem._theNodeCut).attr("name"),targetStemName:$(A).attr("name")};
-var E=$(MoveStem._theNodeCut);
-var D=$(A);
+var J={stemUuid:$(MoveStem._theNodeCut).attr("id"),stemName:$(MoveStem._theNodeCut).attr("name"),targetStemName:$(F).attr("name")};
+var G=$(MoveStem._theNodeCut);
+var H=$(F);
 MoveStem._resultOfMoveAction=null;
-_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/stemController/moveStem.jsf",B,function(F){if(Core.getStatus(F)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(F,"message"));
+_displayBlockUIOption={onAfterShowBlockUI:function(){$.post("/"+Core.applicationContext+"/ajax/stemController/moveStem.jsf",J,function(A){if(Core.getStatus(A)){tree.settings.callback.onload=function(){TreePlugin.openAndSelectParent(Core.getValueOfXml(A,"message"));
 $("li[typeNode=ROOT]").click().click();
 Core._hideBlockUI();
 tree.settings.callback.onload=function(){}
@@ -101,118 +101,118 @@ tree.settings.callback.onload=function(){}
 }};
 Core._showBlockUI(_displayBlockUIOption);
 TreeMenu.releaseCurrentCutAction()
-},deleteIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){if($(A).attr("isEmpty")!="true"){return false
-}else{if($(A).attr("right")=="GROUP"){return false
-}else{if($(A).attr("right")=="NONE"){return false
+},deleteIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){if($(C).attr("isEmpty")!="true"){return false
+}else{if($(C).attr("right")=="GROUP"){return false
+}else{if($(C).attr("right")=="NONE"){return false
 }else{return true
-}}}}else{if($(A).attr("right")!="admin"){return false
+}}}}else{if($(C).attr("right")!="admin"){return false
 }else{return true
-}}}},deleteAction:function(D,B){if(D===false){D=$("a[class=clicked]").parent("li")
-}if(D.attr("typeNode")=="FOLDER"){var C=false;
-if($("#stemUuid")!=undefined&&$("#stemUuid").val()==D.attr("id")){C=true
-}$.post("/"+Core.applicationContext+"/stylesheets/stemProperties/modalDeleteStem.jsf",{stemUuid:D.attr("id"),displayName:D.attr("displayName"),needToRedirect:C,from:"treeNavigate"},function(E){Core.isInBlockUiMode=true;
-$("#modalDelete").empty().append(E);
+}}}},deleteAction:function(F,H){if(F===false){F=$("a[class=clicked]").parent("li")
+}if(F.attr("typeNode")=="FOLDER"){var G=false;
+if($("#stemUuid")!=undefined&&$("#stemUuid").val()==F.attr("id")){G=true
+}$.post("/"+Core.applicationContext+"/stylesheets/stemProperties/modalDeleteStem.jsf",{stemUuid:F.attr("id"),displayName:F.attr("displayName"),needToRedirect:G,from:"treeNavigate"},function(A){Core.isInBlockUiMode=true;
+$("#modalDelete").empty().append(A);
 $.blockUI({message:$("#modalDelete"),css:{cursor:"default",width:"500px",top:"30%",left:"50%","margin-left":"-250px"}})
 })
-}else{if(D.attr("typeNode")=="GROUP"){var C=false;
-if($("#groupUuid")!=undefined&&$("#groupUuid").val()==D.attr("id")){C=true;
+}else{if(F.attr("typeNode")=="GROUP"){var G=false;
+if($("#groupUuid")!=undefined&&$("#groupUuid").val()==F.attr("id")){G=true;
 try{group._needUpdateData=false
-}catch(A){}}$.post("/"+Core.applicationContext+"/stylesheets/groupProperties/modalDeleteGroup.jsf",{groupUuid:D.attr("id"),displayName:D.attr("displayName"),needToRedirect:C,from:"treeNavigate"},function(E){Core.isInBlockUiMode=true;
-$("#modalDelete").empty().append(E);
+}catch(E){}}$.post("/"+Core.applicationContext+"/stylesheets/groupProperties/modalDeleteGroup.jsf",{groupUuid:F.attr("id"),displayName:F.attr("displayName"),needToRedirect:G,from:"treeNavigate"},function(A){Core.isInBlockUiMode=true;
+$("#modalDelete").empty().append(A);
 $.blockUI({message:$("#modalDelete"),css:{cursor:"default",width:"500px",top:"30%",left:"50%","margin-left":"-250px"}})
 })
-}}},createFolderIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if($(A).attr("typeNode")=="GROUP"){return false
-}else{if($(A).attr("right")=="GROUP"){return false
-}else{if($(A).attr("right")=="NONE"){return false
+}}},createFolderIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if($(C).attr("typeNode")=="GROUP"){return false
+}else{if($(C).attr("right")=="GROUP"){return false
+}else{if($(C).attr("right")=="NONE"){return false
 }else{if(!Profile.canAccessToStemModification()){return false
 }else{return true
-}}}}}},createFolderAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if(A.attr("typeNode")=="FOLDER"){tree.select_node($(A));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemModifications.jsf",{stemUuid:$(A).attr("ID"),from:"treeNavigate",creation:"true"},"#mainContent",true)
-}},createGroupIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if($(A).attr("typeNode")=="GROUP"){return false
-}else{if($(A).attr("right")=="FOLDER"){return false
-}else{if($(A).attr("right")=="NONE"){return false
+}}}}}},createFolderAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if(C.attr("typeNode")=="FOLDER"){tree.select_node($(C));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemModifications.jsf",{stemUuid:$(C).attr("ID"),from:"treeNavigate",creation:"true"},"#mainContent",true)
+}},createGroupIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if($(C).attr("typeNode")=="GROUP"){return false
+}else{if($(C).attr("right")=="FOLDER"){return false
+}else{if($(C).attr("right")=="NONE"){return false
 }else{if(!Profile.canAccessToGroupModification()){return false
 }else{return true
-}}}}}},createGroupAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if(A.attr("typeNode")=="FOLDER"){tree.select_node($(A));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupModifications/groupModificationsAttributes.jsf",{stemUuid:$(A).attr("ID"),from:"treeNavigate",creation:"true"},"#mainContent",true)
-}},searchIsVisible:function(A,B){return true
-},searchAction:function(B,C){if(B===false){B=$("a[class=clicked]").parent("li")
-}var E="";
-var A="";
-if(B.attr("typeNode")=="GROUP"){var D=$(B).attr("name").split(":");
+}}}}}},createGroupAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if(C.attr("typeNode")=="FOLDER"){tree.select_node($(C));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupModifications/groupModificationsAttributes.jsf",{stemUuid:$(C).attr("ID"),from:"treeNavigate",creation:"true"},"#mainContent",true)
+}},searchIsVisible:function(C,D){return true
+},searchAction:function(J,I){if(J===false){J=$("a[class=clicked]").parent("li")
+}var G="";
+var F="";
+if(J.attr("typeNode")=="GROUP"){var H=$(J).attr("name").split(":");
 for(i=0;
-i<D.length-1;
-i++){E=E+D[i]+":"
-}E=E.substring(0,E.length-1);
-D=$(B).attr("displayName").split(":");
+i<H.length-1;
+i++){G=G+H[i]+":"
+}G=G.substring(0,G.length-1);
+H=$(J).attr("displayName").split(":");
 for(i=0;
-i<D.length-1;
-i++){A=A+D[i]+":"
-}A=A.substring(0,A.length-1)
-}else{E=$(B).attr("name");
-A=$(B).attr("displayName")
-}tree.select_node($(B));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/simpleSearch.jsf",{idNode:A,nameIdNode:E},"#mainContent",true,true)
-},manageIsVisible:function(A,B){if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){if(!Profile.canAccessToStemModification()){return false
-}else{if($(A).attr("right")=="GROUP"){return false
-}else{if($(A).attr("right")=="NONE"){return false
+i<H.length-1;
+i++){F=F+H[i]+":"
+}F=F.substring(0,F.length-1)
+}else{G=$(J).attr("name");
+F=$(J).attr("displayName")
+}tree.select_node($(J));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/search/simpleSearch.jsf",{idNode:F,nameIdNode:G},"#mainContent",true,true)
+},manageIsVisible:function(C,D){if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){if(!Profile.canAccessToStemModification()){return false
+}else{if($(C).attr("right")=="GROUP"){return false
+}else{if($(C).attr("right")=="NONE"){return false
 }else{return true
-}}}}else{if(A.attr("typeNode")=="GROUP"){if(!Profile.canAccessToGroupModification()){return false
-}else{if($(A).attr("right")!="admin"){return false
+}}}}else{if(C.attr("typeNode")=="GROUP"){if(!Profile.canAccessToGroupModification()){return false
+}else{if($(C).attr("right")!="admin"){return false
 }else{return true
 }}}else{return false
-}}}},manageAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if(A.attr("typeNode")=="FOLDER"){tree.select_node($(A));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemModifications.jsf",{stemUuid:$(A).attr("ID"),from:"treeNavigate",creation:"false"},"#mainContent",true,true)
-}else{if(A.attr("typeNode")=="GROUP"){tree.select_node($(A));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupModifications/groupModificationsAttributes.jsf",{groupUuid:$(A).attr("ID"),from:"treeNavigate",creation:"false"},"#mainContent",true,true)
-}}},propertiesIsVisible:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if($(A).attr("typeNode")=="ROOT"){return false
-}else{if(A.attr("typeNode")=="FOLDER"){if(!Profile.canAccessToStemProperties()){return false
+}}}},manageAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if(C.attr("typeNode")=="FOLDER"){tree.select_node($(C));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemModifications.jsf",{stemUuid:$(C).attr("ID"),from:"treeNavigate",creation:"false"},"#mainContent",true,true)
+}else{if(C.attr("typeNode")=="GROUP"){tree.select_node($(C));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupModifications/groupModificationsAttributes.jsf",{groupUuid:$(C).attr("ID"),from:"treeNavigate",creation:"false"},"#mainContent",true,true)
+}}},propertiesIsVisible:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if($(C).attr("typeNode")=="ROOT"){return false
+}else{if(C.attr("typeNode")=="FOLDER"){if(!Profile.canAccessToStemProperties()){return false
 }else{return true
-}}else{if(A.attr("typeNode")=="GROUP"){if(!Profile.canAccessToGroupProperties()){return false
+}}else{if(C.attr("typeNode")=="GROUP"){if(!Profile.canAccessToGroupProperties()){return false
 }else{return true
 }}else{return false
-}}}},propertiesAction:function(A,B){if(A===false){A=$("a[class=clicked]").parent("li")
-}if(A.attr("typeNode")=="GROUP"){tree.select_node($(A));
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupProperties.jsf",{groupUuid:$(A).attr("ID"),from:"treeNavigate"},"#mainContent",true,true)
-}else{if(A.attr("typeNode")=="FOLDER"){tree.select_node($(A));
-$.post("/"+Core.applicationContext+"/ajax/stemController/isModifiedStems.jsf",json,function(C){});
-Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemProperties/stemProperties.jsf",{stemUuid:$(A).attr("ID"),from:"treeNavigate"},"#mainContent",true,true)
-}}},subscribeIsVisible:function(B,A){if(B===false){B=$("a[class=clicked]").parent("li")
-}if($(B).attr("typeNode")=="ROOT"){return false
-}else{if($(B).attr("typeNode")=="FOLDER"){return false
-}else{if($(B).attr("optin")=="false"){return false
+}}}},propertiesAction:function(C,D){if(C===false){C=$("a[class=clicked]").parent("li")
+}if(C.attr("typeNode")=="GROUP"){tree.select_node($(C));
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/groupProperties.jsf",{groupUuid:$(C).attr("ID"),from:"treeNavigate"},"#mainContent",true,true)
+}else{if(C.attr("typeNode")=="FOLDER"){tree.select_node($(C));
+$.post("/"+Core.applicationContext+"/ajax/stemController/isModifiedStems.jsf",json,function(A){});
+Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/stemProperties/stemProperties.jsf",{stemUuid:$(C).attr("ID"),from:"treeNavigate"},"#mainContent",true,true)
+}}},subscribeIsVisible:function(D,C){if(D===false){D=$("a[class=clicked]").parent("li")
+}if($(D).attr("typeNode")=="ROOT"){return false
+}else{if($(D).attr("typeNode")=="FOLDER"){return false
+}else{if($(D).attr("optin")=="false"){return false
 }else{return true
-}}}},subscribeAction:function(A,B){TreeMenu._clickOptinOrOptoutDefaultAction(A,"OPTIN")
-},unSubscribeIsVisible:function(B,A){if(B===false){B=$("a[class=clicked]").parent("li")
-}if($(B).attr("typeNode")=="ROOT"){return false
-}else{if($(B).attr("typeNode")=="FOLDER"){return false
-}else{if($(B).attr("optout")=="false"){return false
+}}}},subscribeAction:function(C,D){TreeMenu._clickOptinOrOptoutDefaultAction(C,"OPTIN")
+},unSubscribeIsVisible:function(D,C){if(D===false){D=$("a[class=clicked]").parent("li")
+}if($(D).attr("typeNode")=="ROOT"){return false
+}else{if($(D).attr("typeNode")=="FOLDER"){return false
+}else{if($(D).attr("optout")=="false"){return false
 }else{return true
-}}}},unSubscribeAction:function(A,B){TreeMenu._clickOptinOrOptoutDefaultAction(A,"OPTOUT")
-},_clickOptinOrOptoutDefaultAction:function(A,C){var B=$(A).attr("id");
-json={groupId:B,typeOfSubscription:C};
-$.post("/"+Core.applicationContext+"/ajax/personSubscriptionsController/subscribeOrUnsubscribeToGroup.jsf",json,function(D){if(Core.getStatus(D)){_displayBlockUIOption={onAfterShowBlockUI:function(){tree.settings.callback.onload=function(){if($("input[name=personSubscriptions] + a")!=undefined){var E=$("#escoPanels").tabs();
-var F=-1;
-jQuery.each($(".ui-tabs-nav > .ui-corner-top"),function(G,H){if(H.textContent==$("input[name=personSubscriptions] + a").attr("title")){F=G
+}}}},unSubscribeAction:function(C,D){TreeMenu._clickOptinOrOptoutDefaultAction(C,"OPTOUT")
+},_clickOptinOrOptoutDefaultAction:function(D,E){var F=$(D).attr("id");
+json={groupId:F,typeOfSubscription:E};
+$.post("/"+Core.applicationContext+"/ajax/personSubscriptionsController/subscribeOrUnsubscribeToGroup.jsf",json,function(A){if(Core.getStatus(A)){_displayBlockUIOption={onAfterShowBlockUI:function(){tree.settings.callback.onload=function(){if($("input[name=personSubscriptions] + a")!=undefined){var C=$("#escoPanels").tabs();
+var B=-1;
+jQuery.each($(".ui-tabs-nav > .ui-corner-top"),function(J,I){if(I.textContent==$("input[name=personSubscriptions] + a").attr("title")){B=J
 }});
-if($("#escoPanels").tabs("option","selected")==F){E.tabs("load",F)
+if($("#escoPanels").tabs("option","selected")==B){C.tabs("load",B)
 }}Core._hideBlockUI();
 tree.settings.callback.onload=function(){}
 };
 tree.refresh($("li[id=:]"))
 }};
 Core._showBlockUI(_displayBlockUIOption)
-}else{$.jGrowl(Core.getResult(D),{header:"Important",theme:"jGrowlError",sticky:true})
+}else{$.jGrowl(Core.getResult(A),{header:"Important",theme:"jGrowlError",sticky:true})
 }})
 }};

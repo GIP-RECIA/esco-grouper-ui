@@ -1,23 +1,23 @@
-(function(A){A.effects.pulsate=function(B){return this.queue(function(){var D=A(this);
-var G=A.effects.setMode(D,B.options.mode||"show");
-var F=B.options.times||5;
-var E=B.duration?B.duration/2:A.fx.speeds._default/2;
-if(G=="hide"){F--
-}if(D.is(":hidden")){D.css("opacity",0);
-D.show();
-D.animate({opacity:1},E,B.options.easing);
-F=F-2
-}for(var C=0;
-C<F;
-C++){D.animate({opacity:0},E,B.options.easing).animate({opacity:1},E,B.options.easing)
-}if(G=="hide"){D.animate({opacity:0},E,B.options.easing,function(){D.hide();
-if(B.callback){B.callback.apply(this,arguments)
+(function(B){B.effects.pulsate=function(A){return this.queue(function(){var K=B(this);
+var H=B.effects.setMode(K,A.options.mode||"show");
+var I=A.options.times||5;
+var J=A.duration?A.duration/2:B.fx.speeds._default/2;
+if(H=="hide"){I--
+}if(K.is(":hidden")){K.css("opacity",0);
+K.show();
+K.animate({opacity:1},J,A.options.easing);
+I=I-2
+}for(var L=0;
+L<I;
+L++){K.animate({opacity:0},J,A.options.easing).animate({opacity:1},J,A.options.easing)
+}if(H=="hide"){K.animate({opacity:0},J,A.options.easing,function(){K.hide();
+if(A.callback){A.callback.apply(this,arguments)
 }})
-}else{D.animate({opacity:0},E,B.options.easing).animate({opacity:1},E,B.options.easing,function(){if(B.callback){B.callback.apply(this,arguments)
+}else{K.animate({opacity:0},J,A.options.easing).animate({opacity:1},J,A.options.easing,function(){if(A.callback){A.callback.apply(this,arguments)
 }})
-}D.queue("fx",function(){D.dequeue()
+}K.queue("fx",function(){K.dequeue()
 });
-D.dequeue()
+K.dequeue()
 })
 }
 })(jQuery);

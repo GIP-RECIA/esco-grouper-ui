@@ -1,103 +1,103 @@
-(function(A){A.widget("ui.selectable",A.extend({},A.ui.mouse,{_init:function(){var B=this;
+(function(B){B.widget("ui.selectable",B.extend({},B.ui.mouse,{_init:function(){var D=this;
 this.element.addClass("ui-selectable");
 this.dragged=false;
-var C;
-this.refresh=function(){C=A(B.options.filter,B.element[0]);
-C.each(function(){var D=A(this);
-var E=D.offset();
-A.data(this,"selectable-item",{element:this,$element:D,left:E.left,top:E.top,right:E.left+D.outerWidth(),bottom:E.top+D.outerHeight(),startselected:false,selected:D.hasClass("ui-selected"),selecting:D.hasClass("ui-selecting"),unselecting:D.hasClass("ui-unselecting")})
+var A;
+this.refresh=function(){A=B(D.options.filter,D.element[0]);
+A.each(function(){var F=B(this);
+var C=F.offset();
+B.data(this,"selectable-item",{element:this,$element:F,left:C.left,top:C.top,right:C.left+F.outerWidth(),bottom:C.top+F.outerHeight(),startselected:false,selected:F.hasClass("ui-selected"),selecting:F.hasClass("ui-selecting"),unselecting:F.hasClass("ui-unselecting")})
 })
 };
 this.refresh();
-this.selectees=C.addClass("ui-selectee");
+this.selectees=A.addClass("ui-selectee");
 this._mouseInit();
-this.helper=A(document.createElement("div")).css({border:"1px dotted black"}).addClass("ui-selectable-helper")
+this.helper=B(document.createElement("div")).css({border:"1px dotted black"}).addClass("ui-selectable-helper")
 },destroy:function(){this.element.removeClass("ui-selectable ui-selectable-disabled").removeData("selectable").unbind(".selectable");
 this._mouseDestroy()
-},_mouseStart:function(C){var D=this;
-this.opos=[C.pageX,C.pageY];
+},_mouseStart:function(E){var A=this;
+this.opos=[E.pageX,E.pageY];
 if(this.options.disabled){return 
-}var B=this.options;
-this.selectees=A(B.filter,this.element[0]);
-this._trigger("start",C);
-A(B.appendTo).append(this.helper);
-this.helper.css({"z-index":100,position:"absolute",left:C.clientX,top:C.clientY,width:0,height:0});
-if(B.autoRefresh){this.refresh()
-}this.selectees.filter(".ui-selected").each(function(){var E=A.data(this,"selectable-item");
-E.startselected=true;
-if(!C.metaKey){E.$element.removeClass("ui-selected");
-E.selected=false;
-E.$element.addClass("ui-unselecting");
-E.unselecting=true;
-D._trigger("unselecting",C,{unselecting:E.element})
+}var F=this.options;
+this.selectees=B(F.filter,this.element[0]);
+this._trigger("start",E);
+B(F.appendTo).append(this.helper);
+this.helper.css({"z-index":100,position:"absolute",left:E.clientX,top:E.clientY,width:0,height:0});
+if(F.autoRefresh){this.refresh()
+}this.selectees.filter(".ui-selected").each(function(){var C=B.data(this,"selectable-item");
+C.startselected=true;
+if(!E.metaKey){C.$element.removeClass("ui-selected");
+C.selected=false;
+C.$element.addClass("ui-unselecting");
+C.unselecting=true;
+A._trigger("unselecting",E,{unselecting:C.element})
 }});
-A(C.target).parents().andSelf().each(function(){var E=A.data(this,"selectable-item");
-if(E){E.$element.removeClass("ui-unselecting").addClass("ui-selecting");
-E.unselecting=false;
-E.selecting=true;
-E.selected=true;
-D._trigger("selecting",C,{selecting:E.element});
+B(E.target).parents().andSelf().each(function(){var C=B.data(this,"selectable-item");
+if(C){C.$element.removeClass("ui-unselecting").addClass("ui-selecting");
+C.unselecting=false;
+C.selecting=true;
+C.selected=true;
+A._trigger("selecting",E,{selecting:C.element});
 return false
 }})
-},_mouseDrag:function(G){var D=this;
+},_mouseDrag:function(K){var N=this;
 this.dragged=true;
 if(this.options.disabled){return 
-}var C=this.options;
-var E=this.opos[0],I=this.opos[1],B=G.pageX,H=G.pageY;
-if(E>B){var F=B;
-B=E;
-E=F
-}if(I>H){var F=H;
-H=I;
-I=F
-}this.helper.css({left:E,top:I,width:B-E,height:H-I});
-this.selectees.each(function(){var J=A.data(this,"selectable-item");
-if(!J||J.element==D.element[0]){return 
-}var K=false;
-if(C.tolerance=="touch"){K=(!(J.left>B||J.right<E||J.top>H||J.bottom<I))
-}else{if(C.tolerance=="fit"){K=(J.left>E&&J.right<B&&J.top>I&&J.bottom<H)
-}}if(K){if(J.selected){J.$element.removeClass("ui-selected");
-J.selected=false
-}if(J.unselecting){J.$element.removeClass("ui-unselecting");
-J.unselecting=false
-}if(!J.selecting){J.$element.addClass("ui-selecting");
-J.selecting=true;
-D._trigger("selecting",G,{selecting:J.element})
-}}else{if(J.selecting){if(G.metaKey&&J.startselected){J.$element.removeClass("ui-selecting");
-J.selecting=false;
-J.$element.addClass("ui-selected");
-J.selected=true
-}else{J.$element.removeClass("ui-selecting");
-J.selecting=false;
-if(J.startselected){J.$element.addClass("ui-unselecting");
-J.unselecting=true
-}D._trigger("unselecting",G,{unselecting:J.element})
-}}if(J.selected){if(!G.metaKey&&!J.startselected){J.$element.removeClass("ui-selected");
-J.selected=false;
-J.$element.addClass("ui-unselecting");
-J.unselecting=true;
-D._trigger("unselecting",G,{unselecting:J.element})
+}var O=this.options;
+var M=this.opos[0],A=this.opos[1],P=K.pageX,J=K.pageY;
+if(M>P){var L=P;
+P=M;
+M=L
+}if(A>J){var L=J;
+J=A;
+A=L
+}this.helper.css({left:M,top:A,width:P-M,height:J-A});
+this.selectees.each(function(){var D=B.data(this,"selectable-item");
+if(!D||D.element==N.element[0]){return 
+}var C=false;
+if(O.tolerance=="touch"){C=(!(D.left>P||D.right<M||D.top>J||D.bottom<A))
+}else{if(O.tolerance=="fit"){C=(D.left>M&&D.right<P&&D.top>A&&D.bottom<J)
+}}if(C){if(D.selected){D.$element.removeClass("ui-selected");
+D.selected=false
+}if(D.unselecting){D.$element.removeClass("ui-unselecting");
+D.unselecting=false
+}if(!D.selecting){D.$element.addClass("ui-selecting");
+D.selecting=true;
+N._trigger("selecting",K,{selecting:D.element})
+}}else{if(D.selecting){if(K.metaKey&&D.startselected){D.$element.removeClass("ui-selecting");
+D.selecting=false;
+D.$element.addClass("ui-selected");
+D.selected=true
+}else{D.$element.removeClass("ui-selecting");
+D.selecting=false;
+if(D.startselected){D.$element.addClass("ui-unselecting");
+D.unselecting=true
+}N._trigger("unselecting",K,{unselecting:D.element})
+}}if(D.selected){if(!K.metaKey&&!D.startselected){D.$element.removeClass("ui-selected");
+D.selected=false;
+D.$element.addClass("ui-unselecting");
+D.unselecting=true;
+N._trigger("unselecting",K,{unselecting:D.element})
 }}}});
 return false
-},_mouseStop:function(C){var D=this;
+},_mouseStop:function(E){var A=this;
 this.dragged=false;
-var B=this.options;
-A(".ui-unselecting",this.element[0]).each(function(){var E=A.data(this,"selectable-item");
-E.$element.removeClass("ui-unselecting");
-E.unselecting=false;
-E.startselected=false;
-D._trigger("unselected",C,{unselected:E.element})
+var F=this.options;
+B(".ui-unselecting",this.element[0]).each(function(){var C=B.data(this,"selectable-item");
+C.$element.removeClass("ui-unselecting");
+C.unselecting=false;
+C.startselected=false;
+A._trigger("unselected",E,{unselected:C.element})
 });
-A(".ui-selecting",this.element[0]).each(function(){var E=A.data(this,"selectable-item");
-E.$element.removeClass("ui-selecting").addClass("ui-selected");
-E.selecting=false;
-E.selected=true;
-E.startselected=true;
-D._trigger("selected",C,{selected:E.element})
+B(".ui-selecting",this.element[0]).each(function(){var C=B.data(this,"selectable-item");
+C.$element.removeClass("ui-selecting").addClass("ui-selected");
+C.selecting=false;
+C.selected=true;
+C.startselected=true;
+A._trigger("selected",E,{selected:C.element})
 });
-this._trigger("stop",C);
+this._trigger("stop",E);
 this.helper.remove();
 return false
 }}));
-A.extend(A.ui.selectable,{version:"1.7.2",defaults:{appendTo:"body",autoRefresh:true,cancel:":input,option",delay:0,distance:0,filter:"*",tolerance:"touch"}})
+B.extend(B.ui.selectable,{version:"1.7.2",defaults:{appendTo:"body",autoRefresh:true,cancel:":input,option",delay:0,distance:0,filter:"*",tolerance:"touch"}})
 })(jQuery);

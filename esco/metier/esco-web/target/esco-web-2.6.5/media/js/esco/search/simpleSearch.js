@@ -1,8 +1,8 @@
 var SimpleSearchPrototype=$.extend(true,{},EscoGrid,{doOnFire:function(){EscoAnimate._hideAnimate($("div[id=searchGroupProperties]"));
-var A=this;
-Core.addAction($("#search"),Core.CLICK,function(B){A.search(B)
+var B=this;
+Core.addAction($("#search"),Core.CLICK,function(A){B.search(A)
 },false);
-Core.addAction($("input[name=subjectSearch]"),Core.CLICK,function(B){A.showGroupSearchOption(B)
+Core.addAction($("input[name=subjectSearch]"),Core.CLICK,function(A){B.showGroupSearchOption(A)
 },false);
 fluid.accessibletabs("escoTabs","escoPanels");
 return false
@@ -14,31 +14,31 @@ $("#pagerGrid").show()
 $("div[class=grid_bdiv]").hide();
 $("#pagerGrid").hide();
 $("#error").empty().append(this._lang.WARNING_MESSAGE)
-}},addActionOnClickLinkItemPerson:function(A){if(Profile.canAccessToPersonProperties()){Core.addAction($(A),Core.CLICK,function(B){Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/personProperties.jsf",{idPerson:B.target.id,needClear:"true"},"#mainContent",true,false)
+}},addActionOnClickLinkItemPerson:function(B){if(Profile.canAccessToPersonProperties()){Core.addAction($(B),Core.CLICK,function(A){Core.pullAjaxContent("/"+Core.applicationContext+"/stylesheets/personProperties.jsf",{idPerson:A.target.id,needClear:"true"},"#mainContent",true,false)
 },false)
-}else{$(A).removeClass("tableLink")
-}},addActionOnClickLinkItemGroup:function(A){if(Profile.canAccessToGroupProperties()){Core.addAction($(A),Core.CLICK,function(B){Core.log("Preparate open of node + "+B.target.id);
-_displayBlockUIOption={onAfterShowBlockUI:function(){Core.log("Preparate open of node + "+$("#"+B.target.id).attr("id"));
-TreePlugin.openAndSelectNode(B.target.id)
+}else{$(B).removeClass("tableLink")
+}},addActionOnClickLinkItemGroup:function(B){if(Profile.canAccessToGroupProperties()){Core.addAction($(B),Core.CLICK,function(A){Core.log("Preparate open of node + "+A.target.id);
+_displayBlockUIOption={onAfterShowBlockUI:function(){Core.log("Preparate open of node + "+$("#"+A.target.id).attr("id"));
+TreePlugin.openAndSelectNode(A.target.id)
 }};
 Core._showBlockUI(_displayBlockUIOption)
 },false)
-}else{$(A).removeClass("tableLink")
-}},getPostDataToFindDataRequest:function(){var A={theTerm:$("input[id=theTerm]").val(),theSearchSource:$("input[name=subjectSearch]:checked").val(),theSearchType:"SimpleSearch"};
-if($("input[name=subjectSearch]:checked").val()=="SEARCH_GROUP"){$.extend(A,{theSearchPath:$("input[id=searchPathHidden]").val(),theDisplayTerm:$("input[name=displayGroupSearch]:checked").val()})
-}else{$.extend(A,{theSearchPath:$("input[id=searchPathHiddenForPersonSearch]").val(),theDisplayTerm:"none"})
-}return A
-},showGroupSearchOption:function(A){var B=A.target.value;
-if(B=="SEARCH_GROUP"){EscoAnimate._showAnimate($("div[id=searchGroupProperties]"));
-var C=$("#idNode").html();
-var B=$("#searchPathHidden").attr("value");
-new EscoBreadCrumb({path:C,value:B})
+}else{$(B).removeClass("tableLink")
+}},getPostDataToFindDataRequest:function(){var B={theTerm:$("input[id=theTerm]").val(),theSearchSource:$("input[name=subjectSearch]:checked").val(),theSearchType:"SimpleSearch"};
+if($("input[name=subjectSearch]:checked").val()=="SEARCH_GROUP"){$.extend(B,{theSearchPath:$("input[id=searchPathHidden]").val(),theDisplayTerm:$("input[name=displayGroupSearch]:checked").val()})
+}else{$.extend(B,{theSearchPath:$("input[id=searchPathHiddenForPersonSearch]").val(),theDisplayTerm:"none"})
+}return B
+},showGroupSearchOption:function(D){var F=D.target.value;
+if(F=="SEARCH_GROUP"){EscoAnimate._showAnimate($("div[id=searchGroupProperties]"));
+var E=$("#idNode").html();
+var F=$("#searchPathHidden").attr("value");
+new EscoBreadCrumb({path:E,value:F})
 }else{EscoAnimate._hideAnimate($("div[id=searchGroupProperties]"))
-}},search:function(){var A=this;
+}},search:function(){var B=this;
 _displayBlockUIOption={onAfterShowBlockUI:function(){Validate.addValidatePrompt("org.esco.grouperui.search.regexp.searchTerm");
 if($.validationEngine.isError){Core._hideBlockUI()
 }else{if(!$.validationEngine.isError){Validate.removeValidatePrompt("org.esco.grouperui.search.regexp.searchTerm");
-A._loadData()
+B._loadData()
 }}}};
 Core._showBlockUI(_displayBlockUIOption)
 }});

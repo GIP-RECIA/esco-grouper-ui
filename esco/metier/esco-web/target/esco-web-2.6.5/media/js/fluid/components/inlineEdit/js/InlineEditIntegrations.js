@@ -1,87 +1,87 @@
 fluid_1_1=fluid_1_1||{};
-(function(A,C){var B=function(E,F,G){var D=A.extend({},C.defaults(E),G);
-return C.inlineEdit(F,D)
+(function(D,E){var F=function(C,B,A){var H=D.extend({},E.defaults(C),A);
+return E.inlineEdit(B,H)
 };
-C.inlineEdit.tinyMCE=function(D,E){return B("fluid.inlineEdit.tinyMCE",D,E)
+E.inlineEdit.tinyMCE=function(B,A){return F("fluid.inlineEdit.tinyMCE",B,A)
 };
-C.inlineEdit.tinyMCE.viewAccessor=function(D){return{value:function(F){var E=tinyMCE.get(D.id);
-if(!E){return""
-}if(F){A(D).val(F);
-E.setContent(F,{format:"raw"})
-}else{return E.getContent()
+E.inlineEdit.tinyMCE.viewAccessor=function(A){return{value:function(B){var C=tinyMCE.get(A.id);
+if(!C){return""
+}if(B){D(A).val(B);
+C.setContent(B,{format:"raw"})
+}else{return C.getContent()
 }}}
 };
-C.inlineEdit.tinyMCE.blurHandlerBinder=function(D){function E(F){setTimeout(function(){tinyMCE.execCommand("mceFocus",false,D.editField[0].id);
-if(A.browser.mozilla&&A.browser.version.substring(0,3)==="1.8"){return 
-}F.selection.select(F.getBody(),1);
-F.selection.collapse(0)
+E.inlineEdit.tinyMCE.blurHandlerBinder=function(B){function A(C){setTimeout(function(){tinyMCE.execCommand("mceFocus",false,B.editField[0].id);
+if(D.browser.mozilla&&D.browser.version.substring(0,3)==="1.8"){return 
+}C.selection.select(C.getBody(),1);
+C.selection.collapse(0)
 },10)
-}D.events.afterInitEdit.addListener(function(F){E(F);
-var G=F.getBody();
-C.deadMansBlur(D.editField,A(G),function(){D.cancel()
+}B.events.afterInitEdit.addListener(function(H){A(H);
+var C=H.getBody();
+E.deadMansBlur(B.editField,D(C),function(){B.cancel()
 })
 });
-D.events.afterBeginEdit.addListener(function(){var F=tinyMCE.get(D.editField[0].id);
-if(F){E(F)
+B.events.afterBeginEdit.addListener(function(){var C=tinyMCE.get(B.editField[0].id);
+if(C){A(C)
 }})
 };
-C.inlineEdit.tinyMCE.editModeRenderer=function(E){var F={mode:"exact",theme:"simple"};
-var D=A.extend(true,F,E.options.tinyMCE);
-D.elements=C.allocateSimpleId(E.editField);
-var G=D.init_instance_callback;
-D.init_instance_callback=function(H){E.events.afterInitEdit.fire(H);
-if(G){G()
+E.inlineEdit.tinyMCE.editModeRenderer=function(C){var B={mode:"exact",theme:"simple"};
+var H=D.extend(true,B,C.options.tinyMCE);
+H.elements=E.allocateSimpleId(C.editField);
+var A=H.init_instance_callback;
+H.init_instance_callback=function(G){C.events.afterInitEdit.fire(G);
+if(A){A()
 }};
-tinyMCE.init(D)
+tinyMCE.init(H)
 };
-C.defaults("fluid.inlineEdit.tinyMCE",{useTooltip:true,selectors:{edit:"textarea"},styles:{invitation:null},displayAccessor:{type:"fluid.inlineEdit.richTextViewAccessor"},editAccessor:{type:"fluid.inlineEdit.tinyMCE.viewAccessor"},lazyEditView:true,blurHandlerBinder:C.inlineEdit.tinyMCE.blurHandlerBinder,editModeRenderer:C.inlineEdit.tinyMCE.editModeRenderer});
-C.inlineEdit.FCKEditor=function(D,E){return B("fluid.inlineEdit.FCKEditor",D,E)
+E.defaults("fluid.inlineEdit.tinyMCE",{useTooltip:true,selectors:{edit:"textarea"},styles:{invitation:null},displayAccessor:{type:"fluid.inlineEdit.richTextViewAccessor"},editAccessor:{type:"fluid.inlineEdit.tinyMCE.viewAccessor"},lazyEditView:true,blurHandlerBinder:E.inlineEdit.tinyMCE.blurHandlerBinder,editModeRenderer:E.inlineEdit.tinyMCE.editModeRenderer});
+E.inlineEdit.FCKEditor=function(B,A){return F("fluid.inlineEdit.FCKEditor",B,A)
 };
-C.inlineEdit.FCKEditor.complete=C.event.getEventFirer();
-C.inlineEdit.FCKEditor.complete.addListener(function(D){var F=D.LinkedField;
-var E=A.data(F,"fluid.inlineEdit.FCKEditor");
-E.events.afterInitEdit.fire(D)
+E.inlineEdit.FCKEditor.complete=E.event.getEventFirer();
+E.inlineEdit.FCKEditor.complete.addListener(function(C){var A=C.LinkedField;
+var B=D.data(A,"fluid.inlineEdit.FCKEditor");
+B.events.afterInitEdit.fire(C)
 });
-C.inlineEdit.FCKEditor.blurHandlerBinder=function(D){function E(F){F.Focus()
-}D.events.afterInitEdit.addListener(function(F){E(F);
-var G=F.EditingArea.TargetElement
+E.inlineEdit.FCKEditor.blurHandlerBinder=function(B){function A(C){C.Focus()
+}B.events.afterInitEdit.addListener(function(H){A(H);
+var C=H.EditingArea.TargetElement
 });
-D.events.afterBeginEdit.addListener(function(){var F=C.inlineEdit.FCKEditor.byId(D.editField[0].id);
-if(F){E(F)
+B.events.afterBeginEdit.addListener(function(){var C=E.inlineEdit.FCKEditor.byId(B.editField[0].id);
+if(C){A(C)
 }})
 };
-C.inlineEdit.FCKEditor.byId=function(E){var D=typeof (FCKeditorAPI)==="undefined"?null:FCKeditorAPI.GetInstance(E);
-return D
+E.inlineEdit.FCKEditor.byId=function(A){var B=typeof (FCKeditorAPI)==="undefined"?null:FCKeditorAPI.GetInstance(A);
+return B
 };
-C.inlineEdit.FCKEditor.editModeRenderer=function(D){var E=C.allocateSimpleId(D.editField);
-A.data(C.unwrap(D.editField),"fluid.inlineEdit.FCKEditor",D);
-var G=new FCKeditor(E);
-var F=C.copy(D.options.FCKEditor);
-F.BasePath=F.BasePath+"editor/";
-A.extend(true,G.Config,F);
-A.extend(true,G,D.options.FCKEditor);
-G.Config.fluidInstance=D;
-G.ReplaceTextarea()
+E.inlineEdit.FCKEditor.editModeRenderer=function(H){var C=E.allocateSimpleId(H.editField);
+D.data(E.unwrap(H.editField),"fluid.inlineEdit.FCKEditor",H);
+var A=new FCKeditor(C);
+var B=E.copy(H.options.FCKEditor);
+B.BasePath=B.BasePath+"editor/";
+D.extend(true,A.Config,B);
+D.extend(true,A,H.options.FCKEditor);
+A.Config.fluidInstance=H;
+A.ReplaceTextarea()
 };
-C.inlineEdit.FCKEditor.viewAccessor=function(D){return{value:function(F){var E=C.inlineEdit.FCKEditor.byId(D.id);
-if(!E){if(F){A(D).val(F)
+E.inlineEdit.FCKEditor.viewAccessor=function(A){return{value:function(B){var C=E.inlineEdit.FCKEditor.byId(A.id);
+if(!C){if(B){D(A).val(B)
 }return""
-}if(F){E.SetHTML(F)
-}else{return E.GetHTML()
+}if(B){C.SetHTML(B)
+}else{return C.GetHTML()
 }}}
 };
-C.defaults("fluid.inlineEdit.FCKEditor",{selectors:{edit:"textarea"},styles:{invitation:null},displayAccessor:{type:"fluid.inlineEdit.richTextViewAccessor"},editAccessor:{type:"fluid.inlineEdit.FCKEditor.viewAccessor"},lazyEditView:true,blurHandlerBinder:C.inlineEdit.FCKEditor.blurHandlerBinder,editModeRenderer:C.inlineEdit.FCKEditor.editModeRenderer,FCKEditor:{BasePath:"fckeditor/"}});
-C.inlineEdit.dropdown=function(D,E){return B("fluid.inlineEdit.dropdown",D,E)
+E.defaults("fluid.inlineEdit.FCKEditor",{selectors:{edit:"textarea"},styles:{invitation:null},displayAccessor:{type:"fluid.inlineEdit.richTextViewAccessor"},editAccessor:{type:"fluid.inlineEdit.FCKEditor.viewAccessor"},lazyEditView:true,blurHandlerBinder:E.inlineEdit.FCKEditor.blurHandlerBinder,editModeRenderer:E.inlineEdit.FCKEditor.editModeRenderer,FCKEditor:{BasePath:"fckeditor/"}});
+E.inlineEdit.dropdown=function(B,A){return F("fluid.inlineEdit.dropdown",B,A)
 };
-C.inlineEdit.dropdown.editModeRenderer=function(D){var E=C.allocateSimpleId(D.editField);
-D.editField.selectbox({finishHandler:function(){D.finish()
+E.inlineEdit.dropdown.editModeRenderer=function(B){var A=E.allocateSimpleId(B.editField);
+B.editField.selectbox({finishHandler:function(){B.finish()
 }});
-return{container:D.editContainer,field:A("input.selectbox",D.editContainer)}
+return{container:B.editContainer,field:D("input.selectbox",B.editContainer)}
 };
-C.inlineEdit.dropdown.blurHandlerBinder=function(D){C.deadMansBlur(D.editField,A("div.selectbox-wrapper li",D.editContainer),function(){D.cancel()
+E.inlineEdit.dropdown.blurHandlerBinder=function(A){E.deadMansBlur(A.editField,D("div.selectbox-wrapper li",A.editContainer),function(){A.cancel()
 })
 };
-C.defaults("fluid.inlineEdit.dropdown",{applyEditPadding:false,blurHandlerBinder:C.inlineEdit.dropdown.blurHandlerBinder,editModeRenderer:C.inlineEdit.dropdown.editModeRenderer})
+E.defaults("fluid.inlineEdit.dropdown",{applyEditPadding:false,blurHandlerBinder:E.inlineEdit.dropdown.blurHandlerBinder,editModeRenderer:E.inlineEdit.dropdown.editModeRenderer})
 })(jQuery,fluid_1_1);
-function FCKeditor_OnComplete(A){fluid.inlineEdit.FCKEditor.complete.fire(A)
+function FCKeditor_OnComplete(B){fluid.inlineEdit.FCKEditor.complete.fire(B)
 };

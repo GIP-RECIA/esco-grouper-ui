@@ -1,26 +1,26 @@
 var fluid=fluid||{};
-(function(A){var D=false;
-var B=function(G){var E=G.children("li");
-fluid.tabbable(G);
-var F=function(H){if(D){G.tabs("select",E.index(H))
+(function(E){var F=false;
+var H=function(A){var C=A.children("li");
+fluid.tabbable(A);
+var B=function(D){if(F){A.tabs("select",C.index(D))
 }};
-fluid.selectable(G,{selectableElements:E,onSelect:F,direction:fluid.a11y.orientation.HORIZONTAL});
-fluid.activatable(G,function(H){if(!D){G.tabs("select",E.index(H))
+fluid.selectable(A,{selectableElements:C,onSelect:B,direction:fluid.a11y.orientation.HORIZONTAL});
+fluid.activatable(A,function(D){if(!F){A.tabs("select",C.index(D))
 }})
 };
-var C=function(E,G){var F=E.children("li");
-var H=A("#panels > div");
-E.attr("role","tablist");
-F.each(function(I,J){A(J).attr("role","tab")
+var G=function(D,B){var C=D.children("li");
+var A=E("#panels > div");
+D.attr("role","tablist");
+C.each(function(L,K){E(K).attr("role","tab")
 });
-H.attr("role","tabpanel");
-H.each(function(J,I){A(I).attr("aria-labelledby",I.id.split("Panel")[0]+"Tab")
+A.attr("role","tabpanel");
+A.each(function(K,L){E(L).attr("aria-labelledby",L.id.split("Panel")[0]+"Tab")
 })
 };
-fluid.accessibletabs=function(G,E){var F=A("#"+G);
-fluid.tabindex(F.find("a"),-1);
-F.tabs().find(".ui-tabs");
-B(F);
-C(F,E)
+fluid.accessibletabs=function(A,C){var B=E("#"+A);
+fluid.tabindex(B.find("a"),-1);
+B.tabs().find(".ui-tabs");
+H(B);
+G(B,C)
 }
 })(jQuery);

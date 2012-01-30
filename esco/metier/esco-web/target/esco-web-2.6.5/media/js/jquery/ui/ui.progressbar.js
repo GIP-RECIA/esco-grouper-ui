@@ -1,29 +1,29 @@
-(function(A){A.widget("ui.progressbar",{_init:function(){this.element.addClass("ui-progressbar ui-widget ui-widget-content ui-corner-all").attr({role:"progressbar","aria-valuemin":this._valueMin(),"aria-valuemax":this._valueMax(),"aria-valuenow":this._value()});
-this.valueDiv=A('<div class="ui-progressbar-value ui-widget-header ui-corner-left"></div>').appendTo(this.element);
+(function(B){B.widget("ui.progressbar",{_init:function(){this.element.addClass("ui-progressbar ui-widget ui-widget-content ui-corner-all").attr({role:"progressbar","aria-valuemin":this._valueMin(),"aria-valuemax":this._valueMax(),"aria-valuenow":this._value()});
+this.valueDiv=B('<div class="ui-progressbar-value ui-widget-header ui-corner-left"></div>').appendTo(this.element);
 this._refreshValue()
 },destroy:function(){this.element.removeClass("ui-progressbar ui-widget ui-widget-content ui-corner-all").removeAttr("role").removeAttr("aria-valuemin").removeAttr("aria-valuemax").removeAttr("aria-valuenow").removeData("progressbar").unbind(".progressbar");
 this.valueDiv.remove();
-A.widget.prototype.destroy.apply(this,arguments)
-},value:function(B){if(B===undefined){return this._value()
-}this._setData("value",B);
+B.widget.prototype.destroy.apply(this,arguments)
+},value:function(A){if(A===undefined){return this._value()
+}this._setData("value",A);
 return this
-},_setData:function(B,C){switch(B){case"value":this.options.value=C;
+},_setData:function(D,A){switch(D){case"value":this.options.value=A;
 this._refreshValue();
 this._trigger("change",null,{});
 break
-}A.widget.prototype._setData.apply(this,arguments)
-},_value:function(){var B=this.options.value;
-if(B<this._valueMin()){B=this._valueMin()
-}if(B>this._valueMax()){B=this._valueMax()
-}return B
-},_valueMin:function(){var B=0;
-return B
-},_valueMax:function(){var B=100;
-return B
-},_refreshValue:function(){var B=this.value();
-this.valueDiv[B==this._valueMax()?"addClass":"removeClass"]("ui-corner-right");
-this.valueDiv.width(B+"%");
-this.element.attr("aria-valuenow",B)
+}B.widget.prototype._setData.apply(this,arguments)
+},_value:function(){var A=this.options.value;
+if(A<this._valueMin()){A=this._valueMin()
+}if(A>this._valueMax()){A=this._valueMax()
+}return A
+},_valueMin:function(){var A=0;
+return A
+},_valueMax:function(){var A=100;
+return A
+},_refreshValue:function(){var A=this.value();
+this.valueDiv[A==this._valueMax()?"addClass":"removeClass"]("ui-corner-right");
+this.valueDiv.width(A+"%");
+this.element.attr("aria-valuenow",A)
 }});
-A.extend(A.ui.progressbar,{version:"1.7.2",defaults:{value:0}})
+B.extend(B.ui.progressbar,{version:"1.7.2",defaults:{value:0}})
 })(jQuery);

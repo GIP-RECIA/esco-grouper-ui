@@ -1,22 +1,22 @@
-(function(A){A.effects.explode=function(B){return this.queue(function(){var E=B.options.pieces?Math.round(Math.sqrt(B.options.pieces)):3;
-var I=B.options.pieces?Math.round(Math.sqrt(B.options.pieces)):3;
-B.options.mode=B.options.mode=="toggle"?(A(this).is(":visible")?"hide":"show"):B.options.mode;
-var D=A(this).show().css("visibility","hidden");
-var F=D.offset();
-F.top-=parseInt(D.css("marginTop"),10)||0;
-F.left-=parseInt(D.css("marginLeft"),10)||0;
-var C=D.outerWidth(true);
-var G=D.outerHeight(true);
-for(var J=0;
-J<E;
-J++){for(var H=0;
-H<I;
-H++){D.clone().appendTo("body").wrap("<div></div>").css({position:"absolute",visibility:"visible",left:-H*(C/I),top:-J*(G/E)}).parent().addClass("ui-effects-explode").css({position:"absolute",overflow:"hidden",width:C/I,height:G/E,left:F.left+H*(C/I)+(B.options.mode=="show"?(H-Math.floor(I/2))*(C/I):0),top:F.top+J*(G/E)+(B.options.mode=="show"?(J-Math.floor(E/2))*(G/E):0),opacity:B.options.mode=="show"?0:1}).animate({left:F.left+H*(C/I)+(B.options.mode=="show"?0:(H-Math.floor(I/2))*(C/I)),top:F.top+J*(G/E)+(B.options.mode=="show"?0:(J-Math.floor(E/2))*(G/E)),opacity:B.options.mode=="show"?1:0},B.duration||500)
-}}setTimeout(function(){B.options.mode=="show"?D.css({visibility:"visible"}):D.css({visibility:"visible"}).hide();
-if(B.callback){B.callback.apply(D[0])
-}D.dequeue();
-A("div.ui-effects-explode").remove()
-},B.duration||500)
+(function(B){B.effects.explode=function(A){return this.queue(function(){var P=A.options.pieces?Math.round(Math.sqrt(A.options.pieces)):3;
+var L=A.options.pieces?Math.round(Math.sqrt(A.options.pieces)):3;
+A.options.mode=A.options.mode=="toggle"?(B(this).is(":visible")?"hide":"show"):A.options.mode;
+var Q=B(this).show().css("visibility","hidden");
+var O=Q.offset();
+O.top-=parseInt(Q.css("marginTop"),10)||0;
+O.left-=parseInt(Q.css("marginLeft"),10)||0;
+var R=Q.outerWidth(true);
+var N=Q.outerHeight(true);
+for(var K=0;
+K<P;
+K++){for(var M=0;
+M<L;
+M++){Q.clone().appendTo("body").wrap("<div></div>").css({position:"absolute",visibility:"visible",left:-M*(R/L),top:-K*(N/P)}).parent().addClass("ui-effects-explode").css({position:"absolute",overflow:"hidden",width:R/L,height:N/P,left:O.left+M*(R/L)+(A.options.mode=="show"?(M-Math.floor(L/2))*(R/L):0),top:O.top+K*(N/P)+(A.options.mode=="show"?(K-Math.floor(P/2))*(N/P):0),opacity:A.options.mode=="show"?0:1}).animate({left:O.left+M*(R/L)+(A.options.mode=="show"?0:(M-Math.floor(L/2))*(R/L)),top:O.top+K*(N/P)+(A.options.mode=="show"?0:(K-Math.floor(P/2))*(N/P)),opacity:A.options.mode=="show"?1:0},A.duration||500)
+}}setTimeout(function(){A.options.mode=="show"?Q.css({visibility:"visible"}):Q.css({visibility:"visible"}).hide();
+if(A.callback){A.callback.apply(Q[0])
+}Q.dequeue();
+B("div.ui-effects-explode").remove()
+},A.duration||500)
 })
 }
 })(jQuery);

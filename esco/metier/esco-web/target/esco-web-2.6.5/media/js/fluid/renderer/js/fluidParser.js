@@ -1,307 +1,307 @@
 fluid_1_1=fluid_1_1||{};
-(function(R,O){var X;
-var P;
-var f;
-var b=0;
-var N=0;
-var I=false;
-var B=-1;
-var A=-1;
-var c;
-var h=false;
-var G=[];
-var D=[];
-function d(p,m,o){X.rootlump=O.XMLLump(0,-1);
-f=[X.rootlump];
-b=0;
-N=0;
-I=false;
-B=-1;
-A=-1;
-c=p;
-h=m;
-G=o;
-if(G){for(var n=0;
-n<G.length;
-++n){D[n]=[];
-G[n].tree=O.parseSelector(G[n].selector)
-}}}function Q(){for(var m=f.length-1;
-m>=0;
---m){var n=f[m];
-if(n.rsfID!==undefined){return n
-}}return X.rootlump
-}function V(){var m=O.XMLLump(b,N);
-if(h){m.line=P.getLineNumber();
-m.column=P.getColumnNumber()
-}X.lumps[b]=m;
-++b;
-return m
-}function J(n,m,o){var p=n[m];
-if(!p){p=[];
-n[m]=p
-}p[p.length]=o
-}function C(m,n){if(m.indexOf("scr=contribute-")!==-1){var o=m.substring("scr=contribute-".length);
-J(X.collectmap,o,n)
-}}var U=function(p){var q=U.options,o=q.parser[q.strictMode?"strict":"loose"].exec(p);
-for(var m=0,n={};
-m<14;
-m++){n[q.key[m]]=o[m]||""
-}n[q.q.name]={};
-n[q.key[12]].replace(q.q.parser,function(s,r,t){if(r){n[q.q.name][r]=t
+(function(u,x){var o;
+var w;
+var AS;
+var AW=0;
+var y=0;
+var AD=false;
+var AK=-1;
+var AL=-1;
+var AV;
+var AQ=false;
+var AF=[];
+var AI=[];
+function AU(B,A,C){o.rootlump=x.XMLLump(0,-1);
+AS=[o.rootlump];
+AW=0;
+y=0;
+AD=false;
+AK=-1;
+AL=-1;
+AV=B;
+AQ=A;
+AF=C;
+if(AF){for(var D=0;
+D<AF.length;
+++D){AI[D]=[];
+AF[D].tree=x.parseSelector(AF[D].selector)
+}}}function v(){for(var A=AS.length-1;
+A>=0;
+--A){var B=AS[A];
+if(B.rsfID!==undefined){return B
+}}return o.rootlump
+}function q(){var A=x.XMLLump(AW,y);
+if(AQ){A.line=w.getLineNumber();
+A.column=w.getColumnNumber()
+}o.lumps[AW]=A;
+++AW;
+return A
+}function AC(D,A,C){var B=D[A];
+if(!B){B=[];
+D[A]=B
+}B[B.length]=C
+}function AJ(A,C){if(A.indexOf("scr=contribute-")!==-1){var B=A.substring("scr=contribute-".length);
+AC(o.collectmap,B,C)
+}}var r=function(C){var B=r.options,D=B.parser[B.strictMode?"strict":"loose"].exec(C);
+for(var A=0,E={};
+A<14;
+A++){E[B.key[A]]=D[A]||""
+}E[B.q.name]={};
+E[B.key[12]].replace(B.q.parser,function(G,H,F){if(H){E[B.q.name][H]=F
 }});
-return n
+return E
 };
-U.options={strictMode:false,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/(?:^|&)([^&=]*)=?([^&]*)/g},parser:{strict:/^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,loose:/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/}};
-function k(n){var m=U(n);
-if(m.protocol||n.charAt(0)==="/"){return n
-}else{return c+n
-}}O.debugLump=function(n){var m=n.text;
-m+=" at ";
-m+="lump line "+n.line+" column "+n.column+" index "+n.lumpindex;
-m+=parent.href===null?"":" in file "+parent.href;
-return m
+r.options={strictMode:false,key:["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],q:{name:"queryKey",parser:/(?:^|&)([^&=]*)=?([^&]*)/g},parser:{strict:/^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,loose:/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/}};
+function AN(B){var A=r(B);
+if(A.protocol||B.charAt(0)==="/"){return B
+}else{return AV+B
+}}x.debugLump=function(B){var A=B.text;
+A+=" at ";
+A+="lump line "+B.line+" column "+B.column+" index "+B.lumpindex;
+A+=parent.href===null?"":" in file "+parent.href;
+return A
 };
-function a(m){return"<"+m.tagname+">"
-}function M(n,m){if(!m){return false
-}return(" "+m+" ").indexOf(" "+n+" ")!==-1
-}function L(o,p){if(o.predList){for(var n=0;
-n<o.predList.length;
-++n){var m=o.predList[n];
-if(m.id&&p.attributemap.id!==m.id){return false
-}if(m.clazz&&!M(m.clazz,p.attributemap["class"])){return false
-}if(m.tag&&p.tagname!==m.tag){return false
+function AX(A){return"<"+A.tagname+">"
+}function z(B,A){if(!A){return false
+}return(" "+A+" ").indexOf(" "+B+" ")!==-1
+}function AA(C,B){if(C.predList){for(var D=0;
+D<C.predList.length;
+++D){var A=C.predList[D];
+if(A.id&&B.attributemap.id!==A.id){return false
+}if(A.clazz&&!z(A.clazz,B.attributemap["class"])){return false
+}if(A.tag&&B.tagname!==A.tag){return false
 }}return true
-}}function Z(t){var q=undefined;
-if(G){for(var o=0;
-o<G.length;
-++o){var r=G[o];
-var s=D[o];
-var m=s.length;
-if(m<r.tree.length){var n=r.tree[m];
-if(m>0){if(r.tree[m-1].child&&s[m-1]!==t.nestingdepth-1){continue
-}}var p=L(n,t);
-if(p){s[s.length]=t.nestingdepth;
-if(s.length===r.tree.length){if(q!==undefined){O.fail("Cutpoint specification error - node "+a(t)+" has already matched with rsf:id of "+q)
-}if(r.id===undefined||r.id===null){O.fail("Error in cutpoints list - entry at position "+o+" does not have an id set")
-}q=r.id
-}}}}}return q
-}function T(){if(G){for(var m=0;
-m<G.length;
-++m){var n=D[m];
-if(n.length>0&&n[n.length-1]===N){n.length--
-}}}}function i(q,u){++N;
-if(I){I=false;
-var m=V();
-m.nestingdepth--
-}if(X.firstdocumentindex===-1){X.firstdocumentindex=b
-}var p=V();
-var v=f[f.length-1];
-p.uplump=v;
-var s=P.getName();
-p.tagname=s;
-var t=p.attributemap=P.m_attributes;
-var r=t[O.ID_ATTRIBUTE];
-if(r===undefined){r=Z(p)
-}for(var y in t){var o=t[y];
-if(/href|src|codebase|action/.test(y)){o=k(o);
-t[y]=o
-}else{if(r===undefined&&/for|headers/.test(y)){r=t[O.ID_ATTRIBUTE]="scr=null"
-}}}if(r){if(r.charCodeAt(0)===126){r=r.substring(1);
-p.elide=true
-}C(r,p);
-p.rsfID=r;
-var x=Q();
-if(!x.downmap){x.downmap={}
-}J(x.downmap,r,p);
-J(X.globalmap,r,p);
-var w=r.indexOf(":");
-if(w!==-1){var n=r.substring(0,w);
-if(!v.finallump){v.finallump={}
-}v.finallump[n]=p
-}}p.text="<"+s+O.dumpAttributes(t)+">";
-f[f.length]=p;
-if(q){K()
-}}function K(){T();
-var m=V();
---N;
-m.text="</"+P.getName()+">";
-var n=f[f.length-1];
-n.close_tag=X.lumps[b-1];
-f.length--;
-I=true
-}function E(){if(B!==-1){if(X.firstdocumentindex===-1){X.firstdocumentindex=b
-}var n=P.getContent().substr(B,A-B);
-I=false;
-var m=V();
-m.text=n;
-B=-1
-}}O.ID_ATTRIBUTE="rsf:id";
-O.getPrefix=function(n){var m=n.indexOf(":");
-return m===-1?n:n.substring(0,m)
+}}function m(B){var E=undefined;
+if(AF){for(var G=0;
+G<AF.length;
+++G){var D=AF[G];
+var C=AI[G];
+var A=C.length;
+if(A<D.tree.length){var H=D.tree[A];
+if(A>0){if(D.tree[A-1].child&&C[A-1]!==B.nestingdepth-1){continue
+}}var F=AA(H,B);
+if(F){C[C.length]=B.nestingdepth;
+if(C.length===D.tree.length){if(E!==undefined){x.fail("Cutpoint specification error - node "+AX(B)+" has already matched with rsf:id of "+E)
+}if(D.id===undefined||D.id===null){x.fail("Error in cutpoints list - entry at position "+G+" does not have an id set")
+}E=D.id
+}}}}}return E
+}function s(){if(AF){for(var A=0;
+A<AF.length;
+++A){var B=AI[A];
+if(B.length>0&&B[B.length-1]===y){B.length--
+}}}}function AP(B,K){++y;
+if(AD){AD=false;
+var F=q();
+F.nestingdepth--
+}if(o.firstdocumentindex===-1){o.firstdocumentindex=AW
+}var C=q();
+var J=AS[AS.length-1];
+C.uplump=J;
+var M=w.getName();
+C.tagname=M;
+var L=C.attributemap=w.m_attributes;
+var A=L[x.ID_ATTRIBUTE];
+if(A===undefined){A=m(C)
+}for(var G in L){var D=L[G];
+if(/href|src|codebase|action/.test(G)){D=AN(D);
+L[G]=D
+}else{if(A===undefined&&/for|headers/.test(G)){A=L[x.ID_ATTRIBUTE]="scr=null"
+}}}if(A){if(A.charCodeAt(0)===126){A=A.substring(1);
+C.elide=true
+}AJ(A,C);
+C.rsfID=A;
+var H=v();
+if(!H.downmap){H.downmap={}
+}AC(H.downmap,A,C);
+AC(o.globalmap,A,C);
+var I=A.indexOf(":");
+if(I!==-1){var E=A.substring(0,I);
+if(!J.finallump){J.finallump={}
+}J.finallump[E]=C
+}}C.text="<"+M+x.dumpAttributes(L)+">";
+AS[AS.length]=C;
+if(B){AB()
+}}function AB(){s();
+var A=q();
+--y;
+A.text="</"+w.getName()+">";
+var B=AS[AS.length-1];
+B.close_tag=o.lumps[AW-1];
+AS.length--;
+AD=true
+}function AH(){if(AK!==-1){if(o.firstdocumentindex===-1){o.firstdocumentindex=AW
+}var B=w.getContent().substr(AK,AL-AK);
+AD=false;
+var A=q();
+A.text=B;
+AK=-1
+}}x.ID_ATTRIBUTE="rsf:id";
+x.getPrefix=function(B){var A=B.indexOf(":");
+return A===-1?B:B.substring(0,A)
 };
-O.SplitID=function(o){var n={};
-var m=o.indexOf(":");
-if(m===-1){n.prefix=o
-}else{n.prefix=o.substring(0,m);
-n.suffix=o.substring(m+1)
-}return n
+x.SplitID=function(B){var C={};
+var A=B.indexOf(":");
+if(A===-1){C.prefix=B
+}else{C.prefix=B.substring(0,A);
+C.suffix=B.substring(A+1)
+}return C
 };
-O.XMLLump=function(n,m){return{nestingdepth:m,lumpindex:n,parent:X}
+x.XMLLump=function(B,A){return{nestingdepth:A,lumpindex:B,parent:o}
 };
-O.XMLViewTemplate=function(){return{globalmap:{},collectmap:{},lumps:[],firstdocumentindex:-1}
+x.XMLViewTemplate=function(){return{globalmap:{},collectmap:{},lumps:[],firstdocumentindex:-1}
 };
-O.fetchResources=function(p,t){var n=function(u){return{success:function(v){u.resourceText=v;
-u.resourceKey=u.href;
-u.queued=false;
-O.fetchResources(p,t)
-},error:function(v,x,w){u.fetchError={status:v.status,textStatus:x,errorThrown:w}
+x.fetchResources=function(F,B){var H=function(I){return{success:function(J){I.resourceText=J;
+I.resourceKey=I.href;
+I.queued=false;
+x.fetchResources(F,B)
+},error:function(L,J,K){I.fetchError={status:L.status,textStatus:J,errorThrown:K}
 }}
 };
-var m=true;
-for(var q in p){var o=p[q];
-if(o.href&&!o.resourceText){if(!o.queued){var s=n(o);
-R.ajax({url:o.href,success:s.success,error:s.error});
-o.queued=true
-}m=false
-}else{if(o.nodeId&&!o.resourceText){var r=document.getElementById(o.nodeId);
-o.resourceText=O.dom.getElementText(r);
-o.resourceKey=o.nodeId
-}}}if(m){if(R.browser.mozilla){setTimeout(function(){t(p)
+var A=true;
+for(var E in F){var G=F[E];
+if(G.href&&!G.resourceText){if(!G.queued){var C=H(G);
+u.ajax({url:G.href,success:C.success,error:C.error});
+G.queued=true
+}A=false
+}else{if(G.nodeId&&!G.resourceText){var D=document.getElementById(G.nodeId);
+G.resourceText=x.dom.getElementText(D);
+G.resourceKey=G.nodeId
+}}}if(A){if(u.browser.mozilla){setTimeout(function(){B(F)
 },1)
-}else{t(p)
+}else{B(F)
 }}};
-O.XMLEncode=function(m){return m.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+x.XMLEncode=function(A){return A.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
 };
-O.dumpAttributes=function(m){var o="";
-for(var p in m){var n=m[p];
-if(n!==null&&n!==undefined){o+=" "+p+'="'+n+'"'
-}}return o
+x.dumpAttributes=function(A){var C="";
+for(var B in A){var D=A[B];
+if(D!==null&&D!==undefined){C+=" "+B+'="'+D+'"'
+}}return C
 };
-O.aggregateMMap=function(p,o){for(var m in o){var n=p[m];
-if(!n){p[m]=[]
-}p[m]=p[m].concat(o[m])
+x.aggregateMMap=function(B,C){for(var A in C){var D=B[A];
+if(!D){B[A]=[]
+}B[A]=B[A].concat(C[A])
 }};
-var Y=/(\\u[\dabcdef]{4}|\\x[\dabcdef]{2})/g;
-O.unescapeProperties=function(n){n=n.replace(Y,function(r){var s=r.substring(2);
-var q=parseInt(s,16);
-return String.fromCharCode(q)
+var n=/(\\u[\dabcdef]{4}|\\x[\dabcdef]{2})/g;
+x.unescapeProperties=function(D){D=D.replace(n,function(F){var E=F.substring(2);
+var G=parseInt(E,16);
+return String.fromCharCode(G)
 });
-var p=0;
-while(true){var m=n.indexOf("\\",p);
-if(m===-1){break
-}if(m===n.length-1){return[n.substring(0,n.length-1),true]
-}var o=n.charAt(m+1);
-if(o==="n"){o="\n"
-}if(o==="r"){o="\r"
-}if(o==="t"){o="\t"
-}n=n.substring(0,m)+o+n.substring(m+2);
-p=m+1
-}return[n,false]
+var B=0;
+while(true){var A=D.indexOf("\\",B);
+if(A===-1){break
+}if(A===D.length-1){return[D.substring(0,D.length-1),true]
+}var C=D.charAt(A+1);
+if(C==="n"){C="\n"
+}if(C==="r"){C="\r"
+}if(C==="t"){C="\t"
+}D=D.substring(0,A)+C+D.substring(A+2);
+B=A+1
+}return[D,false]
 };
-var W=/[^\\][\s:=]/;
-O.parseJavaProperties=function(o){var t={};
-o=o.replace(/\r\n/g,"\n");
-o=o.replace(/\r/g,"\n");
-lines=o.split("\n");
-var p,n,s,r,m;
-for(var u=0;
-u<lines.length;
-++u){var q=R.trim(lines[u]);
-if(!q||q.charAt(0)==="#"||q.charAt(0)==="!"){continue
-}if(!p){s="";
-var v=q.search(W);
-if(v===-1){n=q;
-r=""
-}else{n=R.trim(q.substring(0,v+1));
-r=R.trim(q.substring(v+2));
-if(r.charAt(0)===":"||r.charAt(0)==="="){r=R.trim(r.substring(1))
-}}n=O.unescapeProperties(n)[0];
-m=O.unescapeProperties(r)
-}else{m=O.unescapeProperties(q)
-}p=m[1];
-if(!m[1]){t[n]=s+m[0]
-}else{s+=m[0]
-}}return t
+var p=/[^\\][\s:=]/;
+x.parseJavaProperties=function(D){var I={};
+D=D.replace(/\r\n/g,"\n");
+D=D.replace(/\r/g,"\n");
+lines=D.split("\n");
+var C,E,J,A,F;
+for(var H=0;
+H<lines.length;
+++H){var B=u.trim(lines[H]);
+if(!B||B.charAt(0)==="#"||B.charAt(0)==="!"){continue
+}if(!C){J="";
+var G=B.search(p);
+if(G===-1){E=B;
+A=""
+}else{E=u.trim(B.substring(0,G+1));
+A=u.trim(B.substring(G+2));
+if(A.charAt(0)===":"||A.charAt(0)==="="){A=u.trim(A.substring(1))
+}}E=x.unescapeProperties(E)[0];
+F=x.unescapeProperties(A)
+}else{F=x.unescapeProperties(B)
+}C=F[1];
+if(!F[1]){I[E]=J+F[0]
+}else{J+=F[0]
+}}return I
 };
-O.parseTemplates=function(m,o,r){var t=[];
-t.globalmap={};
-for(var n=0;
-n<o.length;
-++n){var u=m[o[n]];
-var p=u.href.lastIndexOf("/");
-var s=p===-1?"":u.href.substring(0,p+1);
-var q=O.parseTemplate(u.resourceText,s,r.scanStart&&n===0,u.cutpoints,r);
-if(n===0){O.aggregateMMap(t.globalmap,q.globalmap)
-}q.href=u.href;
-q.baseURL=s;
-q.resourceKey=u.resourceKey;
-t[n]=q;
-O.aggregateMMap(t.globalmap,q.rootlump.downmap)
-}return t
+x.parseTemplates=function(F,D,A){var H=[];
+H.globalmap={};
+for(var E=0;
+E<D.length;
+++E){var G=F[D[E]];
+var C=G.href.lastIndexOf("/");
+var I=C===-1?"":G.href.substring(0,C+1);
+var B=x.parseTemplate(G.resourceText,I,A.scanStart&&E===0,G.cutpoints,A);
+if(E===0){x.aggregateMMap(H.globalmap,B.globalmap)
+}B.href=G.href;
+B.baseURL=I;
+B.resourceKey=G.resourceKey;
+H[E]=B;
+x.aggregateMMap(H.globalmap,B.rootlump.downmap)
+}return H
 };
-O.parseTemplate=function(p,u,n,m,r){X=O.XMLViewTemplate();
-r=r||{};
-d(u,r.debugMode,m);
-var o=p.indexOf(O.ID_ATTRIBUTE);
-if(n){var s=p.indexOf(">",o);
-P=new XMLP(p.substring(s+1))
-}else{P=new XMLP(p)
-}parseloop:while(true){var t=P.next();
-switch(t){case XMLP._ELM_B:E();
-i(false,"");
+x.parseTemplate=function(C,G,E,F,A){o=x.XMLViewTemplate();
+A=A||{};
+AU(G,A.debugMode,F);
+var D=C.indexOf(x.ID_ATTRIBUTE);
+if(E){var I=C.indexOf(">",D);
+w=new XMLP(C.substring(I+1))
+}else{w=new XMLP(C)
+}parseloop:while(true){var H=w.next();
+switch(H){case XMLP._ELM_B:AH();
+AP(false,"");
 break;
-case XMLP._ELM_E:E();
-K();
+case XMLP._ELM_E:AH();
+AB();
 break;
-case XMLP._ELM_EMP:E();
-i(true,"");
+case XMLP._ELM_EMP:AH();
+AP(true,"");
 break;
-case XMLP._PI:case XMLP._DTD:B=-1;
+case XMLP._PI:case XMLP._DTD:AK=-1;
 continue;
-case XMLP._TEXT:case XMLP._ENTITY:case XMLP._CDATA:case XMLP._COMMENT:if(B===-1){B=P.m_cB
-}A=P.m_cE;
+case XMLP._TEXT:case XMLP._ENTITY:case XMLP._CDATA:case XMLP._COMMENT:if(AK===-1){AK=w.m_cB
+}AL=w.m_cE;
 break;
-case XMLP._ERROR:O.setLogging(true);
-var q="Error parsing template: "+P.m_cAlt+" at line "+P.getLineNumber();
-O.log(q);
-O.log("Just read: "+P.m_xml.substring(P.m_iP-30,P.m_iP));
-O.log("Still to read: "+P.m_xml.substring(P.m_iP,P.m_iP+30));
-O.fail(q);
+case XMLP._ERROR:x.setLogging(true);
+var B="Error parsing template: "+w.m_cAlt+" at line "+w.getLineNumber();
+x.log(B);
+x.log("Just read: "+w.m_xml.substring(w.m_iP-30,w.m_iP));
+x.log("Still to read: "+w.m_xml.substring(w.m_iP,w.m_iP+30));
+x.fail(B);
 break parseloop;
 case XMLP._NONE:break parseloop
-}}return X
+}}return o
 };
-var g="(?:[\\w\u0128-\uFFFF*_-]|\\\\.)";
-var e=new RegExp("^>\\s*("+g+"+)");
-var S=new RegExp("^("+g+"+)(#)("+g+"+)");
-var H=new RegExp("^s*([#.]?)("+g+"*)");
-var j=new RegExp("([#.]?)("+g+"+)","g");
-var l=new RegExp("\\s*(>)?\\s*","g");
-var F=new RegExp("^\\w*$");
-O.parseSelector=function(o){var t=[];
-o=R.trim(o);
-j.lastIndex=0;
-var n=0;
-while(true){var v=[];
-while(true){var r=j.exec(o);
-if(!r||r.index!==n){break
-}var m={};
-var q=r[2];
-if(r[1]===""){m.tag=q
-}else{if(r[1]==="#"){m.id=q
-}else{if(r[1]==="."){m.clazz=q
-}}}v[v.length]=m;
-n=j.lastIndex
-}l.lastIndex=n;
-var s={predList:v};
-var u=l.exec(o);
-if(!u||u.index!==n){var p=o.substring(n);
-O.fail("Error in selector string - can not match child selector expression at "+p)
-}if(u[1]===">"){s.child=true
-}t[t.length]=s;
-if(l.lastIndex>=o.length){break
-}n=l.lastIndex;
-j.lastIndex=l.lastIndex
-}return t
+var AR="(?:[\\w\u0128-\uFFFF*_-]|\\\\.)";
+var AT=new RegExp("^>\\s*("+AR+"+)");
+var t=new RegExp("^("+AR+"+)(#)("+AR+"+)");
+var AE=new RegExp("^s*([#.]?)("+AR+"*)");
+var AO=new RegExp("([#.]?)("+AR+"+)","g");
+var AM=new RegExp("\\s*(>)?\\s*","g");
+var AG=new RegExp("^\\w*$");
+x.parseSelector=function(D){var I=[];
+D=u.trim(D);
+AO.lastIndex=0;
+var E=0;
+while(true){var G=[];
+while(true){var A=AO.exec(D);
+if(!A||A.index!==E){break
+}var F={};
+var B=A[2];
+if(A[1]===""){F.tag=B
+}else{if(A[1]==="#"){F.id=B
+}else{if(A[1]==="."){F.clazz=B
+}}}G[G.length]=F;
+E=AO.lastIndex
+}AM.lastIndex=E;
+var J={predList:G};
+var H=AM.exec(D);
+if(!H||H.index!==E){var C=D.substring(E);
+x.fail("Error in selector string - can not match child selector expression at "+C)
+}if(H[1]===">"){J.child=true
+}I[I.length]=J;
+if(AM.lastIndex>=D.length){break
+}E=AM.lastIndex;
+AO.lastIndex=AM.lastIndex
+}return I
 }
 })(jQuery,fluid_1_1);
