@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<component name="org.eclipse.equinox.jsp.jasper_1.0.200.v20090520-1800" version="1.2">
-    <plugin id="org.eclipse.equinox.jsp.jasper_1.0.200.v20090520-1800"/>
-    <package name="org.eclipse.equinox.jsp.jasper" visibility="1">
-        <type name="JspServlet" restrictions="2"/>
-    </package>
-</component>

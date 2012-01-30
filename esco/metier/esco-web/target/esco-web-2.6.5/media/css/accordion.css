@@ -1,7 +1,0 @@
-.flora div.basic{margin:0;padding:0;}
-.flora .basic>div{background-color:#eee;}
-.flora .basic>div.scrolling{overflow:auto!important;}
-.flora .basic>div>p{margin-bottom:10px;border:none;text-decoration:none;font-weight:bold;font-size:10px;margin:0;padding:10px;}
-.flora .basic>a{color:black;font-weight:bold;font-size:12px;text-decoration:none;cursor:pointer;display:block;padding:5px;margin-top:0;background-color:#00a0c6;border-top:1px solid #FFF;border-bottom:1px solid #999;background-image:url("../img/tab0.gif");}
-.flora .basic>a.selected,.flora .basic>a.active,.flora .basic>a:hover{color:black;background-image:url("../img/tab2.gif");}
-.flora .basic>a.active{color:#00C;}
