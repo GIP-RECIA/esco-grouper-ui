@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.esco.grouperui</groupId>
+  <artifactId>esco</artifactId>
+  <version>1</version>
+  <packaging>pom</packaging>
+  <!-- Libelle du projet -->
+  <name>*:parent</name>
+  <description>pom parent for compile everything</description>
+  <!-- Modules du projet -->
+  <modules>
+	<module>maven2</module>
+    <module>ext</module>
+    <module>metier</module>
+  </modules>
+  
+  
+  <scm>
+<connection>scm:svn:svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</connection>
+<developerConnection>scm:svn:svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</developerConnection>
+<tag>HEAD</tag>
+<url>svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</url>
+</scm> 
+  
+  
+	<repositories>
+	
+        <repository>
+          <id>cargo</id>
+          <url>http://repository.codehaus.org/</url>
+        </repository>
+
+        <repository>
+          <id>ESCO-Grouper-repository</id>
+          <name>ESCO-Grouper repository</name>
+          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
+        </repository>
+
+	</repositories>
+
+
+
+
+<distributionManagement>
+<repository>
+<id>local-nexus-release</id>
+<name>Nexus local (releases)</name>
+<url>http://www.esco-portail.org/nexus/content/repositories/releases/</url>
+</repository>
+<snapshotRepository>
+<id>local-nexus-snapshot</id>
+<name>Nexus local (snapshots)</name>
+<url>http://www.esco-portail.org/nexus/content/repositories/snapshots/</url>
+</snapshotRepository>
+</distributionManagement> 
+
+
+
+
+
+  <!-- distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>esco_rw</id>
+      <name>esco releases repository</name>
+      <url>
+      http://pdtinteg.ptx.fr.sopra:8180/artifactory/prj-esco-releases</url>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>esco_rw</id>
+      <name>esco snapshots repository</name>
+      <url>
+      http://pdtinteg.ptx.fr.sopra:8180/artifactory/prj-esco-snapshots</url>
+    </snapshotRepository>
+  </distributionManagement -->
+  
+  
+</project>

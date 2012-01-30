@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean class="org.esco.grouperui.web.plugins.TabsControllerAggregator">
+		<property name="parent" value="groupController" />
+		<property name="children">
+			<list>
+				<value>groupDynamicMembersController</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="groupDynamicMembersController"
+			class="org.esco.grouperui.web.controllers.groupProperties.GroupMembersController"
+			parent="abstractContextAwareController"
+			scope="session">
+		<property name="sortableRowDataWrapper" ref="subjectRowDataWrapper" />
+		<property name="xmlProducerWrapper" ref="xmlProducerWrapper" />
+
+		<property name="id" value="groupDynamicMembers" />
+		<property name="name" value="MEMBERS.TAB" />
+		<property name="title" value="MEMBERS.TAB" />
+		<property name="url" value="stylesheets/groupProperties/groupDynamicMembers.jsf" />
+		<property name="icone" value="/media/imgs/tab/group_green.gif" />
+		<property name="regpresent" value="$Dyn{tab.group.regpresent}" />
+		<property name="regresume" value="$Dyn{tab.group.regpresent}" />
+		<property name="desactivate" value="groupMembersController.tab|groupMembersController.resume" />
+		<property name="order" value="10" />
+	</bean>
+
+
+	<bean class="org.esco.grouperui.web.plugins.TabsControllerAggregator">
+		<property name="parent" value="groupModificationsController" />
+		<property name="children">
+			<list>
+				<value>groupDynamiquePrivilegesController</value>
+				<value>groupDynamiqueController</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="groupDynamiqueController"
+			class="org.esco.grouperui.web.controllers.dynamicgroup.DynamicGroupController"
+			parent="abstractContextAwareController"
+			scope="session" >
+
+		<property name="sortableRowDataWrapper" ref="dynamicGroupRowDataWrapper" />
+		<property name="xmlProducerWrapper" ref="xmlProducerWrapper" />
+		<property name="parameterService" ref="parameterService" />
+		<property name="groupDynamicService" ref="dynamicService" />
+		<property name="jsonWrapper" ref="jsonWrapper" />
+
+		<property name="id" value="groupDynamique" />
+		<property name="name" value="DYNAMIQUE.TAB" >
+			<description>The label for the tab</description>
+		</property>
+		<property name="title" value="DYNAMIQUE.TAB" >
+			<description>The title for the tab</description>
+		</property>
+		<property name="url" value="stylesheets/dynamicGroup/dynamiqueGroupCreate.jsf" >
+			<description> The url for the tab</description>
+		</property>
+		<property name="icone" value="/media/imgs/tab/14857.hierarchy.gif" >
+			<description>The icon for the tab</description>
+		</property>
+		<property name="regpresent" value="$Dyn{tab.regpresent}" >
+			<description>The regexp to compute if the tab is present</description>
+		</property>
+		<property name="regresume" value="true" >
+			<description>The regexp to compute if tab data is present in resume</description>
+		</property>
+		<property name="order" value="20" />
+	</bean>
+
+
+	<bean id="groupDynamiquePrivilegesController" class="org.esco.grouperui.web.controllers.dynamicgroup.DynamicGroupPrivilegesController"
+			parent="abstractContextAwareController"
+			scope="session">
+		<property name="xmlProducerWrapper" ref="xmlProducerWrapper" />
+		<property name="sortableRowDataWrapper" ref="groupSubjectRowDataWrapper" >
+			<!-- bean class="org.esco.grouperui.web.controllers.dynamicgroup.DynamicGroupSubjectRowDataWrapper" >
+				<property name="i18nService" ref="i18nService"/>
+				<property name="parameterService" ref="parameterService" />
+			</bean -->
+		</property>
+
+		<property name="id" value="groupDynamiquePrivilegesController" />
+		<property name="name" value="MODIFICATION.PRIVILEGES.PAGE" >
+			<description>The label for the tab</description>
+		</property>
+		<property name="title" value="MODIFICATION.PRIVILEGES.PAGE" >
+			<description>The title for the tab</description>
+		</property>
+		<property name="url" value="stylesheets/dynamicGroup/dynamiqueGroupPrivileges.jsf" >
+			<description> The url for the tab</description>
+		</property>
+		<property name="icone" value="/media/imgs/tab/11847.security_constraint.gif" >
+			<description>The icon for the tab</description>
+		</property>
+		<property name="regpresent" value="$Dyn{tab.regpresent}" >
+			<description>The regexp to compute if the tab is present</description>
+		</property>
+		<property name="regresume" value="$Dyn{tab.regpresent}" >
+			<description>The regexp to compute if tab data is present in resume</description>
+		</property>
+		<property name="desactivate" value="groupModificationsPrivilegesController.tab|groupModificationsPrivilegesController.resume" >
+			<description>The regexp to compute if tab data is present in resume</description>
+		</property>
+		<property name="order" value="10" />
+	</bean>
+
+	<bean id="dynamicGroupRowDataWrapper" class="org.esco.grouperui.web.controllers.dynamicgroup.DynamicGroupRowDataWrapper" >
+		<property name="i18nService" ref="i18nService"/>
+		<property name="parameterService" ref="parameterService" />
+	</bean>
+</beans>

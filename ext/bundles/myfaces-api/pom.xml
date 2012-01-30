@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<!-- Parent -->
+	<parent>
+		<groupId>org.esco.grouperui.ext</groupId>
+		<artifactId>ext-parent</artifactId>
+		<version>2.6.5</version>
+	</parent>
+
+	<!-- D�finition du module -->
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>myfaces-api</artifactId>
+	<version>1.1.5</version>
+	<packaging>bundle</packaging>
+
+	<name>ext: Apache  MyFaces API</name>
+
+
+	<!-- Build -->
+	<build>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+		<resources>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>META-INF/**</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>                        
+						<Bundle-SymbolicName>org.esco.grouperui.ext.org.apache.myfaces.javax.faces</Bundle-SymbolicName>
+                        <Implementation-Title>MyFaces API</Implementation-Title>
+                        <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
+                        <Implementation-Vendor-Id>org.apache.myfaces.core</Implementation-Vendor-Id>
+                        <Implementation-Version>${pom.version}</Implementation-Version>
+                        <Specification-Title>Apache MyFaces API</Specification-Title>
+                        <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
+                        <Specification-Version>${pom.version}</Specification-Version>
+                        <Import-Package>
+                            *
+                        </Import-Package>
+                        <Export-Package>
+                            javax.faces.*;version=${pom.version};
+                        </Export-Package>
+                        <_failok>true</_failok>
+                    </instructions>
+                </configuration>
+            </plugin>			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>             
+						<id>deploytomcat</id>
+						<phase>install</phase>	
+						<configuration>
+							<tasks>
+							<delete dir="${tomcat.install}/work" />
+							<copy file="${project.build.directory}/${project.groupId}.${project.artifactId}-${project.version}.jar" todir="${tomcat.install}/webapps/${bridge.name}/WEB-INF/eclipse/plugins" failonerror="false"/>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>commons-net</groupId>
+						<artifactId>commons-net</artifactId>
+						<version>1.4.1</version>
+					</dependency>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-commons-net</artifactId>
+						<version>1.6.5</version>
+					</dependency>							
+				</dependencies>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+	<!-- Gestion des dépendances -->
+	<dependencies>		
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+
+	</dependencies>
+</project>

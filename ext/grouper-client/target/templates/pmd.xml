@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset name="escoruleset">
+
+  <description>
+  This ruleset checks the respect of ESCO-PORTAIL coding standards
+  </description>
+
+  <!-- Use of basic ruleset -->
+  <!-- see http://pmd.sourceforge.net/rules/basic.html -->
+  <!-- RA-018 -->
+  <rule ref="rulesets/basic.xml/ReturnFromFinallyBlock"/>
+
+  <!-- Naming rule -->
+  <!-- RN-011-->
+  <rule ref="rulesets/naming.xml/ShortVariable"/>
+
+  <!-- Unused code rules -->
+  <!-- RA-019 (trois lignes suivantes) -->
+  <rule ref="rulesets/unusedcode.xml/UnusedPrivateField"/>
+  <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable"/>
+  <rule ref="rulesets/unusedcode.xml/UnusedPrivateMethod"/>
+
+  <!-- Design rules -->
+  <!-- RA-020 -->
+  <rule ref="rulesets/coupling.xml/LooseCoupling"/>
+  <!-- RA-021 -->
+  <rule ref="rulesets/design.xml/AvoidReassigningParameters"/>
+  <!-- RA-022 -->
+  <rule ref="rulesets/design.xml/ConstructorCallsOverridableMethod"/>
+  <!-- RA-023 -->
+  <rule ref="rulesets/design.xml/FinalFieldCouldBeStatic"/>
+
+  <!-- Strings rules -->
+  <!-- RA-024 -->
+  <rule ref="rulesets/strings.xml/StringInstantiation"/>
+ 
+	<!--  RA-025 -->
+	<rule ref="rulesets/codesize.xml/CyclomaticComplexity" />
+
+
+</ruleset>

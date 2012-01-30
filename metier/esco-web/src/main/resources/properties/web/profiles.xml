@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<bean id="allProfiles" class="org.esco.grouperui.web.beans.profile.UsersProfileContainer" scope="session">
+	<property name="defaultProfile" value="defaultProfile"></property>
+</bean>
+
+
+<bean class="org.esco.grouperui.web.beans.profile.UserProfileUrlMappingAggregator">
+	<property name="listMappings">
+		<map>
+			<entry key="stylesheets/personProperties.jsf" value="org.esco.grouperui.web.person.properties"></entry>
+			<entry key="stylesheets/groupProperties.jsf" value="org.esco.grouperui.web.group.properties"></entry>
+			<entry key="stylesheets/stemProperties/stemProperties.jsf" value="org.esco.grouperui.web.stem.properties"></entry>
+			<entry key="stylesheets/groupModifications/groupModificationsAttributes.jsf" value="org.esco.grouperui.web.group.modification"></entry>
+			<entry key="stylesheets/stemModifications.jsf" value="org.esco.grouperui.web.stem.modification"></entry>
+		</map>
+	</property>
+</bean>
+
+<import resource="classpath*:properties/web/profiles/*"/>
+
+</beans>

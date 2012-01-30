@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security" default-autowire="no"
+	default-dependency-check="none" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+				http://www.springframework.org/schema/security/spring-security-2.0.xsd
+				http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+	<bean id="escoSecurityContextFactory" class="org.esco.grouperui.web.security.EscoSecurityContextFactory">
+		<property name="listSecurityContextFinder">
+			<list>
+				<bean class="org.esco.grouperui.web.security.SpringSecurityContextFinder" />
+			</list>
+		</property>
+    </bean>
+
+	<security:http auto-config="false" lowercase-comparisons="false"
+		access-denied-page="/stylesheets/auth/accessDenied.jsp">
+
+        <security:intercept-url pattern="/" filters="none" />
+	    <security:intercept-url pattern="/media/**" filters="none" />
+	    <security:intercept-url pattern="/stylesheets/exception/**" filters="none" />
+	    <security:intercept-url pattern="/stylesheets/auth/**" filters="none" />
+		<security:intercept-url pattern="/**" access="ROLE_ADMINISTRATEUR" />
+
+		<security:form-login login-page="/stylesheets/auth/login.jsp" authentication-failure-url="/stylesheets/auth/login.jsp?login_error=1" always-use-default-target="false" />
+		<security:logout logout-success-url="/stylesheets/welcome.jsf" invalidate-session="true" logout-url="/j_spring_security_logout" />
+	</security:http>
+
+	<security:authentication-provider user-service-ref="memoryUserDetailsService" >
+		<security:password-encoder hash="plaintext" />
+	</security:authentication-provider>
+
+	<bean id="memoryUserDetailsService" class="org.springframework.security.userdetails.memory.InMemoryDaoImpl">
+		<property name="userMap">
+			<value>
+			admin=3,ROLE_ADMINISTRATEUR
+			Apd00000=3,ROLE_ADMINISTRATEUR
+			F08001c3=3,ROLE_ADMINISTRATEUR
+			</value>
+		</property>
+	</bean>
+
+	<bean id="securityFilter" class="org.springframework.security.util.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+			<security:filter-chain pattern="/**"
+				filters="_httpSessionContextIntegrationFilter,
+						_formLoginFilter,
+						_securityContextHolderAwareRequestFilter,
+						_exceptionTranslationFilter,
+						_filterSecurityInterceptor" />
+		</security:filter-chain-map>
+	</bean>
+
+	<bean id="escoSecurityContextHolderValFilter" class="org.esco.grouperui.web.security.EscoSecurityContextHolderValFilter">
+		<security:custom-filter after="FILTER_SECURITY_INTERCEPTOR" />
+		<property name="grouperService" ref="grouperService" />
+	</bean>
+
+   <!-- Automatically receives AuthenticationEvent messages -->
+   <bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener"/>
+
+</beans>

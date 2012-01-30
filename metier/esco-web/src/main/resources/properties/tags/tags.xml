@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+	>
+
+    <bean id="tagsConfigurator"
+    	  class="org.esupportail.commons.web.tags.config.TagsConfigurator"
+    	  parent="abstractApplicationAwareBean">
+    	<description>
+    		The bean 'tagsConfigurator' is used to set up the configuration of
+    		the custom tags of consortium ESUP-Portail (see esup-commons.tld).
+    	</description>
+    	<!--
+    	<property name="messagesInfoClass" value="portlet-msg-info" >
+    		<description>
+    			The default value used for attribute infoClass of tags message
+    			and messages. It is the CSS class used for info messages.
+    		</description>
+    	</property>
+    	<property name="messagesWarnClass" value="portlet-msg-alert" >
+    		<description>
+    			The default value used for attribute warnClass of tags message
+    			and messages. It is the CSS class used for warn messages.
+    		</description>
+    	</property>
+    	<property name="messagesErrorClass" value="portlet-msg-error" >
+    		<description>
+    			The default value used for attribute errorClass of tags message
+    			and messages. It is the CSS class used for error messages.
+    		</description>
+    	</property>
+    	<property name="messagesFatalClass" value="portlet-msg-error" >
+    		<description>
+    			The default value used for attribute fatalClass of tags message
+    			and messages. It is the CSS class used for fatal messages.
+    		</description>
+    	</property>
+    	<property name="messagesLayout" value="table" >
+    		<description>
+    			The default value used for attribute layout of tag messages.
+    		</description>
+    	</property>
+    	<property name="documentTitle" value="" >
+    		<description>
+    			The default value for attribute title of tag document, used to
+    			generate the content of output tag TITLE, optional.
+    		</description>
+    	</property>
+    	-->
+
+		<!-- Title of the webapp -->
+    	<property name="documentTitleI18nKey" value="HEAD.TITLE" >
+    		<description>
+    			The name oh the i18n key to use for the window title, optional.
+    			Overrides documentTitle.
+    		</description>
+    	</property>
+
+
+    	<property name="doctype" value="&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;">
+    		<description>
+    			The doctype of the document, optional.
+    		</description>
+    	</property>
+
+
+		<!-- Media path -->
+    	<property name="servletMediaPath" value="${mediaPath.servlet}" >
+    		<description>
+    			The path to the media files, used for scripts and stylesheets.
+    		</description>
+    	</property>
+
+    	<property name="portletMediaPath" value="${mediaPath.portlet}" >
+    		<description>
+    			The path to the media files, used for scripts.
+    		</description>
+    	</property>
+
+    	<!-- Scripts -->
+    	<property name="scripts" >
+    		<description>
+    			A list of URLs that will be automatically included in the head part
+    			of the output document as scripts. Absolute URLs are used as-is, relative
+    			URLs are prefixed by property portletMediaPath or servletMediaPath.
+    		</description>
+    		<list>
+				<value>js/jquery/jquery-1.3.2.js</value>
+				<value>js/jquery.cookie.js</value>
+				<value>js/layout/jquery.layout.js</value>
+				<value>js/jquery/ui/ui.core.js</value>
+				<value>js/jquery/ui/ui.draggable.js</value>
+				<value>js/jquery/ui/ui.resizable.js</value>
+				<value>js/jquery/ui/effects.core.js</value>
+				<value>js/jquery/ui/effects.slide.js</value>
+				<value>js/jquery/ui/effects.drop.js</value>
+				<value>js/jquery/ui/effects.scale.js</value>
+				<value>js/jquery.hotkeys.js</value>
+				<value>js/jquery.blockUI.js</value>
+				<value>js/jquery.jBreadCrumb.js</value>
+				<value>js/jquery.metadata.js</value>
+				<value>js/jquery.form.js</value>
+				<value>js/jquery.tooltip.js</value>
+				<value>js/jquery.bgiframe.js</value>
+				<value>js/jquery.delegate.js</value>
+				<value>js/jquery.dimensions.js</value>
+				<value>js/jquery.json-2.2.js</value>
+				<value>js/jquery.jgrowl.js</value>
+				<value>js/jquery.xmldom.js</value>
+				<value>js/jquery.validationEngine.js</value>
+				<value>js/jquery.progression.js</value>
+				<value>js/sarissa.js</value>
+				<value>js/jquery/ui/ui.tabs.js</value>
+				<value>js/fluid/core/js/Fluid.js</value>
+			    <value>js/fluid/core/js/jquery.keyboard-a11y.js</value>
+                <value>js/fluid/components/inlineEdit/js/InlineEdit.js</value>
+                <value>js/fluid/components/inlineEdit/js/InlineEditIntegrations.js</value>
+                <value>js/fluid/components/inlineEdit/js/jquery.tinymce.js</value>
+                <value>js/fluid/components/undo/js/Undo.js</value>
+			    <value>js/jquery.ui-accessible-tabs.js</value>
+			    <value>js/helpOnline/mbContainer.js</value>
+
+				<!-- JS des écrans -->
+				<value>js/esco/DUI.js</value>
+				<value>js/esco/core.js</value>
+				<value>js/esco/corePlugin.js</value>
+				<value>js/esco/screen.js</value>
+				<value>js/esco/option.js</value>
+
+				<!-- JS des plugin de Core -->
+				<value>js/esco/plugins/profilePlugin.js</value>
+				<value>js/esco/plugins/dragAndDropPlugin.js</value>
+				<value>js/esco/plugins/copyMembersPlugin.js</value>
+				<value>js/esco/plugins/moveStemPlugin.js</value>
+				<value>js/esco/plugins/moveGroupPlugin.js</value>
+
+				<!-- JS utilities -->
+				<value>js/esco/utils/escoBreadCrumb.js</value>
+				<value>js/esco/utils/escoGrid.js</value>
+				<value>js/esco/utils/validate.js</value>
+				<value>js/esco/utils/escoGrid.ActionNavBar.js</value>
+				<value>js/esco/utils/escoGrid.ActionRightCheckBox.js</value>
+				<value>js/esco/utils/escoGrid.ActionSubscriptions.js</value>
+				<value>js/esco/utils/escoAnimate.js</value>
+
+				<!-- JS welcome -->
+				<value>js/esco/welcome/welcome.js</value>
+
+				<!-- JS i18n -->
+				<value>js/esco/i18n/lang.js</value>
+
+				<!-- JS accessibilty -->
+				<value>js/esco/accessibility/accessibilityHotKey.js</value>
+
+				<!-- JS tree -->
+				<value>js/esco/tree/TreeMenu.js</value>
+				<value>js/esco/tree/treePlugin.js</value>
+
+				<!-- JS profile -->
+				<value>js/esco/profile/profile.js</value>
+
+				<!-- JS search -->
+				<value>js/esco/search/simpleSearch.js</value>
+				<value>js/esco/search/additionSearch.js</value>
+				<value>js/esco/search/stemSearch.js</value>
+
+				<!-- JS person properties -->
+				<value>js/esco/person/person.js</value>
+				<value>js/esco/person/personMemberships.js</value>
+				<value>js/esco/person/personPrivilegesGroup.js</value>
+				<value>js/esco/person/personPrivilegesStem.js</value>
+				<value>js/esco/person/personSubscriptions.js</value>
+				<value>js/esco/person/personResume.js</value>
+
+				<!-- JS group properties -->
+				<value>js/esco/group/properties/group.js</value>
+				<value>js/esco/group/properties/groupMembers.js</value>
+				<value>js/esco/group/properties/groupMemberships.js</value>
+				<value>js/esco/group/properties/groupPrivilegesGroup.js</value>
+				<value>js/esco/group/properties/groupPrivilegesStem.js</value>
+				<value>js/esco/group/properties/groupResume.js</value>
+
+				<!-- JS group modification -->
+				<value>js/esco/group/modification/groupModifications.js</value>
+				<value>js/esco/group/modification/groupModificationsAttributes.js</value>
+				<value>js/esco/group/modification/groupModificationsResume.js</value>
+				<value>js/esco/group/modification/groupModificationsPrivileges.js</value>
+				<value>js/esco/group/modification/validateGroupAttributes.js</value>
+
+				<!-- JS stem modification -->
+				<value>js/esco/stem/modification/validateStemAttributes.js</value>
+				<value>js/esco/stem/modification/stemResume.js</value>
+				<value>js/esco/stem/modification/stemPrivileges.js</value>
+				<value>js/esco/stem/modification/stem.js</value>
+
+				<!-- JS stem properties -->
+				<value>js/esco/stem/properties/stemProperties.js</value>
+
+				<!-- dynamic group tree js -->
+				<value>js/jsTree/jquery.tree.js</value>
+				<value>js/jsTree/plugins/jquery.tree.checkbox.js</value>
+				<value>js/jsTree/plugins/jquery.tree.contextmenu.js</value>
+				<value>js/jsTree/plugins/jquery.tree.cookie.js</value>
+				<value>js/jsTree/plugins/jquery.tree.hotkeys.js</value>
+				<value>js/jsTree/plugins/jquery.tree.metadata.js</value>
+				<value>js/jsTree/plugins/jquery.tree.themeroller.js</value>
+
+				<!-- jqGrid -->
+				<value>js/jqGrid/js/grid.locale-fr.js</value>
+				<value>js/jqGrid/js/grid.base.js</value>
+				<value>js/jqGrid/js/grid.common.js</value>
+				<value>js/jqGrid/js/grid.formedit.js</value>
+				<value>js/jqGrid/js/grid.celledit.js</value>
+				<value>js/jqGrid/js/grid.inlinedit.js</value>
+				<value>js/jqGrid/js/jqDnR.js</value>
+				<value>js/jqGrid/js/jqModal.js</value>
+    		</list>
+
+    	</property>
+
+		<!-- Stylesheets -->
+    	<property name="stylesheets" >
+    		<description>
+    			A list of URLs that will be automatically included in the head part
+    			of the output document. Absolute URLs are used as-is, relative
+    			URLs are prefixed by property servletMediaPath.
+    			Warning: this tag is ignored for portlet installations.
+    		</description>
+    		<list>
+				<value>css/flora.tabs.css</value>
+				<value>css/mbContainer.css</value>
+				<value>css/complex.css</value>
+				<value>css/style.css</value>
+				<value>css/style_ie.css</value>
+				<value>css/slide.css</value>
+				<value>css/font.css</value>
+				<value>css/search.css</value>
+				<value>css/breadCrumb.css</value>
+				<value>css/jquery.tooltip.css</value>
+				<value>css/validationEngine.jquery.css</value>
+				<value>css/jquery.jgrowl.css</value>
+				<value>js/jqGrid/themes/grouper/grid.css</value>
+				<value>js/fluid/components/inlineEdit/css/InlineEdit.css</value>
+				<value>css/operator.css</value>
+    		</list>
+    	</property>
+
+		<!-- Body -->
+    	<property name="documentBodyStyleClass" value="flora" >
+    		<description>
+    			The default value used for attribute class of HTML tag BODY.
+    		</description>
+    	</property>
+
+
+
+    	<!--
+    	<property name="menuLayout" value="table" >
+    		<description>
+    			The default value used for attribute layout of tag panelNavigation.
+    		</description>
+    	</property>
+    	<property name="menuStyleClass" value="portlet-menu" >
+    		<description>
+    			The default value used for attribute styleClass of tag panelNavigation.
+    		</description>
+    	</property>
+    	<property name="menuItemStyleClass" value="portlet-menu-item" >
+    		<description>
+    			The default value used for attribute itemClass of tag panelNavigationItem.
+    		</description>
+    	</property>
+    	<property name="menuActiveItemStyleClass" value="portlet-menu-item-selected" >
+    		<description>
+    			The default value used for attribute activeItemClass of tag panelNavigationItem.
+    		</description>
+    	</property>
+    	<property name="footerStyleClass" value="portlet-section-footer" >
+    		<description>
+    			The default value used for attribute styleClass of tag footer.
+    		</description>
+    	</property>
+    	<property name="footerItemStyleClass" value="portlet-menu-item" >
+    		<description>
+    			The default value used for attribute itemClass of tag footer.
+    		</description>
+    	</property>
+    	<property name="footerText" value="" >
+    		<description>
+    			The footer text printed by tag 'page'. If this property is ommited, no
+    			footer will be printed. If it is empty, a default value will be used.
+    		</description>
+    	</property>
+    	<property name="labelStyleClass" value="portlet-form-field-label" >
+    		<description>
+    			The default value used for attribute styleClass of tag outputLabel.
+    		</description>
+    	</property>
+    	<property name="buttonStyleClass" value="portlet-form-button" >
+    		<description>
+    			The default value used for attribute styleClass of tag commandButton.
+    		</description>
+    	</property>
+    	<property name="inputFieldStyleClass" value="portlet-form-input-field" >
+    		<description>
+    			The default value used for attribute styleClass of tag inputText.
+    		</description>
+    	</property>
+    	<property name="checkboxStyleClass" value="portlet-form-field" >
+    		<description>
+    			The default value used for attribute styleClass of tag SelectBooleanCheckbox.
+    		</description>
+    	</property>
+    	<property name="dataTableHeaderClass" value="portlet-table-header" >
+    		<description>
+    			The default value used for attribute headerClass of tag dataTable.
+    		</description>
+    	</property>
+    	<property name="dataTableFooterClass" value="portlet-table-footer" >
+    		<description>
+    			The default value used for attribute footerClass of tag dataTable.
+    		</description>
+    	</property>
+    	<property name="dataTableRowClass" value="portlet-table-text" >
+    		<description>
+    			The CSS class used for table rows.
+    		</description>
+    	</property>
+    	<property name="dataTableRowAlternateClass" value="portlet-table-alternate" >
+    		<description>
+    			The CSS class used for alternate table rows.
+    		</description>
+    	</property>
+    	<property name="dataTableColumnClass" value="portlet-table-text" >
+    		<description>
+    			The default value used for attribute columnClass of tag dataTable.
+    		</description>
+    	</property>
+    	<property name="sectionTag" value="h1" >
+    		<description>
+    			The tag used to wrap the input of tag 'section'.
+    		</description>
+    	</property>
+    	<property name="sectionStyleClass" value="portlet-section-header" >
+    		<description>
+    			The default CSS class used for tag 'section'.
+    		</description>
+    	</property>
+    	<property name="subSectionTag" value="h2" >
+    		<description>
+    			The tag used to wrap the input of tag 'subSection'.
+    		</description>
+    	</property>
+    	<property name="subSectionStyleClass" value="portlet-section-subheader" >
+    		<description>
+    			The default CSS class used for tag 'subSection'.
+    		</description>
+    	</property>
+    	<property name="paragraphTag" value="p" >
+    		<description>
+    			The tag used to wrap the input of tag 'paragraph'.
+    		</description>
+    	</property>
+    	<property name="paragraphStyleClass" value="portlet-section-text" >
+    		<description>
+    			The default CSS class used for tag 'paragraph'.
+    		</description>
+    	</property>
+    	<property name="textStyleClass" value="portlet-section-text" >
+    		<description>
+    			The default CSS class used for tag 'text'.
+    		</description>
+    	</property>
+    	<property name="paginatorStyleClass" value="paginator" >
+    		<description>
+    			The default value used for attribute styleClass of tag paginator.
+    		</description>
+    	</property>
+    	-->
+     </bean>
+
+</beans>

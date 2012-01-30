@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security" default-autowire="no"
+	default-dependency-check="none" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/security
+				http://www.springframework.org/schema/security/spring-security-2.0.xsd
+				http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="escoSecurityContextFactory" class="org.esco.grouperui.web.security.EscoSecurityContextFactory">
+		<property name="listSecurityContextFinder">
+			<list>
+				<bean class="org.esco.grouperui.web.security.PortalSecurityContextFinder" >
+					<property name="authenticationService" ref="authenticationService" />
+				</bean>
+				<bean class="org.esco.grouperui.web.security.SpringSecurityContextFinder" />
+			</list>
+		</property>
+    </bean>
+
+	<security:http auto-config="false" lowercase-comparisons="false"
+		access-denied-page="/stylesheets/auth/accessDenied.jsp" entry-point-ref="casProcessingFilterEntryPoint">
+
+        <security:intercept-url pattern="/" filters="none" />
+	    <security:intercept-url pattern="/media/**" filters="none" />
+	    <security:intercept-url pattern="/stylesheets/exception/**" filters="none" />
+	    <security:intercept-url pattern="/stylesheets/auth/**" filters="none" />
+	    <security:intercept-url pattern="/stylesheets/onlineHelp/**" filters="none" />
+		<security:intercept-url pattern="/**" access="ROLE_ADMIN"   requires-channel="https"  />
+
+        <security:logout logout-success-url="${cas.url.logout}" invalidate-session="false"/>
+        <security:port-mappings>
+            <security:port-mapping http="8080" https="8443"/>
+            <security:port-mapping http="80" https="443"/>
+        </security:port-mappings>
+        
+	</security:http>
+
+	<bean id="securityFilter" class="org.springframework.security.util.FilterChainProxy">
+		<security:filter-chain-map path-type="ant">
+			<security:filter-chain pattern="/**"
+				filters="_httpSessionContextIntegrationFilter,
+						casProcessingFilter,
+						_securityContextHolderAwareRequestFilter,
+						_exceptionTranslationFilter,
+						_filterSecurityInterceptor" />
+		</security:filter-chain-map>
+	</bean>
+
+
+	<bean id="escoSecurityUrlParameter" class="org.esco.grouperui.web.security.EscoSecurityUrlParameter">
+		<security:custom-filter position="FIRST" />
+	</bean>
+
+	<bean id="escoSecurityContextHolderValFilter" class="org.esco.grouperui.web.security.EscoSecurityContextHolderValFilter">
+		<security:custom-filter after="FILTER_SECURITY_INTERCEPTOR" />
+		<property name="grouperService" ref="grouperService" />
+	</bean>
+
+   <!-- Automatically receives AuthenticationEvent messages -->
+   <bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener"/>
+    <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/>
+
+    <!-- where do I go when I need authentication -->
+    <bean id="casProcessingFilterEntryPoint" class="org.springframework.security.ui.cas.CasProcessingFilterEntryPoint">
+        <property name="loginUrl" value="${cas.url.login}"/>
+        <property name="serviceProperties" ref="serviceProperties"/>
+    </bean>
+
+    <!-- which service (application) am I authenticating -->
+    <bean id="serviceProperties" class="org.springframework.security.ui.cas.ServiceProperties">
+        <property name="service" value="${app.spring.ckeck}"/>
+        <property name="sendRenew" value="false"/>
+    </bean>
+
+    <security:authentication-manager alias="authenticationManager"/>
+
+    <bean id="casSingleSignOutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter">
+        <security:custom-filter before="CAS_PROCESSING_FILTER"/>
+    </bean>
+
+    <bean id="casProcessingFilter" class="org.springframework.security.ui.cas.CasProcessingFilter">
+        <security:custom-filter after="CAS_PROCESSING_FILTER"/>
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationFailureUrl" value="/stylesheets/exception/403.jsp"/>
+        <property name="defaultTargetUrl" value="/"/>
+    </bean>
+
+    <bean id="casAuthenticationProvider" class="org.springframework.security.providers.cas.CasAuthenticationProvider">
+        <security:custom-authentication-provider/>
+        <property name="userDetailsService" ref="userDetailsServiceLDAP"/>
+        <property name="serviceProperties" ref="serviceProperties"/>
+        <property name="ticketValidator">
+            <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+                <constructor-arg index="0" value="${cas.url.validator}"/>
+            </bean>
+        </property>
+        <property name="key" value="my_password_for_this_auth_provider_only"/>
+    </bean>
+
+    <!-- LDAP user details service -->
+    <bean id="userDetailsServiceLDAP"  class="org.springframework.security.userdetails.ldap.LdapUserDetailsService">
+        <constructor-arg ref="ldapUserSearch" />
+        <constructor-arg ref="ldapAuthoritiesPopulator" />
+    </bean>
+
+    <!-- LDAP user search -->
+    <bean id="ldapUserSearch"  class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+        <constructor-arg index="0" value="${ldap.baseuid}" />
+        <constructor-arg index="1" value="(uid={0})" />
+        <constructor-arg index="2" ref="initialDirContextFactory" />
+    </bean>
+
+    <!-- LDAP authorities populator -->
+    <bean id="ldapAuthoritiesPopulator" class="org.springframework.security.ldap.populator.DefaultLdapAuthoritiesPopulator">
+        <constructor-arg index="0" ref="initialDirContextFactory" />
+        <constructor-arg index="1" value="" />
+        <property name="defaultRole" value="ROLE_ADMIN"/>
+        <property name="searchSubtree" value="true"/>
+        <property name="convertToUpperCase" value="true"/>
+    </bean>
+
+    <!-- LDAP initial dir context factory -->
+    <bean id="initialDirContextFactory" class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
+        <constructor-arg value="${ldap.url}" />
+        <property name="managerDn" value="${ldap.dn}" />
+        <property name="managerPassword" value="${ldap.password}" />
+    </bean>
+
+</beans>

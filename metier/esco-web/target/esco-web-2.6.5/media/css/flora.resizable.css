@@ -1,0 +1,13 @@
+.flora .ui-resizable{position:relative;}
+.flora .ui-resizable-handle{position:absolute;display:none;font-size:.1px;}
+.flora .ui-resizable .ui-resizable-handle{display:block;}
+.flora .ui-resizable-disabled .ui-resizable-handle{display:none;}
+.flora .ui-resizable-autohide .ui-resizable-handle{display:none;}
+.flora .ui-resizable-n{cursor:n-resize;height:6px;width:100%;top:0;left:0;background:transparent url(i/resizable-n.gif) repeat scroll center top;}
+.flora .ui-resizable-s{cursor:s-resize;height:6px;width:100%;bottom:0;left:0;background:transparent url(i/resizable-s.gif) repeat scroll center top;}
+.flora .ui-resizable-e{cursor:e-resize;width:6px;right:0;top:0;height:100%;background:transparent url(i/resizable-e.gif) repeat scroll right center;}
+.flora .ui-resizable-w{cursor:w-resize;width:6px;left:0;top:0;height:100%;background:transparent url(i/resizable-w.gif) repeat scroll right center;}
+.flora .ui-resizable-se{cursor:se-resize;width:9px;height:9px;right:0;bottom:0;background:transparent url(i/resizable-se.gif);}
+.flora .ui-resizable-sw{cursor:sw-resize;width:9px;height:9px;left:0;bottom:0;background:transparent url(i/resizable-sw.gif);}
+.flora .ui-resizable-nw{cursor:nw-resize;width:9px;height:9px;left:0;top:0;background:transparent url(i/resizable-nw.gif);}
+.flora .ui-resizable-ne{cursor:ne-resize;width:9px;height:9px;right:0;top:0;background:transparent url(i/resizable-ne.gif);}

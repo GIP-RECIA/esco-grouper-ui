@@ -1,0 +1,317 @@
+/* LOCKED */
+.tree-classic .locked li a {
+	color: gray;
+}
+
+/* DOTS */
+.tree-classic ul {
+	background-position: 6px 1px;
+	background-repeat: repeat-y;
+	background-image:
+		url(data:image/gif;base64,R0lGODlhAgACAIAAAB4dGf///yH5BAEAAAEALAAAAAACAAIAAAICRF4AOw==)
+		;
+	_background-image: url("dot_for_ie.gif"); *
+	background-image: url("dot_for_ie.gif");
+}
+
+.tree-classic li {
+	background-position: -64px -16px;
+	background-repeat: no-repeat;
+	background-image: url("icons.gif");
+}
+
+/* NO DOTS */
+.tree-classic .no_dots,.tree-classic .no_dots ul {
+	background: transparent;
+}
+
+.tree-classic .no_dots li.leaf {
+	background-image: none;
+	background-color: transparent;
+}
+
+/* OPEN or CLOSED */
+.tree-classic li.open {
+	background: url("icons.gif") -32px -48px no-repeat;
+}
+
+.tree-classic li.closed,#jstree-dragged.tree-classic li li.open {
+	background: url("icons.gif") -48px -32px no-repeat;
+}
+
+#jstree-marker {
+	background-image: url("icons.gif");
+}
+
+/* DEFAULT, HOVER, CLICKED, LOADING STATES */
+.tree-classic li a {
+	border: 1px solid transparent;
+}
+
+.tree-classic li a:hover,.tree-classic li a.hover,.tree-classic li span
+	{
+	background: #e7f4f9;
+	border: 1px solid #d8f0fa;
+}
+
+/*.tree-classic li a.clicked, .tree-classic li a.clicked:hover, .tree-classic li span.clicked { background: navy; border:1px solid navy; color:white; padding:0px 3px 0px 3px; }*/
+	/* ICONS */
+.tree-classic ins {
+	background-image: url("icons.gif");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.tree-classic ul li a.loading ins {
+	background-image: url("throbber.gif") !important;
+	background-position: 0 0 !important;
+}  /* UL is added to make selector stronger */
+.tree-classic li.closed a ins,.tree-classic li.leaf a ins {
+	background-position: 0 0px;
+}  /* UL is added to make selector stronger */
+.tree-classic ul li a.loading ins {
+	background-image: url("throbber.gif");
+	background-position: 0 0;
+}  /* UL is added to make selector stronger */
+.tree-classic li a ins.forbidden {
+	background-position: -16px -16px;
+}
+
+.tree-classic .locked li a ins {
+	background-position: 0 -48px;
+}
+
+.tree-classic li span ins {
+	background-position: -16px 0;
+}
+
+#jstree-dragged.tree-classic ins {
+	background: url("icons.gif") -16px -32px no-repeat;
+}
+
+#jstree-dragged.tree-classic ins.forbidden {
+	background: url("icons.gif") -16px -16px no-repeat;
+}
+
+/* CONTEXT MENU */
+.tree-classic-context a ins {
+	background-image: url("icons.gif");
+	background-repeat: no-repeat;
+	background-position: -64px -64px;
+}
+
+.tree-classic-context a ins.create {
+	background-position: 0 -16px;
+}
+
+.tree-classic-context a ins.rename {
+	background-position: -16px 0px;
+}
+
+.tree-classic-context a ins.remove {
+	background-position: -32px -16px;
+}
+
+/** SOPRA **/
+.tree-classic li a.clicked,.tree-classic li a.clicked:hover,.tree-classic li span.clicked
+	{
+	background-color: #BEEBFF;
+	background-position: 3px 0;
+	border: 1px solid #99DEFD;
+	color: black;
+	-moz-border-radius-bottomleft: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+}
+
+#jstree-contextmenu {
+	display: none;
+	position: absolute;
+	z-index: 2000;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	left: -2000px;
+	top: -2000px;
+}
+
+.tree-context {
+	margin: 20px;
+	padding: 0;
+	width: 180px;
+	border: 1px solid #979797;
+	padding: 2px;
+	background: #f5f5f5;
+	list-style-type: none;
+}
+
+.tree-context li {
+	height: 22px;
+	margin: 0 0 0 27px;
+	padding: 0;
+	background: #ffffff;
+	border-left: 1px solid #e0e0e0;
+}
+
+.tree-context li a {
+	position: relative;
+	display: block;
+	height: 22px;
+	line-height: 22px;
+	margin: 0 0 0 -28px;
+	text-decoration: none;
+	color: black;
+	padding: 0;
+}
+
+.tree-context li a ins {
+	text-decoration: none;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin: 0 0 0 0;
+	background-color: #f0f0f0;
+	border: 1px solid #f0f0f0;
+	border-width: 3px 5px 3px 6px;
+	line-height: 16px;
+}
+
+.tree-context li a span {
+	display: block;
+	background: #f0f0f0;
+	margin: 0 0 0 29px;
+	padding-left: 5px;
+}
+
+.tree-context li.separator {
+	background: #f0f0f0;
+	height: 2px;
+	line-height: 2px;
+	font-size: 1px;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+.tree-context li.separator span {
+	display: block;
+	margin: 0px 0 0px 27px;
+	height: 1px;
+	border-top: 1px solid #e0e0e0;
+	border-left: 1px solid #e0e0e0;
+	line-height: 1px;
+	font-size: 1px;
+	background: white;
+}
+
+.tree-context li a.hover {
+	border: 1px solid #d8f0fa;
+	height: 20px;
+	line-height: 20px;
+}
+
+.tree-context li a.hover span {
+	background: #e7f4f9;
+	margin-left: 28px;
+}
+
+.tree-context li a.hover ins {
+	background-color: #e7f4f9;
+	border-color: #e7f4f9;
+	border-width: 2px 5px 2px 5px;
+}
+
+.tree-context li a.disabled {
+	color: gray;
+}
+
+.tree-context li a.disabled ins {
+
+}
+
+.tree-context li a.disabled:hover {
+	border: 0;
+	height: 22px;
+	line-height: 22px;
+}
+
+.tree-context li a.disabled:hover span {
+	background: #f0f0f0;
+	margin-left: 29px;
+}
+
+.tree-context li a.disabled:hover ins {
+	border-color: #f0f0f0;
+	background-color: #f0f0f0;
+	border-width: 3px 5px 3px 6px;
+}
+
+.tree-classic-context a ins.createfolder {
+	background: url(../../../../imgs/tree/13929.category-new.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.creategroup {
+	background:
+		url(../../../../imgs/tree/10563.add_as_source_folder.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.search {
+	background: url(../../../../imgs/tree/17613.slocalhelp_obj.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.manage {
+	background: url(../../../../imgs/tree/14153.systemprocess.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.properties {
+	background: url(../../../../imgs/tree/12799.uddiview.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.subscribe {
+	background: url(../../../../imgs/tree/subscribe.png) no-repeat;
+}
+
+.tree-classic-context a ins.unSubscribe {
+	background: url(../../../../imgs/tree/unsubscribe.png) no-repeat;
+}
+
+.tree-classic-context a ins.delete {
+	background: url(../../../../imgs/tree/11172.rem_co.gif) no-repeat
+		;
+}
+
+.tree-classic-context a ins.cutGroup {
+	background: url(../../../../imgs/tree/10766.cut.gif) no-repeat;
+}
+
+.tree-classic-context a ins.pasteGroup {
+	background: url(../../../../imgs/tree/15473.help_icon_toc.png)
+		no-repeat;
+}
+
+.tree-classic-context a ins.cutStem {
+	background: url(../../../../imgs/tree/10766.cut.gif) no-repeat;
+}
+
+.tree-classic-context a ins.pasteStem {
+	background: url(../../../../imgs/tree/15473.help_icon_toc.png)
+		no-repeat;
+}
+
+
+.tree-classic-context a ins.copyMembers {
+	background:
+		url(../../../../imgs/tree/12039.relationship_role_obj.gif)
+		no-repeat;
+}
+
+.tree-classic-context a ins.pasteMembers {
+	background: url(../../../../imgs/tree/15473.help_icon_toc.png)
+		no-repeat;
+}

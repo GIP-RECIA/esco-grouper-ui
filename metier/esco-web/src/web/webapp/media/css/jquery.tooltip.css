@@ -1,0 +1,18 @@
+.flora #tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	background-color: #eee;
+	padding: 7px;
+	opacity: 0.85;
+}
+.flora #tooltip h3, .flora #tooltip div { margin: 0; }
+
+.flora .info {
+	background: #E6F7D4 url(../imgs/action/help.png) no-repeat scroll 3px 50% !important;
+	padding-left : 22px !important;
+	-moz-border-radius : 5%;
+	font-size: 10px;
+	font-family:Verdana;
+	border: 1px solid #50A029 !important;
+}

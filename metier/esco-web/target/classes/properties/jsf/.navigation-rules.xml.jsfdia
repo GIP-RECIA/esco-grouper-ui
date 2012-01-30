@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#stylesheets#auth#login.jsp"
+  PATH="/stylesheets/auth/login.jsp" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#stylesheets#auth#login.jsp:0" NAME="item"
+   PATH="/stylesheets/auth/login.jsp" model-entity="JSFProcessItem"/>
+ </PROCESS-ITEM>
+</PROCESS>

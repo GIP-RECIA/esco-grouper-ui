@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ESCOGrouperDynamique">
+        <property name="java-output-path"/>
+        <property name="context-root" value="ESCOGrouperDynamique"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/grouper-conf"/>
+        <wb-resource deploy-path="/" source-path="/sql"/>
+        <wb-resource deploy-path="/" source-path="/src/web/webapp"/>
+    </wb-module>
+</project-modules>

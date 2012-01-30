@@ -1,0 +1,241 @@
+/*
+Name: Sliding Login Panel with jQuery 1.3.2
+Author: Jeremie Tisseau
+Author URI: http://web-kreation.com/
+Script URI: http://web-kreation.com/index.php/tutorials/nice-clean-sliding-login-panel-built-with-jquery/
+Date: March 26, 2009
+Version: 1.0
+
+	The CSS, XHTML and design is released under Creative Common License 3.0:
+	http://creativecommons.org/licenses/by-sa/3.0/
+
+*/
+
+/***** clearfix *****/
+.flora .clear {clear: both;height: 0;line-height: 0;}
+.flora .clearfix:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+.flora .clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .flora .clearfix {height: 1%;}
+.flora .clearfix {display: block;}
+/* End hide from IE-mac */
+.flora .clearfix {height: 1%;}
+.flora .clearfix {display: block;}
+
+/* Panel Tab/button */
+.flora .tab {
+  	background: url(../imgs/slyder/tab_b.gif) repeat-x 0 0;
+	height: 42px;
+	position: relative;
+    top: 0;
+    z-index: 999;
+}
+
+.flora .tab ul.login {
+	display: block;
+	position: relative;
+  	float: right;
+  	clear: right;
+  	height: 42px;
+	width: auto;
+  	font-weight: bold;
+	line-height: 42px;
+	margin: 0;
+  	color: white;
+  	font-size: 80%;
+	text-align: center;
+	padding : 0;
+}
+
+.flora .tab ul.login li.left {
+  	background: url(../imgs/slyder/tab_l.gif) no-repeat left 0;
+  	height: 42px;
+	width: 30px;
+	padding: 0;
+	margin: 0;
+  	display: block;
+	float: left;
+}
+
+.flora .tab ul.login li.right {
+  	background: url(../imgs/slyder/tab_r.gif) no-repeat left 0;
+  	height: 42px;
+	width: 30px;
+	padding: 0;
+	margin: 0;
+  	display: block;
+	float: left;
+}
+
+.flora .tab ul.login li {
+ 	text-align: left;
+  	padding: 0 6px;
+	display: block;
+	float: left;
+	height: 42px;
+  	background: url(../imgs/slyder/tab_m.gif) repeat-x 0 0;
+	margin : 0;
+}
+
+.flora .tab ul.login li a {
+	color: #15ADFF;
+}
+
+.flora .tab ul.login li a:hover {
+	color: white;
+}
+
+.flora .tab .sep {color:#414141}
+
+.flora .tab a.open, .flora .tab a.close {
+	height: 20px;
+	line-height: 20px !important;
+	padding-left: 30px !important;
+	cursor: pointer;
+	display: block;
+	width: 100px;
+	position: relative;
+	top: 11px;
+}
+
+.flora .tab a.open {background: url(../imgs/slyder/bt_open.gif) no-repeat left 0;}
+.flora .tab a.close {background: url(../imgs/slyder/bt_close.png) no-repeat left 0;}
+.flora .tab a:hover.open {background: url(../imgs/slyder/bt_open.gif) no-repeat left -19px;}
+.flora .tab a:hover.close {background: url(../imgs/slyder/bt_close.png) no-repeat left -19px;}
+
+/* sliding panel */
+.flora #toppanel {
+    position: absolute;   /*Panel will overlap  content */
+    /*position: relative;*/   /*Panel will "push" the content down */
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flora #panel {
+	width: 100%;
+	height: 108px;
+	color: #999999;
+	background: #272727;
+	overflow: hidden;
+	position: relative;
+	z-index: 3;
+	display: none;
+}
+
+.flora #panel h1 {
+	font-size: 1.6em;
+	padding: 5px 0 10px;
+	margin: 0;
+	color: white;
+}
+
+.flora #panel h2{
+	font-size: 1.2em;
+	padding: 10px 0 5px;
+	margin: 0;
+	color: white;
+}
+
+.flora #panel p {
+	margin: 5px 0;
+	padding: 0;
+}
+
+.flora #panel a {
+	text-decoration: none;
+	color: #15ADFF;
+}
+
+.flora #panel a:hover {
+	color: white;
+}
+
+.flora #panel a-lost-pwd {
+	display: block;
+	float: left;
+}
+
+.flora #panel .contentP {
+	width: 960px;
+	margin: 0 auto;
+	padding-top: 15px;
+	text-align: left;
+	font-size: 0.85em;
+}
+
+.flora #panel .contentP .left {
+	width: 280px;
+	float: left;
+	padding: 0 15px;
+	border-left: 1px solid #333;
+}
+
+.flora #panel .contentP .right {
+	border-right: 1px solid #333;
+}
+
+.flora #panel .contentP form {
+	margin: 0 0 10px 0;
+}
+
+.flora #panel .contentP label {
+	float: left;
+	padding-top: 8px;
+	clear: both;
+	width: 280px;
+	display: block;
+}
+
+.flora #panel .contentP input.field {
+	border: 1px #1A1A1A solid;
+	background: #414141;
+	margin-right: 5px;
+	margin-top: 4px;
+	width: 200px;
+	color: white;
+	height: 16px;
+}
+
+.flora #panel .contentP input:focus.field {
+	background: #545454;
+}
+
+/* BUTTONS */
+/* Login and Register buttons */
+.flora #panel .contentP input.bt_login,
+.flora #panel .contentP input.bt_register {
+	display: block;
+	float: left;
+	clear: left;
+	height: 24px;
+	text-align: center;
+	cursor: pointer;
+	border: none;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.flora #panel .contentP input.bt_login {
+	width: 74px;
+	background: transparent url(../imgs/slyder/bt_login.png) no-repeat 0 0;
+}
+
+.flora #panel .contentP input.bt_register {
+	width: 94px;
+	color: white;
+	background: transparent url(../imgs/slyder/bt_register.png) no-repeat 0 0;
+}
+
+.flora #panel .lost-pwd {
+	display: block;
+	float:left;
+	clear: right;
+	padding: 15px 5px 0;
+	font-size: 0.95em;
+	text-decoration: underline;
+}
+

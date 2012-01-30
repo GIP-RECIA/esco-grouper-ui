@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: CDC-1.0/Foundation-1.0,J2SE-1.3
+Bundle-SymbolicName: org.eclipse.equinox.jsp.jasper
+Eclipse-LazyStart: true
+Bundle-Activator: org.eclipse.equinox.internal.jsp.jasper.Activator
+Export-Package: org.eclipse.equinox.jsp.jasper;version="1.0.0"
+Bundle-Version: 1.1.200.v20090520-1800
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: %providerName
+Bundle-Name: %bundleName
+Comment-Header: Both Eclipse-LazyStart and Bundle-ActivationPolicy are
+  specified for compatibility with 3.2
+Import-Package: javax.servlet;version="2.4",javax.servlet.http;version
+ ="2.4",javax.servlet.jsp;version="2.0",org.apache.jasper.servlet,org.
+ osgi.framework;version="1.3.0",org.osgi.service.http;version="1.2.0",
+ org.osgi.service.packageadmin;version="1.2.0",org.osgi.util.tracker;v
+ ersion="1.3.1"
+Bundle-ManifestVersion: 2

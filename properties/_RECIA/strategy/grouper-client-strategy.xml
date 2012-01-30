@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="defaultStrategyGroupLocator" class="org.esco.grouperui.services.grouper.internal.locator.DefaultStrategyGroupLocator">
+		<property name="evaluator" ref="evaluator" />
+		<property name="defaultSearchStrategies" >
+			<map>
+				<entry key="evaluator.regexp('(.*)', term)" value-ref="defaulStrategyGroupSearch"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="defaulStrategyGroupSearch" class="org.esco.grouperui.services.grouper.internal.DefaultStrategyGroupSearch">
+		<property name="groupWrapper" ref="groupWrapper" />
+	</bean>
+
+	<bean id="groupWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.GroupWrapper" >
+		<property name="groupDetailWrapper" ref="groupDetailWrapper" />
+	</bean>
+	<bean id="groupDetailWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.GroupDetailWrapper">
+		<property name="groupWrapper" ref="groupWrapper" />
+	</bean>
+
+	<bean id="evaluator" class="org.esco.grouperui.services.grouper.internal.expressions.ExpressionEvaluator"/>
+</beans>
+

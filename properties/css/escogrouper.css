@@ -1,0 +1,23 @@
+@import "/ESCOGrouper/media/css/flora.tabs.css";
+@import "/ESCOGrouper/media/css/complex.css";
+@import "/ESCOGrouper/media/css/style.css";
+@import "/ESCOGrouper/media/css/style_ie.css";
+@import "/ESCOGrouper/media/css/slide.css";
+@import "/ESCOGrouper/media/css/font.css";
+@import "/ESCOGrouper/media/css/tree_component.css";
+@import "/ESCOGrouper/media/css/search.css";
+@import "/ESCOGrouper/media/css/breadCrumb.css";
+@import "/ESCOGrouper/media/css/mbContainer.css";
+@import "/ESCOGrouper/media/css/sexy.css";
+@import "/ESCOGrouper/media/css/sexy-combo.css";
+@import "/ESCOGrouper/media/css/operator.css";
+@import "/ESCOGrouper/media/css/jquery.tooltip.css";
+@import "/ESCOGrouper/media/css/validationEngine.jquery.css";
+@import "/ESCOGrouper/media/css/jquery.jgrowl.css";
+@import "/ESCOGrouper/media/js/jqGrid/themes/grouper/grid.css";
+@import "/ESCOGrouper/media/js/fluid/components/inlineEdit/css/InlineEdit.css";
+
+
+/*Ajout de la css gérant les portlets*/
+@import "/ESCOGrouper/media/css/portlet.css";
+

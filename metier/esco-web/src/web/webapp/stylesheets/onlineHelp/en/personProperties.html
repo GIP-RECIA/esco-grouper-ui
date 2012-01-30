@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ESCOGrouper online Help</title>
+</head>
+<body>
+	<div align="center">
+        <B>Person properties</B>
+	</div><BR/>
+Cette page sert de page d'accueil lors de la connexion &agrave; ESCO-Grouper en affichant les propri&eacute;t&eacute;s de la personne connect&eacute;e.<BR/>
+Mais cette page affiche les propri&eacute;t&eacute;s de n'importe quel individu, par exemple lors d'un clic sur son nom dans une liste (liste des membres d'un groupe, r&eacute;sultat d'une recherche de personnes...).<BR/>
+Cette page affiche jusqu'&agrave; 4 onglets, en fonction des droits de l'utilisateur connect&eacute; :
+<ul>
+<li><img src="../images/persProp_attributes.png"/> <i>Attributs</i> : attributs de l'individu, issus de l'annuaire LDAP ;</li>
+<li><img src="../images/persProp_memberships.png"/> <i>Appartenances</i> : groupes auxquels appartient l'individu ;</li>
+<li><img src="../images/persProp_privileges.png"/> <i>Privil&egrave;ges</i> : privil&egrave;ges que cet individu poss&egrave;de sur des groupes et des dossiers ;</li>
+<li><img src="../images/persProp_subscriptions.png"> <i>Abonnements</i> : groupes auxquels l'individu est abonn&eacute; ou susceptible d'&ecirc;tre abonn&eacute;.</li>
+</ul>
+
+En fonction des droits de l'utilisateur, il est possible de modifier les appartenances, les privil&egrave;ges ou les abonnements de l'individu.<BR/>
+Une fois les modifications effectu&eacute;es, il faut les enregistrer. Pour cela il suffit de cliquer sur le bouton "<img src="../images/save.png"/> <i>Enregistrer</i>". La page de r&eacute;capitulation de toutes les modification effectu&eacute;es pour l'individu est alors affich&eacute;e. Une validation de cette page enregistre les modifications.<BR/>
+Il n'est pas n&eacute;cessaire d'enregistrer une &agrave; une les modifications effectu&eacute;es. Celles-ci sont historis&eacute;es jusqu'&agrave; l'enregistrement effectif. Si l'utilisateur quitte l'&eacute;dition des propri&eacute;t&eacute; de l'individu (par exemple en cliquant sur le nom d'un groupe dans la zone de navigation), un message lui propose d'enregistrer les modifications ou de les annuler.<BR/><BR/>
+
+Cliquer sur le bouton "<img src="../images/cancel.png"/> <i>Annuler</i>" annule toutes les modifications en cours et affiche l'onglet "<img src="../images/persProp_attributes.png"/> <i>Attributs</i>" de l'individu.<BR/><BR/>
+Il faut noter que l'affichage des onglets "<img src="../images/persProp_privileges.png"/> <i>Privil&egrave;ges</i>" et "<img src="../images/persProp_subscriptions.png"> <i>Abonements</i>" peut demander un certain temps &agrave; cause du nombre de groupes existant dans Grouper.
+</body>
+</html>
