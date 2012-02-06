@@ -3,6 +3,9 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!--  grouperApiImpl est definit maintenant dans escoaddons.xml
+			si on veut cette version il faut supprimer ou commenter dans escoaddons.xml
+			
 	<bean id="grouperApiImpl" class="org.esco.grouperui.services.grouper.internal.GrouperServiceApi">
 		<property name="personWrapper" ref="personWrapper" />
 		<property name="strategyLocator" ref="defaultStrategySubjectLocator" />
@@ -11,6 +14,7 @@
 		<property name="groupAPIWrapper" ref="groupAPIWrapper" />
 		<property name="stemAPIWrapper" ref="stemAPIWrapper" />
 	</bean>
+	-->
 
 	<bean id="grouperServiceApi" parent="abstractGrouperServiceLocatorEntries">
 		<property name="methodRef">

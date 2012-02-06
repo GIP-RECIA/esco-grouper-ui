@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean 	id="grouperHelperCache" 
+			class="org.springframework.cache.ehcache.EhCacheFactoryBean" >
+		<description>
+			Pour cacher les droits des utilisateurs sur les groupes.
+		</description>
+		
+		<property name="cacheName" value="escoAddonsGrouperHelper" />
+		<property name="timeToIdle" value="600" />
+		<property name="timeToLive" value="600" />
+	</bean>
+	
+	
+	
+	<bean id="grouperHelperFactory" class="org.esco.grouperui.services.grouper.internal.escoaddons.GrouperHelperFactory">
+		<property name="cache" ref="grouperHelperCache"/>
+	</bean>
+	
+	<bean id="grouperApiImpl" class="org.esco.grouperui.services.grouper.internal.escoaddons.GrouperServiceApi">
+		<property name="personWrapper" ref="personWrapper" />
+		<property name="strategyLocator" ref="defaultStrategySubjectLocator" />
+		<property name="strategyGroupLocator" ref="defaultStrategyGroupLocatorAPI" />
+		<property name="groupTypeWrapper" ref="groupTypeWrapper" />
+		<property name="groupAPIWrapper" ref="groupAPIWrapper" />
+		<property name="stemAPIWrapper" ref="stemAPIWrapper" />
+		<property name="grouperHelperFactory" ref="grouperHelperFactory" />
+	</bean>
+	
+	
+
+</beans>

@@ -10,49 +10,25 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 import org.esco.grouperui.tools.log.ESCOLoggerFactory;
 import org.esco.grouperui.tools.log.IESCOLogger;
-import org.springframework.cache.ehcache.EhCacheFactoryBean;
 
 import edu.internet2.middleware.grouper.Group;
 import edu.internet2.middleware.grouper.GrouperSession;
 import edu.internet2.middleware.grouper.Member;
 import edu.internet2.middleware.grouper.MemberFinder;
 import edu.internet2.middleware.grouper.Stem;
-import edu.internet2.middleware.grouper.SubjectFinder;
 
 public class GrouperHelper {
 
-	/**
-	 * Nom par defaut du cache.
-	 */
-	private static final String DEFAULT_CACHE_NAME = GrouperHelper.class.getName();
-	
-	
-	/**
-	 * Le nom par défaut du  cache manager bean.
-	 */
-	private static final String DEFAULT_CACHE_MANAGER_NAME = "cacheManager";
 	
 	/**
 	 * Un logger.
 	 */
 	 private static final IESCOLogger logger= ESCOLoggerFactory.getLogger(GrouperHelper.class);
 
-
-
-	/**
-	 * le cacheManager.
-	 */
-	private static CacheManager cacheManager;	
-	
-	/**
-	 * 
-	 */
-	 private static EhCacheFactoryBean cacheFactoryBean;
 	
 	/**
 	 *  Les privilèges grouper 
@@ -81,22 +57,7 @@ public class GrouperHelper {
 		 		};
 	
 	
-		 		
-	private static void initCacheFactory() {
-		if (cacheFactoryBean == null) {
-			cacheFactoryBean = new EhCacheFactoryBean();
-	 		cacheFactoryBean.setCacheName(DEFAULT_CACHE_NAME);
-	 		//cacheFactoryBean.setEternal(true);
-	 		 cacheFactoryBean.setTimeToLive(600); //  en seconde
-	 		cacheFactoryBean.setTimeToIdle(600); 
-	 		try {
-	        	cacheFactoryBean.afterPropertiesSet();
-	        } catch (java.lang.Exception e) {
-				logger.error("cacheFactoryBean.afterPropertiesSet erreur");
-				throw new java.lang.RuntimeException(e);
-			} 
-		}
-	}
+	
 	
 	
 	
@@ -110,18 +71,16 @@ public class GrouperHelper {
 	private GrouperSession session;
 
 	private String prefixClee;
-
-public GrouperHelper(){
 	
-	initCacheFactory();
-	cache = (Cache) cacheFactoryBean.getObject();
-	logger.debug("cacheName = "+cache.getName());
-}
 
-public GrouperHelper(GrouperSession session) {
-	this();
-	setSession(session);	
-}
+	public GrouperHelper(Cache cache){
+		this.cache = cache; 
+	}
+
+	public GrouperHelper(Cache cache, GrouperSession session) {
+		this(cache);
+		setSession(session);	
+	}
 
 	private Set<String> newSet() {
 		return Collections.synchronizedSet(new HashSet());
@@ -145,7 +104,7 @@ public GrouperHelper(GrouperSession session) {
 			synchronized (cache) {
 				element = cache.get(clee);
 				if (element == null) {
-					System.out.println("Defaut cache");
+					logger.debug("Defaut cache");
 					//map = 	Collections.synchronizedSortedMap(new TreeMap());
 					map = new TreeMap();
 					cache.put(new Element(clee, map));
@@ -191,7 +150,6 @@ public GrouperHelper(GrouperSession session) {
 		
 	public void clearCache() {
 		String clee = prefixClee;
-		System.out.println("clear cache:" +clee );
 		synchronized(cache) {
 			cache.remove(clee);
 		}
@@ -202,7 +160,7 @@ public GrouperHelper(GrouperSession session) {
 		Element element;
 		Map<Privs, Set<String>>  map=null;
 		
-		System.out.println("clear sub cache:" +clee + " " + privName );
+		logger.debug("clear sub cache:" , clee ," ", privName);
 
 		synchronized(cache) {
 			element = cache.get(clee);

@@ -55,6 +55,7 @@ import org.esco.grouperui.tools.IWrapper;
 import org.esco.grouperui.tools.log.ESCOLoggerFactory;
 import org.esco.grouperui.tools.log.IESCOLogger;
 import org.esco.grouperui.tools.property.PropertyManager;
+import org.springframework.beans.factory.InitializingBean;
 
 import com.google.common.collect.ArrayListMultimap;
 
@@ -112,14 +113,9 @@ import edu.internet2.middleware.subject.SubjectNotUniqueException;
  * 
  * P.Legay
  */
-/*
- *  Les modifications sont marquées par // pl
- * 
- * pour utiliser cette classe a la place de l'original 
- * modifier ./ext/grouper-api/src/main/resources/spring/grouper-api.xml
- * et modifier la class du bean grouperApiImpl
- */
-public class GrouperServiceApi implements IGrouperService {
+
+public class GrouperServiceApi implements IGrouperService,
+										InitializingBean {
 
     /** UID. */
     private static final long                                                  serialVersionUID = 7867717609418726754L;
@@ -145,8 +141,10 @@ public class GrouperServiceApi implements IGrouperService {
     /** un logger */
     private final IESCOLogger LOGGER = ESCOLoggerFactory
                                           .getLogger(GrouperServiceApi.class);
-
-   
+    /**
+     * GrouperHelperFactory 
+     */
+   private GrouperHelperFactory grouperHelperFactory;
     
     /**
      * Default constructor.
@@ -155,6 +153,17 @@ public class GrouperServiceApi implements IGrouperService {
     	//
     }
 
+    
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		if (grouperHelperFactory == null) {
+			throw new Exception("property grouperHelperFactory of class " + getClass().getName() 
+					+ " can not be null");
+		}
+	}
+    
+    
     /**
      * {@inheritDoc}
      */
@@ -433,6 +442,8 @@ public class GrouperServiceApi implements IGrouperService {
         } catch (SubjectNotUniqueException e) {//
         }
 
+        LOGGER.debug("findSubjectPrivilegesGroup ");
+        
         try {
             final GrouperSession grouperSession = session;
             final Subject subject2 = subject;
@@ -545,6 +556,7 @@ public class GrouperServiceApi implements IGrouperService {
 
             // start a transaction
             // long deb = System.currentTimeMillis();
+            LOGGER.debug("grouperTransaction.callbackGrouperTransaction(:");
             GrouperTransaction.callbackGrouperTransaction(new GrouperTransactionHandler() {
                 public Object callback(final GrouperTransaction grouperTransaction) throws GrouperDAOException {
 
@@ -559,6 +571,8 @@ public class GrouperServiceApi implements IGrouperService {
                     Stem stemToAdd;
                     for (edu.internet2.middleware.grouper.Stem stemApi : stemsCF) {
 
+                    	LOGGER.debug("stempApi stemsCF", stemApi.getName());
+                    	
                         // Immediate children of this stem.
                         immediate = false;
                         privileges = stemApi.getPrivs(subject2);
@@ -582,6 +596,7 @@ public class GrouperServiceApi implements IGrouperService {
 
                     for (edu.internet2.middleware.grouper.Stem stemApi : stemsCG) {
 
+                    	LOGGER.debug("stempApi stemsCG", stemApi.getName());
                         // Immediate children of this stem.
                         immediate = false;
                         privileges = stemApi.getPrivs(subject2);
@@ -664,7 +679,7 @@ public class GrouperServiceApi implements IGrouperService {
         gMove.assignAlternateName(false);
         try {
             gMove.save();
-            new GrouperHelper(session).clearCache();
+            grouperHelperFactory.get(session).clearCache();
             
         } catch (GroupModifyException e) {
             GrouperSession.stopQuietly(session);
@@ -835,7 +850,7 @@ public class GrouperServiceApi implements IGrouperService {
             stemMove.assignAlternateName(false);
             stemMove.save();
             // pl
-             GrouperHelper egh = new GrouperHelper(grouperSession);
+             GrouperHelper egh = grouperHelperFactory.get(grouperSession);
              egh.clearCache();
 
         } catch (StemModifyException e) {
@@ -1507,7 +1522,7 @@ public class GrouperServiceApi implements IGrouperService {
             myStem.assignSaveMode(SaveMode.UPDATE);
             myStem.save();
              // pl
-             GrouperHelper egh = new GrouperHelper(grouperSession);
+             GrouperHelper egh = grouperHelperFactory.get(grouperSession);
              egh.clearCache();
         } catch (StemNotFoundException e) {
             GrouperSession.stopQuietly(grouperSession);
@@ -1552,7 +1567,7 @@ public class GrouperServiceApi implements IGrouperService {
             if (stem != null) {
                 stem.delete();
                 // pl
-                GrouperHelper egh = new GrouperHelper(grouperSession);
+                GrouperHelper egh = grouperHelperFactory.get(grouperSession);
                 egh.clearCache();
 
             }
@@ -1602,11 +1617,14 @@ public class GrouperServiceApi implements IGrouperService {
             edu.internet2.middleware.grouper.Stem parentStem = StemFinder.findByName(session, theParentName, true);
             
             // pl debug
-             System.out.println("parentStem.getChildGroups(Scope.ONE); => "+(new Date()).toString());
+            LOGGER.debug("parentStem.getChildGroups(Scope.ONE); => ");
+         
             Set < edu.internet2.middleware.grouper.Group > groups = parentStem.getChildGroups(Scope.ONE);
-			 System.out.println("<= parentStem.getChildGroups(Scope.ONE); "+(new Date()).toString());
+            
+            LOGGER.debug("<= parentStem.getChildGroups(Scope.ONE); ");
+            
             	// pl creation du grouperhelper qui va permetre de tester les droits
-			GrouperHelper egh = new GrouperHelper(session);
+			GrouperHelper egh = grouperHelperFactory.get(session);
             
             
             for (edu.internet2.middleware.grouper.Group group : groups) {
@@ -1614,13 +1632,15 @@ public class GrouperServiceApi implements IGrouperService {
                 aux.setCanOptin(false);
                 aux.setCanOptout(false);
                 aux.setUserRight(null);
-                 System.out.println("	group.getPrivs(person); =>"+(new Date()).toString());
+                LOGGER.debug("	group.getPrivs(person); =>");
              //   Set < AccessPrivilege > privs = group.getPrivs(person);
              	List <String> privs = egh.userPrivsNames(group.getName(), true);
-                 System.out.println("	<= group.getPrivs(person);"+group.getName());
+             	
+             	LOGGER.debug("	<= group.getPrivs(person);", group.getName());
+                
               //  for (AccessPrivilege priv : privs) {
 				  if (privs == null || privs.isEmpty()) {
-					  System.out.println("		group sans privilege");
+					  LOGGER.debug("		group sans privilege");
 				//	  Set < AccessPrivilege > privs = group.getPrivs(person);
                 //	for (AccessPrivilege priv : privs) {
                 //    	PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
@@ -1630,7 +1650,7 @@ public class GrouperServiceApi implements IGrouperService {
 					for (String priv : privs) {
 						//       PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
 						PrivilegeAssignUtils.assignPrivilege(aux, priv);
-						System.out.println("		privs="+priv);
+						LOGGER.debug("		privs=", priv);
 					}
 					result.put(cpt++, aux);
 				}
@@ -1769,7 +1789,7 @@ public class GrouperServiceApi implements IGrouperService {
             myGroup.assignSaveMode(SaveMode.INSERT);
             groupCreated = myGroup.save();
             // pl
-             GrouperHelper egh = new GrouperHelper(grouperSession);
+             GrouperHelper egh = grouperHelperFactory.get(grouperSession);
              egh.clearCache(); 
         } catch (GroupNotFoundException e) {
             GrouperSession.stopQuietly(grouperSession);
@@ -1865,7 +1885,7 @@ public class GrouperServiceApi implements IGrouperService {
             myGroup.assignSaveMode(SaveMode.UPDATE);
             theGroupUpdated = myGroup.save();
                         // pl
-             GrouperHelper egh = new GrouperHelper(grouperSession);
+             GrouperHelper egh = grouperHelperFactory.get(grouperSession);
              egh.clearCache();
 
         } catch (GroupNotFoundException e) {
@@ -1957,7 +1977,7 @@ public class GrouperServiceApi implements IGrouperService {
                     .findByUuid(grouperSession, theGroupId, true);
             group.delete();
                         // pl
-             GrouperHelper egh = new GrouperHelper(grouperSession);
+             GrouperHelper egh = grouperHelperFactory.get(grouperSession);
              egh.clearCache();
 
         } catch (GroupNotFoundException e) {
@@ -2450,7 +2470,7 @@ public class GrouperServiceApi implements IGrouperService {
                 throw new ESCOTechnicalException("The type is not stem or group");
             }
         // pl !!!
-        new GrouperHelper(grouperSession).clearCache(thePrivilege.getPrivilegeName());
+        grouperHelperFactory.get(grouperSession).clearCache(thePrivilege.getPrivilegeName());
         GrouperSession.stopQuietly(grouperSession);
     }
 
@@ -2612,7 +2632,7 @@ public class GrouperServiceApi implements IGrouperService {
                     && (seuilStem == -1 || childStems.size() <= seuilStem);
 			
 				// pl creation du grouperhelper qui va permetre de tester les droits
-			GrouperHelper egh = new GrouperHelper(session);
+			GrouperHelper egh = grouperHelperFactory.get(session);
 			
             for (edu.internet2.middleware.grouper.Stem stem : childStems) {
                 	// pl modification de tout le for ...
@@ -2622,14 +2642,15 @@ public class GrouperServiceApi implements IGrouperService {
                 	aux.setHasStem(false);	
 				//	Set < NamingPrivilege > privs = stem.getPrivs(person);
 					List <String> privs = egh.userPrivsNames(stem.getName(), false);
-                 System.out.println("	<= stem.getPrivs(person);"+(new Date()).toString());
+                 
+					LOGGER.debug("	<= stem.getPrivs(person);");
 
 					
                 //	for (NamingPrivilege priv : privs) {
 					for (String priv : privs) {
                 //    	PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
                     	PrivilegeAssignUtils.assignPrivilege(aux, priv);
-                    	System.out.println("		privs="+priv);
+                    	LOGGER.debug("		privs=",priv);
                 	}	
 					requestResult.put(cpt++, aux);
 				}
@@ -2732,5 +2753,18 @@ public class GrouperServiceApi implements IGrouperService {
 
         return isEmptyStem;
     }
+
+	public GrouperHelperFactory getGrouperHelperFactory() {
+		return grouperHelperFactory;
+	}
+
+	public void setGrouperHelperFactory(GrouperHelperFactory grouperHelperFactory) {
+		this.grouperHelperFactory = grouperHelperFactory;
+	}
+
+
+
+
+
 
 }
