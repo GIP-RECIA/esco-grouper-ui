@@ -140,8 +140,8 @@ public class PropertyManagerFactory implements InitializingBean, FactoryBean {
                                 + property.getValue());
                     }
                 } catch (final ConfigurationException e) {
-                    PropertyManagerFactory.LOGGER.error("Le fichier de properties " + folderWork
-                            + property.getValue() + " n'a pas pu se charger correctement", e);
+                    PropertyManagerFactory.LOGGER.error(e, "Le fichier de properties " + folderWork
+							        + property.getValue() + " n'a pas pu se charger correctement");
                 }
             }
         }

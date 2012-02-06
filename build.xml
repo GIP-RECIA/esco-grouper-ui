@@ -51,7 +51,7 @@
 	<if>
 		<equals arg1="${maven.offline}" arg2="true" />
 		<then>
-			<property name="maven.offline.arg">-o</property>
+			<property name="maven.offline.arg" value="-o" />
 		</then>
 		<else>
 			<property name="maven.offline.arg" value="" />
@@ -62,7 +62,7 @@
 	<if>
 		<equals arg1="${maven.quiet}" arg2="true" />
 		<then>
-			<property name="maven.quiet.arg">-q</property>
+			<property name="maven.quiet.arg" value="-q" />
 		</then>
 		<else>
 			<property name="maven.quiet.arg" value="" />

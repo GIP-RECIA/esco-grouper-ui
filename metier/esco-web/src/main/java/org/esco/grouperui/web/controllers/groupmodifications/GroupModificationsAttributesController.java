@@ -484,9 +484,9 @@ public class GroupModificationsAttributesController extends AbstractControllerAw
         try {
             userConnected = PersonController.getConnectedPerson();
         } catch (ESCOSubjectNotFoundException e) {
-            GroupModificationsAttributesController.LOGGER.error("Subject not found", e);
+            GroupModificationsAttributesController.LOGGER.error(e, "Subject not found");
         } catch (ESCOSubjectNotUniqueException e) {
-            GroupModificationsAttributesController.LOGGER.error("Subject not unique", e);
+            GroupModificationsAttributesController.LOGGER.error(e, "Subject not unique");
         }
 
         // Create/Modify the group and its types
@@ -695,9 +695,9 @@ public class GroupModificationsAttributesController extends AbstractControllerAw
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                GroupModificationsAttributesController.LOGGER.error("Subject not found", e);
+                GroupModificationsAttributesController.LOGGER.error(e, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e) {
-                GroupModificationsAttributesController.LOGGER.error("Subject not unique", e);
+                GroupModificationsAttributesController.LOGGER.error(e, "Subject not unique");
             }
 
             String currentGroupName = this.getGroupController().getGroup().getName();
@@ -1043,9 +1043,9 @@ public class GroupModificationsAttributesController extends AbstractControllerAw
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e1) {
-                GroupModificationsAttributesController.LOGGER.error("Subject not found", e1);
+                GroupModificationsAttributesController.LOGGER.error(e1, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e1) {
-                GroupModificationsAttributesController.LOGGER.error("Subject not unique", e1);
+                GroupModificationsAttributesController.LOGGER.error(e1, "Subject not unique");
             }
 
             String currentGroupName = this.getGroupController().getGroup().getName();

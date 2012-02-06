@@ -166,9 +166,9 @@ public class PersonMembershipsController extends AbstractMembershipsController {
         try {
             userConnected = PersonController.getConnectedPerson();
         } catch (ESCOSubjectNotFoundException e) {
-            PersonMembershipsController.LOGGER.error("Subject not found", e);
+            PersonMembershipsController.LOGGER.error(e, "Subject not found");
         } catch (ESCOSubjectNotUniqueException e) {
-            PersonMembershipsController.LOGGER.error("Subject not unique", e);
+            PersonMembershipsController.LOGGER.error(e, "Subject not unique");
         }
         String groupName = "";
         List < String > members = new ArrayList < String >();

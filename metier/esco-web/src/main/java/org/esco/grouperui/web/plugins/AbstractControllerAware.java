@@ -173,9 +173,9 @@ public abstract class AbstractControllerAware extends AbstractTableController im
         try {
             FaceContextUtils.addVariableToContext(theFacesContext, "user", PersonController.getConnectedPerson());
         } catch (ESCOSubjectNotFoundException e) {
-            AbstractControllerAware.LOGGER.error("Subject not found", e);
+            AbstractControllerAware.LOGGER.error(e, "Subject not found");
         } catch (ESCOSubjectNotUniqueException e) {
-            AbstractControllerAware.LOGGER.error("Subject not unique", e);
+            AbstractControllerAware.LOGGER.error(e, "Subject not unique");
         }
         this.tabsController.doAddVariableToContext(theFacesContext);
 

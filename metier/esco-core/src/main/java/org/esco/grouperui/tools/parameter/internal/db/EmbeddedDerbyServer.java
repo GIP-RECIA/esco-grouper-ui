@@ -86,7 +86,7 @@ public class EmbeddedDerbyServer implements InitializingBean {
             try {
                 this.server.shutdown();
             } catch (Exception e) {
-                EmbeddedDerbyServer.LOGGER.error("Can not stop derby server ... ", e);
+                EmbeddedDerbyServer.LOGGER.error(e, "Can not stop derby server ... ");
             }
         }
     }

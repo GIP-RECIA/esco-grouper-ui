@@ -3,6 +3,8 @@
     <wb-module deploy-name="org.esco.grouperui.core">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/test/java"/>
         <wb-resource deploy-path="/" source-path="/step"/>
     </wb-module>
 </project-modules>

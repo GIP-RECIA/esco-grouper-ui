@@ -16,7 +16,7 @@
 		</developer>
 		<developer>
 			<id>ctu</id>
-			<name>Come TRIMOEAU</name>
+			<name>Côme TRIMOEAU</name>
 			<email>ctrimoreau@sopragroup.com</email>
 		</developer>
 		<developer>
@@ -25,18 +25,18 @@
 			<email>achesneau@sopragroup.com</email>
 		</developer>
 	</developers>
-
+	
 	<properties>
 		<esco.config.version>2.6.5</esco.config.version>
 		<esco.compiler.encoding>cp1252</esco.compiler.encoding>
 		<java.compile.version>1.6</java.compile.version>
 	</properties>
-
+ 
 	<build>
-		<defaultGoal>package</defaultGoal>
+		<defaultGoal>package</defaultGoal>				
 		<finalName>${artifactId}-${version}</finalName>
 		<plugins>
-
+        
             <plugin>
 				<artifactId>unzip-maven-plugin</artifactId>
 				<groupId>org.esco.grouperui.maven2</groupId>
@@ -69,15 +69,15 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-
-
-
+			
+        
+        
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
-
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -107,12 +107,12 @@
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<!-- par defaut la commande prepare:perform execute un deploy et deploy-site  donc on limite a deplot sinon on ecrase le site nightly-->
-					<goals>deploy</goals>
+					<goals>deploy</goals>					
 				</configuration>
 			</plugin>
+			
 
-
-
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -288,11 +288,11 @@
 				    <groupId>org.codehaus.mojo</groupId>
 				    <artifactId>xdoclet-maven-plugin</artifactId>
 				    <version>1.0-alpha-2</version>
-                </plugin>
+                </plugin>                
 			</plugins>
 		</pluginManagement>
 	</build>
-
+	
 	<dependencies>
 		<dependency>
 	        <groupId>commons-logging</groupId>
@@ -300,7 +300,7 @@
 	        <version>1.1.1</version>
 	    </dependency>
 	</dependencies>
-
+	
 
 	<reporting>
 		<outputDirectory>
@@ -413,7 +413,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
 				<version>2.0-beta-2</version>
-			</plugin>
+			</plugin>			
         <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
@@ -458,5 +458,5 @@
       http://pdtinteg.ptx.fr.sopra:8180/artifactory/prj-esco-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
-
+	
 </project>

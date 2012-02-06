@@ -489,9 +489,9 @@ public class GroupModificationsPrivilegesController extends AbstractControllerAw
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e1) {
-                GroupModificationsPrivilegesController.LOGGER.error("Subject not found", e1);
+                GroupModificationsPrivilegesController.LOGGER.error(e1, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e1) {
-                GroupModificationsPrivilegesController.LOGGER.error("Subject not unique", e1);
+                GroupModificationsPrivilegesController.LOGGER.error(e1, "Subject not unique");
             }
 
             // The Membership Type selected via the Radio Button.

@@ -476,9 +476,9 @@ public class StemModificationsPrivilegesController extends AbstractControllerAwa
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                StemModificationsPrivilegesController.LOGGER.error("Subject not found", e);
+                StemModificationsPrivilegesController.LOGGER.error(e, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e) {
-                StemModificationsPrivilegesController.LOGGER.error("Subject not unique", e);
+                StemModificationsPrivilegesController.LOGGER.error(e, "Subject not unique");
             }
             // The Membership Type selected via the Radio Button.
             PrivilegesRadioEnum radioType = PrivilegesRadioEnum.fromLabel(thePrivilegeType.toUpperCase());

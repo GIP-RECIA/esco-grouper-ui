@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div id="contenu">
-		<form name="f" action="<c:url value='../../j_spring_security_check'/>" method="POST">
+		<form name="f" action="<c:url value='../../j_spring_security_check'/>" method="post">
 
 				<c:if test="${not empty param.login_error}">
 					<span class="err"><s:text name="echec.cnx"/>: ${SPRING_SECURITY_LAST_EXCEPTION.message}</span>

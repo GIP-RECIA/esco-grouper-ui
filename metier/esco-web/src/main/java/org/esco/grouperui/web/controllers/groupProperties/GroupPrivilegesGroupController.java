@@ -199,9 +199,9 @@ public class GroupPrivilegesGroupController extends AbstractPrivilegeGroupContro
             try {
                 person = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                GroupPrivilegesGroupController.LOGGER.error("Subject not found", e);
+                GroupPrivilegesGroupController.LOGGER.error(e, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e) {
-                GroupPrivilegesGroupController.LOGGER.error("Subject not unique", e);
+                GroupPrivilegesGroupController.LOGGER.error(e, "Subject not unique");
             }
 
             groups = this.getGroupController().getGrouperService().findSubjectPrivilegesGroup(person, groupId,

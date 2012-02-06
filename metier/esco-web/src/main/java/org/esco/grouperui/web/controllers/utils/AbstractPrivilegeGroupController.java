@@ -501,9 +501,9 @@ public abstract class AbstractPrivilegeGroupController extends AbstractControlle
         try {
             userConnected = PersonController.getConnectedPerson();
         } catch (ESCOSubjectNotFoundException e) {
-            AbstractPrivilegeGroupController.LOGGER.error("Subject not found", e);
+            AbstractPrivilegeGroupController.LOGGER.error(e, "Subject not found");
         } catch (ESCOSubjectNotUniqueException e) {
-            AbstractPrivilegeGroupController.LOGGER.error("Subject not unique", e);
+            AbstractPrivilegeGroupController.LOGGER.error(e, "Subject not unique");
         }
 
         try {

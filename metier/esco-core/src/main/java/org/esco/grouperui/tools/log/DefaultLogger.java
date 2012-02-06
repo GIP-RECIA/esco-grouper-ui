@@ -10,8 +10,12 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Wrapper for logger.
+ * modification  de la version de sopra qui posait problème.
+ * il reste que l'utiliation d'un wrapper pour les loggers modifies
+ * certaines info dans les logs qui les rendent inutilisables.
  * 
- * @author dMoulron
+ * @author plegay
+ * 
  */
 public class DefaultLogger implements IESCOLogger, Serializable {
 
@@ -24,6 +28,19 @@ public class DefaultLogger implements IESCOLogger, Serializable {
      * logger.
      */
     private final Log         logger;
+    
+    
+    
+    private Object concat(Object... theMessages){
+    	if (theMessages.length > 1) {
+    		StringBuilder sb = new StringBuilder(); 
+    		for (Object object : theMessages) {
+    			sb.append(object.toString());
+    		}
+    		return sb;
+    	}
+    	return  theMessages[0];
+    }
 
     /**
      * @param theClass
@@ -36,59 +53,59 @@ public class DefaultLogger implements IESCOLogger, Serializable {
     /**
      * {@inheritDoc}
      */
-    public final void debug(final Object theMessage) {
+    public final void debug(final Object... theMessage) {
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug(theMessage);
+            this.logger.debug(concat(theMessage));
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void debug(final Object theMessage, final Throwable theException) {
+    public final void debug(final Throwable theException, final Object... theMessage) {
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug(theMessage, theException);
+            this.logger.debug(concat(theMessage), theException);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void info(final Object theMessage) {
+    public final void info(final Object... theMessage) {
         if (this.logger.isInfoEnabled()) {
-            this.logger.info(theMessage);
+            this.logger.info(concat(theMessage));
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void info(final Object theMessage, final Throwable theException) {
+    public final void info(final Throwable theException, final Object... theMessage) {
         if (this.logger.isInfoEnabled()) {
-            this.logger.info(theMessage, theException);
+            this.logger.info(concat(theMessage), theException);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void error(final Object theMessage) {
-        this.logger.error(theMessage);
+    public final void error(final Object... theMessage) {
+        this.logger.error(concat(theMessage));
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void error(final Object theMessage, final Throwable theException) {
-        this.logger.error(theMessage, theException);
+    public final void error(final Throwable theException, final Object... theMessage) {
+        this.logger.error(concat(theMessage), theException);
     }
 
     /**
      * {@inheritDoc}
      */
-    public final void warn(final Object theMessage, final Throwable theException) {
+    public final void warn(final Throwable theException, final Object... theMessage) {
         if (this.logger.isWarnEnabled()) {
-            this.logger.warn(theMessage, theException);
+            this.logger.warn(concat(theMessage), theException);
         }
     }
 
@@ -98,5 +115,4 @@ public class DefaultLogger implements IESCOLogger, Serializable {
     public Log getLogger() {
         return this.logger;
     }
-
 }

@@ -149,11 +149,11 @@ public class SearchController extends AbstractContextAwareController {
                 Person userConnected = PersonController.getConnectedPerson();
                 result = this.grouperService.searchSubjects(userConnected, theSearchPath, theTerm);
             } catch (ESCOSubjectNotFoundException e) {
-                SearchController.LOGGER.error("Person not found.", e);
+                SearchController.LOGGER.error(e, "Person not found.");
                 // nothing to do, because this jsf cannot be called if person
                 // does not exist.
             } catch (ESCOSubjectNotUniqueException e) {
-                SearchController.LOGGER.error("Person not unique.", e);
+                SearchController.LOGGER.error(e, "Person not unique.");
                 // nothing to do, because this jsf cannot be called if several
                 // persons with the same id.
             }
@@ -165,12 +165,12 @@ public class SearchController extends AbstractContextAwareController {
                 try {
                     userConnected = PersonController.getConnectedPerson();
                 } catch (ESCOSubjectNotFoundException e) {
-                    SearchController.LOGGER.error("Person not found.", e);
+                    SearchController.LOGGER.error(e, "Person not found.");
                     // nothing to do, because this jsf cannot be called if
                     // person
                     // does not exist.
                 } catch (ESCOSubjectNotUniqueException e) {
-                    SearchController.LOGGER.error("Person not unique.", e);
+                    SearchController.LOGGER.error(e, "Person not unique.");
                     // nothing to do, because this jsf cannot be called if
                     // several
                     // persons with the same id.
@@ -277,11 +277,11 @@ public class SearchController extends AbstractContextAwareController {
                 userConnected = PersonController.getConnectedPerson();
                 result = this.grouperService.searchSubjects(userConnected, theSearchPath, theTerm);
             } catch (ESCOSubjectNotFoundException e) {
-                SearchController.LOGGER.error("Person not found.", e);
+                SearchController.LOGGER.error(e, "Person not found.");
                 // nothing to do, because this jsf cannot be called if person
                 // does not exist.
             } catch (ESCOSubjectNotUniqueException e) {
-                SearchController.LOGGER.error("Person not unique.", e);
+                SearchController.LOGGER.error(e, "Person not unique.");
                 // nothing to do, because this jsf cannot be called if several
                 // persons with the same id.
             }
@@ -293,11 +293,11 @@ public class SearchController extends AbstractContextAwareController {
                 try {
                     userConnected = PersonController.getConnectedPerson();
                 } catch (ESCOSubjectNotFoundException e) {
-                    SearchController.LOGGER.error("Person not found.", e);
+                    SearchController.LOGGER.error(e, "Person not found.");
                     // nothing to do, because this jsf cannot be called if
                     // person does not exist.
                 } catch (ESCOSubjectNotUniqueException e) {
-                    SearchController.LOGGER.error("Person not unique.", e);
+                    SearchController.LOGGER.error(e, "Person not unique.");
                     // nothing to do, because this jsf cannot be called if
                     // several persons with the same id.
                 }
@@ -330,11 +330,11 @@ public class SearchController extends AbstractContextAwareController {
                     try {
                         userConnected = PersonController.getConnectedPerson();
                     } catch (ESCOSubjectNotFoundException e) {
-                        SearchController.LOGGER.error("Person not found.", e);
+                        SearchController.LOGGER.error(e, "Person not found.");
                         // nothing to do, because this jsf cannot be called if
                         // person does not exist.
                     } catch (ESCOSubjectNotUniqueException e) {
-                        SearchController.LOGGER.error("Person not unique.", e);
+                        SearchController.LOGGER.error(e, "Person not unique.");
                         // nothing to do, because this jsf cannot be called if
                         // several persons with the same id.
                     }
@@ -372,9 +372,9 @@ public class SearchController extends AbstractContextAwareController {
                                 cptPersons = this.grouperService.countPersons(userConnected, myGroups, sources,
                                         ScopeEnum.IMMEDIATE);
                             } catch (ESCOGroupNotFoundException e1) {
-                                SearchController.LOGGER.error("Group is not found.", e1);
+                                SearchController.LOGGER.error(e1, "Group is not found.");
                             } catch (ESCOInsufficientPrivilegesException e1) {
-                                SearchController.LOGGER.error("Insufficient Privileges.", e1);
+                                SearchController.LOGGER.error(e1, "Insufficient Privileges.");
                             }
                         }
 
@@ -410,9 +410,9 @@ public class SearchController extends AbstractContextAwareController {
                                         }
                                     }
                                 } catch (ESCOGroupNotFoundException e) {
-                                    SearchController.LOGGER.error("Group is not found.", e);
+                                    SearchController.LOGGER.error(e, "Group is not found.");
                                 } catch (ESCOInsufficientPrivilegesException e) {
-                                    SearchController.LOGGER.error("Insufficient Privileges.", e);
+                                    SearchController.LOGGER.error(e, "Insufficient Privileges.");
                                 }
                             }
 
@@ -476,11 +476,11 @@ public class SearchController extends AbstractContextAwareController {
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                SearchController.LOGGER.error("Person not found.", e);
+                SearchController.LOGGER.error(e, "Person not found.");
                 // nothing to do, because this jsf cannot be called if
                 // person does not exist.
             } catch (ESCOSubjectNotUniqueException e) {
-                SearchController.LOGGER.error("Person not unique.", e);
+                SearchController.LOGGER.error(e, "Person not unique.");
                 // nothing to do, because this jsf cannot be called if
                 // several persons with the same id.
             }
@@ -509,9 +509,9 @@ public class SearchController extends AbstractContextAwareController {
                 cptPersons = this.grouperService.countPersons(userConnected, myGroups, sources,
                         ScopeEnum.IMMEDIATE);
             } catch (ESCOGroupNotFoundException e1) {
-                SearchController.LOGGER.error("Group is not found.", e1);
+                SearchController.LOGGER.error(e1, "Group is not found.");
             } catch (ESCOInsufficientPrivilegesException e1) {
-                SearchController.LOGGER.error("Insufficient Privileges.", e1);
+                SearchController.LOGGER.error(e1, "Insufficient Privileges.");
             }
         }
 
@@ -536,11 +536,11 @@ public class SearchController extends AbstractContextAwareController {
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                SearchController.LOGGER.error("Person not found.", e);
+                SearchController.LOGGER.error(e, "Person not found.");
                 // nothing to do, because this jsf cannot be called if
                 // person does not exist.
             } catch (ESCOSubjectNotUniqueException e) {
-                SearchController.LOGGER.error("Person not unique.", e);
+                SearchController.LOGGER.error(e, "Person not unique.");
                 // nothing to do, because this jsf cannot be called if
                 // several persons with the same id.
             }
@@ -569,9 +569,9 @@ public class SearchController extends AbstractContextAwareController {
                 cptPersons = this.grouperService.countPersons(userConnected, myGroups, sources,
                         ScopeEnum.IMMEDIATE);
             } catch (ESCOGroupNotFoundException e1) {
-                SearchController.LOGGER.error("Group is not found.", e1);
+                SearchController.LOGGER.error(e1, "Group is not found.");
             } catch (ESCOInsufficientPrivilegesException e1) {
-                SearchController.LOGGER.error("Insufficient Privileges.", e1);
+                SearchController.LOGGER.error(e1, "Insufficient Privileges.");
             }
         }
 

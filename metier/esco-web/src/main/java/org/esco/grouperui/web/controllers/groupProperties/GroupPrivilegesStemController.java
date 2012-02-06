@@ -150,9 +150,9 @@ public class GroupPrivilegesStemController extends AbstractPrivilegeStemControll
             try {
                 userConnected = PersonController.getConnectedPerson();
             } catch (ESCOSubjectNotFoundException e) {
-                GroupPrivilegesStemController.LOGGER.error("Subject not found", e);
+                GroupPrivilegesStemController.LOGGER.error(e, "Subject not found");
             } catch (ESCOSubjectNotUniqueException e) {
-                GroupPrivilegesStemController.LOGGER.error("Subject not unique", e);
+                GroupPrivilegesStemController.LOGGER.error(e, "Subject not unique");
             }
             // The Membership Type selected via the Radio Button.
             PrivilegesRadioEnum radioType = PrivilegesRadioEnum.fromLabel(thePrivilegeType.toUpperCase());

@@ -90,9 +90,9 @@ public class StemSearchController extends AbstractContextAwareController {
         try {
             userConnected = PersonController.getConnectedPerson();
         } catch (ESCOSubjectNotFoundException e) {
-            StemSearchController.LOGGER.error("Person not found.", e);
+            StemSearchController.LOGGER.error(e, "Person not found.");
         } catch (ESCOSubjectNotUniqueException e) {
-            StemSearchController.LOGGER.error("Person not unique.", e);
+            StemSearchController.LOGGER.error(e, "Person not unique.");
         }
 
         SearchStemEnum searchStemEnum = null;

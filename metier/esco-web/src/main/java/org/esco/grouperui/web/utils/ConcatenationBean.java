@@ -92,7 +92,7 @@ public class ConcatenationBean extends HashMap < String, String > {
                         }
             }
         } catch (Throwable e) {
-            ConcatenationBean.LOGGER.error(null, e);
+            ConcatenationBean.LOGGER.error(e, null);
         }
 
         return resultBuffer.toString();

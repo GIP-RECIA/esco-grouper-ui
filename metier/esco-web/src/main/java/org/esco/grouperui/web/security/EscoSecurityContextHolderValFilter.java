@@ -70,13 +70,13 @@ public class EscoSecurityContextHolderValFilter extends SpringSecurityFilter {
             SecurityContextHolder.getContext().setAuthentication(adapter);
 
         } catch (ESCOSubjectNotFoundException e) {
-            EscoSecurityContextHolderValFilter.LOGGER.error("Subject not found", e);
+            EscoSecurityContextHolderValFilter.LOGGER.error(e, "Subject not found");
             error = true;
         } catch (ESCOTechnicalException e) {
-            EscoSecurityContextHolderValFilter.LOGGER.error("Technical Error", e);
+            EscoSecurityContextHolderValFilter.LOGGER.error(e, "Technical Error");
             error = true;
         } catch (ESCOSubjectNotUniqueException e) {
-            EscoSecurityContextHolderValFilter.LOGGER.error("Subject not unique", e);
+            EscoSecurityContextHolderValFilter.LOGGER.error(e, "Subject not unique");
             error = true;
         }
 

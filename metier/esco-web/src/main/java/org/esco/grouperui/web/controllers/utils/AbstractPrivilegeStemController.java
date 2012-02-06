@@ -122,9 +122,9 @@ public abstract class AbstractPrivilegeStemController extends AbstractController
         try {
             userConnected = PersonController.getConnectedPerson();
         } catch (ESCOSubjectNotFoundException e) {
-            AbstractPrivilegeStemController.LOGGER.error("Subject not found", e);
+            AbstractPrivilegeStemController.LOGGER.error(e, "Subject not found");
         } catch (ESCOSubjectNotUniqueException e) {
-            AbstractPrivilegeStemController.LOGGER.error("Subject not unique", e);
+            AbstractPrivilegeStemController.LOGGER.error(e, "Subject not unique");
         }
         Boolean hasToAssignPrivilegeStem = Boolean.FALSE;
         Boolean hasToRemovePrivilegeStem = Boolean.FALSE;

@@ -7,17 +7,17 @@
 		<artifactId>business-parent</artifactId>
 		<version>2.6.5</version>
 	</parent>
-
+	
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>esco-module</artifactId>
 	<version>2.6.5</version>
 	<packaging>pom</packaging>
-
+	
 	<!-- Libelle du projet -->
 	<name>business:module</name>
 	<description>Composant commun metier aux developpements de module.</description>
-
-	<repositories>
+	
+	<repositories>	
         <repository>
           <id>cargo</id>
           <url>http://repository.codehaus.org/</url>
@@ -29,14 +29,14 @@
           <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
         </repository>
 	</repositories>
-
+	
 	<!-- Modules du projet -->
 	<modules>
 		<module>dynamique-groupe</module>
 	</modules>
-
-	<!-- Gestion des dÃ©pendances -->
+	
+	<!-- Gestion des dépendances -->
 	<dependencies>
 	</dependencies>
-
+	
 </project>

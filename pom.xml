@@ -20,10 +20,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   
   
   <scm>
-<connection>scm:svn:svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</connection>
-<developerConnection>scm:svn:svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</developerConnection>
-<tag>HEAD</tag>
-<url>svn+ssh://jgribonvald@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</url>
+<connection>scm:svn:svn+ssh://plegay@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</connection>
+<developerConnection>scm:svn:svn+ssh://plegay@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</developerConnection>
+<url>svn+ssh://plegay@svn.giprecia.fr/srv/svn/esco/grouper/ESCO-Grouper-UI/ESCO-Grouper-UI-v2/trunk</url>
 </scm> 
   
   

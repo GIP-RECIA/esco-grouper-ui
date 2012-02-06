@@ -149,7 +149,7 @@ public class AjaxPhaseListner extends AbstractPhaseListener {
 
         org.esco.grouperui.web.beans.Error error = new Error();
         IWrapper < XmlProducer, String > wrapper = new JaxbStringWrapper();
-        AjaxPhaseListner.LOGGER.error("Error when invoking controleur for ajax call : " + viewId, exception);
+        AjaxPhaseListner.LOGGER.error(exception, "Error when invoking controleur for ajax call : " + viewId);
         String msgError = exception.getClass().getCanonicalName();
 
         if (this.isMessageI18NExist(i18nService.getStrings(), msgError)) {
