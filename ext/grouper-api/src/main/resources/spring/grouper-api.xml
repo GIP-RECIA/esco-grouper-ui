@@ -5,8 +5,12 @@
 
 	<!--  grouperApiImpl est definit maintenant dans escoaddons.xml
 			si on veut cette version il faut supprimer ou commenter dans escoaddons.xml
-			
-	<bean id="grouperApiImpl" class="org.esco.grouperui.services.grouper.internal.GrouperServiceApi">
+	-->	
+	<bean id="grouperApiImplOrg" class="org.esco.grouperui.services.grouper.internal.GrouperServiceApi">
+	</bean>
+	
+	<bean id="grouperApiImpl" class="org.esco.grouperui.services.application.IGrouperService" 
+		factory-bean="grouperApiImplRef" factory-method="getGrouperService" >
 		<property name="personWrapper" ref="personWrapper" />
 		<property name="strategyLocator" ref="defaultStrategySubjectLocator" />
 		<property name="strategyGroupLocator" ref="defaultStrategyGroupLocatorAPI" />
@@ -14,7 +18,7 @@
 		<property name="groupAPIWrapper" ref="groupAPIWrapper" />
 		<property name="stemAPIWrapper" ref="stemAPIWrapper" />
 	</bean>
-	-->
+	
 
 	<bean id="grouperServiceApi" parent="abstractGrouperServiceLocatorEntries">
 		<property name="methodRef">

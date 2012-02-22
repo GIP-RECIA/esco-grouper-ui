@@ -10,8 +10,8 @@
 		</description>
 		
 		<property name="cacheName" value="escoAddonsGrouperHelper" />
-		<property name="timeToIdle" value="600" />
-		<property name="timeToLive" value="600" />
+		<property name="timeToIdle" value="${grouper.helper.timeToIdle}" />
+		<property name="timeToLive" value="${grouper.helper.timeToLive}" />
 	</bean>
 	
 	
@@ -20,16 +20,14 @@
 		<property name="cache" ref="grouperHelperCache"/>
 	</bean>
 	
-	<bean id="grouperApiImpl" class="org.esco.grouperui.services.grouper.internal.escoaddons.GrouperServiceApi">
-		<property name="personWrapper" ref="personWrapper" />
-		<property name="strategyLocator" ref="defaultStrategySubjectLocator" />
-		<property name="strategyGroupLocator" ref="defaultStrategyGroupLocatorAPI" />
-		<property name="groupTypeWrapper" ref="groupTypeWrapper" />
-		<property name="groupAPIWrapper" ref="groupAPIWrapper" />
-		<property name="stemAPIWrapper" ref="stemAPIWrapper" />
+	<bean id="grouperApiImplRecia" class="org.esco.grouperui.services.grouper.internal.escoaddons.GrouperServiceApi">
 		<property name="grouperHelperFactory" ref="grouperHelperFactory" />
 	</bean>
 	
 	
-
+	<bean id="grouperApiImplRef" class="org.esco.grouperui.services.grouper.internal.escoaddons.GrouperServiceApiRef" >
+		<property name="grouperService" ref="${grouper.service}"/>	
+	</bean>
+		
+	
 </beans>
