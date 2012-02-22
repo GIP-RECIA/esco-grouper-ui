@@ -99,6 +99,11 @@ public class DefaultLogger implements IESCOLogger, Serializable {
     public final void error(final Throwable theException, final Object... theMessage) {
         this.logger.error(concat(theMessage), theException);
     }
+    
+    public final void error(final Throwable theException) {
+    	this.logger.error(theException);
+    }
+    
 
     /**
      * {@inheritDoc}

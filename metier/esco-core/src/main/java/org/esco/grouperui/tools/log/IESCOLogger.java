@@ -56,7 +56,7 @@ public interface IESCOLogger {
      *            the message to be log
      */
     void error(final Throwable theException, final Object... theMessage);
-
+    void error(final Throwable theException);
     /**
      * wrapper for debug method. Verify if log is enable.
      * @param theException
