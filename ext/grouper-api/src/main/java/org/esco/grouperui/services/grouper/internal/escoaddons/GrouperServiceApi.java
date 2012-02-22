@@ -333,7 +333,10 @@ public class GrouperServiceApi implements IGrouperService,
 
         // this list is the result and it is modified in the method
         // callbackGrouperTransaction
-        final List < Group > groups = new ArrayList < Group >();
+        //final List < Group > groups = new ArrayList < Group >();
+        
+        final JustIterableListGroupWrapper groups = new JustIterableListGroupWrapper();
+        
         // long timeTotal = 0;
         GrouperSession session = null;
         Subject person = null;
@@ -362,31 +365,31 @@ public class GrouperServiceApi implements IGrouperService,
             // long deb = System.currentTimeMillis();
             GrouperTransaction.callbackGrouperTransaction(new GrouperTransactionHandler() {
                 public Object callback(final GrouperTransaction grouperTransaction) throws GrouperDAOException {
-                    Member member = MemberFinder.findBySubject(grouperSession, subject, false);
+                   Member member = MemberFinder.findBySubject(grouperSession, subject, false);
 
-                    Set < edu.internet2.middleware.grouper.Group > groupOptin = member.hasOptin();
-                    Set < edu.internet2.middleware.grouper.Group > groupOptout = member.hasOptout();
-                    Set < edu.internet2.middleware.grouper.Group > groupsAll = new HashSet < edu.internet2.middleware.grouper.Group >();
-
-                    groupsAll.addAll(groupOptin);
-                    groupsAll.addAll(groupOptout);
-
-                    Group group = null;
-                    for (edu.internet2.middleware.grouper.Group groupApi : groupsAll) {
-                        group = grouperApiWrapper.wrap(groupApi);
-
-                        if (groupApi.hasMember(subject)) {
-                            group.addMappingFieldCol(ServiceConstants.MAPPING_FIELD_COL_MEMBER, Boolean.TRUE
-                                    .toString());
-                        } else {
-                            group.addMappingFieldCol(ServiceConstants.MAPPING_FIELD_COL_MEMBER, Boolean.FALSE
-                                    .toString());
-                        }
-
-                        group.setCanOptin(groupApi.hasOptin(subject));
-                        group.setCanOptout(groupApi.hasOptout(subject));
-                        groups.add(group);
-                    }
+					GrouperHelper gh = grouperHelperFactory.get(grouperSession);
+					
+                   	try {
+						gh.setMember(member);
+					} catch (GrouperHelperException e) {
+						LOGGER.error(e,"set member error");
+						return groups;
+					}
+                   
+                    Set < edu.internet2.middleware.grouper.Group > groupOptin = gh.findGroupsWhereMemberHasPrivCached(Privs.OPTIN, ScopeEnum.ALL);
+                    	
+                    Set < edu.internet2.middleware.grouper.Group > groupOptout = gh.findGroupsWhereMemberHasPrivCached(Privs.OPTOUT, ScopeEnum.ALL);
+                    
+                    if (groupOptin.isEmpty() && groupOptout.isEmpty()) return groups;
+                    
+                    Set < edu.internet2.middleware.grouper.Group > groupMembers = member.getGroups();
+                    
+                    
+                    groups.setGroupAPIWrapper(grouperApiWrapper);
+                    groups.setGroupSet(Privs.OPTIN, ScopeEnum.IMMEDIATE, groupOptin);
+                    groups.setGroupSet(Privs.OPTOUT, ScopeEnum.IMMEDIATE, groupOptout);
+                    groups.setMembers(groupMembers);
+                    
                     return groups;
                 }
             });
@@ -425,8 +428,10 @@ public class GrouperServiceApi implements IGrouperService,
 
         // this list is the result and it is modified in the method
         // callbackGrouperTransaction
-        final List < Group > groups = new ArrayList < Group >();
+    //    final List < Group > groups = new ArrayList < Group >();
 
+        final JustIterableListGroupWrapper groups = new JustIterableListGroupWrapper();
+        
         GrouperSession session = null;
         Subject subject = null;
         try {
@@ -447,66 +452,42 @@ public class GrouperServiceApi implements IGrouperService,
         try {
             final GrouperSession grouperSession = session;
             final Subject subject2 = subject;
-
+        
             // start a transaction
             // long deb = System.currentTimeMillis();
             GrouperTransaction.callbackGrouperTransaction(new GrouperTransactionHandler() {
                 public Object callback(final GrouperTransaction grouperTransaction) throws GrouperDAOException {
 
-                    List < String > uuidAlreadyUse = new ArrayList < String >();
+            
                     Member member = MemberFinder.findBySubject(grouperSession, subject2, false);
+                    
+                    GrouperHelper gh = grouperHelperFactory.get(grouperSession);
+                    	// le sujet de la session n'est pas celui pour les calculs
+                    	// on change donc le suject (et le member) du grouperHelper
+                    gh.setSubject(subject2);
+                    try {
+                    	gh.setMember(member);
+                    } catch (GrouperHelperException e) {
+						throw new GrouperDAOException(e);
+					}
+                   
+                    //
+                   ScopeEnum scopes[] = {ScopeEnum.IMMEDIATE, ScopeEnum.EFFECTIVE};
 
-                    Set < edu.internet2.middleware.grouper.Group > groupAdmn = member.hasAdmin();
-                    Set < edu.internet2.middleware.grouper.Group > groupUpde = member.hasUpdate();
-                    Set < edu.internet2.middleware.grouper.Group > groupRead = member.hasRead();
-                    Set < edu.internet2.middleware.grouper.Group > groupView = member.hasView();
-
-                    for (edu.internet2.middleware.grouper.Group groupApi : groupAdmn) {
-                        if (!uuidAlreadyUse.contains(groupApi.getUuid())) {
-                            Group aux = GrouperServiceApi.this.getGroupWithPrivileges(theSubjectId, groupApi,
-                                    theScope, groupApi.getAdmins(), "admin");
-                            if (aux != null) {
-                                groups.add(aux);
-                                uuidAlreadyUse.add(aux.getIdGroup());
-                            }
-                        }
-                    }
-
-                    for (edu.internet2.middleware.grouper.Group groupApi : groupUpde) {
-                        if (!uuidAlreadyUse.contains(groupApi.getUuid())) {
-                            Group aux = GrouperServiceApi.this.getGroupWithPrivileges(theSubjectId, groupApi,
-                                    theScope, groupApi.getUpdaters(), "update");
-                            if (aux != null) {
-                                groups.add(aux);
-                                uuidAlreadyUse.add(aux.getIdGroup());
-                            }
-                        }
-                    }
-
-                    for (edu.internet2.middleware.grouper.Group groupApi : groupRead) {
-                        if (!uuidAlreadyUse.contains(groupApi.getUuid())) {
-                            Group aux = getGroupWithPrivileges(theSubjectId, groupApi,
-                                    theScope, groupApi.getReaders(), "read");
-                            if (aux != null) {
-                                groups.add(aux);
-                                uuidAlreadyUse.add(aux.getIdGroup());
-                            }
-                        }
-                    }
-
-                    for (edu.internet2.middleware.grouper.Group groupApi : groupView) {
-                        if (!uuidAlreadyUse.contains(groupApi.getUuid())) {
-                            Group aux = getGroupWithPrivileges(theSubjectId, groupApi,
-                                    theScope, groupApi.getViewers(), "view");
-                            if (aux != null) {
-                                groups.add(aux);
-                                uuidAlreadyUse.add(aux.getIdGroup());
-                            }
-                        }
-                    }
-
+                   for (ScopeEnum scope : scopes) {
+                	   if (scope == theScope || theScope == ScopeEnum.ALL) {
+                		   for (Privs priv : Privs.values()) {
+                    		   if (priv.isGroup()) {
+                    			   groups.setGroupSet(priv, scope, gh.findGroupsWhereMemberHasPrivCached(priv, scope));
+                    		   }
+                		   } 	   
+                	   }
+                   }
+                   
+                    groups.setGroupAPIWrapper(getGroupAPIWrapper());
+            
                     return groups;
-                }
+               }
             });
             // timeTotal += System.currentTimeMillis() - deb;
         } catch (GrouperDAOException e) {
@@ -520,6 +501,7 @@ public class GrouperServiceApi implements IGrouperService,
         return groups;
     }
 
+
     /**
      * {@inheritDoc}
      */
@@ -532,8 +514,9 @@ public class GrouperServiceApi implements IGrouperService,
 
         // this list is the result and it is modified in the method
         // callbackGrouperTransaction
-        final List < Stem > stems = new ArrayList < Stem >();
-
+     
+        final  JustIterableListStemWrapper stems = new JustIterableListStemWrapper();
+        
         GrouperSession session = null;
         edu.internet2.middleware.subject.Subject subject = null;
         try {
@@ -552,82 +535,30 @@ public class GrouperServiceApi implements IGrouperService,
         try {
             final GrouperSession grouperSession = session;
             final Subject subject2 = subject;
-            final IWrapper < edu.internet2.middleware.grouper.Stem, Stem > stemApiWrapper = this.stemAPIWrapper;
 
             // start a transaction
             // long deb = System.currentTimeMillis();
             LOGGER.debug("grouperTransaction.callbackGrouperTransaction(:");
             GrouperTransaction.callbackGrouperTransaction(new GrouperTransactionHandler() {
                 public Object callback(final GrouperTransaction grouperTransaction) throws GrouperDAOException {
-
+                	
                     List < String > uuidAlreadyUse = new ArrayList < String >();
                     Member member = MemberFinder.findBySubject(grouperSession, subject2, false);
 
-                    Set < edu.internet2.middleware.grouper.Stem > stemsCF = member.hasStem();
-                    Set < edu.internet2.middleware.grouper.Stem > stemsCG = member.hasCreate();
-
-                    Set < NamingPrivilege > privileges;
-                    boolean immediate;
-                    Stem stemToAdd;
-                    for (edu.internet2.middleware.grouper.Stem stemApi : stemsCF) {
-
-                    	LOGGER.debug("stempApi stemsCF", stemApi.getName());
-                    	
-                        // Immediate children of this stem.
-                        immediate = false;
-                        privileges = stemApi.getPrivs(subject2);
-                        for (NamingPrivilege namingPrivilege : privileges) {
-                            if (namingPrivilege.isRevokable()) {
-                                immediate = true;
-                                break;
-                            }
-                        }
-
-                        boolean isEffective = ScopeEnum.EFFECTIVE.equals(thePrivilegesScope) && !immediate;
-                        boolean isImmediate = ScopeEnum.IMMEDIATE.equals(thePrivilegesScope) && immediate;
-                        if (ScopeEnum.ALL.equals(thePrivilegesScope) || isEffective || isImmediate) {
-                            stemToAdd = stemApiWrapper.wrap(stemApi);
-                            stemToAdd.setHasStem(true);
-                            stems.add(stemToAdd);
-                            uuidAlreadyUse.add(stemToAdd.getUuid());
-                        }
-
+                    GrouperHelper gh = grouperHelperFactory.get(grouperSession);
+                	// le sujet de la session n'est pas celui pour les calculs
+                	// on change donc le suject (et le member) du grouperHelper
+                    gh.setSubject(subject2);
+                    try {
+                    	gh.setMember(member);
+                    } catch (GrouperHelperException e) {
+                    	throw new GrouperDAOException(e);
                     }
-
-                    for (edu.internet2.middleware.grouper.Stem stemApi : stemsCG) {
-
-                    	LOGGER.debug("stempApi stemsCG", stemApi.getName());
-                        // Immediate children of this stem.
-                        immediate = false;
-                        privileges = stemApi.getPrivs(subject2);
-                        for (NamingPrivilege namingPrivilege : privileges) {
-                            if (namingPrivilege.isRevokable()) {
-                                immediate = true;
-                                break;
-                            }
-                        }
-
-                        boolean isEffective = ScopeEnum.EFFECTIVE.equals(thePrivilegesScope) && !immediate;
-                        boolean isImmediate = ScopeEnum.IMMEDIATE.equals(thePrivilegesScope) && immediate;
-                        if (ScopeEnum.ALL.equals(thePrivilegesScope) || isEffective || isImmediate) {
-                            stemToAdd = stemApiWrapper.wrap(stemApi);
-
-                            if (uuidAlreadyUse.contains(stemToAdd.getUuid())) {
-                                // I search the record already contained in the
-                                // final
-                                // list to add the right CG more than CF
-                                for (Stem stem : stems) {
-                                    if (stem.getUuid().equals(stemToAdd.getUuid())) {
-                                        stem.setHasCreate(true);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                stemToAdd.setHasCreate(true);
-                                stems.add(stemToAdd);
-                            }
-                        }
-                    }
+                    
+                    stems.setStemRight( gh.findStemWhereMemberHasPriv(Privs.STEM, thePrivilegesScope));
+                    stems.setCreateRight(gh.findStemWhereMemberHasPriv(Privs.CREATE, thePrivilegesScope));
+                    stems.setStemApiWrapper(getStemAPIWrapper());
+                    
                     return stems;
                 }
             });
@@ -743,56 +674,10 @@ public class GrouperServiceApi implements IGrouperService,
         return privilege;
     }
 
-    /**
-     * Get all group with this specific privilege.
-     * 
-     * @param theParentId
-     *            The parent uid.
-     * @param theGroup
-     *            The group.
-     * @param theScope
-     *            The scope.
-     * @param listToExplore
-     *            The list of items to explore.
-     * @param thePrivilege
-     *            The current right.
-     * @return The list of the group.
-     */
-    private Group getGroupWithPrivileges(final String theParentId,
-            final edu.internet2.middleware.grouper.Group theGroup, final ScopeEnum theScope,
-            final Set < Subject > listToExplore, final String thePrivilege) {
-        Group group = null;
-        Iterator < Subject > itAux = listToExplore.iterator();
-        while (itAux.hasNext()) {
-            LazySubject object = (LazySubject) itAux.next();
-            if (object.getId().equals(theParentId)) {
-                // My folder is admin.
-                if (ScopeEnum.IMMEDIATE.equals(theScope) && object.getMembership().getType().equals("immediate")) {
-                    group = this.groupAPIWrapper.wrap(theGroup);
-                    group.setUserRight(GroupPrivilegeEnum.fromValue(thePrivilege));
-                    group.setCanOptin(this.getOptinOrOptoutPrivilege(theGroup, theParentId, true));
-                    group.setCanOptout(this.getOptinOrOptoutPrivilege(theGroup, theParentId, false));
-                } else
-                    if (ScopeEnum.EFFECTIVE.equals(theScope)
-                            && object.getMembership().getType().equals("effective")) {
-                        group = this.groupAPIWrapper.wrap(theGroup);
-                        group.setUserRight(GroupPrivilegeEnum.fromValue(thePrivilege));
-                        group.setCanOptin(this.getOptinOrOptoutPrivilege(theGroup, theParentId, true));
-                        group.setCanOptout(this.getOptinOrOptoutPrivilege(theGroup, theParentId, false));
-                    } else
-                        if (ScopeEnum.ALL.equals(theScope)) {
-                            group = this.groupAPIWrapper.wrap(theGroup);
-                            group.setUserRight(GroupPrivilegeEnum.fromValue(thePrivilege));
-                            group.setCanOptin(this.getOptinOrOptoutPrivilege(theGroup, theParentId, true));
-                            group.setCanOptout(this.getOptinOrOptoutPrivilege(theGroup, theParentId, false));
-                        }
-                break;
-            }
-
-        }
-        return group;
-    }
-
+  
+    
+    
+    
     /**
      * Get if the parent group has the optin or optout rigth.
      * 
@@ -1625,7 +1510,7 @@ public class GrouperServiceApi implements IGrouperService,
             
             	// pl creation du grouperhelper qui va permetre de tester les droits
 			GrouperHelper egh = grouperHelperFactory.get(session);
-            
+          
             
             for (edu.internet2.middleware.grouper.Group group : groups) {
                 Group aux = this.groupAPIWrapper.wrap(group);
@@ -1634,22 +1519,16 @@ public class GrouperServiceApi implements IGrouperService,
                 aux.setUserRight(null);
                 LOGGER.debug("	group.getPrivs(person); =>");
              //   Set < AccessPrivilege > privs = group.getPrivs(person);
-             	List <String> privs = egh.userPrivsNames(group.getName(), true);
+             	List <Privs> privs = egh.userPrivsList(group);
              	
              	LOGGER.debug("	<= group.getPrivs(person);", group.getName());
                 
-              //  for (AccessPrivilege priv : privs) {
-				  if (privs == null || privs.isEmpty()) {
+				 if (privs == null || privs.isEmpty()) {
 					  LOGGER.debug("		group sans privilege");
-				//	  Set < AccessPrivilege > privs = group.getPrivs(person);
-                //	for (AccessPrivilege priv : privs) {
-                //    	PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
-                //	}
-
 				} else {	
-					for (String priv : privs) {
+					for (Privs priv : privs) {
 						//       PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
-						PrivilegeAssignUtils.assignPrivilege(aux, priv);
+						PrivilegeAssignUtils.assignPrivilege(aux, priv.name());
 						LOGGER.debug("		privs=", priv);
 					}
 					result.put(cpt++, aux);
@@ -2470,7 +2349,7 @@ public class GrouperServiceApi implements IGrouperService,
                 throw new ESCOTechnicalException("The type is not stem or group");
             }
         // pl !!!
-        grouperHelperFactory.get(grouperSession).clearCache(thePrivilege.getPrivilegeName());
+        grouperHelperFactory.get(grouperSession).clearCache(Privs.find(thePrivilege.getPrivilegeName()));
         GrouperSession.stopQuietly(grouperSession);
     }
 
@@ -2627,34 +2506,42 @@ public class GrouperServiceApi implements IGrouperService,
             Set < edu.internet2.middleware.grouper.Stem > childStems = parentStem.getChildStems(Scope.ONE);
 
 				
-            // On applique le seuil // pl
+            // si loadPerfActiv (recherche obtimié) : On applique le seuil 
+            // 	 si le seuil n'est pas depassé on affiche toutes les branches meme vide de droit
+            // 	 si le seuil est depassé on affihce que les branches ou on a des droits
+            //   si pas de seuil (-1) on affiche que les branches avec droits
             loadPerfActiv = loadPerfActiv
                     && (seuilStem == -1 || childStems.size() <= seuilStem);
 			
 				// pl creation du grouperhelper qui va permetre de tester les droits
 			GrouperHelper egh = grouperHelperFactory.get(session);
-			
-            for (edu.internet2.middleware.grouper.Stem stem : childStems) {
-                	// pl modification de tout le for ...
-				if (! loadPerfActiv || egh.userHasPrivs(stem.getName())) {
-					Stem aux = this.stemAPIWrapper.wrap(stem);
-                	aux.setHasCreate(false);
-                	aux.setHasStem(false);	
-				//	Set < NamingPrivilege > privs = stem.getPrivs(person);
-					List <String> privs = egh.userPrivsNames(stem.getName(), false);
+		
+				for (edu.internet2.middleware.grouper.Stem stem : childStems) {
+            		// si loadPerfActiv== false on insert tous les fils
+            		// si == true alors on insert que si l'utilisateur a des droits dans le stem
+					if (! loadPerfActiv || egh.userHasPrivs(stem.getName())) {
+						Stem aux = this.stemAPIWrapper.wrap(stem);
+						aux.setHasCreate(false);
+						aux.setHasStem(false);	
+				
+						List <Privs> privs = egh.userPrivsList(stem);
                  
-					LOGGER.debug("	<= stem.getPrivs(person);");
-
-					
-                //	for (NamingPrivilege priv : privs) {
-					for (String priv : privs) {
-                //    	PrivilegeAssignUtils.assignPrivilege(aux, priv.getName());
-                    	PrivilegeAssignUtils.assignPrivilege(aux, priv);
-                    	LOGGER.debug("		privs=",priv);
-                	}	
-					requestResult.put(cpt++, aux);
+						for (Privs priv : privs) {
+							switch (priv) {
+							case STEM:
+									aux.setHasStem(true);
+								break;
+							case CREATE:
+									aux.setHasCreate(true);
+							default:
+								break;
+							}
+							
+						}	
+						requestResult.put(cpt++, aux);
+					}
 				}
-            }
+			
         } catch (StemNotFoundException stemNotFoundException) {
             GrouperSession.stopQuietly(session);
             throw new ESCOStemNotFoundException();

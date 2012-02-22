@@ -7,6 +7,8 @@ import org.esco.grouperui.tools.log.IESCOLogger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cache.ehcache.EhCacheFactoryBean;
 
+import com.mysql.jdbc.Field;
+
 import edu.internet2.middleware.grouper.GrouperSession;
 
 public class GrouperHelperFactory implements InitializingBean {
