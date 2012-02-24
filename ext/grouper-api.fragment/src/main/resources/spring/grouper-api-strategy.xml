@@ -7,8 +7,8 @@
 		<property name="evaluator" ref="evaluator" />
 		<property name="defaultSearchStrategies" >
 			<map>
-				<entry key="evaluator.regexp('esco:Etablissements:(([^_]+)_(\\d{5,7}\\w?))(:[^:]+)*|esco:admin:([^:]+:){1,3}(([^:]+)_(\\d{5,7}\\w?))|esco:Applications:([^:]+:){1,2}(([^:]+)_(\\d{5,7}\\w?))', path)" value-ref="UAIStrategySubjectSearch"></entry>
-				<entry key="evaluator.regexp('(.*)', term)" value-ref="defaulStrategySubjectSearch"></entry>
+				<entry key="evaluator.regexp('(.+:Etablissements:(([^_]+)_(\\d{5,7}\\w?))(:[^:]+)*)|(.+:admin:.+)|(.+:Applications:.+)', path)" value-ref="UAIStrategySubjectSearch"></entry>
+			    <entry key="evaluator.regexp('(.*)', term)" value-ref="defaulStrategySubjectSearch"></entry>
 			</map>
 		</property>
 	</bean>
@@ -31,7 +31,7 @@
 		<property name="evaluator" ref="evaluator" />
 		<property name="defaultSearchStrategies" >
 			<map>
-				<entry key="evaluator.regexp('(.*)', term)" value-ref="defaulStrategyGroupSearchAPI"></entry>
+				<entry key="evaluator.regexp('(.*)', term)" value-ref="escoStrategyGroupSearchAPI"></entry>
 			</map>
 		</property>
 	</bean>
@@ -39,9 +39,12 @@
 	<bean id="defaulStrategyGroupSearchAPI" class="org.esco.grouperui.services.grouper.internal.DefaultStrategyGroupSearchApi">
 		<property name="groupWrapper" ref="groupAPIStrategyWrapper" />
 	</bean>
+	<bean id="escoStrategyGroupSearchAPI"
+       		class="org.esco.grouperui.services.grouper.internal.EscoStrategyGroupSearchApi">
+     		<property name="groupWrapper" ref="groupAPIStrategyWrapper" />
+ 	</bean>
 
 	<bean id="groupAPIStrategyWrapper" class="org.esco.grouperui.services.grouper.internal.wrapper.GroupAPIWrapper" />
-
 
 </beans>
 
