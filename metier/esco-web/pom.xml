@@ -195,7 +195,6 @@
 						<configuration>
 							<finalName>ESCOGrouper.war</finalName>
 							<warSourceDirectory>src/web/webapp</warSourceDirectory>
-							<warSourceExcludes>**/**.css,**/**.js</warSourceExcludes>
 							<webXml>src/web/webapp/WEB-INF/web.xml</webXml>
 							<attachClasses>true</attachClasses>
 							<webResources>
@@ -206,7 +205,6 @@
 								</resource>
 								<resource>
 									<directory>src/main/conf/servlet</directory>
-									<filtering>true</filtering>
 									<!-- override the destination directory for this resource -->
 									<targetPath>WEB-INF</targetPath>
 									<excludes>
@@ -214,14 +212,13 @@
 									</excludes>
 								</resource>
 								<resource>
-									<directory>src/main/conf/portlet</directory>
+									<directory>src/main/conf/servlet</directory>
 									<targetPath>WEB-INF/classes/properties</targetPath>
 									<includes>
 										<include>applicationContext.xml</include>
 									</includes>
 								</resource>
 							</webResources>
-
 							<archive>
 								<manifest>
 									<addClasspath>true</addClasspath>
@@ -230,25 +227,6 @@
 							</archive>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>net.sf.alchim</groupId>
-						<artifactId>yuicompressor-maven-plugin</artifactId>
-						<version>0.7.1</version>
-						<executions>
-						  <execution>
-							<goals>
-							  <goal>compress</goal>
-							</goals>
-						  </execution>
-						</executions>
-						<configuration>
-							<encoding>UTF-8</encoding>
-							<nosuffix>true</nosuffix>
-							<jswarn>false</jswarn>
-							<sourceDirectory>src/web/webapp/media</sourceDirectory>
-							<outputDirectory>${basedir}/target/${project.build.finalName}/media</outputDirectory>
-						</configuration>
-					  </plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -327,7 +305,6 @@
 						<configuration>
 							<finalName>ESCOGrouper.war</finalName>
 							<warSourceDirectory>src/web/webapp</warSourceDirectory>
-							<warSourceExcludes>**/**.css,**/**.js</warSourceExcludes>
 							<webXml>src/web/webapp/WEB-INF/web.xml</webXml>
 							<attachClasses>true</attachClasses>
 							<webResources>
@@ -362,25 +339,6 @@
 							</archive>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>net.sf.alchim</groupId>
-						<artifactId>yuicompressor-maven-plugin</artifactId>
-						<version>0.7.1</version>
-						<executions>
-						  <execution>
-							<goals>
-							  <goal>compress</goal>
-							</goals>
-						  </execution>
-						</executions>
-						<configuration>
-							<encoding>UTF-8</encoding>
-							<nosuffix>true</nosuffix>
-							<jswarn>false</jswarn>
-							<sourceDirectory>src/web/webapp/media</sourceDirectory>
-							<outputDirectory>${basedir}/target/${project.build.finalName}/media</outputDirectory>
-						</configuration>
-					  </plugin>
 				</plugins>
 			</build>
 		</profile>
