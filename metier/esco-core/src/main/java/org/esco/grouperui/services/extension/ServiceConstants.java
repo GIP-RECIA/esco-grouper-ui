@@ -97,6 +97,9 @@ public class ServiceConstants {
     public static final String GROUPER_WILDCARD                  = "%";
     /** GrouperAll : everyEntity of Grouper. */
     public static final String GROUPER_ALL                       = "GrouperAll";
+    /** GrouperSystem: super user of grouper. */
+    public static final String GROUPER_SYSTEM                       = "GrouperSystem";
+    
     /** MappingFieldCol isMember. */
     public static final String MAPPING_FIELD_COL_MEMBER          = "isMember";
 
