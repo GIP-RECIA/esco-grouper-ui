@@ -181,9 +181,34 @@
 				onAfterShowBlockUI : function(){
 
 			welcome = new Welcome();
+//modif 4 portlet
+	if (false) {
+			//Url d'accès au CAS
+			var urlCas = "https://dvorak.recia.fr/cas/login?service=";
+			//Url cible pour l'appel à Spring security
+			var urlCible = "http://dvorak.recia.fr/ESCOGrouper/j_spring_cas_security_check";
+			//Temps d'attente avant la fermeture de la popup
+			var timerAvantFermeturePopup = 5000;
+
+			var authentification=null;
+	//		function closeAuthentificationPopup(){ authentification.close(); }
+			function closeAuthentificationPopup(){
+                authentification.close();
+                    welcome = new Welcome();
+                    Core.pullAjaxContent("/" + Core.applicationContext + "/stylesheets/personProperties.jsf",{}, "#mainContent", true);
+                    Core.addScreen(welcome);
+            }
+
+			authentification=window.open(urlCas + urlCible,"Authentification","width=1, height=1, top=0, left=0, location=no, menubar=no, resizable=no, scrollbars=no, status=no, toolbar=no");
+			setTimeout("closeAuthentificationPopup()",timerAvantFermeturePopup);
+
+	} else {
+
 			Core.pullAjaxContent("/" + Core.applicationContext + "/stylesheets/personProperties.jsf",{}, "#mainContent", true);
 			Core.addScreen(welcome);
-			}
+	}
+	// fin modif 4 portlet
+		}	
 		};
 		Core._showBlockUI(_displayBlockUIOption);
 

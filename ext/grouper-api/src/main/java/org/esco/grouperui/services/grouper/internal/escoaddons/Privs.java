@@ -117,7 +117,7 @@ import edu.internet2.middleware.grouper.FieldFinder;
 				
 				/**
 				 * Le droit  porte t'il sur les stems
-				 * @return
+				 * @return boolean
 				 */
 				public boolean isStem() {
 					return stem;

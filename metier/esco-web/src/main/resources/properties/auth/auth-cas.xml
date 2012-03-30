@@ -25,19 +25,19 @@
 	    <security:intercept-url pattern="/stylesheets/exception/**" filters="none" />
 	    <security:intercept-url pattern="/stylesheets/auth/**" filters="none" />
 	    <security:intercept-url pattern="/stylesheets/onlineHelp/**" filters="none" />
-		<!-- origine --> 
+		<!-- origine 
 		<security:intercept-url pattern="/**" access="ROLE_ADMIN"   requires-channel="https"  />
-		 
-		 <!-- pour portlet 
+		 -->
+		 <!-- pour portlet -->
 		 <security:intercept-url pattern="/**" access="ROLE_ADMIN"   />
-		-->
+		
         <security:logout logout-success-url="${cas.url.logout}" invalidate-session="false"/>
-       <!-- origine -->
+       <!-- origine 
         <security:port-mappings>
             <security:port-mapping http="8080" https="8443"/>
             <security:port-mapping http="80" https="443"/>
         </security:port-mappings>
-        
+        -->
          <!-- rien pour portlet -->
 	</security:http>
 

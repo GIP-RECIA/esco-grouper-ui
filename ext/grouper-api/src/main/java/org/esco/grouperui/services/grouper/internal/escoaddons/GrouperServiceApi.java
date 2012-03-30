@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Date;
 
+import javax.servlet.jsp.tagext.TryCatchFinally;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -1114,7 +1116,9 @@ public class GrouperServiceApi implements IGrouperService,
             throw new ESCODeleteMemberException(ServiceConstants.MEMBER_CANNOT_BE_DELETED, e);
         } catch (SubjectNotFoundException e) {
         } catch (SubjectNotUniqueException e) {
-        }
+        } 
+        
+       
         GrouperSession.stopQuietly(grouperSession);
     }
 
