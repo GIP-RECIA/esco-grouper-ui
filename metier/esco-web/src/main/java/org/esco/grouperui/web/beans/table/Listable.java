@@ -29,7 +29,8 @@ public abstract class Listable {
     /**
      * The Search Result (Object can be a Person or a Group).
      */
-    protected List < Sortable >   listOfSortable;
+//    protected List < Sortable >   listOfSortable;
+    protected DistinctSortableList listOfSortable;
 
     /**
      * The number of result item displayed.
@@ -47,7 +48,7 @@ public abstract class Listable {
     public Listable() {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new ArrayList < Sortable >();
+        this.listOfSortable = new DistinctSortableList();
     }
 
     /**
@@ -61,7 +62,7 @@ public abstract class Listable {
     public Listable(final String theNbRowsDisplayed, final String theCurrentPage) {
         this.nbRowsDisplayed = theNbRowsDisplayed;
         this.currentPage = theCurrentPage;
-        this.listOfSortable = new ArrayList < Sortable >();
+        this.listOfSortable = new DistinctSortableList();
     }
 
     /**
@@ -70,7 +71,7 @@ public abstract class Listable {
     public void resetContextListable() {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new ArrayList < Sortable >();
+        this.listOfSortable = new DistinctSortableList();
     }
 
     /**
@@ -84,7 +85,7 @@ public abstract class Listable {
     public void resetContextListable(final String theNbRowsDisplayed, final String theCurrentPage) {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new ArrayList < Sortable >();
+        this.listOfSortable = new DistinctSortableList();
     }
 
     /**
@@ -145,7 +146,7 @@ public abstract class Listable {
      * @param theListOfSortable
      *            the listOfSortable to set
      */
-    public void setListOfSortable(final List < Sortable > theListOfSortable) {
+    public void setListOfSortable(final DistinctSortableList theListOfSortable) {
         this.listOfSortable = theListOfSortable;
     }
 
