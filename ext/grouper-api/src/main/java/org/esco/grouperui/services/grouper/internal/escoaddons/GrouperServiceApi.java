@@ -100,6 +100,7 @@ import edu.internet2.middleware.grouper.subj.LazySubject;
 import edu.internet2.middleware.subject.Subject;
 import edu.internet2.middleware.subject.SubjectNotFoundException;
 import edu.internet2.middleware.subject.SubjectNotUniqueException;
+import edu.internet2.middleware.subject.provider.GetPersonsDataDelegate;
 
 
 
@@ -141,10 +142,11 @@ public class GrouperServiceApi implements IGrouperService,
     /** un logger */
     private final IESCOLogger LOGGER = ESCOLoggerFactory
                                           .getLogger(GrouperServiceApi.class);
-    /**
-     * GrouperHelperFactory 
-     */
+    /** GrouperHelperFactory */
    private GrouperHelperFactory grouperHelperFactory;
+   
+   /** Delegate optimized to retrieve the persons attributes.*/
+   private GetPersonsDataDelegate personsDataDelegate = new GetPersonsDataDelegate();
     
     /**
      * Default constructor.
@@ -640,7 +642,8 @@ public class GrouperServiceApi implements IGrouperService,
 
         if (theSubject == null || theSubject.getMembership() == null || theSubject.getType() == null
                 || theSubject.getType().getName() == null
-                || ServiceConstants.GROUPER_ALL.equals(theSubject.getId())) {
+                || ServiceConstants.GROUPER_ALL.equals(theSubject.getId())
+                || ServiceConstants.GROUPER_SYSTEM.equals(theSubject.getId())) {
             return null;
         }
 
@@ -909,23 +912,23 @@ public class GrouperServiceApi implements IGrouperService,
                     }
 
             members = new Members();
-
+            final Set<Member> toRemove = new HashSet<Member>();
             for (Member member : myMembers) {
                 type = theSources.get(member.getSubjectSourceId());
 
                 if (type != null) {
 
-                    if (SourceTypeEnum.PERSON.equals(type)) {
+                   /* if (SourceTypeEnum.PERSON.equals(type)) {
                         Person person = new Person();
                         person.setId(member.getSubjectId());
                         person.setAttributes(member.getSubject().getAttributes());
                         person.setTypeEnum(type);
                         members.addPerson(person);
-                    } else
+                    } else*/
                         if (SourceTypeEnum.GROUP.equals(type)) {
                             edu.internet2.middleware.grouper.Group groupFind = null;
                             groupFind = GroupFinder.findByUuid(grouperSession, member.getSubjectId(), true);
-
+                            toRemove.add(member);
                             if (groupFind != null) {
                                 Group groupAdd = new Group();
                                 groupAdd.setIdGroup(member.getSubjectId());
@@ -933,7 +936,7 @@ public class GrouperServiceApi implements IGrouperService,
                                 groupAdd.setTypeEnum(type);
                                 members.addGroup(groupAdd);
                             }
-                        } else {
+                        } else if (!SourceTypeEnum.PERSON.equals(type)){
                             // Must never occur.
                             GrouperSession.stopQuietly(grouperSession);
                             throw new ESCOTechnicalException("The type of source is undefined.");
@@ -941,6 +944,8 @@ public class GrouperServiceApi implements IGrouperService,
 
                 }
             }
+            myMembers.removeAll(toRemove);
+            personsDataDelegate.getPersonsData(theSources.keySet(), myMembers, members);
 
         } catch (GroupNotFoundException e) {
             GrouperSession.stopQuietly(grouperSession);
