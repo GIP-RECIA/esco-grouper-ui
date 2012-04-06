@@ -1,0 +1,18 @@
+
+<!-- 
+	Installation des fichiers de paramétrage pour l'université d'AIX Marseille
+    dans l'arborescence d'ESCO Grouper.
+    A. Deman - 04/2012
+-->
+<project name="ESCOGrouper.custom.AMU" default="install" basedir=".">
+	<target name="install" description="Installation des fichiers du paramétrage pour l'université d'Aix-Marseille">
+		<copy overwrite="true" todir="../">
+			<fileset dir="${basedir}">
+				 <exclude name="build.xml"/>
+				 <exclude name="**/*.svn*"/>
+				 <exclude name="**/*~"/>
+                 <include name="**/*" />
+			</fileset>	
+		</copy>
+	</target>
+</project>
