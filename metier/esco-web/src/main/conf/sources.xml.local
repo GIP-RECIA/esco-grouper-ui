@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Grouper's subject resolver configuration
+$Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
+-->
+
+<sources>
+
+  <!-- 
+    NOTE: It is recommended that you **not** change the default
+          values for this source adapter.
+  -->
+  <source adapterClass="edu.internet2.middleware.grouper.GrouperSourceAdapter">
+    <id>g:gsa</id>
+    <name>Grouper: Group Source Adapter</name>
+    <type>group</type>
+  </source>
+
+  <!--  
+      Configuration d une source de donnees pour recuperer les personnes depuis l'annuaire LDAP. 
+    -->
+       
+  <source adapterClass="edu.internet2.middleware.grouper.subj.GrouperJndiSourceAdapter">
+    <id>ESUP_ldap</id>
+    <name>Source LDAP</name>
+    <type>person</type>
+    <init-param>
+      <param-name>INITIAL_CONTEXT_FACTORY</param-name>
+      <param-value>com.sun.jndi.ldap.LdapCtxFactory</param-value>
+    </init-param>
+    <init-param>
+      <param-name>PROVIDER_URL</param-name>
+      <param-value>ldap://localhost:389</param-value>
+    </init-param>
+    <init-param>
+      <param-name>SECURITY_AUTHENTICATION</param-name>
+      <param-value>simple</param-value>
+    </init-param>
+    <init-param>
+      <param-name>SECURITY_PRINCIPAL</param-name>
+      <param-value>cn=admin,dc=univ,dc=fr</param-value>
+    </init-param>
+    <init-param>
+      <param-name>SECURITY_CREDENTIALS</param-name>
+      <param-value>esup</param-value>
+    </init-param>
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>uid</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>description</param-value>
+    </init-param>
+    
+    
+    <search>
+        <searchType>searchSubject</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+                uid=%TERM%  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                SUBTREE_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=People,dc=univ,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+	      uid=%TERM%
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                SUBTREE_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=People,dc=univ,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+                (|(uid=%TERM%)(cn=*%TERM%*)(description=%TERM%))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                SUBTREE_SCOPE            
+            </param-value>
+        </param>
+         <param>
+            <param-name>base</param-name>
+            <param-value>
+	      ou=People,dc=univ,dc=fr
+            </param-value>
+        </param>
+    </search>
+
+    <attribute>sn</attribute>
+    <attribute>department</attribute>
+    <attribute>mail</attribute>
+    <attribute>eduPersonPrimaryAffiliation</attribute>
+   
+  </source>
+</sources>
+

@@ -25,12 +25,12 @@
 		</property>
 	</bean>
 
-
+	<!--  Use of eduPersonPrimaryAffiliation to discriminate the persons. -->
 	<bean id="mapAttributeConverters" class="org.esco.grouperui.web.converters.MapAttributeConverters">
 		<property name="attributes">
 			<map>
-				<entry key="#{attr['objectClass']}" value-ref="objectClassConverter" />
-				<entry key="#{attr['attribute.objectClass']}" value-ref="objectClassConverter" />
+				<entry key="#{attr['eduPersonPrimaryAffiliation']}" value-ref="objectClassConverter" />
+				<entry key="#{attr['attribute.eduPersonPrimaryAffiliation']}" value-ref="objectClassConverter" />
 			</map>
 		</property>
 	</bean>

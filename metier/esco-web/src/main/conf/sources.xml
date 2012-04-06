@@ -2,13 +2,12 @@
 
 <!--
 Grouper's subject resolver configuration
-$Id: sources.example.xml,v 1.7 2008/11/22 21:39:14 mchyzer Exp $
+$Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
 -->
 
 <sources>
 
-  <!-- Group Subject Resolver -->
-  <!--
+  <!-- 
     NOTE: It is recommended that you **not** change the default
           values for this source adapter.
   -->
@@ -18,126 +17,544 @@ $Id: sources.example.xml,v 1.7 2008/11/22 21:39:14 mchyzer Exp $
     <type>group</type>
   </source>
 
-   <source adapterClass="edu.internet2.middleware.subject.provider.ESCOJNDISourceAdapter">
-      <id>esco:ldap</id>
-      <name>JNDI Source Adapter</name>
-      <type>person</type>
-      <init-param>
-         <param-name>INITIAL_CONTEXT_FACTORY</param-name>
-         <param-value>com.sun.jndi.ldap.LdapCtxFactory</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>PROVIDER_URL</param-name>
-         <param-value>@PROVIDER_URL@</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>SECURITY_AUTHENTICATION</param-name>
-         <param-value>simple</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>SECURITY_PRINCIPAL</param-name>
-         <param-value>@SECURITY_PRINCIPAL@</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>SECURITY_CREDENTIALS</param-name>
-         <param-value>@SECURITY_CREDENTIALS@</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>SubjectID_AttributeType</param-name>
-	 <param-value>uid</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>Name_AttributeType</param-name>
-         <param-value>ENTPersonLogin</param-value>
-      </init-param>
-
-      <init-param>
-         <param-name>Description_AttributeType</param-name>
-         <param-value>displayName</param-value>
-      </init-param>
-
-      <search>
-         <searchType>searchSubject</searchType>
-         <param>
-            <param-name>filter</param-name>
-	    <param-value>
-	       (&amp; (uid=%TERM%)(objectclass=inetOrgPerson))
-            </param-value>
-         </param>
-         <param>
-            <param-name>scope</param-name>
-            <param-value>ONELEVEL_SCOPE</param-value>
-         </param>
-         <param>
-            <param-name>base</param-name>
-	    <param-value>@base@</param-value>
-         </param>
-      </search>
-
-      <search>
-         <searchType>searchSubjectByIdentifier</searchType>
-         <param>
-            <param-name>filter</param-name>
-	    <param-value>
-	       (uid=%TERM%)
-	    </param-value>
-         </param>
-         <param>
-            <param-name>scope</param-name>
-	    <param-value>ONELEVEL_SCOPE</param-value>
-         </param>
-         <param>
-            <param-name>base</param-name>
-            <param-value>@base@</param-value>
-         </param>
-      </search>
-
-
+  <!-- Source pour la branche people de U1 -->          
+  <source adapterClass="edu.internet2.middleware.subject.provider.LdapSourceAdapter">
+    <id>U1_LDAP</id>
+    <name>Source LDAP pour U1</name>
+    <type>person</type>
+   <init-param>
+      <param-name>Multiple_Results</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>findSubjectByIdOnCheckConfig</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ldapProperties_file</param-name>
+      <param-value>ldap_U1.properties</param-value>
+    </init-param>
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>supannAliasLogin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>displayName</param-value>
+    </init-param>
+        
     <search>
-       <searchType>search</searchType>
-         <param>
-            <param-name>scope-attribut</param-name>
-            <param-value>
-	           ESCOUAI
-            </param-value>
-        </param>
-         <param>
+        <searchType>searchSubject</searchType>
+        <param>
             <param-name>filter</param-name>
             <param-value>
-	           (|(cn=%TERM%)(sn=%TERM%)(uid=%TERM%))
+                (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))  
             </param-value>
         </param>
         <param>
             <param-name>scope</param-name>
-            <param-value>ONELEVEL_SCOPE</param-value>
+            <param-value>
+                ONELEVEL_SCOPE
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=up.univ-mrs,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+    
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+              (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=up.univ-mrs,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+                (&amp;(|(uid=%TERM%)(cn=*%TERM%*)(supannAliasLogin=%TERM%))(supannAliasLogin=*) (|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE           
+            </param-value>
         </param>
          <param>
             <param-name>base</param-name>
-            <param-value>@base@</param-value>
+            <param-value>
+          ou=people,dc=up.univ-mrs,dc=fr
+            </param-value>
         </param>
     </search>
 
 
-    <attribute>displayName</attribute>
-    <attribute>ENTPersonLogin</attribute>
-    <attribute>personalTitle</attribute>
-    <attribute>ENTPersonFonctions</attribute>
     <attribute>uid</attribute>
     <attribute>cn</attribute>
     <attribute>sn</attribute>
-	<attribute>givenName</attribute>
-	<attribute>ESCOUAI</attribute>
-	<attribute>mail</attribute>
-    <attribute>ESCOUAIRattachement</attribute>
-    <attribute>objectClass</attribute>
+    <attribute>displayname</attribute>
+    <attribute>department</attribute>
+    <attribute>mail</attribute>
+    <attribute>eduPersonPrimaryAffiliation</attribute>
+  </source>
 
-   </source>
 
+  <!-- Source pour la branche people de U2 -->          
+  <source adapterClass="edu.internet2.middleware.subject.provider.LdapSourceAdapter">
+    <id>U2_LDAP</id>
+    <name>Source LDAP pour U2</name>
+    <type>person</type>
+    <init-param>
+      <param-name>Multiple_Results</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>findSubjectByIdOnCheckConfig</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ldapProperties_file</param-name>
+      <param-value>ldap_U2.properties</param-value>
+    </init-param>
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>supannAliasLogin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>displayName</param-value>
+    </init-param>
+    
+    
+    <search>
+        <searchType>searchSubject</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+              (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=univmed,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+    
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+              (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=univmed,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+                (&amp;(|(uid=%TERM%)(cn=*%TERM%*)(supannAliasLogin=%TERM%))(supannAliasLogin=*)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE           
+            </param-value>
+        </param>
+         <param>
+            <param-name>base</param-name>
+            <param-value>
+          ou=people,dc=univmed,dc=fr
+            </param-value>
+        </param>
+    </search>
+
+
+    <attribute>uid</attribute>
+    <attribute>cn</attribute>
+    <attribute>sn</attribute>
+    <attribute>displayname</attribute>
+    <attribute>department</attribute>
+    <attribute>mail</attribute>
+    <attribute>eduPersonPrimaryAffiliation</attribute>
+  </source>
+
+  <!-- Source pour la branche people de U3 -->   
+  <source adapterClass="edu.internet2.middleware.subject.provider.LdapSourceAdapter">  
+    <id>U3_LDAP</id>
+    <name>Source LDAP pour U3</name>
+    <type>person</type>
+   <init-param>
+      <param-name>Multiple_Results</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>findSubjectByIdOnCheckConfig</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ldapProperties_file</param-name>
+      <param-value>ldap_U3.properties</param-value>
+    </init-param>
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>supannAliasLogin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>displayName</param-value>
+    </init-param>
+    
+    
+    <search>
+        <searchType>searchSubject</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+               (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=u-3mrs,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+              (&amp;(supannAliasLogin=%TERM%)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=u-3mrs,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+                (&amp;(|(uid=%TERM%)(cn=*%TERM%*)(supannAliasLogin=%TERM%))(supannAliasLogin=*)(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum)))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+         <param>
+            <param-name>base</param-name>
+            <param-value>
+          ou=people,dc=u-3mrs,dc=fr
+            </param-value>
+        </param>
+    </search>
+
+    <attribute>uid</attribute>
+    <attribute>cn</attribute>
+    <attribute>sn</attribute>
+    <attribute>displayname</attribute>
+    <attribute>department</attribute>
+    <attribute>mail</attribute>
+    <attribute>eduPersonPrimaryAffiliation</attribute>
+   
+  </source>
+
+
+  <!-- Source pour la branche people AMU -->   
+  <source adapterClass="edu.internet2.middleware.subject.provider.LdapSourceAdapter">  
+    <id>AMU_LDAP</id>
+    <name>Source LDAP pour AMU</name>
+    <type>person</type>
+   <init-param>
+      <param-name>Multiple_Results</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>findSubjectByIdOnCheckConfig</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ldapProperties_file</param-name>
+      <param-value>ldap_AMU.properties</param-value>
+    </init-param>
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>supannAliasLogin</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>displayName</param-value>
+    </init-param>
+    
+    
+    <search>
+        <searchType>searchSubject</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+               (&amp;(supannAliasLogin=%TERM%)(!(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum))))  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+              (&amp;(supannAliasLogin=%TERM%) (!(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum))))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=people,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+                (&amp;(|(supannAliasLogin=%TERM%)(cn=*%TERM%*)(uid=%TERM%))(!(|(eduPersonPrimaryAffiliation=student)(eduPersonPrimaryAffiliation=alum))))
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+         <param>
+            <param-name>base</param-name>
+            <param-value>
+              ou=people,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+    </search>
+
+
+    <attribute>uid</attribute>
+    <attribute>cn</attribute>
+    <attribute>sn</attribute>
+    <attribute>displayname</attribute>
+    <attribute>department</attribute>
+    <attribute>mail</attribute>
+    <attribute>eduPersonPrimaryAffiliation</attribute>
+   
+  </source>
+
+
+  <!-- Source pour la branche System AMU -->   
+  <source adapterClass="edu.internet2.middleware.subject.provider.LdapSourceAdapter">  
+    <id>AMU_SYS_LDAP</id>
+    <name>Source LDAP utilisateurs système AMU</name>
+    <type>person</type>
+    <init-param>
+      <param-name>Multiple_Results</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>findSubjectByIdOnCheckConfig</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ldapProperties_file</param-name>
+      <param-value>ldap_AMU_SYS.properties</param-value>
+    </init-param>
+   
+     <init-param>
+      <param-name>SubjectID_AttributeType</param-name>
+      <param-value>cn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Name_AttributeType</param-name>
+      <param-value>sn</param-value>
+    </init-param>
+    <init-param>
+      <param-name>Description_AttributeType</param-name>
+      <param-value>description</param-value>
+    </init-param>
+    
+    
+    <search>
+        <searchType>searchSubject</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+               (cn=%TERM%)  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=system,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+         
+    </search>
+
+    <search>
+        <searchType>searchSubjectByIdentifier</searchType>
+        <param>
+            <param-name>filter</param-name>
+            <param-value>
+               (cn=%TERM%)  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+        <param>
+            <param-name>base</param-name>
+            <param-value>
+                ou=system,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+    </search>
+    
+    <search>
+       <searchType>search</searchType>
+         <param>
+            <param-name>filter</param-name>
+            <param-value>
+               (cn=%TERM%)  
+            </param-value>
+        </param>
+        <param>
+            <param-name>scope</param-name>
+            <param-value>
+                ONELEVEL_SCOPE            
+            </param-value>
+        </param>
+         <param>
+            <param-name>base</param-name>
+            <param-value>
+              ou=system,dc=univ-amu,dc=fr
+            </param-value>
+        </param>
+    </search>
+
+    <attribute>sn</attribute>
+    <attribute>description</attribute>
+  </source>
 </sources>
 

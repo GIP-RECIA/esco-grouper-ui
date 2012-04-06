@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.esco.grouperui.domaine.beans.SortByEnum;
 import org.esco.grouperui.domaine.beans.Sortable;
+import org.esco.grouperui.tools.DistinctSortableList;
 
 /**
  * Listable abstract class. Implements all methods for the rest service of
@@ -29,8 +30,7 @@ public abstract class Listable {
     /**
      * The Search Result (Object can be a Person or a Group).
      */
-//    protected List < Sortable >   listOfSortable;
-    protected DistinctSortableList listOfSortable;
+    protected DistinctSortableList<Sortable> listOfSortable;
 
     /**
      * The number of result item displayed.
@@ -48,7 +48,7 @@ public abstract class Listable {
     public Listable() {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new DistinctSortableList();
+        this.listOfSortable = new DistinctSortableList<Sortable>();
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class Listable {
     public Listable(final String theNbRowsDisplayed, final String theCurrentPage) {
         this.nbRowsDisplayed = theNbRowsDisplayed;
         this.currentPage = theCurrentPage;
-        this.listOfSortable = new DistinctSortableList();
+        this.listOfSortable = new DistinctSortableList<Sortable>();
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class Listable {
     public void resetContextListable() {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new DistinctSortableList();
+        this.listOfSortable = new DistinctSortableList<Sortable>();
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class Listable {
     public void resetContextListable(final String theNbRowsDisplayed, final String theCurrentPage) {
         this.nbRowsDisplayed = Listable.DEFAULT_NB_RESULT_DISPLAY;
         this.currentPage = Listable.DEFAULT_CURRENT_PAGE;
-        this.listOfSortable = new DistinctSortableList();
+        this.listOfSortable = new DistinctSortableList<Sortable>();
     }
 
     /**
@@ -146,7 +146,7 @@ public abstract class Listable {
      * @param theListOfSortable
      *            the listOfSortable to set
      */
-    public void setListOfSortable(final DistinctSortableList theListOfSortable) {
+    public void setListOfSortable(final DistinctSortableList<Sortable> theListOfSortable) {
         this.listOfSortable = theListOfSortable;
     }
 

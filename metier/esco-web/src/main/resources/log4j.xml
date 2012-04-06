@@ -9,7 +9,7 @@
    <!-- ============================== -->
    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
       <param name="Target" value="System.out"/>
-      <param name="Threshold" value="DEBUG"/>
+      <param name="Threshold" value="ERROR"/>
 
       <layout class="org.apache.log4j.PatternLayout">
          <!-- The default pattern: Date Priority [Category] Message\n -->
@@ -22,7 +22,7 @@
 	<!-- Appenders for grouper api -->
 	<!-- ======================== -->
 	<appender name="GROUPER_ERROR" class="org.apache.log4j.RollingFileAppender">
-			<param name="file" value="/home/esco/logs/ESCOGrouper/grouper_error.log"/>
+			<param name="file" value="/home/esup/tomcat5/logs/grouper_error.log"/>
 			<param name="MaxFileSize" value="1000KB" ></param>
 			<param name="MaxBackupIndex" value="1"/>
 			<layout class="org.apache.log4j.PatternLayout"> 
@@ -30,7 +30,7 @@
     		</layout> 
 	</appender>
 	<appender name="ESCO_GROUPER" class="org.apache.log4j.RollingFileAppender">
-			<param name="file" value="/home/esco/logs/ESCOGrouper/escogrouper.log"/>
+			<param name="file" value="/home/esup/tomcat5/logs/escogrouper.logs"/>
 			<param name="MaxFileSize" value="1000KB" ></param>
 			<param name="MaxBackupIndex" value="1"/>
 			<layout class="org.apache.log4j.PatternLayout"> 
@@ -43,7 +43,7 @@
 
    <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
 	<category name="org.apache"><priority value="WARN"/></category>
-	<category name="org.springframework"><priority value="DEBUG"/></category>
+	<category name="org.springframework"><priority value="ERROR"/></category>
 
     <category name="org.hibernate"><priority value="WARN"/></category>
     <category name="org.hibernate.engine.StatefulPersistenceContext.ProxyWarnLog"><priority value="ERROR"/></category>
@@ -64,7 +64,7 @@
    <category name="jacorb" additivity="true"><priority value="WARN"/></category>
    <category name="org.jgroups" additivity="true"><priority value="WARN"/></category>
    <category name="org.quartz" additivity="true"><priority value="INFO"/></category>
-   <category name="javax.enterprise.resource.webcontainer.jsf" additivity="true"><priority value="DEBUG"/></category>
+   <category name="javax.enterprise.resource.webcontainer.jsf" additivity="true"><priority value="ERROR"/></category>
    <category name="org.jboss.management" additivity="true"><priority value="INFO"/></category>
    <category name="com.mchange.v2" additivity="true"><priority value="OFF"/></category>
 
@@ -73,12 +73,12 @@
    <!-- ======================= -->
 
 	<logger name="edu.internet2.middleware" >
-    	<level value="DEBUG"/>
+    	<level value="ERROR"/>
     	<appender-ref ref="GROUPER_ERROR"/>
   	</logger>
 
 	<logger name="org.esco.grouperui" >
-		<level value="DEBUG"/>
+		<level value="ERROR"/>
 		<appender-ref ref="ESCO_GROUPER" />
 	</logger>
    <root>

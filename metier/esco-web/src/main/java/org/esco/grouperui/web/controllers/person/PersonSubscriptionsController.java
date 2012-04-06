@@ -17,6 +17,7 @@ import org.esco.grouperui.exceptions.business.ESCOGroupNotUniqueException;
 import org.esco.grouperui.exceptions.business.ESCOSubjectNotFoundException;
 import org.esco.grouperui.exceptions.business.ESCOSubjectNotUniqueException;
 import org.esco.grouperui.services.application.IGrouperService;
+import org.esco.grouperui.tools.DistinctSortableList;
 import org.esco.grouperui.web.ESCOConstantes;
 import org.esco.grouperui.web.beans.Status;
 import org.esco.grouperui.web.beans.XMLResultString;
@@ -150,7 +151,7 @@ public class PersonSubscriptionsController extends AbstractControllerAware {
      */
     public void manageRowsDisplaying() {
 
-        List < Sortable > sortablesToAdd = new ArrayList < Sortable >();
+    	DistinctSortableList sortablesToAdd = new DistinctSortableList();
 
         List < Sortable > sortables = this.storedData.getListOfSortable();
 
