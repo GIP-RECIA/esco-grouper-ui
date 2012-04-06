@@ -25,7 +25,7 @@
 		</property>
 	</bean>
 
-
+	<!--  Use of eduPersonPrimaryAffiliation to discriminate the persons. -->
 	<bean id="mapAttributeConverters" class="org.esco.grouperui.web.converters.MapAttributeConverters">
 		<property name="attributes">
 			<map>
