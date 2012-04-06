@@ -3,6 +3,8 @@ package org.esco.grouperui.domaine.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.esco.grouperui.tools.DistinctSortableList;
+
 /**
  * Privileges for stem.
  * 
@@ -24,7 +26,7 @@ public class StemPrivileges extends Privileges {
      */
     public StemPrivileges(final List < Privilege > thePrivileges) {
         this.privileges = thePrivileges;
-        this.subjects = new ArrayList < Subject >();
+        this.subjects = new DistinctSortableList<Subject>();
     }
 
     /**
