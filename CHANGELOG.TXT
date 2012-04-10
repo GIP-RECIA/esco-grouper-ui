@@ -3,10 +3,10 @@
 Modifications :
 1 - Ajout de la dépendance pour l'adaptateur VT-LDAP de l'API subject. Cette dépendance sera à supprimer lors du passage à la version suivante de grouper car déjà intégrée.
 
-2 - Modification de la version de dépendance de grouper-api de 1.6.2 vers 1.6.3.
+2 - Modification de la version de dépendance de grouper-api de 1.6.2 vers 1.6.3 dans le pom.xml.
 
 3 - Optimisation de la récupération des attributs de personnes pour les sources JNDI et VT-LDAP. Celle pour JNDI sera probablement à supprimer pour la prochaine version de Grouper.
-    Utilisée pour l'affichage des membres d'un groupe et des privilèges accordés sur un groupe.
+    Utilisé pour l'affichage des membres d'un groupe et des privilèges accordés sur un groupe.
 
 4 - Optimisation de la création de la table pour l'affichage des membres d'un groupe.
 
@@ -15,7 +15,7 @@ Modifications :
 6 - Modification de l'alimentation de la base derby pour pouvoir utiliser une disjonction (e.g. displayName|id).
     Utile dans le cas où l'on a plusieurs sources avec des attributs différents.
     
-7 - Modification de l'ordre des fichiers i18n pour pouvoir surcharger l'ensemble des libellés dans les fichiers Custom.
+7 - Modification de l'ordre des fichiers i18n dans i18n.xml pour pouvoir surcharger l'ensemble des libellés dans les fichiers Custom.
 
 8 - Correction d'un bug lors de l'ajout d'un membre. Si le membre ajouté etait déjà membre indirect alors il n'était pas ajouté.
 
@@ -23,5 +23,6 @@ Modifications :
 
 10 - Ajout du répertoire custom.univ-amu.fr pour exemples de fichiers de configuration de l'université d'Aix-Marseille. 
  
+11 - Correction de la copie des membres d'u groupe : seuls les membres directs sont copiés.
 
  
