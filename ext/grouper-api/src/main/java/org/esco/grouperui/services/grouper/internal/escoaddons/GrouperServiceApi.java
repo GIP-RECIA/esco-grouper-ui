@@ -1134,7 +1134,7 @@ InitializingBean {
 					true);
 			edu.internet2.middleware.grouper.Group targetGroup = GroupFinder.findByName(grouperSession,
 					theTargetName, true);
-			for (Member member : group.getMembers()) {
+			for (Member member : group.getImmediateMembers()) {
 				targetGroup.addMember(member.getSubject());
 			}
 
