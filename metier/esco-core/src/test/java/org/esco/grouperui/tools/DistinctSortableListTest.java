@@ -900,10 +900,5 @@ public class DistinctSortableListTest {
 		assertEquals(s4, subList.getById(s4.getId()));
 		assertEquals(s5, subList.getById(s5.getId()));
 		assertEquals(s6, subList.getById(s6.getId()));
-		
-		
-		
-		
 	}
-
 }
