@@ -627,6 +627,10 @@
 				  <groupId>ehcache</groupId>
 				  <artifactId>ehcache</artifactId>
 				</exclusion>
+				<exclusion>
+					<artifactId>spring-ldap</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>			
 			</exclusions>
 		</dependency>
 		<dependency>

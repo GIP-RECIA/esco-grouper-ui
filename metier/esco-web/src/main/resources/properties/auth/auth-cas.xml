@@ -125,11 +125,16 @@
         <property name="convertToUpperCase" value="true"/>
     </bean>
 
-    <!-- LDAP initial dir context factory -->
+    <!-- LDAP initial dir context factory 
     <bean id="initialDirContextFactory" class="org.springframework.security.ldap.DefaultInitialDirContextFactory">
         <constructor-arg value="${ldap.url}" />
         <property name="managerDn" value="${ldap.dn}" />
         <property name="managerPassword" value="${ldap.password}" />
     </bean>
-
+ 	-->
+ 	<bean id="initialDirContextFactory" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+ 		<constructor-arg value="${ldap.url}" />
+ 		<property name="userDn" value="${ldap.dn}" ></property>
+ 		<property name="password" value="${ldap.password}" />
+ 	</bean>
 </beans>
