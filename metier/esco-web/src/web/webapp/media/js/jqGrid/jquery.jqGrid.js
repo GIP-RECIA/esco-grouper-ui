@@ -1,8 +1,16 @@
 function jqGridInclude()
 {
+	/*
+	 * jqGrid extension for constructing Grid Data from external file
+	 * Tony Tomov tony@trirand.com
+	 * http://trirand.com/blog/
+	 * Dual licensed under the MIT and GPL licenses:
+	 * http://www.opensource.org/licenses/mit-license.php
+	 * http://www.gnu.org/licenses/gpl.html
+	**/
     var pathtojsfiles = "js/"; // need to be ajusted
     // set include to false if you do not want some modules to be included
-    var combineIntoOne = false; 
+    var combineIntoOne = false;
     var combinedInclude = new Array();
     var combinedIncludeURL = "combine.php?type=javascript&files=";
     var minver = true;
@@ -15,9 +23,9 @@ function jqGridInclude()
         { include: true, incfile:'grid.celledit.js',minfile: 'min/grid.celledit-min.js' }, // jqGrid cell editing
         { include: true, incfile:'grid.subgrid.js',minfile: 'min/grid.subgrid-min.js'}, //jqGrid subgrid
         { include: true, incfile:'grid.treegrid.js',minfile: 'min/grid.treegrid-min.js'}, //jqGrid treegrid
-        { include: true, incfile:'grid.custom.js',minfile: 'min/grid.custom-min.js'}, //jqGrid custom 
+        { include: true, incfile:'grid.custom.js',minfile: 'min/grid.custom-min.js'}, //jqGrid custom
         { include: true, incfile:'grid.postext.js',minfile: 'min/grid.postext-min.js'}, //jqGrid postext
-        { include: true, incfile:'grid.tbltogrid.js',minfile: 'min/grid.tbltogrid-min.js'}, //jqGrid table to grid 
+        { include: true, incfile:'grid.tbltogrid.js',minfile: 'min/grid.tbltogrid-min.js'}, //jqGrid table to grid
         { include: true, incfile:'grid.setcolumns.js',minfile: 'min/grid.setcolumns-min.js'}, //jqGrid setcolumns
         { include: true, incfile:'grid.import.js',minfile: 'min/grid.import-min.js'}, //jqGrid import
         { include: true, incfile:'jquery.fmatter.js',minfile: 'min/jquery.fmatter-min.js'}, //jqGrid formater
@@ -28,7 +36,7 @@ function jqGridInclude()
     for(var i=0;i<modules.length; i++)
     {
         if(modules[i].include === true) {
-        	
+
         	if (minver !== true) filename = pathtojsfiles+modules[i].incfile;
         	else filename = pathtojsfiles+modules[i].minfile;
         	if (combineIntoOne !== true) {
@@ -53,7 +61,7 @@ function jqGridInclude()
     //returns 1: 'Kevin van Zonneveld'
 		return ( ( pieces instanceof Array ) ? pieces.join ( glue ) : pieces );
     };
-    
+
     function IncludeJavaScript(jsFile)
     {
         var oHead = document.getElementsByTagName('head')[0];
@@ -61,7 +69,7 @@ function jqGridInclude()
         oScript.type = 'text/javascript';
         oScript.charset = 'utf-8';
         oScript.src = jsFile;
-        oHead.appendChild(oScript);        
+        oHead.appendChild(oScript);
     };
 };
 jqGridInclude();
