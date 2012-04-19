@@ -1,3 +1,20 @@
+/**
+ * Copyright (C) 2009 GIP RECIA http://www.recia.fr
+ * @Author (C) 2009 GIP RECIA <contact@recia.fr>
+ * @Contributor (C) 2009 SOPRA http://www.sopragroup.com/
+ * @Contributor (C) 2011 Pierre Legay <pierre.legay@recia.fr>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.esco.grouperui.services.grouper.internal.escoaddons;
 
 
@@ -27,65 +44,67 @@ import edu.internet2.middleware.grouper.Membership;
 import edu.internet2.middleware.grouper.Stem;
 import edu.internet2.middleware.grouper.misc.Owner;
 import edu.internet2.middleware.subject.Subject;
-
+/**
+ * @author sopragroup
+ */
 public class GrouperHelper {
 
-	
+
 	/**
 	 * Un logger.
 	 */
 	 private static final IESCOLogger logger= ESCOLoggerFactory.getLogger(GrouperHelper.class);
 
-	 
+
 	/**
 	 * le cache.
 	 */
 	private Cache cache;
-	
+
 	/**
 	 * Le member de travail
 	 */
 	private Member member;
-	
+
 	/**
 	 * le subject de travail
 	 */
 	private Subject subject;
-	
+
 	private GrouperSession session;
 
 	private String prefixClee;
 
 
-	
+
 //	private Map<ScopeEnum, Privs2GroupsSetMap> map4memberGoups = new EnumMap<ScopeEnum, Privs2GroupsSetMap>(ScopeEnum.class);
-	
+
 
 	public GrouperHelper(Cache cache){
-		this.cache = cache; 
+		this.cache = cache;
 	}
 
 	public GrouperHelper(Cache cache, GrouperSession session) {
 		this(cache);
-		setSession(session);	
+		setSession(session);
 	}
 
 	private Set<String> newSet() {
 		return Collections.synchronizedSet(new HashSet());
 	}
 
-	
+
 	/**
-	 * la clef qui donne les noms de groupe ou stem où this.member à des droits.   
+	 * la clef qui donne les noms de groupe ou stem où this.member à des droits.
 	 * @return
 	 */
 	private String getPrivCleeOLD(){
 		return prefixClee + "all:";
 	}
-	
-	
 
-/* TODO : a supprimé  apres avoir geré les consequences 
+
+
+/* TODO : a supprimé  apres avoir geré les consequences
 	private <T> Clee<Map<Privs, Set<T>>>  getCleeOLD(final String suffix ){
 		return new Clee <Map<Privs, Set<T>>>(prefixClee + suffix){
 			@Override
@@ -94,9 +113,9 @@ public class GrouperHelper {
 			}
 		};
 	}
-*/	
+*/
 	/**
-	 * 
+	 *
 	 * @param <T>
 	 * @param <M>
 	 * @param suffix
@@ -105,7 +124,7 @@ public class GrouperHelper {
 	 * @return
 	 */
 	private <T, M extends Privs2SetMap<T>> Clee<M> getClee(
-														final ScopeEnum scope, 
+														final ScopeEnum scope,
 														final Class<M> theClass){
 		StringBuilder sb = new StringBuilder(prefixClee);
 		sb.append(theClass.getName()).append(":").append(scope.name());
@@ -125,49 +144,49 @@ public class GrouperHelper {
 			}
 		};
 	}
-	
+
 	/**
 	 * @param scope
-	 * @return la Clee 
+	 * @return la Clee
 	 */
 	private Clee<Privs2GroupsSetMap> getGroupClee(final ScopeEnum scope){
 		return getClee(scope , Privs2GroupsSetMap.class);
 	}
-	
-	
+
+
 	private Clee<Privs2StemsSetMap> getStemClee(final ScopeEnum scope){
 		return getClee(scope, Privs2StemsSetMap.class);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param scope
 	 * @return la clée correspondante au scope
 	 */
 	private Clee<Privs2NamesSetMap> getNameClee(final ScopeEnum scope){
 		return getClee(scope , Privs2NamesSetMap.class);
 	}
-	
+
 	/**
-	 * Recherche les noms de stems (ou group) dans lesquels this.member  à un group ou 
+	 * Recherche les noms de stems (ou group) dans lesquels this.member  à un group ou
 	 * un stem sur lequel il a le privilège donné.
 	 * Le résultat est mis en cache.
-	 * 
+	 *
 	 * @param priv le privilège à calculer
 	 * @parm returnAll demande de retourner le resultat pour tous les privilèges déjà calculés .
 	 * @return Set<String> l'ensemble des noms de stems trouvés.
 	 */
 	private Set<String> findNamesWhereMemberHasPrivCached(Privs priv, boolean returnAll) {
 			Clee<Privs2NamesSetMap> clee = getNameClee(ScopeEnum.ALL) ;
-			
+
 			Set<String> res ;
 			Set<String> path;
-			
+
 			Privs2NamesSetMap  map = getCacheElem(clee);
-			
+
 			synchronized (map) {
 					path = map.get(Privs.ANY);
-					
+
 					if (path == null ) {
 							// si any est vide
 						path = newSet();
@@ -181,14 +200,14 @@ public class GrouperHelper {
 											addAllPath(name, path);
 										}
 									}
-								}	
+								}
 							}
 						}
 						map.put(Privs.ANY, path);
-					} 
-					
+					}
+
 					res = map.get(priv);
-					
+
 					if (res == null) {
 							// cas ou le privileges demander est vide
 						res = findNamesWhereMemberHasPriv(priv, path);
@@ -198,10 +217,10 @@ public class GrouperHelper {
 			if (returnAll) return path;
 			return res;
 	}
-		
-		
+
+
 	public void clearCache() {
-		
+
 		synchronized (cache) {
 			for (ScopeEnum scope : ScopeEnum.values()) {
 				Clee clee= getStemClee(scope);
@@ -213,15 +232,15 @@ public class GrouperHelper {
 			}
 		}
 	}
-	
+
 /*	private <T> void clearCache(Clee<T> clee){
 		synchronized (cache) {
 			cache.remove(clee);
 		}
 	}
-*/	
-	
-	
+*/
+
+
 	/**
 	 * @param priv
 	 * @param map
@@ -233,37 +252,37 @@ public class GrouperHelper {
 			if (priv == null) {
 				cache.remove(clee);
 				return;
-			} 
+			}
 			e =  cache.get(clee);
 			if (e == null) return;
 			map = (T) e.getObjectValue();
 		}
-		
+
 		if (map == null ) return ;
-		
+
 		synchronized(map) {
 			map.remove(priv);
 			map.remove(Privs.ANY);
 		}
-		
+
 	}
-	
-	
+
+
 	public void clearCache(Privs priv) {
 			clearCacheGroup(priv);
 			clearCacheStem(priv);
-			clearCacheName(priv);			
+			clearCacheName(priv);
 	}
-	
+
 	public void clearCacheGroup(Privs priv){
 		if (priv == null || priv.isGroup()) {
 			for (ScopeEnum scope : ScopeEnum.values()) {
-			
+
 				clearCachePriv(priv, getGroupClee(scope));
 			}
 		}
 	}
-	
+
 	public void clearCacheStem(Privs priv){
 		if (priv == null || priv.isStem()) {
 			for (ScopeEnum scope : ScopeEnum.values()) {
@@ -278,7 +297,7 @@ public class GrouperHelper {
 			}
 		}
 	}
-	
+
 	private <T> T getCacheElem(Clee<T> clee) {
 		Element elem;
 		T val;
@@ -296,13 +315,13 @@ public class GrouperHelper {
 			return val;
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Ajoute les noms, d'un stem ou group, à un ensemble de noms (setOfName).
-	 * Ajoute tous les paths de ce nom, à un ensemble de noms de path (setOfPath)  
-	 * 
+	 * Ajoute tous les paths de ce nom, à un ensemble de noms de path (setOfPath)
+	 *
 	 * @param name le nom de groupe  ou stem à ajouter dans les ensembles
 	 * @param setOfName l'ensemble de noms de groupe ou stem à modifier (ne doit pas être null)
 	 * @param setOfPath l'ensemble des paths à modifier (ne doit pas être null)
@@ -310,11 +329,11 @@ public class GrouperHelper {
 	private Set<String> addName(String name, Set<String> setOfName, Set<String> setOfPath) {
 		setOfName.add(name);
 		addAllPath(name, setOfPath);
-		return setOfName;	
+		return setOfName;
 	}
-	
+
 	/**
-	 * Ajoute tous les paths d'un nom (name), à un ensemble de paths (setOfPath)  
+	 * Ajoute tous les paths d'un nom (name), à un ensemble de paths (setOfPath)
 	 */
 	private void addAllPath(String name , Set<String> setOfPath) {
 		Boolean addOk = setOfPath.add(name);
@@ -326,17 +345,17 @@ public class GrouperHelper {
 			} else {
 				path = path.substring(0, aux);
 				addOk = setOfPath.add(path);
-			}			
+			}
 		}
 	}
-	
+
 	/**
 	 * Ensemble des noms d'un ensemble de groupes.
 	 *
 	private Set<String> namesSetOfGroups(Set<Group> setOfgroups, Set<String> setOfPath) {
 		Set<String> res = newSet();
 		for (Group group : setOfgroups) {
-			String str = group.getName(); 
+			String str = group.getName();
 			addName(str, res, setOfPath);
 		}
 		return res;
@@ -354,14 +373,14 @@ public class GrouperHelper {
 			return res;
 	}
 	*/
-	
+
 	/**
 	 * Ensemble des noms d'un ensemble de stems ou groups.
 	 * Attention setOfPath est modifié.
-	 * 
+	 *
 	 * @param setOfOwner ensemble de stems ou groups.
 	 * @param setOfPath  ensemble, resultat, de chemin déduit des stems ou groups.
-	 * @param <T> 
+	 * @param <T>
 	 * @return l'ensemble des noms déduit.
 	*/
 	private  <T extends Owner> Set<String> namesSetOfOwner(final Set<T> setOfOwner, Set<String> setOfPath ) {
@@ -372,12 +391,12 @@ public class GrouperHelper {
 		}
 		return res;
 	}
-	
-	
+
+
 	/**
 	 * Recherche des noms de stem (ou group) dans  lesquels this.member a un group ou stem ayant le privilège donné .
 	 * Les ensembles de groups ou stems sont cachés.
-	 * 
+	 *
 	 * @param privilege Le privilège de filtrage.
 	 * @return Set<String> Ensemble de noms.
 	 */
@@ -386,7 +405,7 @@ public class GrouperHelper {
 		if (privilege.isStem()) return namesSetOfOwner(findStemWhereMemberHasPrivCached(privilege), setOfPath);
 		return setOfPath;
 	}
-	
+
 	/**
 	 * Recherche les groups pour lesquels this.member a un privilège donné.
 	 * @param privilege : le privilège de recherche
@@ -404,12 +423,12 @@ public class GrouperHelper {
 			default: return null;
 		}
 	}
-	
+
 	/**
 	 * Recherche les groupes sur lesquels this.member à un privilège donné pour un scope donné.
-	 *  
+	 *
 	 * @param priv privilège de recherche
-	 * @param scope scope du privilège de recherche 
+	 * @param scope scope du privilège de recherche
 	 * @return ensemble de groupe trouvés
 	 */
 	public Set<Group> findGroupsWhereMemberHasPriv (final Privs priv, final ScopeEnum scope){
@@ -421,9 +440,9 @@ public class GrouperHelper {
 			default: return findGroupsWhereMemberHasPriv(priv);
 		}
 	}
-	
-	
- 	
+
+
+
 	/**
 	 * Recherche les groupes sur lesquels this.member à un privilège donné pour un scope donné.
 	 * Version cachée de {@link #findGroupsWhereMemberHasPriv(Privs, ScopeEnum)}i
@@ -434,7 +453,7 @@ public class GrouperHelper {
 	public Set<Group> findGroupsWhereMemberHasPrivCached(final Privs privilege, final ScopeEnum scope) {
 		Set<Group> leSet ;
 		Privs2GroupsSetMap laMap = getCacheElem(getGroupClee(scope));
-		
+
 		synchronized (laMap) {
 			leSet = laMap.get(privilege);
 			if (leSet != null) return leSet;
@@ -442,16 +461,16 @@ public class GrouperHelper {
 			laMap.put(privilege, leSet);
 			return leSet;
 		}
-	
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public Iterable<Stem> findStemWhereMemberHasPriv(final Privs privilege, final ScopeEnum scope){
 		if (! privilege.isStem()) return null;
-		
+
 		Field f = FieldFinder.find(privilege.getFieldName(), true);
 
 		Set<Membership> memberships;
@@ -467,21 +486,21 @@ public class GrouperHelper {
 		default:
 				return findStemWhereMemberHasPriv(privilege);
 		}
-		
+
 		membershipsRes = memberships;
-		
+
 		return new Iterable<Stem>() {
-			
-			
+
+
 			@Override
 			public Iterator<Stem> iterator() {
 				return new Iterator<Stem>() {
 
 					Iterator<Membership> it = membershipsRes.iterator();
-					
+
 					@Override
 					public boolean hasNext() {
-						
+
 						return it.hasNext();
 					}
 
@@ -493,14 +512,14 @@ public class GrouperHelper {
 					@Override
 					public void remove() {
 						throw new NotImplementedException();
-						
+
 					}
-					
+
 				};
 			}
 		};
 	}
- 	
+
 	/**
 	 * Recherche les stems sur lesquels this.member a un privilège donné.
 	 * @param privilege : le privilège de recherche
@@ -514,7 +533,7 @@ public class GrouperHelper {
 		default: return null;
 		}
 	}
-	
+
 	/**
 	 * Recherche les stems pour lesquels this.member a un privilège donné.
 	 * Version avec mise en cache des stems trouvé de {@link #findStemWhereMemberHasPriv(Privs)}.
@@ -533,37 +552,37 @@ public class GrouperHelper {
 			return leSet;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Test si l'utilisateur a un privilèges dans le stem donné.
 	 * Le privilège peut être sur un élement dans l'arborescence donnée
 	 * par le stem.
 	 * @param String stemName
-	 * @return boolean 
+	 * @return boolean
 	 */
 	public boolean userHasPrivs(String stemName){
-		
+
 		for (Privs priv : Privs.values()) {
 			if (priv.isRight()) {
 				// on demande le calcul de chaque privs mais on s'arrete des que l'on a trouver
 				Set<String> names = findNamesWhereMemberHasPrivCached(priv, true);
 				if (names.contains(stemName)) {
-					return true;	
+					return true;
 				}
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Donne la liste des noms de privilège que l'utilisateur à sur un groupe ou stem donné.
 	 * @param groupOrStemName Nom du groupe ou du stem a tester
 	 * @param isGroup true si on test un groupe false pour un stem
-	 * @return La liste de privilége 
-	 * 
+	 * @return La liste de privilége
+	 *
 	 *
 	 public List<Privs> userPrivsList (String groupOrStemName, boolean isGroup) {
 		 List<Privs> privsList = new ArrayList<Privs>(Privs.values().length);
@@ -571,7 +590,7 @@ public class GrouperHelper {
 			 if ( (priv.isRight()) && (isGroup == priv.isGroup())) {
 				 Set<String> names = findNamesWhereMemberHasPrivCached(priv, false);
 				 if (names.contains(groupOrStemName)){
-					privsList.add(priv); 
+					privsList.add(priv);
 				}
 			}
 		}
@@ -590,7 +609,7 @@ public class GrouperHelper {
 		 }
 		 return privsList;
 	 }
-	 
+
 	 public List<Privs> userPrivsList(final Group group) {
 		 List<Privs> privsList = new ArrayList<Privs>();
 		 for (Privs priv : Privs.values()) {
@@ -603,9 +622,9 @@ public class GrouperHelper {
 		 }
 		 return privsList;
 	 }
-	
+
 	/**
-	 * Pour une session, détermine le membre correspondant à l'utilisateur de connection  
+	 * Pour une session, détermine le membre correspondant à l'utilisateur de connection
 	 * @param s GrouperSession pour l'utilisateur connexion
 	 */
 	public static Member getMember(GrouperSession s) {
@@ -616,30 +635,30 @@ public class GrouperHelper {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
-	 *	Fixe la session grouper. 
+	 *	Fixe la session grouper.
 	 */
 	public void setSession(GrouperSession session){
 		this.session = session;
 		setSubject(session.getSubject());
 	}
-	
-	
+
+
 	public Member getMember() {
 		if (member == null) {
 			member = MemberFinder.findBySubject(session, subject, false);
 		}
 		return member;
 	}
-	
+
 	private boolean testSubjectMember(){
 		return member == null || member.getSubjectId().equals(subject.getId() );
 	}
-	
+
 	/**
 	 * fixe le member: lève un exception si le membre n'est pas le subject de this.
-	 * Est utile pour éviter le calcul du member si on le connait déjà, à utilisé qu'après avoir fixé le subject. 
+	 * Est utile pour éviter le calcul du member si on le connait déjà, à utilisé qu'après avoir fixé le subject.
 	 * @param member
 	 * @throws GrouperHelperException
 	 */
@@ -648,11 +667,11 @@ public class GrouperHelper {
 		if (!testSubjectMember()) {
 			this.member = null;
 			throw new GrouperHelperException(
-					String.format("subject (%s) et member incompatible: %s != %s ", 
+					String.format("subject (%s) et member incompatible: %s != %s ",
 							subject.getName() , subject.getId(), member.getSubjectId()));
 		}
 	}
-	
+
 	public Subject getSubject() {
 		return subject;
 	}
@@ -662,7 +681,7 @@ public class GrouperHelper {
 	 * permet de travailler sur un subject  autre que celui définit dans la session.
 	 * si on connait le member correspondant au subject il faut pour des raisons de perfomance le donner
 	 * avec setMember();
-	 *   
+	 *
 	 * @param subject
 	 */
 	public void setSubject(Subject subject) {

@@ -33,7 +33,7 @@ import org.apache.portals.bridges.portletfilter.PortletFilterChain;
 import org.apache.portals.bridges.portletfilter.PortletFilterConfig;
 
 /**
- * 
+ *
  * @author <a href="mailto:shinsuke@yahoo.co.jp">Shinsuke Sugaya</a>
  */
 public class FacesResponseFilter implements PortletFilter {
@@ -43,7 +43,7 @@ public class FacesResponseFilter implements PortletFilter {
 
     /**
      * Called by init method to initialize this portlet filter.
-     * 
+     *
      * @param filterConfig
      * @throws PortletException
      */
@@ -56,7 +56,7 @@ public class FacesResponseFilter implements PortletFilter {
     }
 
     /**
-     * 
+     *
      * @param request
      * @param response
      * @param chain
@@ -84,7 +84,7 @@ public class FacesResponseFilter implements PortletFilter {
     }
 
     /**
-     * 
+     *
      * @param request
      * @param response
      * @param chain

@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -31,7 +31,7 @@ import jp.sf.pal.facesresponse.util.FacesResponseUtil;
 
 /**
  * @author shinsuke
- * 
+ *
  */
 public class BufferedResponseStreamFactory {
     public static void init(RenderRequest request, RenderResponse response) {
@@ -94,7 +94,7 @@ public class BufferedResponseStreamFactory {
 //                    FacesResponseConstants.BUFFERED_RESPONSE_STREAM);
 //        } else {
 //            // for JSF implementation whice does not pass FacesContext from
-//            // processAction to render        	
+//            // processAction to render
 //            s = (BufferedResponseStream) context.getExternalContext()
 //            .getRequestMap().get(
 //                    FacesResponseConstants.BUFFERED_RESPONSE_STREAM);
