@@ -1,3 +1,16 @@
+/*
+ * jsTree 0.9.9a
+ * http://jstree.com/
+ *
+ * Copyright (c) 2009 Ivan Bozhanov (vakata.com)
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ * Date: 2009-10-06
+ *
+ */
 (function ($) {
 	$.extend($.tree.plugins, {
 		"themeroller" : {

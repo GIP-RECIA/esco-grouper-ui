@@ -1,3 +1,16 @@
+/*
+ * jsTree 0.9.9a
+ * http://jstree.com/
+ *
+ * Copyright (c) 2009 Ivan Bozhanov (vakata.com)
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ * Date: 2009-10-06
+ *
+ */
 (function ($) {
 	if(typeof $.cookie == "undefined") throw "jsTree cookie: jQuery cookie plugin not included.";
 
@@ -5,11 +18,11 @@
 		"cookie" : {
 			defaults : {
 				prefix		: "",	// a prefix that will be used for all cookies for this tree
-				options		: { 
-					expires: false, 
-					path: false, 
-					domain: false, 
-					secure: false 
+				options		: {
+					expires: false,
+					path: false,
+					domain: false,
+					secure: false
 				},
 				types : {
 					selected	: true,		// should we set the selected cookie
