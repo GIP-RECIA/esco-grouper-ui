@@ -301,12 +301,12 @@
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>grouper</artifactId>
-											<version>1.6.2</version>
+											<version>1.6.3</version>
 										</artifactItem>
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>subject</artifactId>
-											<version>1.6.2</version>
+											<version>1.6.3</version>
 										</artifactItem>
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
@@ -316,7 +316,7 @@
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>grouper-client-ws</artifactId>
-											<version>1.6.2</version>
+											<version>1.6.3</version>
 										</artifactItem>
 
 
@@ -599,12 +599,12 @@
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>grouper</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>subject</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.3</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
@@ -614,7 +614,7 @@
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>grouper-client-ws</artifactId>
-			<version>1.6.2</version>
+			<version>1.6.3</version>
 		</dependency>
 
 		<dependency>
