@@ -1,2 +1,0 @@
-var TemplatePrototype=$.extend(true,{},EscoGrid,{doOnFire:function(){},getPostDataToFindDataRequest:function(){},doIsMultipleViewGrid:function(){},doSelectRow:function(D,C){},doSelectAll:function(D,C){},doOnPaging:function(){},doOnExistingAddedItems:function(){},doOnLoadComplete:function(B){},addActionOnClickLinkItemPerson:function(B){},addActionOnClickLinkItemGroup:function(B){},doAddNavButtons:function(){}});
-var Template=new DUI.Class(TemplatePrototype,$.screen);
