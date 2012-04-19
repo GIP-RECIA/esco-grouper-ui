@@ -1,4 +1,12 @@
-
+/*
+ * Inline Form Validation Engine 1.4, jQuery plugin
+ *
+ * Copyright(c) 2009, Cedric Dugas
+ * http://www.position-relative.net
+ *
+ * Form validation engine which allow custom regex rules to be added.
+ * Licenced under the MIT Licence
+ */
 
 (function($) {
 	$.fn.validationEngineLanguage = function() {};
