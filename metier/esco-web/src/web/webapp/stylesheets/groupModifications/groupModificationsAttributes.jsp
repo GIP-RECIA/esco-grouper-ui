@@ -1,4 +1,4 @@
-<%--
+%--
  Copyright (C) 2009 GIP RECIA http://www.recia.fr
  @Author (C) 2009 GIP RECIA <contact@recia.fr>
  @Contributor (C) 2009 SOPRA http://www.sopragroup.com/
@@ -113,10 +113,10 @@
 				</g:group>
 			</t:div>
 			<br>
-			<t:div id="groupPrivileges">
-				<h2>
+			<t:div id="groupPrivileges" rendered="#{!empty groupModificationsAttributesController.groupRights}">
+				<t:htmlTag value="h2">
 					<h:outputText value="#{msgs['DEFAULT.PRIVILEGES.OF.GROUP']}" />
-				</h2>
+				</t:htmlTag>
 				<ul style="list-style-type:none;">
 					<t:dataList var="privilege"
 							   value="#{groupModificationsAttributesController.groupRights}"
@@ -133,10 +133,10 @@
 				</ul>
 			</t:div>
 
-			<div id="groupCustomTypes">
-				<h2>
+			<t:div id="groupCustomTypes" rendered="#{!empty groupModificationsAttributesController.groupCustomTypes}">
+				<t:htmlTag value="h2">
 					<h:outputText value="#{msgs['CUSTOM.TYPES.OF.GROUP']}" />
-				</h2>
+				</t:htmlTag>
 				<ul style="list-style-type:none;">
 					<t:dataList var="customType"
 							   value="#{groupModificationsAttributesController.groupCustomTypes}"
@@ -154,12 +154,12 @@
 						<f:verbatim></li></f:verbatim>
 					</t:dataList>
 				</ul>
-			</div>
+			</t:div>
 
-			<div id="groupContext">
-				<h2>
+			<t:div id="groupContext" rendered="#{!empty groupModificationsAttributesController.groupContexts}">
+				<t:htmlTag value="h2">
 					<h:outputText value="#{msgs['CONTEXT.OF.GROUP']}" />
-				</h2>
+				</t:htmlTag>
 				<ul style="list-style-type:none;">
 					<t:dataList var="context"
 							   value="#{groupModificationsAttributesController.groupContexts}"
@@ -177,7 +177,7 @@
 					</t:dataList>
 				</ul>
 
-			</div>
+			</t:div>
 
 		</div>
 	</div>
