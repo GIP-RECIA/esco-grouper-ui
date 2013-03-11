@@ -392,7 +392,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
         <param>
             <param-name>base</param-name>
             <param-value>
-                ou=people,dc=univ-amu,dc=fr
+                ou=people,dc=univ,dc=fr
             </param-value>
         </param>
          
@@ -415,7 +415,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
         <param>
             <param-name>base</param-name>
             <param-value>
-                ou=people,dc=univ-amu,dc=fr
+                ou=people,dc=univ,dc=fr
             </param-value>
         </param>
     </search>
@@ -437,7 +437,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
          <param>
             <param-name>base</param-name>
             <param-value>
-              ou=people,dc=univ-amu,dc=fr
+              ou=people,dc=univ,dc=fr
             </param-value>
         </param>
     </search>
@@ -503,7 +503,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
         <param>
             <param-name>base</param-name>
             <param-value>
-                ou=system,dc=univ-amu,dc=fr
+                ou=system,dc=univ,dc=fr
             </param-value>
         </param>
          
@@ -526,7 +526,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
         <param>
             <param-name>base</param-name>
             <param-value>
-                ou=system,dc=univ-amu,dc=fr
+                ou=system,dc=univ,dc=fr
             </param-value>
         </param>
     </search>
@@ -548,7 +548,7 @@ $Id: sources.example.xml,v 1.8 2009-08-11 20:18:09 mchyzer Exp $
          <param>
             <param-name>base</param-name>
             <param-value>
-              ou=system,dc=univ-amu,dc=fr
+              ou=system,dc=univ,dc=fr
             </param-value>
         </param>
     </search>

@@ -71,7 +71,7 @@ groups.wheel.use                      = true
 
 # Set to the name of the group you want to treat as the wheel group.
 # The members of this group will be treated as root-like users.
-groups.wheel.group                    = amu:admin:grouper:wheel
+groups.wheel.group                    = esup:admin:grouper:wheel
 
 # To change the internal names for GrouperAll and GrouperSystem
 # uncomment and change. Review UI nav.properties to ensure consistency
@@ -412,7 +412,7 @@ junit.test.stress = false
 #####################################
 
 # root stem in grouper where built in attributes are put
-grouper.attribute.rootStem = amu:admin:grouper:attributs
+grouper.attribute.rootStem = esup:admin:grouper:attributs
 
 # if the attribute loader attributes should be autoconfigured (created, etc)
 grouper.attribute.loader.autoconfigure = false
