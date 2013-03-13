@@ -22,7 +22,7 @@
 	<!-- Appenders for grouper api -->
 	<!-- ======================== -->
 	<appender name="GROUPER_ERROR" class="org.apache.log4j.RollingFileAppender">
-			<param name="file" value="/home/grouper/logs/ESCOGrouper/grouper_error.log"/>
+			<param name="file" value="/home/esup/tomcat5/logs/grouper_error.log"/>
 			<param name="MaxFileSize" value="1000KB" ></param>
 			<param name="MaxBackupIndex" value="1"/>
 			<layout class="org.apache.log4j.PatternLayout"> 
@@ -30,7 +30,7 @@
     		</layout> 
 	</appender>
 	<appender name="ESCO_GROUPER" class="org.apache.log4j.RollingFileAppender">
-			<param name="file" value="/home/grouper/logs/ESCOGrouper/escogrouper.log"/>
+			<param name="file" value="/home/esup/tomcat5/logs/escogrouper.logs"/>
 			<param name="MaxFileSize" value="1000KB" ></param>
 			<param name="MaxBackupIndex" value="1"/>
 			<layout class="org.apache.log4j.PatternLayout"> 

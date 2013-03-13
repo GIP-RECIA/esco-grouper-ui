@@ -418,12 +418,8 @@ public class GroupMembersController extends AbstractControllerAware {
             String groupName = this.getGroupController().getGroup().getName();
             member = this.getGroupController().getGrouperService().findMembers(person, groupName, attributes,
                     sources, this.memberTypeEnum);
-            subjects = member.getSubjects();
-
-            Iterator < Subject > itSubject = subjects.iterator();
-            while (itSubject.hasNext()) {
-                this.data.add(itSubject.next());
-            }
+            this.data.addAll(member.getSubjects());
+            
         }
         this.addedItems();
         if (this.storedData != null) {

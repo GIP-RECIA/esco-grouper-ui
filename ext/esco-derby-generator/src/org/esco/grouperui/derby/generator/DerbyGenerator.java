@@ -371,7 +371,7 @@ public class DerbyGenerator {
 
                             String attributTrim = attribut.trim();
 
-                            if (attributTrim.indexOf(ESCOConstantes.COLS_ATTRIBUT_SEPARATOR) != -1) {
+                            if (attributTrim.indexOf(ESCOConstantes.COLS_ATTRIBUT_SEPARATOR) != -1 || attributTrim.indexOf(ESCOConstantes.ATTRIBUT_SORT_LIST_SEPARATOR) != -1) {
                                 // Attribute Type column with 2 attributes
                                 this.derbySqlGenerator
                                         .addSqlLine(DerbyNoGlobalTypeUtils.gestionOfAttributColumnType(key,

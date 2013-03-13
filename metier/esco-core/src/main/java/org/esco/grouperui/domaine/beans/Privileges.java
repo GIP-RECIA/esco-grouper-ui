@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.esco.grouperui.tools.DistinctSortableList;
+
 /**
  * @author dMoulron
  */
@@ -32,7 +34,7 @@ public abstract class Privileges {
     protected List < Privilege > privileges;
 
     /** The subjects. */
-    protected List < Subject >   subjects;
+    protected DistinctSortableList< Subject >   subjects;
 
     /**
      * Check if the subject list already contain a subject with the subjectID.
@@ -43,14 +45,15 @@ public abstract class Privileges {
      *         subjectID, false else.
      */
     protected Subject containSubject(final String subjectID) {
-        Subject result = null;
+    	return  subjects.getById(subjectID);
+        /*Subject result = null;
         for (Subject subject : this.subjects) {
             if (subject.getId().equals(subjectID)) {
                 result = subject;
                 break;
             }
         }
-        return result;
+        return result;*/
     }
 
     /**

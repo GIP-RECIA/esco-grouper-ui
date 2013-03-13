@@ -19,11 +19,14 @@ package org.esco.grouperui.derby.utils;
 
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import org.esco.grouperui.derby.constantes.ESCOConstantes;
 import org.esco.grouperui.derby.generator.DerbyLangGenerator;
 import org.esco.grouperui.derby.log.ESCOLoggerFactory;
 import org.esco.grouperui.derby.log.IESCOLogger;
+
+
 
 /**
  * Robot for the generation of SQL property files.
@@ -70,15 +73,27 @@ public class DerbyNoGlobalTypeUtils {
             paramKey.append(attribut);
             paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_FIN);
         } else {
-            String[] attributes = attribut.split(ESCOConstantes.COLS_ATTRIBUT_SEPARATOR);
-            for (int i = 0; i < attributes.length; i++) {
-                paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_DEBUT);
-                paramKey.append(attributes[i].trim());
-                paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_FIN);
-                if (i + 1 < attributes.length) {
-                    paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_MILLIEU);
-                }
-            }
+        	
+        	final StringTokenizer disjunction = new StringTokenizer(attribut, ESCOConstantes.ATTRIBUT_SORT_LIST_SEPARATOR); 
+        	boolean first = true;
+        	while (disjunction.hasMoreTokens()) {
+        		String term = disjunction.nextToken().trim();
+        		if (!first) {
+        			paramKey.append(ESCOConstantes.ATTRIBUT_SORT_LIST_SEPARATOR);
+        		} else {
+        			first = false;
+        		}
+        		String[] attributes = term.split(ESCOConstantes.COLS_ATTRIBUT_SEPARATOR);
+        		for (int i = 0; i < attributes.length; i++) {
+        			paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_DEBUT);
+        			paramKey.append(attributes[i].trim());
+        			paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_FIN);
+        			if (i + 1 < attributes.length) {
+        				paramKey.append(ESCOConstantes.COLS_ATTRIBUT_ATTR_MILLIEU);
+        			}
+        		}
+        		
+        	}
         }
 
         // PARAM_VALUE

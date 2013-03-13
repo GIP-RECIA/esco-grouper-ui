@@ -60,7 +60,7 @@
           eternal="false"
           timeToIdleSeconds="5"
           timeToLiveSeconds="10"
-          overflowToDisk="false"
+          overflowToDisk="false"  
   />
 -->
 
@@ -73,7 +73,7 @@
           eternal="false"
           timeToIdleSeconds="5"
           timeToLiveSeconds="10"
-          overflowToDisk="false"
+          overflowToDisk="false"  
   />
 
   <!-- class: Hib3MemberDAO -->
@@ -221,7 +221,7 @@
           timeToLiveSeconds="10"
           overflowToDisk="false"
   />
-
+  
   <!-- @see   StemDAO#findByUuid(...) -->
   <cache  name="edu.internet2.middleware.grouper.internal.dao.hib3.Hib3StemDAO.FindByUuid"
           maxElementsInMemory="2000"
@@ -239,7 +239,7 @@
           timeToLiveSeconds="10"
           overflowToDisk="false"
   />
-
+  
   <!-- @see   GroupDAO#findByUuid(...) -->
   <cache  name="edu.internet2.middleware.grouper.internal.dao.hib3.Hib3GroupDAO.FindByUuid"
           maxElementsInMemory="2000"

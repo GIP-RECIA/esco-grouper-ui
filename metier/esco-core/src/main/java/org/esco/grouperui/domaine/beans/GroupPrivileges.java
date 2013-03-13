@@ -20,6 +20,8 @@ package org.esco.grouperui.domaine.beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.esco.grouperui.tools.DistinctSortableList;
+
 /**
  * Class GroupPrivileges. <br/>
  * Requirements: <br/>
@@ -56,7 +58,7 @@ public class GroupPrivileges extends Privileges {
      */
     public GroupPrivileges(final List < Privilege > thePrivileges) {
         this.privileges = thePrivileges;
-        this.subjects = new ArrayList < Subject >();
+        this.subjects = new DistinctSortableList<Subject>();
     }
 
     /**

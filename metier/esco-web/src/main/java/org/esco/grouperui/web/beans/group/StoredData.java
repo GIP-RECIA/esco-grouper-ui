@@ -17,6 +17,9 @@
  */
 package org.esco.grouperui.web.beans.group;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.esco.grouperui.domaine.beans.Sortable;
 import org.esco.grouperui.web.beans.table.Listable;
 
@@ -29,19 +32,10 @@ import org.esco.grouperui.web.beans.table.Listable;
 public class StoredData extends Listable {
 
     /**
-     * The value of the key of the column id in the mapping data list.
-     */
-    private static final String VALUE_OF_MAPPING_COLUMN_ID      = "id";
-    /**
-     * The value of the key of stem of the column id in the mapping data list.
-     */
-    private static final String VALUE_OF_MAPPING_COLUMN_ID_STEM = "uuid";
-
-    /**
      * Variable to define if existed added item in the list.
      */
-    private String              isExistingAddedItem;
-
+    private String isExistingAddedItem;
+    
     /**
      * Default constructor.
      */
@@ -53,30 +47,8 @@ public class StoredData extends Listable {
      */
     @Override
     public void addRowDataResult(final Sortable theSortable) {
-        Boolean found = false;
-        for (int i = 0; i < this.listOfSortable.size(); i++) {
-            if (this.listOfSortable.get(i).getTypeEnum() == theSortable.getTypeEnum()) {
-                try {
-                    if (this.listOfSortable.get(i).getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID).equals(
-                            theSortable.getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID))) {
-                        found = true;
-                        break;
-                    }
-                } catch (NullPointerException e) {
-                    if (this.listOfSortable.get(i).getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID_STEM)
-                            .equals(theSortable.getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID_STEM))) {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if (!found) {
-            super.addRowDataResult(theSortable);
-        } else {
-            this.delRowDataResult(theSortable);
-            super.addRowDataResult(theSortable);
-        }
+    	listOfSortable.add(theSortable);
+        
     }
 
     /**
@@ -86,23 +58,8 @@ public class StoredData extends Listable {
      *            the sortable information to be remove
      */
     public void delRowDataResult(final Sortable theSortable) {
-        for (int i = 0; i < this.listOfSortable.size(); i++) {
-            try {
-                if (this.listOfSortable.get(i).getTypeEnum() == theSortable.getTypeEnum()) {
-                    if (this.listOfSortable.get(i).getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID).equals(
-                            theSortable.getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID))) {
-                        this.listOfSortable.remove(i);
-                        break;
-                    }
-                }
-            } catch (NullPointerException e) {
-                if (this.listOfSortable.get(i).getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID_STEM).equals(
-                        theSortable.getValueFormCol(StoredData.VALUE_OF_MAPPING_COLUMN_ID_STEM))) {
-                    this.listOfSortable.remove(i);
-                    break;
-                }
-            }
-        }
+    	
+    	listOfSortable.remove(theSortable);
     }
 
     /**

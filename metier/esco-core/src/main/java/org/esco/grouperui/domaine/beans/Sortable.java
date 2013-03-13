@@ -220,6 +220,14 @@ public abstract class Sortable implements Serializable {
         }
         return find;
     }
+    
+    /**
+     * Gives the value of the attribute used as identifier.
+     * @return The attribute used as identifier depending of the kind of sortable.
+     */
+    public String getId() {
+    	return (SourceTypeEnum.PERSON.equals(sourceTypeEnum)) ? getValueFormCol("id") : getValueFormCol("uuid");
+    }
 
     /**
      * Getter for added.

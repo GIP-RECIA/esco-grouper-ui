@@ -1,8 +1,8 @@
 <ehcache>
 
-  <!--
-    This configuration file controls Grouper API caching.  Hibernate framework caching
-    configuration can be found in "ehcache.xml".
+  <!-- 
+    This configuration file controls Grouper API caching.  Hibernate framework caching 
+    configuration can be found in "ehcache.xml". 
    -->
 
   <!-- Sets the path to the directory where cache .data files are created. -->
@@ -15,13 +15,13 @@
     The following attributes are required for defaultCache:
 
     maxInMemory       - Sets the maximum number of objects that will be created in memory
-    eternal           - Sets whether elements are eternal. If eternal,  timeouts are ignored and the element
+    eternal           - Sets whether elements are eternal. If eternal,  timeouts are ignored and the element 
                         is never expired.
-    timeToIdleSeconds - Sets the time to idle for an element before it expires. Is only used if the element is
+    timeToIdleSeconds - Sets the time to idle for an element before it expires. Is only used if the element is 
                         not eternal.  Idle time is now - last accessed time
-    timeToLiveSeconds - Sets the time to live for an element before it expires. Is only used if the element is
+    timeToLiveSeconds - Sets the time to live for an element before it expires. Is only used if the element is 
                         not eternal.  TTL is now - creation time
-    overflowToDisk    - Sets whether elements can overflow to disk when the in-memory cache has reached the
+    overflowToDisk    - Sets whether elements can overflow to disk when the in-memory cache has reached the 
                         maxInMemory limit.
   -->
   <defaultCache maxElementsInMemory="500"
@@ -96,7 +96,7 @@
           timeToLiveSeconds="120"
           overflowToDisk="false"
   />
-
+  
     <!-- @see   WheelAccessResolver#isWheelMember(...) -->
   <cache  name="edu.internet2.middleware.grouper.privs.WheelAccessResolver.isWheelMember"
           maxElementsInMemory="1000"
@@ -123,7 +123,7 @@
           timeToLiveSeconds="120"
           overflowToDisk="false"
   />
-
+  
     <!-- @see   Membership#getGroup(...) -->
   <cache  name="edu.internet2.middleware.grouper.Membership.getGroup"
           maxElementsInMemory="1000"
@@ -132,7 +132,7 @@
           timeToLiveSeconds="120"
           overflowToDisk="false"
   />
-
+  
   <!-- @see   Membership#getStem(...) -->
   <cache  name="edu.internet2.middleware.grouper.Membership.getStem"
           maxElementsInMemory="1000"
@@ -159,7 +159,7 @@
           timeToLiveSeconds="120"
           overflowToDisk="false"
   />
-
+  
   <!-- @see   Hib3MemberDAO#findBySubject/Uuid(...) -->
   <cache  name="edu.internet2.middleware.grouper.internal.dao.hib3.Hib3MemberDAO.find"
           maxElementsInMemory="1000"

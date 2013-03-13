@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!-- Parent -->
 	<parent>
@@ -17,16 +18,17 @@
 	<name>ext:grouper-api</name>
 
 	<repositories>
-        <repository>
-          <id>cargo</id>
-          <url>http://repository.codehaus.org/</url>
-        </repository>
+		<repository>
+			<id>cargo</id>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
 
-        <repository>
-          <id>ESCO-Grouper-repository</id>
-          <name>ESCO-Grouper repository</name>
-          <url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url>
-        </repository>
+		<repository>
+			<id>ESCO-Grouper-repository</id>
+			<name>ESCO-Grouper repository</name>
+			<!-- >url>http://www.esco-portail.org/nexus/content/repositories/ESCO-Grouper/</url-->
+			<url>http://www.esco-portail.org/nexus/content/groups/public/</url>
+		</repository>
 	</repositories>
 
 
@@ -113,7 +115,7 @@
 									<goal>build-classpath</goal>
 								</goals>
 								<configuration>
-									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,ehcache,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,grouper,subject,morphString,hsqldb,mysql-connector-java,ezmorph,json-lib,xstream</includeArtifactIds>
+									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,ehcache,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,ldap-source-adapter,grouper,subject,morphString,hsqldb,mysql-connector-java,ezmorph,json-lib,xstream</includeArtifactIds>
 									<attach>true</attach>
 									<pathSeparator>,</pathSeparator>
 									<fileSeparator>/</fileSeparator>
@@ -240,11 +242,8 @@
 											<artifactId>ddlutils</artifactId>
 											<version>1.0</version>
 										</artifactItem>
-										<!--artifactItem>
-											<groupId>dom4j</groupId>
-											<artifactId>dom4j</artifactId>
-											<version>1.6.1</version>
-										</artifactItem-->
+										<!--artifactItem> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+											<version>1.6.1</version> </artifactItem -->
 										<artifactItem>
 											<groupId>net.sf.ehcache</groupId>
 											<artifactId>ehcache</artifactId>
@@ -344,8 +343,12 @@
 											<artifactId>morphString</artifactId>
 											<version>1.0</version>
 										</artifactItem>
-
-
+										<artifactItem>
+											<groupId>edu.internet2.middleware.subject.provider</groupId>
+											<artifactId>ldap-source-adapter</artifactId>
+											<version>0.0.3-grouper-1.6.3</version>
+										</artifactItem>
+										
 										<artifactItem>
 											<groupId>hsqldb</groupId>
 											<artifactId>hsqldb</artifactId>
@@ -358,11 +361,8 @@
 											<version>5.1.6</version>
 										</artifactItem>
 
-										<!--artifactItem>
-											<groupId>com.sun.xml.parsers</groupId>
-											<artifactId>jaxp-ri</artifactId>
-											<version>1.4.1</version>
-										</artifactItem-->
+										<!--artifactItem> <groupId>com.sun.xml.parsers</groupId> <artifactId>jaxp-ri</artifactId> 
+											<version>1.4.1</version> </artifactItem -->
 
 									</artifactItems>
 									<outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
@@ -383,17 +383,23 @@
 										<echo>compilation de la version de grouper</echo>
 
 										<taskdef resource="net/sf/antcontrib/antlib.xml" />
-										<loadfile property="classpath" srcFile="${project.build.directory}/classpath"/>
+										<loadfile property="classpath"
+											srcFile="${project.build.directory}/classpath" />
 
 										<tstamp>
-											<format property="version.qualifier" pattern="yyyyMMddHHMM"/>
+											<format property="version.qualifier" pattern="yyyyMMddHHMM" />
 										</tstamp>
-										<propertyregex override="yes" property="version.number" input="${project.version}" regexp="(.*)" select="\1" />
-										<var name="x" value="${project.version}"/>
-										<echo>nouvelle version de déploiement : ${version.number}.v${version.qualifier}</echo>
-										<manifest file="${project.build.outputDirectory}/META-INF/MANIFEST.MF" mode="update">
-											<attribute name="Bundle-ClassPath" value=".,${classpath}"/>
-											<attribute name="Bundle-Version" value="${version.number}.v${version.qualifier}"/>
+										<propertyregex override="yes" property="version.number"
+											input="${project.version}" regexp="(.*)" select="\1" />
+										<var name="x" value="${project.version}" />
+										<echo>nouvelle version de déploiement :
+											${version.number}.v${version.qualifier}</echo>
+										<manifest
+											file="${project.build.outputDirectory}/META-INF/MANIFEST.MF"
+											mode="update">
+											<attribute name="Bundle-ClassPath" value=".,${classpath}" />
+											<attribute name="Bundle-Version"
+												value="${version.number}.v${version.qualifier}" />
 										</manifest>
 									</tasks>
 								</configuration>
@@ -654,7 +660,12 @@
 			<artifactId>morphString</artifactId>
 			<version>1.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>edu.internet2.middleware.subject.provider</groupId>
+			<artifactId>ldap-source-adapter</artifactId>
+			<version>0.0.3-grouper-1.6.3</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>net.sf.ezmorph</groupId>
 			<artifactId>ezmorph</artifactId>
