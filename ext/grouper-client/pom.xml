@@ -82,7 +82,7 @@
 									<goal>build-classpath</goal>
 								</goals>
 								<configuration>
-									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,dom4j,ehcache,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,grouper,subject,morphString,hsqldb,mysql-connector-java,grouper-client-ws,ezmorph,json-lib,xstream</includeArtifactIds>
+									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,dom4j,ehcache,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,grouper,subject,morphString,hsqldb,mysql-connector-java,grouperClient,ezmorph,json-lib,xstream</includeArtifactIds>
 									<attach>true</attach>
 									<pathSeparator>,</pathSeparator>
 									<fileSeparator>/</fileSeparator>
@@ -304,7 +304,7 @@
 											<version>1.6.3</version>
 										</artifactItem>
 										<artifactItem>
-											<groupId>edu.internet2.middleware.grouper</groupId>
+											<groupId>edu.internet2.middleware.subject</groupId>
 											<artifactId>subject</artifactId>
 											<version>1.6.3</version>
 										</artifactItem>
@@ -315,7 +315,7 @@
 										</artifactItem>
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
-											<artifactId>grouper-client-ws</artifactId>
+											<artifactId>grouperClient</artifactId>
 											<version>1.6.3</version>
 										</artifactItem>
 
@@ -602,7 +602,7 @@
 			<version>1.6.3</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.internet2.middleware.grouper</groupId>
+			<groupId>edu.internet2.middleware.subject</groupId>
 			<artifactId>subject</artifactId>
 			<version>1.6.3</version>
 		</dependency>
@@ -610,11 +610,6 @@
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>morphString</artifactId>
 			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.internet2.middleware.grouper</groupId>
-			<artifactId>grouper-client-ws</artifactId>
-			<version>1.6.3</version>
 		</dependency>
 
 		<dependency>
@@ -685,6 +680,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.6</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.internet2.middleware.grouper</groupId>
+			<artifactId>grouperClient</artifactId>
+			<version>1.6.3</version>
 		</dependency>
 	</dependencies>
 </project>

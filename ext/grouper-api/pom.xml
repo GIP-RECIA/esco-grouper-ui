@@ -334,7 +334,7 @@
 											<version>1.6.3</version>
 										</artifactItem>
 										<artifactItem>
-											<groupId>edu.internet2.middleware.grouper</groupId>
+											<groupId>edu.internet2.middleware.subject</groupId>
 											<artifactId>subject</artifactId>
 											<version>1.6.3</version>
 										</artifactItem>
@@ -651,7 +651,7 @@
 			<version>1.6.3</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.internet2.middleware.grouper</groupId>
+			<groupId>edu.internet2.middleware.subject</groupId>
 			<artifactId>subject</artifactId>
 			<version>1.6.3</version>
 		</dependency>

@@ -9,13 +9,7 @@ INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE",
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('cols', 'org.esco.grouperui.group.members.person.col', '#{attr[''objectClass'']}', '#{attr[''objectClass'']}', 'No description');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('cols', 'org.esco.grouperui.group.members.person.col', '#{attr[''ESCOUAIRattachement'']} - #{attr[''mail'']}', '#{attr[''ESCOUAIRattachement'']} - #{attr[''mail'']}', 'No description');
 
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('admin', 'org.esco.grouperui.group.right', 'admin', 'admin.label', 'Edition de groupe - Attributs - Droits par defaut - Admin');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('update', 'org.esco.grouperui.group.right', 'update', 'update.label', 'Edition de groupe - Attributs - Droits par defaut - Update');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('read', 'org.esco.grouperui.group.right', 'read', 'read.label', 'Edition de groupe - Attributs - Droits par defaut - Read');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('view', 'org.esco.grouperui.group.right', 'view', 'view.label', 'Edition de groupe - Attributs - Droits par defaut - View');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('optin', 'org.esco.grouperui.group.right', 'optin', 'optin.label', 'Edition de groupe - Attributs - Droits par defaut - Optin');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('optout', 'org.esco.grouperui.group.right', 'optout', 'optout.label', 'Edition de groupe - Attributs - Droits par defaut - optout');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('sort', 'org.esco.grouperui.group.right.sort', 'sort', 'admin|update|read|view|optin|optout', 'Sorting Attributes');
+INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('', 'org.esco.grouperui.group.right', '', '.label', 'No description');
 
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('cols', 'org.esco.grouperui.search.person.col', '#{attr[''attribute.displayName'']}', '#{attr[''attribute.displayName'']}', 'No description');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('cols', 'org.esco.grouperui.search.person.col', '#{attr[''attribute.objectClass'']}', '#{attr[''attribute.objectClass'']}', 'No description');
@@ -73,8 +67,7 @@ INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE",
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('cols', 'org.esco.grouperui.stem.privileges.person.col', '#{attr[''displayName'']}', '#{attr[''displayName'']}', 'No description');
 
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('base', 'org.esco.grouperui.group.custom.type', 'base', 'base.label', 'Edition de groupe - Attributs - Types personnalisés - base');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('dynamique', 'org.esco.grouperui.group.custom.type', 'dynamique', 'dynamique.label', 'Edition de groupe - Attributs - Types personnalisés - dynamique');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('sort', 'org.esco.grouperui.group.custom.type.sort', 'sort', 'base|dynamique', 'Sorting Attributes');
+INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('sort', 'org.esco.grouperui.group.custom.type.sort', 'sort', 'base', 'Sorting Attributes');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('default', 'org.esco.grouperui.group.custom.default', 'default', 'base', 'Edition de groupe - Attributs - Types personnalises - defaut type');
 
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('searchTerm', 'org.esco.grouperui.search.regexp', '/^.+$/', 'SEARCH_REGEXP_SEARCHTERM_ERROR_LABEL', 'Recherche - Champs de recherche');
@@ -127,7 +120,7 @@ INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE",
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('person', 'org.esco.grouperui.group.privileges.map', 'person', 'esco:ldap', 'Edition de groupe - Privileges - détermination type personne');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('group', 'org.esco.grouperui.group.privileges.map', 'group', 'g:gsa', 'Edition de groupe - Privileges - détermination type groupe');
 
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('search_person_in_group_max_result', 'org.esco.grouperui.search.max', 'search_person_in_group_max_result', '50', 'Recherche - Maximum de résultats pour une recherche de personne dans un groupe');
+INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('search_person_in_group_max_result', 'org.esco.grouperui.search.max', 'search_person_in_group_max_result', '200', 'Recherche - Maximum de résultats pour une recherche de personne dans un groupe');
 
 
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('displayName', 'org.esco.grouperui.group.privileges.attribut', 'displayName', 'displayName.label', 'No description');
@@ -158,13 +151,6 @@ INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE",
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('uuid', 'org.esco.grouperui.stem.property.attribut', 'uuid', 'uuid.label', 'Propriétés de dossier - attribut uuid');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('sort', 'org.esco.grouperui.stem.property.attribut.sort', 'sort', 'extension|displayExtension|description|uuid', 'Sorting Attributes');
 
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('list', 'org.esco.grouperui.group.context', 'list', 'list.label', 'Edition de groupe - Attributs - Contexte utilisation - liste de diffusion');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('samba', 'org.esco.grouperui.group.context', 'samba', 'samba.label', 'Edition de groupe - Attributs - Contexte utilisation - partage samba');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('abcd', 'org.esco.grouperui.group.context', 'abcd', 'abcd.label', 'Edition de groupe - Attributs - Contexte utilisation - abcd');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('sort', 'org.esco.grouperui.group.context.sort', 'sort', 'list|samba|abcd', 'Sorting Attributes');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('base', 'org.esco.grouperui.group.context.base', 'base', 'list|samba|xyz', 'Edition de groupe - Attributs - Association types personnalises et contextes utilisation - base');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('base', 'org.esco.grouperui.group.context.incompatibilities.base', 'base', 'list|xyz', 'Edition de groupe - Attributs - Association types personnalises et contextes utilisation - base');
-INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('base', 'org.esco.grouperui.group.context.incompatibilities.base', 'base', 'list|samba', 'Edition de groupe - Attributs - Association types personnalises et contextes utilisation - base');
 
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('ldap', 'org.esco.grouperui.group.dynamic.leftdrop.name', 'objectClass', 'objectClass.label', 'Groupes dynamiques - Types de personnes');
 INSERT INTO "DBPARAMETER"."PARAM" ("PKEY", "PGROUP", "PARAM_KEY", "PARAM_VALUE", "PARAM_COMMENT") VALUES ('objectClass', 'org.esco.grouperui.group.dynamic.rightdrop.type', 'wildcard', 'false', 'Groupes dynamiques - Types de personnes - Management wildcard');

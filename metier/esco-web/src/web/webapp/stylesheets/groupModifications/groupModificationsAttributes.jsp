@@ -1,4 +1,4 @@
-%--
+<%--
  Copyright (C) 2009 GIP RECIA http://www.recia.fr
  @Author (C) 2009 GIP RECIA <contact@recia.fr>
  @Contributor (C) 2009 SOPRA http://www.sopragroup.com/
