@@ -39,8 +39,17 @@ target/
 #*.prod.properties
 #conf/config.properties
 logs/
+*/build
+*.class
+
 
 ###################
 # Others
 ###################
 #${cache.path}/
+*.org
+metier/esco-web/src/main/filters/filters.properties
+metier/esco-web/src/main/conf/servlet/web.xml
+metier/esco-web/pom.xml
+ant/lib/esco-derby-generator.jar
+
