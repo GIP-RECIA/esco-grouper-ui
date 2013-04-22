@@ -36,8 +36,10 @@ target/
 #*.prod.xml
 #*.prod.sh
 #*.preprod.sh
-#*.prod.properties
-#conf/config.properties
+build*.properties
+!build.example.properties
+properties/ESCOGrouper*.properties
+!properties/ESCOGrouper.example.properties
 logs/
 */build
 *.class
