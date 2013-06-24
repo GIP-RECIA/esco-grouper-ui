@@ -52,6 +52,23 @@
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>esup-commons</artifactId>
 			<version>0.12.4</version>
+
+
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jcl</artifactId>
+				</exclusion>
+				<exclusion>
+				  <groupId>ehcache</groupId>
+				  <artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-ldap</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 
 	    <dependency>
@@ -134,12 +151,14 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<version>2.4</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
+			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
+			<version>2.0</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>

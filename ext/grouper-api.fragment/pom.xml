@@ -8,7 +8,7 @@
 		<version>2.6.5</version>
 	</parent>
 
-	<!-- D�finition du module -->
+	<!-- Définition du module -->
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>grouper-api.fragment</artifactId>
 	<version>2.6.5</version>
@@ -73,12 +73,12 @@
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>grouper</artifactId>
-			<version>1.6.3</version>
+			<version>2.1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.internet2.middleware.subject</groupId>
+			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>subject</artifactId>
-			<version>1.6.3</version>
+			<version>2.1.4</version>
 		</dependency>
 
 		<dependency>
