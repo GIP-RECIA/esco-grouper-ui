@@ -101,8 +101,9 @@ public class UAIStrategySubjectSearch implements IStrategySubjectSearch {
         }
 
         Set < edu.internet2.middleware.subject.Subject > subjects = null;
+        GrouperSession rootSession = null;
         try {
-            GrouperSession.startRootSession();
+        	rootSession = GrouperSession.startRootSession();
 
             if (ServiceConstants.EMPTY.equals(alletb)) {
                 subjects = SubjectFinder.findAll(theTerm);
@@ -110,6 +111,7 @@ public class UAIStrategySubjectSearch implements IStrategySubjectSearch {
                 subjects = SubjectFinder.findAll(theTerm + " scope=" + alletb);
             }
         } catch (SessionException e) {
+			GrouperSession.stopQuietly(rootSession);
             throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
         }
 
@@ -134,6 +136,7 @@ public class UAIStrategySubjectSearch implements IStrategySubjectSearch {
         UAIStrategySubjectSearch.LOGGER
                 .debug("searchSubjects(final Person thePerson, final String thePath, final String theTerm) - end");
 
+		GrouperSession.stopQuietly(rootSession);
         return retour;
     }
 }
