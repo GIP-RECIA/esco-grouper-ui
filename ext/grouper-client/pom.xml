@@ -8,7 +8,7 @@
 		<version>2.6.5</version>
 	</parent>
 
-	<!-- D�finition du module -->
+	<!-- Définition du module -->
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>grouper-client</artifactId>
 	<version>2.6.5</version>
@@ -82,7 +82,7 @@
 									<goal>build-classpath</goal>
 								</goals>
 								<configuration>
-									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,dom4j,ehcache,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,grouper,subject,morphString,hsqldb,mysql-connector-java,grouperClient,ezmorph,json-lib,xstream</includeArtifactIds>
+									<includeArtifactIds>activation,ant,antlr,asm,asm-attrs,asm-util,backport-util-concurrent,bsh,c3p0,cglib,commons-beanutils,commons-betwixt,commons-cli,commons-collections,commons-digester,commons-discovery,commons-io,commons-lang,commons-logging,commons-math,ddlutils,dom4j,ehcache-core,hibernate,oro,jamon,jsr107cache,jta,jug,log4j,mail,odmg,p6spy,quartz,invoker,grouper,subject,morphString,hsqldb,mysql-connector-java,ezmorph,json-lib,xstream</includeArtifactIds>
 									<attach>true</attach>
 									<pathSeparator>,</pathSeparator>
 									<fileSeparator>/</fileSeparator>
@@ -216,8 +216,8 @@
 										</artifactItem>
 										<artifactItem>
 											<groupId>net.sf.ehcache</groupId>
-											<artifactId>ehcache</artifactId>
-											<version>1.4.0</version>
+											<artifactId>ehcache-core</artifactId>
+											<version>2.4.5</version>
 										</artifactItem>
 										<artifactItem>
 											<groupId>org.hibernate</groupId>
@@ -301,25 +301,18 @@
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>grouper</artifactId>
-											<version>1.6.3</version>
+											<version>2.1.4</version>
 										</artifactItem>
 										<artifactItem>
-											<groupId>edu.internet2.middleware.subject</groupId>
+											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>subject</artifactId>
-											<version>1.6.3</version>
+											<version>2.1.4</version>
 										</artifactItem>
 										<artifactItem>
 											<groupId>edu.internet2.middleware.grouper</groupId>
 											<artifactId>morphString</artifactId>
-											<version>1.0</version>
+											<version>2.1.4</version>
 										</artifactItem>
-										<artifactItem>
-											<groupId>edu.internet2.middleware.grouper</groupId>
-											<artifactId>grouperClient</artifactId>
-											<version>1.6.3</version>
-										</artifactItem>
-
-
 										<artifactItem>
 											<groupId>hsqldb</groupId>
 											<artifactId>hsqldb</artifactId>
@@ -530,8 +523,8 @@
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>1.4.0</version>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.4.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -599,17 +592,17 @@
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>grouper</artifactId>
-			<version>1.6.3</version>
+			<version>2.1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.internet2.middleware.subject</groupId>
+			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>subject</artifactId>
-			<version>1.6.3</version>
+			<version>2.1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.internet2.middleware.grouper</groupId>
 			<artifactId>morphString</artifactId>
-			<version>1.0</version>
+			<version>2.1.4</version>
 		</dependency>
 
 		<dependency>
@@ -680,11 +673,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.6</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>edu.internet2.middleware.grouper</groupId>
-			<artifactId>grouperClient</artifactId>
-			<version>1.6.3</version>
 		</dependency>
 	</dependencies>
 </project>

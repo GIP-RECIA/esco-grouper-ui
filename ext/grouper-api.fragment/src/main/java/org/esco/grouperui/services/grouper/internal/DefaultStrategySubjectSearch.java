@@ -87,13 +87,16 @@ public class DefaultStrategySubjectSearch implements IStrategySubjectSearch {
                 .debug("searchSubjects(final Person thePerson, final String thePath, final String theTerm) - start");
 
         Set < edu.internet2.middleware.subject.Subject > persons = null;
+        GrouperSession rootSession = null;
         // long timeTotal = 0;
         try {
             // long deb = System.currentTimeMillis();
+        	rootSession = GrouperSession.startRootSession();
             GrouperSession.startRootSession();
             persons = SubjectFinder.findAll(theTerm);
             // timeTotal += System.currentTimeMillis() - deb;
         } catch (SessionException e) {
+			GrouperSession.stopQuietly(rootSession);
             throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
         }
 
@@ -119,7 +122,7 @@ public class DefaultStrategySubjectSearch implements IStrategySubjectSearch {
         // Log to calculate time of service
         // DefaultStrategySubjectSearch.LOGGER.error("searchSubjects;" +
         // timeTotal);
-
+		GrouperSession.stopQuietly(rootSession);
         return retour;
     }
 }

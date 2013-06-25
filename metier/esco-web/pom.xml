@@ -421,22 +421,9 @@
 
 		<dependency>
 			<groupId>org.esco.grouperui.ext</groupId>
-			<artifactId>grouper-client</artifactId>
-			<version>2.6.5</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>grouper-api.fragment</artifactId>
 			<version>2.6.5</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.esco.grouperui.ext</groupId>
-			<artifactId>grouper-client.fragment</artifactId>
-			<version>2.6.5</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -650,7 +637,6 @@
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>
@@ -707,12 +693,6 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
