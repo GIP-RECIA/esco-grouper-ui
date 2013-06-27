@@ -1,6 +1,6 @@
 <!-- ESCOGrouper v 2.6.5: build.xml,v 1.0 2010-03-22 -->
 
-<project name="ESCOGrouper" default="init" basedir=".">
+<project name="ESCOGrouper" default="init" basedir="." >
 
 	<!-- ANT CONTRIB ALLOWS CONDITIONALS IN ANT SCRIPTS -->
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -10,29 +10,37 @@
 	</taskdef>
 
 	<!-- THE MAVEN ANT TASK -->
-	<!--taskdef resource="org/apache/maven/artifact/ant/antlib.xml">
+	<taskdef resource="org/apache/maven/artifact/ant/antlib.xml">
 		<classpath>
 			<pathelement location="${basedir}/ant/lib/maven-ant-tasks-2.1.0.jar" />
 		</classpath>
-	</taskdef-->
+	</taskdef>
 	<property name="java.home" value="${env.JAVA_HOME}" />
 	<macrodef name="mvn">
 		<attribute name="pom"/>
-		<attribute name="mavenhome" />
-		<attribute name="fork" />
-		<attribute name="test" />
+		<attribute name="options" default="" />
 		<attribute name="goal" />
-		<attribute name="args" />
+		<attribute name="basedir" />
+		<attribute name="resultproperty" default="maven.result" />
+		<element name="args" implicit="true" optional="true" />
+
 		<sequential>
-			<exec command="${java.home}/bin/java">
-				<arg line="-Xms256M -Xmx512M" />
-				<arg line="-Dclassworlds.conf=@{mavenhome}/bin/m2.conf -Dmaven.home=@{mavenhome}" />
-				<arg line="-classpath @{mavenhome}/boot/classworlds-1.1.jar" />
-				<arg value="org.codehaus.classworlds.Launcher"/>
-				<arg line="@{goal}"/>
-				<arg line="@{args} -Dmaven.test.skip"/>
-				<arg value="-f@{pom}"/>
-			</exec>
+		  <java classname="org.codehaus.classworlds.Launcher" fork="true"
+			dir="@{basedir}" resultproperty="@{resultproperty}">
+		    <jvmarg value="-Xmx512m"/>
+		    <classpath>
+		      <fileset dir="${maven.home}/boot">
+			<include name="*.jar" />
+		      </fileset>
+		      <fileset dir="${maven.home}/lib">
+			<include name="*.jar" />
+		      </fileset>
+		    </classpath>
+		    <sysproperty key="classworlds.conf" value="${maven.home}/bin/m2.conf" />
+		    <sysproperty key="maven.home" value="${maven.home}" />
+
+		    <arg line="--batch-mode @{options} @{goal} -Dmaven.test.skip -f@{pom}" />
+		  </java>
 		</sequential>
 	</macrodef>
 
@@ -90,12 +98,11 @@
 
 	<!-- CLEAN THE ESCOGROUPER PREVIOUS COMPLITATION -->
 	<target name="clean">
-		<mvn pom="${basedir}/ext/esco-derby-generator/pom.xml"
-				mavenhome="${maven.home}"
-				fork="true"
-				goal="clean"
-				test="false"
-				args=""/>
+		<mvn basedir="${basedir}"
+		     goal="clean"
+		     pom="${basedir}/ext/esco-derby-generator/pom.xml"
+		     resultproperty="maven.build.result"/>
+
 
 		<delete file="${basedir}/ant/lib/esco-derby-generator.jar" failonerror="false">
 		</delete>
@@ -110,15 +117,27 @@
 			<fileset dir="${basedir}/ant/build/derby" includes="**/*" />
 		</delete>
 
-		<mvn pom="${basedir}/pom.xml"
-						mavenhome="${maven.home}"
-						fork="true"
-						goal="clean"
-						test="false"
-						args=""/>
+		<mvn basedir="${basedir}"
+		     goal="clean"
+		     pom="${basedir}/pom.xml"
+		     resultproperty="maven.build.result"/>
+
 		<if>
 			<equals arg1="${dynamic.group}" arg2="true" />
 			<then>
+
+			  <!-- A. Deman - 2013 - Theses calls have not been not tested yet so the original calls below are only commented -->
+			  <mvn basedir="${basedir}"
+			       goal="clean"
+			       pom="${basedir}/metier/esco-module/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+			  <mvn basedir="${basedir}"
+			       goal="clean"
+			       pom="${basedir}/bundle/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+<!--
 				<mvn pom="${basedir}/metier/esco-module/pom.xml"
 								mavenhome="${maven.home}"
 								fork="true"
@@ -131,19 +150,19 @@
 								goal="clean"
 								test="false"
 								args=""/>
+-->
 			</then>
 		</if>
 	</target>
 
 	<!-- INIT THE ESCOGROUPER DERBY CONFIGURATION -->
 	<target name="InitDerbyGenerator">
-		<mvn pom="${basedir}/ext/esco-derby-generator/pom.xml"
-				mavenhome="${maven.home}"
-				fork="true"
-				goal="clean install"
-				test="false"
-				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
 
+		<mvn basedir="${basedir}"
+		     options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"
+		     goal="clean install"
+		     pom="${basedir}/ext/esco-derby-generator/pom.xml"
+		     resultproperty="maven.build.result"/>
 		<copy overwrite="true" tofile="${basedir}/ant/lib/esco-derby-generator.jar">
 			<fileset file="${basedir}/ext/esco-derby-generator/target/*.jar" />
 		</copy>
@@ -347,13 +366,11 @@
 			<fileset file="${basedir}/ext/bundles/xfire/xfire.zip">
 			</fileset>
 		</unzip>
-
-		<mvn pom="${basedir}/maven2/pom.xml"
-				mavenhome="${maven.home}"
-				fork="true"
-				goal="install"
-				test="false"
-				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+		<mvn basedir="${basedir}"
+		     options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"
+		     goal="install"
+		     pom="${basedir}/maven2/pom.xml"
+		     resultproperty="maven.build.result"/>
 	</target>
 
 
@@ -374,16 +391,31 @@
 				</copy>
 			</else>
 		</if>
-		<mvn pom="${basedir}/pom.xml"
-				mavenhome="${maven.home}"
-				fork="true"
-				goal="clean install"
-				test="false"
-				args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -P${application.type},mini"/>
+
+		<mvn basedir="${basedir}"
+		     options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"
+                     goal="clean install"
+                     pom="${basedir}/pom.xml"
+                     resultproperty="maven.build.result"/>
+
 		<if>
 			<equals arg1="${dynamic.group}" arg2="true" />
 			<then>
-				<mvn pom="${basedir}/metier/esco-module/pom.xml"
+
+			  <!-- A. Deman - 2013 - Theses calls have not been not tested yet so the original calls below are only commented -->
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"
+			       goal="clean install"
+			       pom="${basedir}/metier/esco-module/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"
+			       goal="clean install"
+			       pom="${basedir}/bundle/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+				<!--mvn pom="${basedir}/metier/esco-module/pom.xml"
 						mavenhome="${maven.home}"
 						fork="true"
 						goal="clean install"
@@ -394,7 +426,7 @@
 						fork="true"
 						goal="clean install"
 						test="false"
-						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/>
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg}"/-->
 			</then>
 		</if>
 	</target>
@@ -403,20 +435,38 @@
 		<if>
 			<equals arg1="${dynamic.group}" arg2="true" />
 			<then>
+
+			  <!--  A. Deman - 2013 - This call have not tested yet so the original call below is only commented -->
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"
+			       goal="cargo:undeploy"
+			       pom="${basedir}/bundle/pom.xml"
+			       resultproperty="maven.build.result"/>
+                                <!-- 
 				<mvn pom="${basedir}/bundle/pom.xml"
 						mavenhome="${maven.home}"
 						fork="true"
 						goal="cargo:undeploy"
 						test="false"
-						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/>
+						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/> -->
 			</then>
 			<else>
-				<mvn pom="${basedir}/metier/esco-web/pom.xml"
+
+			  <!-- A. Deman - 2013 - Theses calls have not been not tested yet so the original calls below are only commented -->
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context} -P${application.type}"
+			       goal="cargo:undeploy"
+			       pom="${basedir}/metier/esco-web/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+                         <!--    
+                     	     <mvn pom="${basedir}/metier/esco-web/pom.xml"
 						mavenhome="${maven.home}"
 						fork="true"
 						goal="cargo:undeploy"
 						test="false"
 						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context} -P${application.type}"/>
+                       -->
 			</else>
 		</if>
 	</target>
@@ -452,20 +502,36 @@
 		<if>
 			<equals arg1="${dynamic.group}" arg2="true" />
 			<then>
-				<mvn pom="${basedir}/bundle/pom.xml"
-						mavenhome="${maven.home}"
-						fork="true"
-						goal="cargo:undeploy cargo:deploy"
-						test="false"
-						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/>
+			  <!-- A. Deman - 2013 - Theses calls have not been not tested yet so the original calls below are only commented -->
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"
+			       goal="cargo:undeploy cargo:deploy"
+			       pom="${basedir}/bundle/pom.xml"
+			       resultproperty="maven.build.result"/>
+                          <!--    
+                   	      <mvn pom="${basedir}/bundle/pom.xml"
+					mavenhome="${maven.home}"
+					fork="true"
+					goal="cargo:undeploy cargo:deploy"
+					test="false"
+					args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"/>
+-->
 			</then>
 			<else>
-				<mvn pom="${basedir}/metier/esco-web/pom.xml"
+			  <!-- A. Deman - 2013 - Theses calls have not been not tested yet so the original calls below are only commented -->
+			  <mvn basedir="${basedir}"
+			       options="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context}"
+			       goal="cargo:undeploy cargo:deploy"
+			       pom="${basedir}/metier/esco-web/pom.xml"
+			       resultproperty="maven.build.result"/>
+
+<!--				<mvn pom="${basedir}/metier/esco-web/pom.xml"
 						mavenhome="${maven.home}"
 						fork="true"
 						goal="cargo:undeploy cargo:deploy"
 						test="false"
 						args="${maven.offline.arg} ${maven.quiet.arg} ${maven.arg} -DtomcatHost=${tomcat.host} -DtomcatUsername=${tomcat.user} -DtomcatPassword=${tomcat.password} -DapplicationContext=${application.context} -P${application.type}"/>
+-->
 			</else>
 		</if>
 	</target>
