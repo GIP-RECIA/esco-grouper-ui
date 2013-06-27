@@ -6,6 +6,7 @@
 		<groupId>org.esco.grouperui.ext</groupId>
 		<artifactId>ext-parent</artifactId>
 		<version>2.6.5</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<!-- Definition du module -->
@@ -488,7 +489,7 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>javax.servlet</groupId>
+			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
 			<scope>provided</scope>

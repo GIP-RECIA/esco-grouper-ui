@@ -6,6 +6,7 @@
 		<groupId>org.esco.grouperui.business</groupId>
 		<artifactId>business-parent</artifactId>
 		<version>2.6.5</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<!-- Définition du module -->
