@@ -3,6 +3,7 @@
 		<groupId>org.esco.grouperui</groupId>
 		<artifactId>maven2</artifactId>
 		<version>1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.esco.grouperui.maven2</groupId>

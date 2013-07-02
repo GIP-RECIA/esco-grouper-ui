@@ -195,7 +195,9 @@ InitializingBean {
 		Validate.notNull(theIdentifier, "The identifier must be defined");
 		// long timeTotal = 0;
 		edu.internet2.middleware.subject.Subject subject = null;
+		GrouperSession session = null;
 		try {
+			session = GrouperSession.startRootSession();
 			// long deb = System.currentTimeMillis();
 			subject = SubjectFinder.findByIdOrIdentifier(theIdentifier, true);
 			// timeTotal = System.currentTimeMillis() - deb;
@@ -205,6 +207,8 @@ InitializingBean {
 			throw new ESCOSubjectNotFoundException(ServiceConstants.SUBJECT_NOT_FOUND, e);
 		} catch (SubjectNotUniqueException e) {
 			throw new ESCOSubjectNotUniqueException(ServiceConstants.SUBJECT_NOT_UNIQUE, e);
+		} finally {
+			GrouperSession.stopQuietly(session);
 		}
 
 		return this.getPersonWrapper().wrap(subject);
@@ -239,9 +243,11 @@ InitializingBean {
 		final List < Group > groupsAsMemberhips = new ArrayList < Group >();
 
 		GrouperSession session = null;
+		GrouperSession rootSession = null;
 		edu.internet2.middleware.subject.Subject person = null;
 		try {
 			// long deb = System.currentTimeMillis();
+			rootSession = GrouperSession.startRootSession();
 			session = GrouperSession.start(SubjectFinder.findById(thePerson.getId(), true));
 			person = SubjectFinder.findById(theSubjectId, true);
 			// timeTotal += System.currentTimeMillis() - deb;
@@ -298,6 +304,7 @@ InitializingBean {
 			}
 		} finally {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 		}
 		// Log to calculate time of service
 		// this.LOGGER.error("findMemberships;" + timeTotal);
@@ -362,9 +369,11 @@ InitializingBean {
 
 		// long timeTotal = 0;
 		GrouperSession session = null;
+		GrouperSession rootSession = null;
 		Subject person = null;
 		try {
 			// long deb = System.currentTimeMillis();
+			rootSession = GrouperSession.startRootSession();
 			person = SubjectFinder.findById(thePerson.getId(), true);
 			// timeTotal += System.currentTimeMillis() - deb;
 			if (person == null) {
@@ -422,10 +431,11 @@ InitializingBean {
 			throw new ESCOTechnicalException(ServiceConstants.API_ERROR, e);
 		} finally {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 		}
 		// Log to calculate time of service
 		// this.LOGGER.error("findGroupsMemberOptinOptout;" + timeTotal);
-		GrouperSession.stopQuietly(session);
+		
 		return groups;
 	}
 
@@ -604,8 +614,10 @@ InitializingBean {
 	throws ESCOGroupNotMoveException, ESCOGroupNotFoundException, ESCOStemNotFoundException {
 
 		GrouperSession session = null;
+		GrouperSession rootSession = null;
 		edu.internet2.middleware.subject.Subject subject = null;
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			session = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -637,12 +649,17 @@ InitializingBean {
 
 		} catch (GroupModifyException e) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotMoveException(ServiceConstants.GROUP_CANNOT_BE_MOVED, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotMoveException(ServiceConstants.GROUP_CANNOT_BE_MOVED, e);
+		} finally {
+			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(session);
+		
 		return Boolean.TRUE;
 
 	}
@@ -732,9 +749,11 @@ InitializingBean {
 		Validate.notNull(theTargetStem, "The theTargetStem canot be null.");
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -754,13 +773,19 @@ InitializingBean {
 
 		} catch (StemModifyException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotMoveException(e.getMessage());
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotMoveException(e.getMessage());
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(e.getMessage());
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
 		GrouperSession.stopQuietly(grouperSession);
 		return Boolean.TRUE;
@@ -893,10 +918,12 @@ InitializingBean {
 		Validate.notNull(theMembersScope, ServiceConstants.THE_SCOPE_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Members members = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -953,12 +980,16 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return members;
 	}
 
@@ -972,10 +1003,12 @@ InitializingBean {
 		Validate.notNull(theGroupsName, ServiceConstants.THE_GROUP_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		int cpt = 0;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1008,12 +1041,16 @@ InitializingBean {
 			}
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return new Integer(cpt);
 	}
 
@@ -1027,9 +1064,11 @@ InitializingBean {
 		Validate.notNull(theMembersToAdd, ServiceConstants.THE_MEMBERS_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1052,17 +1091,22 @@ InitializingBean {
 			}
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (MemberAddException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOAddMemberException(ServiceConstants.MEMBER_CANNOT_BE_ADDED, e);
 		} catch (SubjectNotFoundException e) {//
 		} catch (SubjectNotUniqueException e) {//
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 	}
 
 	/**
@@ -1085,9 +1129,11 @@ InitializingBean {
 		Validate.notNull(theMembersToRemove, ServiceConstants.THE_MEMBERS_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 
 			if (isActAsSubject) {
@@ -1114,17 +1160,22 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (MemberDeleteException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCODeleteMemberException(ServiceConstants.MEMBER_CANNOT_BE_DELETED, e);
 		} catch (SubjectNotFoundException e) {
 		} catch (SubjectNotUniqueException e) {
+		} finally {
+			GrouperSession.stopQuietly(rootSession);
+			GrouperSession.stopQuietly(grouperSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 	}
 
 	/**
@@ -1137,9 +1188,11 @@ InitializingBean {
 		Validate.notNull(theTargetName, "The target name must be defined");
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1159,14 +1212,18 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (SubjectNotFoundException e) {//
 		} catch (SubjectNotUniqueException e) {//
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 	}
 
 	/**
@@ -1178,10 +1235,12 @@ InitializingBean {
 		Validate.notNull(theUuid, ServiceConstants.THE_ID_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Stem stem = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1196,9 +1255,12 @@ InitializingBean {
 			stem.setIsEmpty(this.isEmptyStem(stem.getName()));
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return stem;
 	}
 
@@ -1211,10 +1273,12 @@ InitializingBean {
 		Validate.notNull(theName, ServiceConstants.THE_NAME_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Stem stem = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1229,9 +1293,12 @@ InitializingBean {
 			stem.setIsEmpty(this.isEmptyStem(stem.getName()));
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
+		} finally {
+			GrouperSession.stopQuietly(rootSession);
+			GrouperSession.stopQuietly(grouperSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return stem;
 	}
 
@@ -1246,10 +1313,12 @@ InitializingBean {
 		Validate.notNull(thePath, ServiceConstants.THE_PATH_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		List < Stem > stems = new ArrayList < Stem >();
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1270,9 +1339,12 @@ InitializingBean {
 			}
 		} catch (QueryException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return stems;
 	}
 
@@ -1285,10 +1357,12 @@ InitializingBean {
 		Validate.notNull(theStemToCreate, ServiceConstants.THE_STEM_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		String stemUuid = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1301,6 +1375,7 @@ InitializingBean {
 				.getName(), false);
 		if (alreadyExist != null) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_ALREADY_EXIST);
 		}
 		edu.internet2.middleware.grouper.Stem stemCreated;
@@ -1335,15 +1410,19 @@ InitializingBean {
 
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (StemAddException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
 		} catch (StemModifyException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
 		}
 
@@ -1360,9 +1439,11 @@ InitializingBean {
 			}
 		} else {
 			GrouperSession.stopQuietly(grouperSession);
-			new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED);
+			GrouperSession.stopQuietly(rootSession);
+			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED);
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return stemUuid;
 	}
 
@@ -1375,9 +1456,11 @@ InitializingBean {
 		Validate.notNull(theStemToUpdate, ServiceConstants.THE_STEM_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1420,20 +1503,26 @@ InitializingBean {
 			egh.clearCache();
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (StemAddException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
 		} catch (StemModifyException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
 		} catch (Exception e) {
 			throw new ESCOStemNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 	}
 
 	/**
@@ -1445,9 +1534,11 @@ InitializingBean {
 		Validate.notNull(theStemId, ServiceConstants.THE_STEM_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1467,15 +1558,20 @@ InitializingBean {
 			}
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (StemDeleteException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException(ServiceConstants.STEM_CANNOT_BE_DELETED, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 	}
 
 	/**
@@ -1494,8 +1590,10 @@ InitializingBean {
 		int cpt = 0;
 
 		GrouperSession session = null;
+		GrouperSession rootSession = null;
 		Subject person = null;
 		try {
+			rootSession = GrouperSession.startRootSession();
 			person = SubjectFinder.findById(thePersonId, true);
 			session = GrouperSession.start(person);
 
@@ -1547,9 +1645,12 @@ InitializingBean {
 
 		} catch (StemNotFoundException stemNotFoundException) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException();
+		} finally {
+			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(session);
 		return result;
 
 	}
@@ -1563,10 +1664,12 @@ InitializingBean {
 		Validate.notNull(theUid, ServiceConstants.THE_ID_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Group myGroup = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1580,9 +1683,12 @@ InitializingBean {
 			myGroup = this.getGroupAPIWrapper().wrap(group);
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return myGroup;
 	}
 
@@ -1595,10 +1701,12 @@ InitializingBean {
 		Validate.notNull(theName, ServiceConstants.THE_NAME_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Group myGroup = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1612,9 +1720,12 @@ InitializingBean {
 			myGroup = this.getGroupAPIWrapper().wrap(group);
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
+		} finally {
+			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 		}
-		GrouperSession.stopQuietly(grouperSession);
 		return myGroup;
 	}
 
@@ -1648,10 +1759,12 @@ InitializingBean {
 		Validate.notNull(theGroupToCreate, ServiceConstants.THE_GROUP_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		String groupUuid = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1664,6 +1777,7 @@ InitializingBean {
 				theGroupToCreate.getName(), false);
 		if (alreadyExist != null) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotSaveException(ServiceConstants.GROUP_NOT_UNIQUE);
 		}
 		edu.internet2.middleware.grouper.Group groupCreated = null;
@@ -1681,12 +1795,15 @@ InitializingBean {
 			egh.clearCache(); 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (GroupModifyException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotSaveException(ServiceConstants.STEM_CANNOT_BE_SAVED, e);
 		}
 
@@ -1723,9 +1840,11 @@ InitializingBean {
 			}
 		} else {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotSaveException(ServiceConstants.GROUP_CANNOT_BE_SAVED);
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return groupUuid;
 	}
 
@@ -1740,9 +1859,11 @@ InitializingBean {
 		Validate.notNull(theGroupToUpdate, ServiceConstants.THE_GROUP_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1755,10 +1876,12 @@ InitializingBean {
 			theGroupUpdated = GroupFinder.findByUuid(grouperSession, theGroupToUpdate.getIdGroup(), true);
 			if (theGroupUpdated == null) {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND);
 			}
 		} catch (ESCOGroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		}
 
@@ -1778,12 +1901,15 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (GroupModifyException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotSaveException(ServiceConstants.GROUP_CANNOT_BE_SAVED, e);
 		} catch (Exception e) {
 			throw new ESCOGroupNotSaveException(ServiceConstants.GROUP_CANNOT_BE_SAVED, e);
@@ -1838,6 +1964,7 @@ InitializingBean {
 			}
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 	}
 
 	/**
@@ -1849,9 +1976,11 @@ InitializingBean {
 		Validate.notNull(theGroupId, ServiceConstants.THE_GROUP_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1870,15 +1999,19 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 		} catch (InsufficientPrivilegeException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 		} catch (GroupDeleteException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.STEM_CANNOT_BE_DELETED, e);
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 	}
 
 	/**
@@ -1889,10 +2022,12 @@ InitializingBean {
 		Validate.notNull(theStemName, ServiceConstants.THE_STEM_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		List < Privilege > myPrivileges = new ArrayList < Privilege >();
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -1911,9 +2046,11 @@ InitializingBean {
 			}
 		} catch (StemNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOTechnicalException(ServiceConstants.STEM_NOT_FOUND);
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return myPrivileges;
 	}
 
@@ -2023,12 +2160,14 @@ InitializingBean {
 		Validate.notNull(theTypeSearch, ServiceConstants.THE_SEARCH_TYPE_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		edu.internet2.middleware.grouper.Group group = null;
 		edu.internet2.middleware.grouper.Stem stem = null;
 		List < Privilege > result = new ArrayList < Privilege >();
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -2141,10 +2280,12 @@ InitializingBean {
 
 			} else {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				// Must never occur.
 				throw new ESCOTechnicalException("The type must be group or stem.");
 			}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return result;
 	}
 
@@ -2210,9 +2351,11 @@ InitializingBean {
 		Validate.notNull(thePrivilege, "The privilege must be defined");
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Subject subjectTo = null;
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			subjectTo = SubjectFinder.findById(theSubjectIdTo, true);
 			grouperSession = GrouperSession.start(subject);
@@ -2222,9 +2365,11 @@ InitializingBean {
 			throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
 		} catch (SubjectNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOSubjectNotFoundException(ServiceConstants.SUBJECT_NOT_FOUND, e);
 		} catch (SubjectNotUniqueException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOSubjectNotFoundException(ServiceConstants.SUBJECT_NOT_FOUND, e);
 		}
 
@@ -2242,12 +2387,15 @@ InitializingBean {
 				}
 			} catch (StemNotFoundException e) {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				throw new ESCOStemNotFoundException(ServiceConstants.STEM_NOT_FOUND, e);
 			} catch (InsufficientPrivilegeException e) {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 			} catch (GrantPrivilegeException e) {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 			}
 		} else
@@ -2262,22 +2410,27 @@ InitializingBean {
 					}
 				} catch (GroupNotFoundException e) {
 					GrouperSession.stopQuietly(grouperSession);
+					GrouperSession.stopQuietly(rootSession);
 					throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 				} catch (InsufficientPrivilegeException e) {
 					GrouperSession.stopQuietly(grouperSession);
+					GrouperSession.stopQuietly(rootSession);
 					throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 				} catch (GrantPrivilegeException e) {
 					GrouperSession.stopQuietly(grouperSession);
+					GrouperSession.stopQuietly(rootSession);
 					throw new ESCOInsufficientPrivilegesException(ServiceConstants.INSUFFICIENT_PRIVILEGES, e);
 				}
 			} else {
 				GrouperSession.stopQuietly(grouperSession);
+				GrouperSession.stopQuietly(rootSession);
 				// This case must never occur
 				throw new ESCOTechnicalException("The type is not stem or group");
 			}
 		// pl !!!
 		grouperHelperFactory.get(grouperSession).clearCache(Privs.find(thePrivilege.getPrivilegeName()));
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 	}
 
 	/**
@@ -2306,11 +2459,13 @@ InitializingBean {
 		Validate.notNull(theGroupName, ServiceConstants.THE_GROUP_MUST_BE_DEFINED);
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		Subject subjectGrouperAll = null;
 		List < Privilege > myPrivileges = new ArrayList < Privilege >();
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			subjectGrouperAll = SubjectFinder.findById(ServiceConstants.GROUPER_ALL, true);
 			grouperSession = GrouperSession.start(subject);
@@ -2336,6 +2491,7 @@ InitializingBean {
 		} catch (GroupNotFoundException e) {
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return myPrivileges;
 	}
 
@@ -2412,8 +2568,10 @@ InitializingBean {
 		}
 
 		GrouperSession session = null;
+		GrouperSession rootSession = null;
 		Subject person = null;
 		try {
+			rootSession = GrouperSession.startRootSession();
 			person = SubjectFinder.findById(thePersonId, true);
 			session = GrouperSession.start(person);
 
@@ -2421,9 +2579,11 @@ InitializingBean {
 			throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
 		} catch (SubjectNotFoundException e) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOTechnicalException(ServiceConstants.SUBJECT_NOT_FOUND, e);
 		} catch (SubjectNotUniqueException e) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOTechnicalException(ServiceConstants.SUBJECT_NOT_UNIQUE, e);
 		}
 
@@ -2471,9 +2631,11 @@ InitializingBean {
 
 		} catch (StemNotFoundException stemNotFoundException) {
 			GrouperSession.stopQuietly(session);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOStemNotFoundException();
 		}
 		GrouperSession.stopQuietly(session);
+		GrouperSession.stopQuietly(rootSession);
 		return requestResult;
 	}
 
@@ -2486,10 +2648,12 @@ InitializingBean {
 		Validate.notNull(theGroup, "The group name must be defined");
 
 		GrouperSession grouperSession = null;
+		GrouperSession rootSession = null;
 		Subject subject = null;
 		GroupPrivilegeEnum groupPrivilegeEnum = GroupPrivilegeEnum.NONE;
 
 		try {
+			rootSession = GrouperSession.startRootSession();
 			subject = SubjectFinder.findById(thePerson.getId(), true);
 			grouperSession = GrouperSession.start(subject);
 		} catch (SessionException e) {
@@ -2525,11 +2689,13 @@ InitializingBean {
 
 		} catch (GroupNotFoundException e) {
 			GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
 			throw new ESCOGroupNotFoundException(ServiceConstants.GROUP_NOT_FOUND, e);
 		} catch (SubjectNotFoundException e) {//
 		} catch (SubjectNotUniqueException e) {//
 		}
 		GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
 		return groupPrivilegeEnum;
 	}
 
