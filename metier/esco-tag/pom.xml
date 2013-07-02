@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
 
@@ -52,6 +53,23 @@
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>esup-commons</artifactId>
 			<version>0.12.4</version>
+
+
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jcl</artifactId>
+				</exclusion>
+				<exclusion>
+				  <groupId>ehcache</groupId>
+				  <artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-ldap</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 
 	    <dependency>

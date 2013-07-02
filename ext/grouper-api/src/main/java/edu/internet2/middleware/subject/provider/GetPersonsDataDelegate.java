@@ -399,93 +399,6 @@ class LdapGetPersonsDataStrategy extends LdapSourceAdapter implements IGetPerson
 	}
 }
 
-/**
- * <h1><code>JNDIGetPersonsDataStrategy</code>.</h1>
- * <hr/>
- * <br/>
- * Optimized strategy to retrieve all the attributes of a group's members for a JNDI source adapter. 
- * <br/><br/>
- * <hr/>
- * <b>Creation date:</b> 2012<br/>
- * <hr/>
- * <i>Author: A. Deman.</i>
- */
-class JNDIGetPersonsDataStrategy extends JNDISourceAdapter implements IGetPersonsDataStrategy, ILDAPQueryDelegate {
-
-	/** Serial version UID.   */
-	private static final long serialVersionUID = 6411850990038564362L;
-
-	/** Underlying LDAP strategy.*/
-	private BaseLdapGetPersonsDataStrategy<JNDISourceAdapter> baseGetPersonDataStrategy;
-
-	/** Logger. */
-	private static final IESCOLogger LOGGER = ESCOLoggerFactory.getLogger(JNDIGetPersonsDataStrategy.class);
-
-
-	/**
-	 * Builds an instance of JNDIGetAllMembersDataDelegate.
-	 * @param source the underlying source.
-	 */
-	public JNDIGetPersonsDataStrategy(final Source source) {
-		baseGetPersonDataStrategy = new BaseLdapGetPersonsDataStrategy<JNDISourceAdapter>((JNDISourceAdapter) source, this);
-		this.environment = baseGetPersonDataStrategy.getSource().environment;
-		LOGGER.debug("Creation of an instance for the source: " + source.getId());
-	}
-
-	/**
-	 * @see edu.internet2.middleware.subject.provider.IGetPersonsDataStrategy#getPersonsData(java.util.Set, 
-	 * org.esco.grouperui.domaine.beans.Members)
-	 */
-	public Map<String, Person> getPersonsData(final Set<Subject> subjects, final Map<String, Person> result, final Map<String, Person> alreadyKnown) {
-		return baseGetPersonDataStrategy.getPersonsData(subjects, result, alreadyKnown);
-	}
-
-	/**
-	 * @see edu.internet2.middleware.subject.provider.ILDAPQueryDelegate#
-	 * performLDAPQuery(edu.internet2.middleware.subject.provider.Search, java.lang.String, java.lang.String[])
-	 */
-	@Override
-	public Iterator<SearchResult> performLDAPQuery(final Search search, final String ldapQuery, 
-			final String[] attributeNames) {
-		final NamingEnumeration<?> ldapSearchResults = getLdapResults(search, ldapQuery, attributeNames);
-		return new Iterator<SearchResult>(){
-
-			/**
-			 * @see java.util.Iterator#hasNext()
-			 */
-			@Override
-			public boolean hasNext() {
-				return ldapSearchResults.hasMoreElements();
-			}
-			/**
-			 * @see java.util.Iterator#next()
-			 */
-			@Override
-			public SearchResult next() {
-				return (SearchResult) ldapSearchResults.nextElement();
-			}
-
-			/**
-			 * @see java.util.Iterator#remove()
-			 */
-			@Override
-			public void remove() {
-				throw new UnsupportedOperationException();
-
-			}
-
-		};
-
-	}
-
-	/**
-	 * Disables the escapeSearchFilter operation.
-	 * @return The filter.
-	 */
-	protected String escapeSearchFilter(String filter) {
-		return filter;
-	}
-}
 
 /**
  * <h1><code>GetPersonsDataDelegate</code>.</h1>
@@ -570,9 +483,7 @@ public class GetPersonsDataDelegate {
 	private IGetPersonsDataStrategy getStrategy(final String personSourceId) {
 		if (!strategies.containsKey(personSourceId)) {
 			final Source source = SourceManager.getInstance().getSource(personSourceId);
-			if (source instanceof JNDISourceAdapter) {
-				strategies.put(personSourceId, new JNDIGetPersonsDataStrategy((JNDISourceAdapter) source));
-			} else if (source instanceof LdapSourceAdapter) {
+			if (source instanceof LdapSourceAdapter) {
 				strategies.put(personSourceId, new LdapGetPersonsDataStrategy((LdapSourceAdapter) source));
 			} else {
 				strategies.put(personSourceId, new GrouperGetPersonsDataStrategy(source));

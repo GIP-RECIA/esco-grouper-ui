@@ -249,47 +249,7 @@
 					<downloadJavadocs>true</downloadJavadocs>
 	            </configuration>
 	        </plugin>
-	        
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-resources-plugin</artifactId>
-				<version>2.4</version>
-			</plugin>
-	        
 	   </plugins>
-	   
-	   <pluginManagement>
-			<plugins>
-				<!-- MBD: ignore M2E error -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.esco.grouperui.maven2</groupId>
-										<artifactId>unzip-maven-plugin</artifactId>
-										<versionRange>[0.1,)</versionRange>
-										<goals>
-											<goal>unzip-artifacts</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	   
-	   
-	   
 	</build>
 
 	
@@ -519,10 +479,10 @@
 			
 			<dependency>
 				<groupId>net.sf.ehcache</groupId>
-				<artifactId>ehcache</artifactId>
-				<version>1.5.0</version>
+				<artifactId>ehcache-core</artifactId>
+				<version>2.4.5</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.ibm.icu</groupId>
 				<artifactId>icu4j</artifactId>
@@ -647,6 +607,21 @@
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>esup-commons</artifactId>
 			<version>0.12.4</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jcl</artifactId>
+				</exclusion>
+				<exclusion>
+				  <groupId>ehcache</groupId>
+				  <artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-ldap</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>			
 		<dependency>
 			<groupId>org.esco.grouperui.ext</groupId>
