@@ -88,18 +88,22 @@ public class EscoStrategyGroupSearchApi extends  DefaultStrategyGroupSearchApi {
         Validate.notNull(person, "The subject is undefined");
 
         GrouperSession grouperSession = null;
+        GrouperSession rootSession = null;
         Subject subject = null;
 
         List < Group > result = new ArrayList < Group >();
 
         try {
+        	rootSession = GrouperSession.startRootSession();
             subject = SubjectFinder.findById(person.getId(), true);
             grouperSession = GrouperSession.start(subject);
         } catch (SessionException e) {
+        	GrouperSession.stopQuietly(rootSession);
+        	GrouperSession.stopQuietly(grouperSession);
             throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
         } catch (SubjectNotFoundException e) {
         } catch (SubjectNotUniqueException e) {
-        }
+        } 
 
         // TODO : Constantes
         final String prettyTerm = term.replace(".", "\\.").replace("?", "\\?").replace("$", "\\$").replace("^",
@@ -144,9 +148,14 @@ public class EscoStrategyGroupSearchApi extends  DefaultStrategyGroupSearchApi {
                 }
             }
         } else {
+        	GrouperSession.stopQuietly(rootSession);
+        	GrouperSession.stopQuietly(grouperSession);
             throw new ESCOGroupNotFoundException("The group " + ("".equals(path) ? path + ":" : "") + term
                     + " cannot be found in grouper");
         }
+
+    	GrouperSession.stopQuietly(rootSession);
+    	GrouperSession.stopQuietly(grouperSession);
         return result;
     }
 }

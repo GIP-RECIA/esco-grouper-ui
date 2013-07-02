@@ -6,6 +6,7 @@
 		<groupId>org.esco.grouperui.business</groupId>
 		<artifactId>business-parent</artifactId>
 		<version>2.6.5</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -52,6 +53,23 @@
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>esup-commons</artifactId>
 			<version>0.12.4</version>
+
+
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-jcl</artifactId>
+				</exclusion>
+				<exclusion>
+				  <groupId>ehcache</groupId>
+				  <artifactId>ehcache</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-ldap</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 
 	    <dependency>

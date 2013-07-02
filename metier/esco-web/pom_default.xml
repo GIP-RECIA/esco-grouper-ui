@@ -362,19 +362,7 @@
 			<groupId>org.esco.grouperui.business</groupId>
 			<artifactId>esco-tag</artifactId>
 			<version>2.2.00</version>
-			 <exclusions>
-                <exclusion>
-                <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-				<exclusion>
-                    <groupId>javax.servlet.jsp</groupId>
-                    <artifactId>jsp-api</artifactId>
-                </exclusion>
-        	</exclusions>		
-        </dependency>
-
-
+		</dependency>
 		<dependency>
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>grouper-api</artifactId>
@@ -384,40 +372,13 @@
 				  <groupId>javax.servlet</groupId>
 				  <artifactId>servlet-api</artifactId>
 				</exclusion>
-				 <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                  <artifactId>servlet-api</artifactId>
-              </exclusion>
 			</exclusions>
 		</dependency>
-
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>servlet-api</artifactId>
-		<version>2.5</version>
-		<scope>provided</scope>
-	</dependency>
-
-
-		<dependency>
-			<groupId>org.esco.grouperui.ext</groupId>
-			<artifactId>grouper-client</artifactId>
-			<version>2.6.5</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.esco.grouperui.ext</groupId>
 			<artifactId>grouper-api.fragment</artifactId>
 			<version>2.6.5</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.esco.grouperui.ext</groupId>
-			<artifactId>grouper-client.fragment</artifactId>
-			<version>2.6.5</version>
-		</dependency>
-
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
@@ -630,8 +591,6 @@
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
-			<scope>provided</scope>
-			
 		</dependency>
 		<dependency>
 			<groupId>taglibs</groupId>

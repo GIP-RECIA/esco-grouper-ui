@@ -56,8 +56,7 @@ import edu.internet2.middleware.subject.SubjectNotUniqueException;
 public class DefaultStrategyGroupSearchApi implements IStrategyGroupSearch {
 
     /** Logger for this class. */
-    private static final IESCOLogger                                   LOGGER = ESCOLoggerFactory
-                                                                                      .getLogger(DefaultStrategyGroupSearchApi.class);
+    private static final IESCOLogger  LOGGER = ESCOLoggerFactory.getLogger(DefaultStrategyGroupSearchApi.class);
 
     /** Wrapper : WSGroup to Group. */
     private IWrapper < edu.internet2.middleware.grouper.Group, Group > groupWrapper;
@@ -106,14 +105,18 @@ public class DefaultStrategyGroupSearchApi implements IStrategyGroupSearch {
         Validate.notNull(person, "The subject is undefined");
 
         GrouperSession grouperSession = null;
+        GrouperSession rootSession = null;
         Subject subject = null;
 
         List < Group > result = new ArrayList < Group >();
 
         try {
+        	rootSession = GrouperSession.startRootSession();
             subject = SubjectFinder.findById(person.getId(), true);
             grouperSession = GrouperSession.start(subject);
         } catch (SessionException e) {
+        	GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
             throw new ESCOTechnicalException(ServiceConstants.SESSION_CANNOT_BE_CREATE, e);
         } catch (SubjectNotFoundException e) {
         } catch (SubjectNotUniqueException e) {
@@ -159,9 +162,13 @@ public class DefaultStrategyGroupSearchApi implements IStrategyGroupSearch {
                 }
             }
         } else {
+        	GrouperSession.stopQuietly(grouperSession);
+			GrouperSession.stopQuietly(rootSession);
             throw new ESCOGroupNotFoundException("The group " + ("".equals(path) ? path + ":" : "") + term
                     + " cannot be found in grouper");
         }
+    	GrouperSession.stopQuietly(grouperSession);
+		GrouperSession.stopQuietly(rootSession);
         return result;
     }
 }

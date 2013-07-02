@@ -5,6 +5,7 @@
 		<groupId>org.esupportail.maven2</groupId>
 		<artifactId>plugin</artifactId>
 		<version>1</version>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.esco.grouperui.maven2</groupId>
