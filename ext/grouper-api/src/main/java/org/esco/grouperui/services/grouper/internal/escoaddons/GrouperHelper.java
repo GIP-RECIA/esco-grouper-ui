@@ -653,7 +653,7 @@ public class GrouperHelper {
 	}
 
 	private boolean testSubjectMember(){
-		return member == null || member.getSubjectId().equals(subject.getId() );
+		return member == null || member.getSubjectId().equalsIgnoreCase(subject.getId() );
 	}
 
 	/**

@@ -11,6 +11,8 @@
 .settings
 .*
 !.gitignore
+*/.settings
+*/.settings/*
 
 ###################
 # Gedit files
