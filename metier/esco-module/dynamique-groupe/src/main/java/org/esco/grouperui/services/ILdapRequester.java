@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.esco.grouperui.exceptions.business.ESCOLDAPBadRequestException;
 import org.esupportail.commons.services.ldap.LdapEntity;
-import org.springframework.ldap.LdapTemplate;
+import org.springframework.ldap.core.LdapTemplate;
 
 /**
  * Class ILdapRequester. Requirement(s) : [RECIA-ESCO-L2-001],

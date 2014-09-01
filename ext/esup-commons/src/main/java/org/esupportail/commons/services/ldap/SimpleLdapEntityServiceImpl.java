@@ -36,12 +36,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.ldap.BadLdapGrammarException;
-import org.springframework.ldap.LdapTemplate;
+import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.UncategorizedLdapException;
-import org.springframework.ldap.support.DistinguishedName;
-import org.springframework.ldap.support.filter.AndFilter;
-import org.springframework.ldap.support.filter.EqualsFilter;
-import org.springframework.ldap.support.filter.Filter;
+import org.springframework.ldap.core.DistinguishedName;
+import org.springframework.ldap.filter.AndFilter;
+import org.springframework.ldap.filter.EqualsFilter;
+import org.springframework.ldap.filter.Filter;
 import org.springframework.util.StringUtils;
 
 /**

@@ -33,9 +33,9 @@ import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
 import org.esupportail.commons.utils.Assert;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.ldap.LdapTemplate;
-import org.springframework.ldap.support.filter.Filter;
-import org.springframework.ldap.support.filter.WhitespaceWildcardsFilter;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.filter.Filter;
+import org.springframework.ldap.filter.WhitespaceWildcardsFilter;
 
 /**
  * An implementation of LdapGroupService that delegates to a CachingLdapEntityServiceImpl.
