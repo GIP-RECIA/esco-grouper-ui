@@ -31,7 +31,7 @@ import net.sf.ehcache.Element;
 import org.esupportail.commons.services.i18n.I18nService;
 import org.esupportail.commons.services.logging.Logger;
 import org.esupportail.commons.services.logging.LoggerImpl;
-import org.springframework.ldap.support.filter.Filter;
+import org.springframework.ldap.filter.Filter;
 import org.springframework.util.StringUtils;
 
 /**

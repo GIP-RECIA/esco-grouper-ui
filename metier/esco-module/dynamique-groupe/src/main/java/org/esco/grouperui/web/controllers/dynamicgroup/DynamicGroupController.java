@@ -791,12 +791,14 @@ public class DynamicGroupController extends AbstractControllerAware {
         Iterator < List < SimpleValue >> itListLdapResult = result.iterator();
         Iterator < SimpleValue > itLdapResult;
         SimpleValue ldapResult;
-
+        
+	int i = 0;  
         while (itListLdapResult.hasNext()) {
             itLdapResult = itListLdapResult.next().iterator();
-
             Person person = new Person();
             while (itLdapResult.hasNext()) {
+		i++;
+                person.setId("" + i);
                 ldapResult = itLdapResult.next();
                 if (ldapResult.getValue() != null) {
                     person.addMappingFieldCol("attribute." + ldapResult.getKey(), ldapResult.getValue());
@@ -805,8 +807,7 @@ public class DynamicGroupController extends AbstractControllerAware {
             this.ldapRequestResult.addRowDataResult(person);
         }
 
-        this.ldapRequestResult.setNbResultDisplay(Integer.toString(this.ldapRequestResult.getListOfSortable()
-                .size()));
+        this.ldapRequestResult.setNbResultDisplay(Integer.toString(this.ldapRequestResult.getListOfSortable().size()));
 
         this.ldapRequestResult.setCurrentPage(thePage);
 

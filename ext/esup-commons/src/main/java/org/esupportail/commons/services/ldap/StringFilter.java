@@ -22,7 +22,7 @@ package org.esupportail.commons.services.ldap;
 
 import java.io.Serializable;
 
-import org.springframework.ldap.support.filter.AbstractFilter;
+import org.springframework.ldap.filter.AbstractFilter;
 
 /**
  * A LdapTemplate filter, build with a string (that represents an already-encoded filter).

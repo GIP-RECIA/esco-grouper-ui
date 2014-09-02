@@ -31,7 +31,7 @@ import org.esco.grouperui.tools.log.ESCOLoggerFactory;
 import org.esco.grouperui.tools.log.IESCOLogger;
 import org.esupportail.commons.services.ldap.LdapEntity;
 import org.esupportail.commons.services.ldap.SimpleLdapEntityServiceImpl;
-import org.springframework.ldap.LdapTemplate;
+import org.springframework.ldap.core.LdapTemplate;
 
 /**
  * Service class to request LDAP.<br/>
