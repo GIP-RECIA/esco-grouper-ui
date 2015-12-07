@@ -74,8 +74,12 @@ public class EscoStrategyGroupSearchApi extends  DefaultStrategyGroupSearchApi {
     /**
      * {@inheritDoc}
      */
-    public List < Group > searchGroups(final Person person, final SearchGroupEnum field,
-            final SearchTypeEnum type, final String path, final String term) throws ESCOGroupNotFoundException {
+    public List < Group > searchGroups(
+    							final Person person, 
+    							final SearchGroupEnum field,
+    							final SearchTypeEnum type, 
+    							final String path, 
+    							final String term) throws ESCOGroupNotFoundException {
 
         LOGGER.debug("searchGroups(final SearchFieldEnum field, final SearchTypeEnum type, "
                         + "final String path, final String term, final Subject subject) - start");
@@ -132,7 +136,7 @@ public class EscoStrategyGroupSearchApi extends  DefaultStrategyGroupSearchApi {
                 switch (field) {
 					case DISPLAY_NAME:	theValueToMatch = group.getDisplayName();
 							break;
-					case EXTENSION:	theValueToMatch = group.getExtension();
+					case EXTENSION:	theValueToMatch = group.getDisplayExtension();
 							break;
 					case NAME: theValueToMatch = group.getName();
 							break;
